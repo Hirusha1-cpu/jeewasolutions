@@ -1,0 +1,9 @@
+.form-control{
+    border: 2px solid rgba(133, 130, 130, 0.39);
+   
+}
+
+.select-form{
+    border: 2px solid rgba(134, 131, 131, 0.39);
+    border-radius: 7px;
+}
