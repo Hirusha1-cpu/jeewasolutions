@@ -16,7 +16,7 @@ public class EmployeeController {
     //create dao object
     private EmployeeDao dao;
 
-       // create get mapping for get empllyee all data --- [/employee/findall]
+    // create get mapping for get empllyee all data --- [/employee/findall]
     @GetMapping(value = "/employee/getlist", produces = "application/json")
     public List<Employee> findAll() {
         // login user authentication and authorization

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <!-- link bs css -->
+    <link rel="stylesheet" href="../resourcesT/bootstrap_5.3.1/css/bootstrap.min.css">
+    <!-- link bs js file -->
+    <script src="../resourcesT/bootstrap_5.3.1/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../resourcesT/style/dashboard.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- link fontawesome -->
+    <link rel="stylesheet" href="../resourcesT/fontawesome_web/css/all.css">
+    <!-- jquery -->
+    <script src="../resourcesT/js/jquery.js"></script>
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+    <link rel="stylesheet" href="../resourcesT/w3css/w3.css">
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="h-100">
+                <div class="sidebar-logo">
+                    <a href="#" class="fs-4">
+                        <div style="display: flex; justify-content: center; align-items: center; ">
+
+                            <img src="../resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png" alt="" style="width: 40px; height: 40px;"><br>
+                        </div>
+                        Jeewa Computers</a>
+                </div>
+                <!-- Sidebar Navigation -->
+                <ul class="sidebar-nav">
+                    <!-- <li class="sidebar-header fs-6">
+                        modules
+                    </li> -->
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link sidebar-sublink dashboard">
+                            <i class="fa-solid fa-list pe-2"></i>
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#pages"
+                            aria-expanded="false" aria-controls="pages">
+                            <i class="fa-solid fa-users pe-2"></i>
+                            System User
+                        </a>
+                        <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link sidebar-sublink">Employee Management</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link sidebar-sublink">User Management</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link sidebar-sublink">Privilege Management</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard"
+                            aria-expanded="false" aria-controls="dashboard">
+                            <i class="fa-solid fa-sliders pe-2"></i>
+                            Dashboard
+                        </a>
+                        <ul id="dashboard" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link sidebar-sublink">Dashboard Analytics</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link sidebar-sublink">Dashboard Ecommerce</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#auth"
+                            aria-expanded="false" aria-controls="auth">
+                            <i class="fa-regular fa-user pe-2"></i>
+                            Auth
+                        </a>
+                        <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link sidebar-sublink">Login</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link sidebar-sublink">Register</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-header">
+                        Multi Level Nav
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#multi"
+                            aria-expanded="false" aria-controls="multi">
+                            <i class="fa-solid fa-share-nodes pe-2"></i>
+                            Multi Level
+                        </a>
+                        <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
+                                    data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
+                                    Two Links
+                                </a>
+                                <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
+                                    <li class="sidebar-item">
+                                        <a href="#" class="sidebar-link">Link 1</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="#" class="sidebar-link">Link 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <div class="main">
+
+            <!-- navbar start-->
+            <nav class="navbar navbar-expand-sm navbar-light bg-body-tertiary ">
+                <!-- container wrapper -->
+                <div class="container-fluid">
+                    <!-- responsive button start -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <!-- responsive button end -->
+                    <!-- Button for sidebar toggle start -->
+                    <button class="btn" type="button" data-bs-theme="light">
+                        <span class="navbar-toggler-icon ">
+
+                        </span>
+                    </button>
+                    <!-- Button for sidebar toggle end -->
+                    <a class="navbar-brand fs-5 fs-sm-1 " style="color: #0c48a2; font-weight: bolder; "
+                        href="#">Dashboard</a>
+                    <div class="collapse navbar-collapse" id="navbarToggler">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">
+                                </a>
+                            </li>
+
+
+                        </ul>
+                        <div class="d-flex flex-lg-row flex-sm-column" style="display: flex; ">
+                            <!-- search start -->
+                            <div>
+
+                                <form class="d-flex me-5" role="search">
+                                    <input class="form-control me-2" type="search" placeholder="Search"
+                                        aria-label="Search">
+                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                </form>
+                            </div>
+
+                            <!-- search end -->
+                            <!--icons start  -->
+                            <div>
+
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <!-- notification start -->
+                                    <li class="nav-item dropdown">
+
+                                        <a href="#" class="nav-link dropdown-toggle position-relative" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+
+                                            <i class="fa-solid fa-bell fa-shake"></i>
+                                            <span
+                                                class="position-absolute top-0 start-90 mt-2 pr-2 translate-middle badge rounded-pill badge-danger text-danger">
+                                                10
+                                            </span>
+
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        </ul>
+
+
+                                    </li>
+                                    <!-- notification end -->
+                                    <!-- profile start -->
+                                    <li class="nav-item dropdown ">
+                                        <a class="nav-link dropdown-toggle " href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                                                class="rounded-circle" height="25"
+                                                alt="Black and White Portrait of a Man" loading="lazy" />
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        </ul>
+
+                                    <li class="nav-item ">
+                                        <a class="nav-link " style="color: #0c48a2; font-weight: bolder; "
+                                            aria-disabled="true">Admin</a>
+                                    </li>
+                                    </li>
+                                    <!-- profile end -->
+
+                                </ul>
+                            </div>
+
+                            <!--icons end  -->
+                        </div>
+
+
+                    </div>
+
+            </nav>
+            <!-- navbar end -->
+            <!-- main component start -->
+            <main class="content px-3 py-2 w3-container">
+
+                <!-- employee table start -->
+                <div class="w3-animate-right" id="empTable">
+
+                    <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
+
+                        <h4>Employee Table</h4>
+                        <button id="empaddbtn" class="btn btn-success mb-2">Add Employee</button>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="mb-3 table-responsive">
+                            <table class="table table-dark table-bordered border-primary">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">First</th>
+                                        <th scope="col">Last</th>
+                                        <th scope="col">Handle</th>
+                                        <th scope="col">Handle</th>
+                                        <th scope="col">Handle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                        <td>@mdo</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>@fat</td>
+                                        <td>@fat</td>
+                                        <td>@fat</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- employee table end -->
+
+                <!-- employee form start -->
+                <div id="empForm" class="w3-animate-left" style="display: none;">
+                    <div class=" " style="display: flex; justify-content: space-between; align-items: center;">
+                        <button id="empTable1" class="btn btn-success mb-3">Table</button>
+                        <h4>Employee Form</h4>
+                    </div>
+
+                    <div style="border: 1px solid black; padding: 10px;">
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">@</span>
+                            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Recipient's username"
+                                aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <span class="input-group-text" id="basic-addon2">@example.com</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="basic-url" class="form-label">Your vanity URL</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
+                                <input type="text" class="form-control" id="basic-url"
+                                    aria-describedby="basic-addon3 basic-addon4">
+                            </div>
+                            <div class="form-text" id="basic-addon4">Example help text goes outside the input group.
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">$</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <span class="input-group-text">.00</span>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+                            <span class="input-group-text">@</span>
+                            <input type="text" class="form-control" placeholder="Server" aria-label="Server">
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-text">With textarea</span>
+                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                        </div>
+
+                        <div class="btn btn-primary mt-3 " id="empFormToTable">
+                            submit
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- employee form end -->
+
+            </main>
+            <!-- main component end -->
+        </div>
+
+    </div>
+    <script>
+        const toggler = document.querySelector(".btn");
+
+        toggler.addEventListener("click", function () {
+            document.querySelector("#sidebar").classList.toggle("collapsed");
+        });
+
+        const sidebarItems = document.querySelectorAll(".sidebar-sublink");
+
+        sidebarItems.forEach(function (item) {
+            item.addEventListener("click", function () {
+                document.querySelector("#sidebar").classList.toggle("collapsed");
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            document.querySelector("#sidebar").classList.toggle("collapsed");
+
+        })
+
+        const sidebarItems1 = document.querySelectorAll(".sidebar-item");
+
+        sidebarItems1.forEach(function (item) {
+            const link = item.querySelector(".sidebar-link");
+
+            link.addEventListener("click", function () {
+                sidebarItems1.forEach(function (otherItem) {
+                    otherItem.classList.remove("active"); // Remove "active" from other items
+                });
+                item.classList.add("active"); // Add "active" to the clicked item
+            });
+        });
+
+
+
+
+    </script>
+    <script>
+        const btn = document.getElementById("empaddbtn");
+        btn.addEventListener("click", function () {
+            const table = document.getElementById("empTable");
+            const form = document.getElementById("empForm");
+
+            // Animate table disappearance
+            table.style.opacity = 1; // Ensure opacity is initially 1
+            table.style.transition = "opacity 1.5s ease-out";
+            table.style.display = "none"; // Trigger the animation
+
+            // Delay form appearance slightly
+            setTimeout(function () {
+                form.style.opacity = 0;
+                form.style.display = "block";
+                form.style.transition = "opacity 1.5s ease-in";
+                form.style.opacity = 1; // Gradually fade in
+            }, 100); // Adjust the delay as needed
+        });
+  
+        const Formbtn = document.getElementById("empFormToTable")
+        Formbtn.addEventListener("click", function () {
+            const table = document.getElementById("empTable")
+            table.style.display = "block";
+            const form = document.getElementById("empForm")
+            form.style.display = "none"
+        })
+        const tableBtn = document.getElementById("empTable1")
+        tableBtn.addEventListener("click", function () {
+            const table = document.getElementById("empTable")
+            table.style.display = "block";
+            const form = document.getElementById("empForm")
+            form.style.display = "none"
+        })
+
+    </script>
+
+
+</body>
+
+</html>
