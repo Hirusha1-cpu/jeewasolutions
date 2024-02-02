@@ -11,7 +11,10 @@ public interface EmployeeDao extends JpaRepository<Employee, Integer> {
     public String getNextEmpNo();
 
     //define query for get getEmployeeListWithoutUserAccount
-    @Query(value = "SELECT e FROM Employee e WHERE e.id not in (select u.employee_id from User u)")
+    // @Query(value = "SELECT e FROM Employee e WHERE e.id not in (select u.employee_id from User u);")
+    // public List<Employee> getEmployeeListWithoutUserAccount();
+
+    @Query(value = "SELECT * FROM jeewacomputersproject.employee as e where e.id NOT IN(SELECT employee_id FROM jeewacomputersproject.user);", nativeQuery = true)
     public List<Employee> getEmployeeListWithoutUserAccount();
 
 

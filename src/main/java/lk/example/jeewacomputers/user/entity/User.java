@@ -46,12 +46,12 @@ public class User {
     private String email;
 
     @Column(name ="photopath")
-    @NotNull
+    // @NotNull
     private String photopath;
 
     @Column(name ="status")
     @NotNull
-    private String status;
+    private Boolean status;
 
     @Column(name ="added_datetime")
     @NotNull

@@ -3,53 +3,103 @@ window.addEventListener('load', () => {
     refreshUserForm();
 })
 
-const refreshUserTable = () =>{
+const refreshUserTable = () => {
     users = ajaxGetRequest('/user/getlist')
     const displayUserProperties = [
-        {property:getEmployeeFullName, dataType:'function'},
-        {property:"username", dataType:'string'},
-        {property:"email", dataType:'string'},
-        {property:getStatus, dataType:'function'},
+        { property: getEmployeeFullName, dataType: 'function' },
+        { property: "username", dataType: 'string' },
+        { property: "email", dataType: 'string' },
+        { property: getStatus, dataType: 'function' },
     ]
 
-    fillDataIntoTable(userTab, users, displayUserProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn,true)
+    fillDataIntoTable(userTab, users, displayUserProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, true)
 
 }
 
-const editEmployeeBtn = () =>{
+const editEmployeeBtn = () => {
     console.log("edit");
-    
+
 }
-const updateEmployeeBtn = () =>{
+const updateEmployeeBtn = () => {
     console.log("update");
 }
-const deleteEmployeeBtn = () =>{
+const deleteEmployeeBtn = () => {
     console.log("delete");
 }
 
-const getEmployeeFullName = (rowOb) =>{
-  return rowOb.employee.fullname;
+const getEmployeeFullName = (rowOb) => {
+    return rowOb.employee.fullname;
 }
-const getStatus = (rowOb) =>{
+const getStatus = (rowOb) => {
     if (rowOb.status) {
-        return "<p class='working-status'>"+"true"+"</p>"
-    }else{
-        return "<p class='deleted-status'>"+"false"+"</p>"
+        return "<p class='working-status'>" + "true" + "</p>"
+    } else {
+        return "<p class='deleted-status'>" + "false" + "</p>"
     }
-  
+
 }
 
-const refreshUserForm = () =>{
+const refreshUserForm = () => {
     //create empty object
     user = new Object();
     user.roles = new Array();
-     //employee list without user account
-     employeeListWithoutUserAccount = ajaxGetRequest("/employee/listwithoutuseraccount")
-     fillDataIntoSelect(selectEmployee, "Select Employee", employeeListWithoutUserAccount, 'fullname')
+    //employee list without user account
+    employeeListWithoutUserAccount = ajaxGetRequest("/employee/listwithoutuseraccount")
+    fillDataIntoSelect(selectEmployee, "Select Employee", employeeListWithoutUserAccount, 'fullname')
 
-     
- 
+    //set auto binding
+    user.status = true;
 
+    //need to get role list
+    roles = ajaxGetRequest("/role/getlist") // meken check box generate wenna one
+    inputRole.innerHTML = ""
+    roles.forEach(element => {
+        const div = document.createElement("div")
+        div.className = "col-lg-4 form-check"
+
+        const input = document.createElement("input")
+        input.type = "checkbox"
+        input.className = "form-check-input"
+        input.id = "chk" + element.name
+
+        input.onchange = function () {
+            if (this.checked) {
+                user.roles.push(element)
+
+            } else {
+                console.log(this.id);
+                console.log(this.id.substring(3));
+                console.log("unchecked element: " + element);
+                let extIndex = user.roles.map(item => item.name).indexOf(element.name)
+                if (extIndex != -1) {
+                    user.roles.splice(extIndex, 1);
+                }
+            }
+        }
+
+        const label = document.createElement("label")
+        label.className = "form-check-label"
+        label.innerText = element.name
+
+        div.appendChild(label)
+        div.appendChild(input)
+
+        inputRole.appendChild(div)
+    });
+
+
+
+}
+
+const buttonUserAdd = () =>{
+
+        let serverUserResponse = ajaxRequestBodyMethod("/user", "POST", user)
+        if (serverUserResponse == 'OK') {
+            alert("Save successfully"+ serverUserResponse)
+        }else{
+            alert("Save failed"+ serverUserResponse)
+        }
+  
 }
 
 //define function for password retype

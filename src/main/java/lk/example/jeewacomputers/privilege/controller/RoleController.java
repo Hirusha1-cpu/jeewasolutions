@@ -12,11 +12,11 @@ import lk.example.jeewacomputers.privilege.dao.RoleDao;
 
 @RestController
 public class RoleController {
-               @Autowired
-    //create dao object
+    @Autowired
+    // create dao object
     private RoleDao dao;
 
-       // create get mapping for get empllyee all data --- [/employee/findall]
+    // create get mapping for get empllyee all data --- [/employee/findall]
     @GetMapping(value = "/role/getlist", produces = "application/json")
     public List<lk.example.jeewacomputers.privilege.entity.Role> findAll() {
         // login user authentication and authorization
