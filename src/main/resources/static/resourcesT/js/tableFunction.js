@@ -83,14 +83,25 @@ const fillDataIntoTable = (tableId, dataList, propertyList, editButtonFunction, 
             printButtonFunction(item, index);
 
         }
+        // if (buttonVisibility) {
+
+        //     if (privilegeOb != null && privilegeOb.update) {
+        //         tdButton.appendChild(btnEdit);
+        //     }
+        //     if (privilegeOb != null && privilegeOb.delete) {
+        //         tdButton.appendChild(btnDelete);
+        //     }
+
+        //     tdButton.appendChild(buttonPrint);
+        //     tr.appendChild(tdButton);
+
+        // }
         if (buttonVisibility) {
 
-            if (privilegeOb != null && privilegeOb.update) {
-                tdButton.appendChild(btnEdit);
-            }
-            if (privilegeOb != null && privilegeOb.delete) {
-                tdButton.appendChild(btnDelete);
-            }
+          
+            tdButton.appendChild(btnEdit);
+            
+            tdButton.appendChild(btnDelete);
 
             tdButton.appendChild(buttonPrint);
             tr.appendChild(tdButton);

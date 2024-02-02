@@ -98,7 +98,7 @@ public class Employee {
     @JoinColumn(name = "designation_id", referencedColumnName = "id")
     private Designation designation_id ;
 
-    @Column(name ="deletestatus")
-    @NotNull
-    private Boolean deletestatus;
+    // @Column(name ="deletestatus")
+    // @NotNull
+    // private Boolean deletestatus;
 }

@@ -1,5 +1,6 @@
 package lk.example.jeewacomputers.user.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 import jakarta.persistence.CascadeType;
@@ -57,7 +58,7 @@ public class User {
     private LocalDateTime added_datetime;
 
     @Column(name ="note")
-    @NotNull
+    // @NotNull
     private String note;
 
     @ManyToOne
@@ -65,9 +66,9 @@ public class User {
     private Employee employee;
 
         //user and 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "user_has_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    // @ManyToMany(cascade = CascadeType.MERGE)
+    // @JoinTable(name = "user_has_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    // private Set<Role> roles;
 
 
 

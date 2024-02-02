@@ -1,11 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!-- common segment start -->
+
+<head th:fragment="headFragment">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Test</title>
+    <!-- link bs css -->
+    <link rel="stylesheet" href="resourcesT/bootstrap_5.3.1/css/bootstrap.min.css">
+    <!-- link bs js file -->
+    <script src="resourcesT/bootstrap_5.3.1/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="resourcesT/style/dashboard.css">
+    <!-- <link rel="stylesheet" href="resourcesT/style/login.css"> -->
+    <link rel="stylesheet" href="style.css">
+    <!-- link fontawesome -->
+    <link rel="stylesheet" href="resourcesT/fontawesome_web/css/all.css">
+    <!-- jquery -->
+    <script src="resourcesT/js/jquery.js"></script>
+    <script src="resourcesT/assets/jeewa-high-resolution-logo-black-transparent.png"></script>
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+    <link rel="stylesheet" href="resourcesT/w3css/w3.css">
+    <!-- Include jQuery and DataTables scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+    <!-- button css -->
+    <link rel="stylesheet" href="resourcesT/style/button.css">
+    <!-- common css -->
+    <link rel="stylesheet" href="resourcesT/style/common.css">
+    <!-- employee css -->
+    <link rel="stylesheet" href="resourcesT/style/employee.css">
+    <!-- employee css -->
+    <link rel="stylesheet" href="resourcesT/style/emp.css">
+    <!-- tabel function -->
+    <script src="resourcesT/js/tableFunction.js"></script>
+    <!-- validation js -->
+    <script src="resourcesT/js/validation.js"></script>
+    <!-- link common js file -->
+    <script src="resourcesT/js/commonFunction.js"></script>
+
+
 </head>
-<body>
-    
-</body>
-</html>
+
+<!-- common segment end -->
+<!-- login start -->
+
+<head th:fragment="loginFragment">
+
+    <!-- <link rel="stylesheet" href="../resourcesT/style/dashboard.css"> -->
+    <link rel="stylesheet" href="../resourcesT/style/login.css">
+
+
+</head>
+
+<!-- login end -->
+
+<!-- employee head start -->
+
+<head th:fragment="headEmpFragment">
+    <script src="controllerjs/employeeController.js"></script>
+</head>
+<!-- employee head end -->
+<!-- user head start -->
+
+<head th:fragment="headUserFragment">
+    <script src="controllerjs/userController.js"></script>
+</head>
+<!-- user head end -->
