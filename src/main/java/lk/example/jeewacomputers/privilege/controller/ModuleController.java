@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lk.example.jeewacomputers.privilege.dao.ModuleDao;
@@ -23,4 +24,13 @@ public class ModuleController {
         // login user authentication and authorization
         return dao.findAll(Sort.by(Direction.DESC, "id"));
     }
+
+      //get mapping for get module darta by given role id [/module/listbyrole?roleid=1]
+    @GetMapping(value = "/module/listbyrole", params = {"roleid"})
+    public List<lk.example.jeewacomputers.privilege.entity.Module> getByRole(@RequestParam("roleid") Integer roleid){
+      return dao.getModuleByRole(roleid);
+    }
+
+
+    
 }

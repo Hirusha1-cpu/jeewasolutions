@@ -7,7 +7,7 @@ import lk.example.jeewacomputers.employee.entity.Employee;
 
 public interface EmployeeDao extends JpaRepository<Employee, Integer> {
     //define query for getnext employee number
-    @Query(value = "SELECT lpad(max(e.empno)+1,8,0) as empno FROM bitproject123online.employee as e;", nativeQuery = true)
+    @Query(value = "SELECT lpad(max(e.empno)+1,8,0) as empno FROM jeewacomputersproject.employee as e;", nativeQuery = true)
     public String getNextEmpNo();
 
     //define query for get getEmployeeListWithoutUserAccount

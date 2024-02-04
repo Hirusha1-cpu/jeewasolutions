@@ -43,6 +43,17 @@ public class UserController {
      //post the employee object to the database
     @PostMapping(value = "/user")
     public String save(@RequestBody User user) {
+        //  check duplicate email, username, employee
+         User extUserName = dao.getUserByUsername(user.getUsername());
+         if (extUserName != null) {
+             return "User Save not completed yet: given username already exists";
+         }
+ 
+        //  User extUserEmployee = dao.getUserByEmployeeId(user.getEmployee().getId());
+        //  if (extUserEmployee != null) {
+        //      return "User Save not completed yet: given employee already exists";
+ 
+        //  }
         try {
            user.setAdded_datetime(LocalDateTime.now());
             dao.save(user);

@@ -23,7 +23,7 @@ public class Privilege {
     @Id // for pk
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
     @Column(name = "id ", unique = true) // for map with column name
-    @NotNull 
+    // @NotNull 
     private Integer id;
 
     @Column(name = "sel")
