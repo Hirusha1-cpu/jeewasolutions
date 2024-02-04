@@ -14,7 +14,7 @@
         <div class="col-12 d-flex justify-content-center align-items-center">
             <div class="card">
                 <div class="card-body">
-                    <form>
+                    <form method="post" action="/login">
                         <div class="row" style="width: 1000px; height: 500px;">
                             <!-- carousel start -->
                             <div class="col m-3 border-end ">
@@ -39,27 +39,21 @@
                                     <div class="mb-3 ">
                                         <label for="uname" class="form-label">Username:</label>
                                         <input type="text" class="form-control" id="uname" placeholder="Enter username"
-                                            name="uname" required>
+                                            name="username" required>
                                         <!-- <div class="valid-feedback">Valid.</div>
                                       <div class="invalid-feedback">Please fill out this field.</div> -->
                                     </div>
                                     <div class="mb-3">
                                         <label for="pwd" class="form-label">Password:</label>
                                         <input type="password" class="form-control" id="pwd"
-                                            placeholder="Enter password" name="pswd" required>
+                                            placeholder="Enter password" name="password" required>
                                         <!-- <div class="valid-feedback">Valid.</div>
                                       <div class="invalid-feedback">Please fill out this field.</div> -->
                                     </div>
-                                    <div class="form-check mb-3">
-                                        <input class="form-check-input" type="checkbox" id="myCheck" name="remember"
-                                            required>
-                                        <label class="form-check-label" for="myCheck">I agree on blabla.</label>
-                                        <!-- <div class="valid-feedback">Valid.</div>
-                                      <div class="invalid-feedback">Check this checkbox to continue.</div> -->
-                                    </div>
+                              
                                     <div>
 
-                                        <button class="w3-button  w3-block w3-blue">Login</button>
+                                        <button class="w3-button  w3-block w3-blue" type="submit">Login</button>
                                     </div>
 
                                 </div>

@@ -43,8 +43,9 @@ public class WebConfiguration {
                     .requestMatchers("/login").permitAll()
                     .requestMatchers("/error").permitAll()
                     .requestMatchers("/dashboard").hasAnyAuthority("Admin", "Manager", "Cashier", "Store-Manager","Technician")
-                    .requestMatchers("/employee/**").hasAnyAuthority("Admin", "Manager")
-                    .requestMatchers("/user").hasAnyAuthority("Admin", "Manager")
+                    .requestMatchers("/employee/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
+                    .requestMatchers("/user/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
+                    .requestMatchers("/privilege/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
 
                     .anyRequest().authenticated();
         })
@@ -71,8 +72,8 @@ public class WebConfiguration {
                     exception
                             .accessDeniedPage("/error");
                 })
-                //CSRF (Cross-Site Request Forgery):
-
+                //CSRF (Cross-Site Reference):
+                //service accecss krnna ba, data enne na, ajax ehem use krnne na
                 .csrf(csrf -> {
                     csrf.disable();
                 });

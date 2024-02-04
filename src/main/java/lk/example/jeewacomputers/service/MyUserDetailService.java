@@ -24,7 +24,7 @@ public class MyUserDetailService implements UserDetailsService{
     @Autowired
     private UserDao userDao;
 
-    @Override
+    @Override //interface gaddi abstract method implement kala yuthui
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println(username);
@@ -54,20 +54,27 @@ public class MyUserDetailService implements UserDetailsService{
         //eka assign kranwa UserDetail kiyn(This allows non-security related user information (such as email addresses, telephone numbers etc) to be stored in a convenient location)
         //eke user instance ekak lesa store karanwa
         //UserDetails object is created with the user's information and this set of granted authorities.
-        UserDetails user = new org.springframework.security.core.userdetails
-        .User(
+        // UserDetails user = new org.springframework.security.core.userdetails
+        // .User(
 
-        extUser.getUsername(), 
-        extUser.getPassword(), 
-        extUser.getStatus(), 
-        true, 
-        true, 
-        true,  
-        grantedAuthorities 
+        // extUser.getUsername(), 
+        // extUser.getPassword(), 
+        // extUser.getStatus(), 
+        // true, 
+        // true, 
+        // true,  
+        // grantedAuthorities 
         
-        );
+        // );
 
-      
+        UserDetails user = new org.springframework.security.core.userdetails.User(
+            extUser.getUsername(), 
+            extUser.getPassword(), 
+            true, 
+            true, 
+            true, 
+            true, 
+            grantedAuthorities);
          //ita passe e user object eka return karanwa
          return user;
 

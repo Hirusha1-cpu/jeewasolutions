@@ -41,12 +41,12 @@ public class JeewacomputersApplication {
 		System.out.println("Hello Jeewa Computers");
 	}
 
-	@RequestMapping(value = "/dashboard",method = RequestMethod.GET)
-	public ModelAndView testUi(){
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("dashboard.html");
-		return modelAndView;
-	}
+	// @RequestMapping(value = "/dashboard",method = RequestMethod.GET)
+	// public ModelAndView testUi(){
+	// 	ModelAndView modelAndView = new ModelAndView();
+	// 	modelAndView.setViewName("dashboard.html");
+	// 	return modelAndView;
+	// }
 
 	@GetMapping(value = "/createadmin")
 	public String generateAdmin(){

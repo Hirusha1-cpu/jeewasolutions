@@ -16,17 +16,17 @@ public class LoginController {
 
     @GetMapping(value = "/error")
     public ModelAndView errorUI(){
-       ModelAndView loginView = new ModelAndView();
-       loginView.setViewName("error/error.html");
-       return loginView;
+       ModelAndView loginErrorView = new ModelAndView();
+       loginErrorView.setViewName("error/error.html");
+       return loginErrorView;
    }
 
       @GetMapping(value = "/dashboard")
      public ModelAndView indexUI(){
     
-        ModelAndView loginView = new ModelAndView();
+        ModelAndView dashView = new ModelAndView();
 
-        loginView.setViewName("dashboard.html");
-        return loginView;
+        dashView.setViewName("dashboard.html");
+        return dashView;
     }
 }
