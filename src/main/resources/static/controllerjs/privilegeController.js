@@ -141,6 +141,8 @@ const buttonEmpAdd = () => {
 
 const generateModuleList = () =>{
 
+    // me role eka select karama ekata adala modules tika enwa, role id eka pass krnwa , dao ekata pass unama eken module tika generate wenaw
+    //mekedi enne apita danata assign karala nathi modules det eka mokada mekedi update ekak wen nane ape thyena module ehekata
     moduleList = ajaxGetRequest("/module/listbyrole?roleid=" + JSON.parse(selectRole.value).id)
     fillDataIntoSelect(selectModule, "Select Module" , moduleList, 'name')
     selectModule.disabled = false;

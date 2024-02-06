@@ -17,7 +17,7 @@
         </button>
         <!-- Button for sidebar toggle end -->
         <a class="navbar-brand fs-5 fs-sm-1 " style="color: #0c48a2; font-weight: bolder; "
-            href="#">Dashboard</a>
+            href="#" th:text="${modulename}">DashBoard</a> 
         <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -87,7 +87,7 @@
 
                         <li class="nav-item ">
                             <a class="nav-link " style="color: #0c48a2; font-weight: bolder; "
-                                aria-disabled="true">Admin</a>
+                                aria-disabled="true" th:text="${logusername}">Admin</a>
                         </li>
                         </li>
                         <!-- profile end -->
