@@ -5,6 +5,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,9 @@ public class UserController {
      @Autowired
     // create dao object
     private UserDao dao;
+
+     @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
       @RequestMapping(value = "/user")
     public ModelAndView employeeUI() {
@@ -63,6 +67,7 @@ public class UserController {
          }
         try {
            user.setAdded_datetime(LocalDateTime.now());
+           user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             dao.save(user);
             return "OK";
         } catch (Exception e) {
