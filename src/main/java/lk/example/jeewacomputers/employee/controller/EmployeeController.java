@@ -17,14 +17,13 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import lk.example.jeewacomputers.employee.dao.EmployeeDao;
 import lk.example.jeewacomputers.employee.dao.EmployeeStatusDao;
 import lk.example.jeewacomputers.employee.entity.Employee;
-// import org.springframework.web.bind.annotation.RequestParam;
-import lk.example.jeewacomputers.employee.entity.EmployeeStatus;
+
 import lk.example.jeewacomputers.user.dao.UserDao;
 import lk.example.jeewacomputers.user.entity.User;
 
