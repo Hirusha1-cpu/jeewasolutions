@@ -46,6 +46,10 @@ public class WebConfiguration {
                     .requestMatchers("/employee/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
                     .requestMatchers("/user/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
                     .requestMatchers("/privilege/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
+                    .requestMatchers("/brand/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
+                    .requestMatchers("/category/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
+                    .requestMatchers("/pcstatus/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
+                    .requestMatchers("/graphiccard/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
 
                     .anyRequest().authenticated();
         })
