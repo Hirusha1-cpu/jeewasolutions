@@ -53,6 +53,10 @@ public class WebConfiguration {
                     .requestMatchers("/ram/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
                     .requestMatchers("/processor/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
                     .requestMatchers("/motherboard/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
+                    .requestMatchers("/powersupply/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
+                    .requestMatchers("/monitor/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
+                    .requestMatchers("/casing/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
+                    .requestMatchers("/harddisk/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
 
                     .anyRequest().authenticated();
         })

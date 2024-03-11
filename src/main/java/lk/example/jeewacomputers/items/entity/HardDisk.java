@@ -21,31 +21,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "motherboard")
+@Table(name = "harddisk")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MotherBoard {
-     @Id
+
+public class HardDisk {
+
+    @Id
     @Column(name = "id")
-    @GeneratedValue(strategy =GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-      @Column(name = "size")
-    @NotNull
-    private String size;
-
-      @Column(name = "slots")
-    @NotNull
-    private String slots;
+    @Column(name = "warrenty")
+    private LocalDate warrenty;
 
     @Column(name = "name")
     @NotNull
     private String name;
-
-      @Column(name = "warrenty")
-    @NotNull
-    private LocalDate warrenty;
 
     @Column(name = "added_datetime")
     @NotNull
@@ -59,7 +52,7 @@ public class MotherBoard {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "added_user_id", referencedColumnName = "id")
-    private User added_user_id ;
+    private User added_user_id;
 
     @Column(name = "deleted_user")
     private Integer deleted_user;
@@ -67,13 +60,13 @@ public class MotherBoard {
     @Column(name = "updated_user")
     private Integer updated_user;
 
-    @Column(name = "max_discount_ratio")
+    @Column(name = "max_discounted_ratio")
     @NotNull
-    private BigDecimal max_discount_ratio;
+    private BigDecimal max_discounted_price;
 
-    @Column(name = "min_discount_ratio")
+    @Column(name = "min_discounted_ratio")
     @NotNull
-    private BigDecimal min_discount_ratio;
+    private BigDecimal min_discounted_price;
 
     @Column(name = "sales_price")
     @NotNull
@@ -83,17 +76,16 @@ public class MotherBoard {
     @NotNull
     private BigDecimal purchase_price;
 
-     @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
-    private Brand brand_id ;
+    private Brand brand_id;
 
-     @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private Category category_id ;
+    private Category category_id;
 
-     @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "pc_part_status_id", referencedColumnName = "id")
-    private PcPartStatus pc_part_status_id ;
-
+    private PcPartStatus pc_part_status_id;
 
 }

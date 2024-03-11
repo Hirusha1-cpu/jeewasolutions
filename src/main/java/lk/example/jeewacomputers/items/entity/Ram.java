@@ -46,8 +46,8 @@ public class Ram {
     @Column(name = "deleted_datetime")
     private LocalDate deleted_datetime;
 
-    @Column(name = "updaded_datetime")
-    private LocalDate updaded_datetime;
+    @Column(name = "updated_datetime")
+    private LocalDate updated_datetime;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "added_user_id", referencedColumnName = "id")

@@ -21,31 +21,46 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "motherboard")
+@Table(name = "monitor")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MotherBoard {
-     @Id
+public class Monitor {
+         @Id
     @Column(name = "id")
     @GeneratedValue(strategy =GenerationType.IDENTITY )
     private Integer id;
 
-      @Column(name = "size")
-    @NotNull
-    private String size;
+    @Column(name = "monitortype")
+    private String monitortype;
 
-      @Column(name = "slots")
-    @NotNull
-    private String slots;
+    @Column(name = "resolution")
+    private String resolution;
+
+    @Column(name = "screensize")
+    private String screensize;
+
+    @Column(name = "paneltype")
+    private String paneltype;
+
+    @Column(name = "refreshrate")
+    private String refreshrate;
+
+    @Column(name = "weight")
+    private String weight;
+
+    @Column(name = "ioports")
+    private String ioports;
+
+    @Column(name = "powerconsumptions")
+    private String powerconsumptions;
+
+    @Column(name = "warrenty")
+    private LocalDate warrenty;
 
     @Column(name = "name")
     @NotNull
     private String name;
-
-      @Column(name = "warrenty")
-    @NotNull
-    private LocalDate warrenty;
 
     @Column(name = "added_datetime")
     @NotNull
@@ -67,13 +82,13 @@ public class MotherBoard {
     @Column(name = "updated_user")
     private Integer updated_user;
 
-    @Column(name = "max_discount_ratio")
+    @Column(name = "max_discounted_ratio")
     @NotNull
-    private BigDecimal max_discount_ratio;
+    private BigDecimal max_discounted_price;
 
-    @Column(name = "min_discount_ratio")
+    @Column(name = "min_discounted_ratio")
     @NotNull
-    private BigDecimal min_discount_ratio;
+    private BigDecimal min_discounted_price;
 
     @Column(name = "sales_price")
     @NotNull
