@@ -15,7 +15,7 @@ import jakarta.validation.constraints.NotNull;
 import lk.example.jeewacomputers.categorypcpartandbrand.entity.Brand;
 import lk.example.jeewacomputers.categorypcpartandbrand.entity.Category;
 import lk.example.jeewacomputers.categorypcpartandbrand.entity.PcPartStatus;
-import lk.example.jeewacomputers.employee.entity.Designation;
+
 import lk.example.jeewacomputers.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,10 +33,6 @@ public class GraphicCard {
     @GeneratedValue(strategy =GenerationType.IDENTITY )
     private Integer id;
 
-    @Column(name = "price")
-    @NotNull
-    private String price;
-
     @Column(name = "memory")
     @NotNull
     private String memory;
@@ -44,6 +40,13 @@ public class GraphicCard {
     @Column(name = "power_spply")
     @NotNull
     private String power_spply;
+
+    @Column(name = "warrenty")
+    private LocalDate warrenty;
+
+    @Column(name = "name")
+    @NotNull
+    private String name;
 
     @Column(name = "added_datetime")
     @NotNull
@@ -65,11 +68,11 @@ public class GraphicCard {
     @Column(name = "updated_user")
     private Integer updated_user;
 
-    @Column(name = "max_discount_price")
+    @Column(name = "max_discount_ratio")
     @NotNull
     private BigDecimal max_discount_price;
 
-    @Column(name = "min_discount_price")
+    @Column(name = "min_discount_ratio")
     @NotNull
     private BigDecimal min_discount_price;
 
@@ -92,6 +95,8 @@ public class GraphicCard {
      @ManyToOne
     @JoinColumn(name = "pc_part_status_id", referencedColumnName = "id")
     private PcPartStatus pc_part_status_id ;
+
+
 
   
 }

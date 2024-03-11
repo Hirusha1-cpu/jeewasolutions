@@ -1,269 +1,402 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAM</title>
-    <!-- link bs css -->
-    <link rel="stylesheet" href="../resourcesT/bootstrap_5.3.1/css/bootstrap.min.css">
-    <!-- link bs js file -->
-    <script src="../resourcesT/bootstrap_5.3.1/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="../resourcesT/style/dashboard.css">
-    <link rel="stylesheet" href="../resourcesT/style/form.css">
-    <link rel="stylesheet" href="style.css">
-    <!-- link fontawesome -->
-    <link rel="stylesheet" href="../resourcesT/fontawesome_web/css/all.css">
-    <!-- jquery -->
-    <script src="../resourcesT/js/jquery.js"></script>
-    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
-    <link rel="stylesheet" href="../resourcesT/w3css/w3.css">
+<head th:replace="~{ layouts/head :: headFragment}">
+
+</head>
+
+<head th:replace="~{ layouts/head :: headRamFragment}">
+
 </head>
 
 <body>
-    <div class="row m-5">
-        <div class="col-2"></div>
-        <div class="col-8 p-2" style="border: 2px solid black;">
+    <div class="wrapper">
 
-            <!-- Item name start -->
-            <div class="d-flex mb-3 justify-content-center align-items-center" style="background-color: aqua;">
-                <h3>RAM Form</h3>
-            </div>
-            <!-- Item name end -->
+        <!-- side bar -->
+        <aside th:replace="~{ layouts/sidebar :: sidebarfragment}"></aside>
 
-            <!-- Item form start -->
-            <form action="submit" class="p-2 m-2">
 
-                <!-- item code/ brand start -->
-                <div class="row col-10 d-flex mt-1 ">
+        <!-- ui content area start -->
+        <div class="main">
+            <!-- top navbar -->
+            <nav th:replace="~{ layouts/navbar :: topnavbarfragment}"></nav>
+            <!-- main component start -->
+            <main class="content px-3 py-2 w3-container">
 
-                    <!-- ram code start -->
-                    <div class="form-floating col-4 p-1 ">
-                        <form class="form-floating ">
-                            <input type="text" class="form-control" id="floatingInputValue"
-                                placeholder="name@example.com" value="RAM00001">
-                            <label for="floatingInputValue">RAM Code</label>
-                        </form>
+                <!-- employee table start -->
+                <div class="w3-animate-right" id="empTable">
+
+                    <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
+
+                        <h4>Graphic Table</h4>
+                        <button id="empaddbtn" class="btn btn-success mb-2">Add Graphic Card</button>
                     </div>
-
-                    <!-- ram code end -->
-                    <!-- brand and button start  -->
-
-                    <div class="col-7 mt-1" style="display: flex; flex-direction: row; gap: 38px;">
-                        <div class="input-group mb-3 col-10">
-
-                            <div class="form-floating select-form col-10">
-                                <select class="form-select" id="floatingSelect"
-                                    aria-label="Floating label select example">
-                                    <option selected>Select Brand</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                                <label for="floatingSelect">Ram Brand</label>
-                            </div>
-                            <button class="btn btn-outline-primary">Add Brand</button>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-floating mb-3">
-                                <select class="form-select select-form" id="floatingSelect"
-                                    aria-label="Floating label select example">
-                                    <option selected>PC/Desktop status</option>
-                                    <option value="1">PC</option>
-                                    <option value="2">Desktop</option>
-
-                                </select>
-                                <label for="floatingSelect">PC/Desktop status</label>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- brand and button end  -->
-
-
-                </div>
-                <!-- item code/ brand end -->
-
-                <!-- capacity/ memory type/ speed start -->
-                <div class="row mt-2 ">
-                    <div class="row d-flex justify-content-center align-items-center "
-                        style="display: flex; flex-direction: row;">
-                        <div class="col-3">
-
-                            <div class=" form-floating mt-1 d-flex">
-                                <input type="text" class="form-control" placeholder="Enter Ram Capacity"
-                                    aria-label="Ram's capacity" id="ramCapacity" aria-describedby="basic-addon2">
-                                <label for="floatingInput">Capacity</label>
-                                <span class="input-group-text" id="basic-addon2">GB</span>
-
-                            </div>
-                        </div>
-                        <div class="col-3">
-
-
-                            <div class="form-floating mt-1 d-flex">
-                                <input type="text" id="memType" class="form-control" placeholder="Ram's memory type"
-                                    aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                <label for="floatingInput">Memory Type</label>
-                                <span class="input-group-text" id="basic-addon2">DDR</span>
-                            </div>
-                        </div>
-                        <div class="col-3">
-
-
-                            <div class="form-floating mt-1 d-flex">
-                                <input type="text" class="form-control" placeholder="Ram's speed"
-                                    aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                <label for="floatingInput">Memory Speed</label>
-
-                                <span class="input-group-text" id="basic-addon2">GHz</span>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-                <!-- capacity/ memory type/ speed end -->
-
-                <!-- Ram Name Auto generated start -->
-                <div class="form-floating mb-3 mt-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Item Name"
-                        value="CORSAIR VENGEANCE 32GB (2X16GB) DDR5 5200MHZ KIT">
-                    <label for="floatingInputValue">Ram Name</label>
-                </div>
-                <!-- Ram Name Auto generated end -->
-
-                <!-- selling price/ purchase price / qty start -->
-                <div class="row mt-3 p-2 d-flex justify-content-center align-items-center ">
-                    <div class="col-4 form-floating mb-3 p-1">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Selling Price">
-                        <label for="floatingInput" class="pl-2">Selling Price</label>
-                    </div>
-                    <div class="col-4 form-floating mb-3 p-1">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Purchase Price">
-                        <label for="floatingInput">Purchase Price</label>
-                    </div>
-                    <div class="col-4 form-floating mb-3 p-1">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="QTY">
-                        <label for="floatingInput">Quantity</label>
-                    </div>
-
-                </div>
-                <!-- selling price/ purchase price / qty end -->
-
-                <!-- max discount ratio / min discount ratio strat -->
-                <div class="row  d-flex justify-content-center align-items-center ">
-                    <div class="col-4 form-floating mb-3 p-1">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Max discount ratio">
-                        <label for="floatingInput" class="pl-2">Max discount ratio</label>
-                    </div>
-                    <div class="col-4 form-floating mb-3 p-1">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Min discount ratio">
-                        <label for="floatingInput">Min discount ratio</label>
-                    </div>
-
-
-                </div>
-
-                <!-- max discount ratio / min discount ratio end -->
-
-                <!-- pc part status/ warrenty period/ reorder point start -->
-                <div class="row p-2 d-flex justify-content-center align-items-center ">
-                    <div class="col-4 form-floating  p-1">
-                        <div class="form-floating mb-3">
-                            <select class="form-select select-form" id="floatingSelect"
-                                aria-label="Floating label select example">
-                                <option selected>PC part status</option>
-                                <option value="1">Available</option>
-                                <option value="2">Not Available</option>
-
-                            </select>
-                            <label for="floatingSelect">PC part status</label>
-                        </div>
-                    </div>
-                    <div class="col-4 form-floating mb-3 p-1">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Warrenty Period">
-                        <label for="floatingInput">Warrenty Period</label>
-                    </div>
-                    <div class="col-4 form-floating mb-3 p-1">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Reorder point">
-                        <label for="floatingInput">Reorder point</label>
-                    </div>
-
-                </div>
-                <!-- pc part status/ warrenty period/ reorder point end -->
-                <!-- add more details modal start-->
-                <button onclick="document.getElementById('moreSpecModal').style.display='block'"
-                    class="w3-button w3-green">
-                    Add More Specifications</button>
-
-
-
-                <div id="moreSpecModal" class="w3-modal">
-                    <div class="w3-modal-content w3-animate-top w3-animate-fade w3-card-4">
-                        <header class="w3-container w3-blue">
-                            <span onclick="document.getElementById('moreSpecModal').style.display='none'"
-                                class="w3-button w3-display-topright">&times;</span>
-                            <h4>Add More Specs</h4>
-                        </header>
-                        <div class="w3-container">
-                            <table class="w3-table-all w3-hoverable mt-3 mb-3">
+                    <div class="container-fluid">
+                        <div class="mb-3 table-responsive">
+                            <table class="table table-dark table-bordered border-primary" id="graphicTab">
                                 <thead>
-                                    <tr class="w3-light-grey">
-                                        <th>Specification</th>
-                                        <th>Details</th>
-                                        <th>Delete Status</th>
-                                    </tr>
+
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Memory</th>
+                                    <th scope="col">Power Supply</th>
+                                    <th scope="col">Sales Price</th>
+                                    <th scope="col">Purchase Price</th>
+                                    <th scope="col">Min Discount</th>
+                                    <th scope="col">Max Discount</th>
+                                    <th scope="col">Brand</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Pc Part Status</th>
+                                    <th scope="col">Button</th>
+
                                 </thead>
-                                <tr>
-                                    <td>Read/Write Speeds</td>
-                                    <td>7,000/5,100 MB/s</td>
-                                    <td>No</td>
-                                </tr>
-                                <tr>
-                                    <td>Cache Memory
-                                    </td>
-                                    <td>Samsung 2GB Low Power DDR4 SDRAM
-                                    </td>
-                                    <td>No</td>
-                                </tr>
-                                <tr>
-                                    <td>Security</td>
-                                    <td>AES 256-bit Full Disk Encryption, TCG/Opal V2.0, Encrypted Drive (IEEE1667)
-                                    </td>
-                                    <td>No</td>
-                                </tr>
+                                <tbody>
+
+                                </tbody>
                             </table>
                         </div>
-                        <footer class="w3-container ">
+                    </div>
+                </div>
+                <!-- employee table end -->
+
+                <!-- employee form start -->
+                <div id="empForm" class="w3-animate-left" style="display: none;">
+                    <div class=" " style="display: flex; justify-content: space-between; align-items: center;">
+                        <button id="empFormToTable" class="btn btn-success mb-3">Table</button>
+                        <h4>Graphic Form</h4>
+                    </div>
+
+                    <div style="border: 1px solid black; padding: 10px;">
+
+                        <!-- Item form start -->
+                        <form action="submit" class="p-2 m-2">
+
+                            <!-- item code/ brand start -->
+                            <div class="row col-10 d-flex mt-1 ">
+
+                                <!-- Graphic code start -->
+                                <div class="form-floating col-4 p-1 ">
+                                    <form class="form-floating ">
+                                        <input type="text" class="form-control" id="floatingInputValue"
+                                            placeholder="name@example.com" value="RAM00001">
+                                        <label for="floatingInputValue">Graphic Code</label>
+                                    </form>
+                                </div>
+
+                                <!-- Graphic code end -->
+                                <!-- brand and button start  -->
+
+                                <div class="col-7 mt-1" style="display: flex; flex-direction: row; gap: 38px;">
+                                    <div class="input-group mb-3 col-10">
+
+                                        <div class="form-floating select-form col-10">
+                                            <select class="form-select" id="floatingSelect"
+                                                aria-label="Floating label select example">
+                                                <option selected>Select Brand</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                            <label for="floatingSelect">Graphic Brand</label>
+                                        </div>
+                                        <button class="btn btn-outline-primary">Add Brand</button>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select select-form" id="floatingSelect"
+                                                aria-label="Floating label select example">
+                                                <option selected>PC/Desktop status</option>
+                                                <option value="1">PC</option>
+                                                <option value="2">Desktop</option>
+
+                                            </select>
+                                            <label for="floatingSelect">PC/Desktop status</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- brand and button end  -->
+
+
+                            </div>
+                            <!-- item code/ brand end -->
+
+                            <!-- capacity/ memory type/ speed start -->
+                            <div class="row mt-2 ">
+                                <div class="row d-flex justify-content-center align-items-center "
+                                    style="display: flex; flex-direction: row;">
+                                    <div class="col-3">
+
+                                        <div class=" form-floating mt-1 d-flex">
+                                            <input type="text" class="form-control" placeholder="Enter Ram Capacity"
+                                                aria-label="Ram's capacity" id="ramCapacity"
+                                                aria-describedby="basic-addon2">
+                                            <label for="floatingInput">Capacity</label>
+                                            <span class="input-group-text" id="basic-addon2">GB</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+
+
+                                        <div class="form-floating mt-1 d-flex">
+                                            <input type="text" id="memType" class="form-control"
+                                                placeholder="Ram's memory type" aria-label="Recipient's username"
+                                                aria-describedby="basic-addon2">
+                                            <label for="floatingInput">Memory Type</label>
+                                            <span class="input-group-text" id="basic-addon2">DDR</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+
+
+                                        <div class="form-floating mt-1 d-flex">
+                                            <input type="text" class="form-control" placeholder="Ram's speed"
+                                                aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                            <label for="floatingInput">Memory Speed</label>
+
+                                            <span class="input-group-text" id="basic-addon2">GHz</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <!-- capacity/ memory type/ speed end -->
+
+                            <!-- Ram Name Auto generated start -->
+                            <div class="form-floating mb-3 mt-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Item Name"
+                                    value="CORSAIR VENGEANCE 32GB (2X16GB) DDR5 5200MHZ KIT">
+                                <label for="floatingInputValue">Graphic Name</label>
+                            </div>
+                            <!-- Ram Name Auto generated end -->
+
+                            <!-- selling price/ purchase price / qty start -->
+                            <div class="row mt-3 p-2 d-flex justify-content-center align-items-center ">
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                        placeholder="Selling Price">
+                                    <label for="floatingInput" class="pl-2">Selling Price</label>
+                                </div>
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                        placeholder="Purchase Price">
+                                    <label for="floatingInput">Purchase Price</label>
+                                </div>
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="QTY">
+                                    <label for="floatingInput">Quantity</label>
+                                </div>
+
+                            </div>
+                            <!-- selling price/ purchase price / qty end -->
+
+                            <!-- max discount ratio / min discount ratio strat -->
+                            <div class="row  d-flex justify-content-center align-items-center ">
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                        placeholder="Max discount ratio">
+                                    <label for="floatingInput" class="pl-2">Max discount ratio</label>
+                                </div>
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                        placeholder="Min discount ratio">
+                                    <label for="floatingInput">Min discount ratio</label>
+                                </div>
+
+
+                            </div>
+
+                            <!-- max discount ratio / min discount ratio end -->
+
+                            <!-- pc part status/ warrenty period/ reorder point start -->
+                            <div class="row p-2 d-flex justify-content-center align-items-center ">
+                                <div class="col-4 form-floating  p-1">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select select-form" id="floatingSelect"
+                                            aria-label="Floating label select example">
+                                            <option selected>PC part status</option>
+                                            <option value="1">Available</option>
+                                            <option value="2">Not Available</option>
+
+                                        </select>
+                                        <label for="floatingSelect">PC part status</label>
+                                    </div>
+                                </div>
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                        placeholder="Warrenty Period">
+                                    <label for="floatingInput">Warrenty Period</label>
+                                </div>
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                        placeholder="Reorder point">
+                                    <label for="floatingInput">Reorder point</label>
+                                </div>
+
+                            </div>
+                            <!-- pc part status/ warrenty period/ reorder point end -->
+                            <!-- add more details modal start-->
+                            <button onclick="document.getElementById('moreSpecModal').style.display='block'"
+                                class="w3-button w3-green">
+                                Add More Specifications</button>
+
+
+
+                            <div id="moreSpecModal" class="w3-modal">
+                                <div class="w3-modal-content w3-animate-top w3-animate-fade w3-card-4">
+                                    <header class="w3-container w3-blue">
+                                        <span onclick="document.getElementById('moreSpecModal').style.display='none'"
+                                            class="w3-button w3-display-topright">&times;</span>
+                                        <h4>Add More Specs</h4>
+                                    </header>
+                                    <div class="w3-container">
+                                        <table class="w3-table-all w3-hoverable mt-3 mb-3">
+                                            <thead>
+                                                <tr class="w3-light-grey">
+                                                    <th>Specification</th>
+                                                    <th>Details</th>
+                                                    <th>Delete Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tr>
+                                                <td>Read/Write Speeds</td>
+                                                <td>7,000/5,100 MB/s</td>
+                                                <td>No</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cache Memory
+                                                </td>
+                                                <td>Samsung 2GB Low Power DDR4 SDRAM
+                                                </td>
+                                                <td>No</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Security</td>
+                                                <td>AES 256-bit Full Disk Encryption, TCG/Opal V2.0, Encrypted Drive
+                                                    (IEEE1667)
+                                                </td>
+                                                <td>No</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <footer class="w3-container ">
+                                        <div class="row p-2 d-flex justify-content-end align-items-center"
+                                            style="display: flex; flex-direction: row; gap:10px;">
+                                            <button class="col-3 btn btn-warning">UPDATE</button>
+                                            <button class="col-3 btn btn-primary">ADD</button>
+
+                                        </div>
+                                    </footer>
+                                </div>
+                            </div>
+
+                            <!-- add more details modal end-->
+
+                            <!-- button gruop start -->
                             <div class="row p-2 d-flex justify-content-end align-items-center"
                                 style="display: flex; flex-direction: row; gap:10px;">
                                 <button class="col-3 btn btn-warning">UPDATE</button>
                                 <button class="col-3 btn btn-primary">ADD</button>
 
                             </div>
-                        </footer>
+                            <!-- button gruop end -->
+
+
+                        </form>
+                        <!-- Item form end -->
                     </div>
-                </div>
 
-                <!-- add more details modal end-->
-
-                <!-- button gruop start -->
-                <div class="row p-2 d-flex justify-content-end align-items-center"
-                    style="display: flex; flex-direction: row; gap:10px;">
-                    <button class="col-3 btn btn-warning">UPDATE</button>
-                    <button class="col-3 btn btn-primary">ADD</button>
 
                 </div>
-                <!-- button gruop end -->
+                <!-- employee form end -->
 
+            </main>
+            <!-- main component end -->
 
-            </form>
-            <!-- Item form end -->
         </div>
-        <div class="col-2"></div>
-
+        <!-- ui content area end -->
     </div>
+
+
+    <!-- <script>
+        const toggler = document.querySelector(".btn");
+
+        toggler.addEventListener("click", function () {
+            document.querySelector("#sidebar").classList.toggle("collapsed");
+        });
+
+        const sidebarItems = document.querySelectorAll(".sidebar-sublink");
+
+        sidebarItems.forEach(function (item) {
+            item.addEventListener("click", function () {
+                document.querySelector("#sidebar").classList.toggle("collapsed");
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            document.querySelector("#sidebar").classList.toggle("collapsed");
+
+        })
+
+        const sidebarItems1 = document.querySelectorAll(".sidebar-item");
+
+        sidebarItems1.forEach(function (item) {
+            const link = item.querySelector(".sidebar-link");
+
+            link.addEventListener("click", function () {
+                sidebarItems1.forEach(function (otherItem) {
+                    otherItem.classList.remove("active"); // Remove "active" from other items
+                });
+                item.classList.add("active"); // Add "active" to the clicked item
+            });
+        });
+
+
+
+
+    </script>
+    <script>
+        const btn = document.getElementById("empaddbtn");
+        btn.addEventListener("click", function () {
+            const table = document.getElementById("empTable");
+            const form = document.getElementById("empForm");
+
+            // Animate table disappearance
+            table.style.opacity = 1; // Ensure opacity is initially 1
+            table.style.transition = "opacity 1.5s ease-out";
+            table.style.display = "none"; // Trigger the animation
+
+            // Delay form appearance slightly
+            setTimeout(function () {
+                form.style.opacity = 0;
+                form.style.display = "block";
+                form.style.transition = "opacity 1.5s ease-in";
+                form.style.opacity = 1; // Gradually fade in
+            }, 100); // Adjust the delay as needed
+        });
+
+        const Formbtn = document.getElementById("empFormToTable")
+        Formbtn.addEventListener("click", function () {
+            const table = document.getElementById("empTable")
+            table.style.display = "block";
+            const form = document.getElementById("empForm")
+            form.style.display = "none"
+        })
+        const tableBtn = document.getElementById("empTable1")
+        tableBtn.addEventListener("click", function () {
+            const table = document.getElementById("empTable")
+            table.style.display = "block";
+            const form = document.getElementById("empForm")
+            form.style.display = "none"
+        })
+
+    </script> -->
+    <script src="templates/layouts/layout1.js"></script>
+    <script src="templates/layouts/layout2.js"></script>
+
 </body>
 
 </html>
