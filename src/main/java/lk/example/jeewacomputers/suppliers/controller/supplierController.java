@@ -1,5 +1,5 @@
 package lk.example.jeewacomputers.suppliers.controller;
 
-public class supplierController {
+public class SupplierController {
     
 }
