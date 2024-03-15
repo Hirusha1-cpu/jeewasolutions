@@ -12,6 +12,9 @@ public interface SupplierHasCategoryDao extends JpaRepository<SupplierHasCategor
     // methana ; danna epa native wala wada krnne na
     @Query(value = "SELECT brand_id FROM jeewacomputersproject.supplier_has_category where category_id = ?1", nativeQuery = true)
     public List<Integer> listCategoryVise(Integer category_id);
+    
+    @Query(value = "SELECT brand_id FROM jeewacomputersproject.supplier_has_category where supplier_id = ?1", nativeQuery = true)
+    public List<Integer> listSupplierVise(Integer supplier_id);
 
     // methana ; danna epa native wala wada krnne na
     @Query(value = "SELECT category_id FROM jeewacomputersproject.supplier_has_category where brand_id = ?1", nativeQuery = true)

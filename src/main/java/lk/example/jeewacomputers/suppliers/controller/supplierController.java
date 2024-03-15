@@ -1,5 +1,7 @@
 package lk.example.jeewacomputers.suppliers.controller;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,8 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +27,7 @@ public class SupplierController {
 
     // create get mapping for get supplier all data --- [/supplier/findall]
     @GetMapping(value = "/supplier/getlist", produces = "application/json")
-    public List<Supplier> findAll() {
+    public List<Supplier> findAllData() {
         // login user authentication and authorization
         return dao.findAll(Sort.by(Direction.DESC, "id"));
     }
@@ -39,6 +43,19 @@ public class SupplierController {
 
         viewEmp.setViewName("suppliers/supplier.html");
         return viewEmp;
+    }
+
+    // save user
+    @PostMapping(value = "/supplier")
+    public String saveUser(@RequestBody Supplier supplier) {
+        // get user authentication object
+
+        try {
+            dao.save(supplier);
+            return "OK";
+        } catch (Exception e) {
+            return "Save Not completed" + e.getMessage();
+        }
     }
 
 }

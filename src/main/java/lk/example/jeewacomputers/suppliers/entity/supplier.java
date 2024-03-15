@@ -3,6 +3,7 @@ package lk.example.jeewacomputers.suppliers.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+// import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -48,8 +49,11 @@ public class Supplier {
     @JoinColumn(name = "supplierstatus_id", referencedColumnName = "id")
     private SupplierStatus supplierstatus_id ;
 
-      @OneToMany(mappedBy = "supplier")
-    private Set<SupplierHasCategory> categoriesWithItems;
+    @OneToMany(mappedBy = "supplier_id")
+    private List<SupplierHasCategory> categoriesBrandsWithSuppliers;
+
+    @OneToMany(mappedBy = "supplier_id")
+    private List<SupplierBankDetails> bankDetailsOfSuppliers;
 
     @Column(name = "email")
     private String email;

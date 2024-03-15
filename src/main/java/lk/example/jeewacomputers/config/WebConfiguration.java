@@ -58,6 +58,7 @@ public class WebConfiguration {
                     .requestMatchers("/casing/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
                     .requestMatchers("/harddisk/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
                     .requestMatchers("/supplierhascategory/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
+                    .requestMatchers("/supplier/**").hasAnyAuthority("Admin", "Manager","Cashier", "Store-Manager","Technician")
 
                     .anyRequest().authenticated();
         })

@@ -1,5 +1,7 @@
 package lk.example.jeewacomputers.suppliers.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,22 +26,26 @@ public class SupplierHasCategory {
     @Id // for pk
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
     @Column(name = "id ", unique = true) // for map with column name
-    // @NotNull
+    @NotNull
     private Integer id;
 
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
+    @NotNull
     private Brand brand_id;
 
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @NotNull
     private Category category_id;
 
  
     @ManyToOne(optional = false)
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
+    @NotNull
+      @JsonIgnore
     private Supplier supplier_id;
 
 }
