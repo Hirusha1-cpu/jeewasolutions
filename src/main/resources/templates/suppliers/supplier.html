@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{ layouts/head :: headFragment}">
+
+</head>
+
+<head th:replace="~{ layouts/head :: headSupplierFragment}">
+
+</head>
+
+
+<body>
+    <div class="wrapper">
+
+        <!-- side bar -->
+        <aside th:replace="~{ layouts/sidebar :: sidebarfragment}"></aside>
+
+
+        <!-- ui content area start -->
+        <div class="main">
+            <!-- top navbar -->
+            <nav th:replace="~{ layouts/navbar :: topnavbarfragment}"></nav>
+            <!-- main component start -->
+            <main class="content px-3 py-2 w3-container">
+
+                <!-- employee table start -->
+                <div class="w3-animate-right" id="empTable">
+
+                    <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
+
+                        <h4>Supplier Table</h4>
+                        <button id="empaddbtn" class="btn btn-success mb-2">Add Supplier</button>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="mb-3 table-responsive">
+                            <table class="table table-dark table-bordered border-primary" id="graphicTab">
+                                <thead>
+
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Memory</th>
+                                    <th scope="col">Power Supply</th>
+                                    <th scope="col">Sales Price</th>
+                                    <th scope="col">Purchase Price</th>
+                                    <th scope="col">Min Discount</th>
+                                    <th scope="col">Max Discount</th>
+                                    <th scope="col">Brand</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Pc Part Status</th>
+                                    <th scope="col">Button</th>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- employee table end -->
+
+                <!-- employee form start -->
+                <div id="empForm" class="w3-animate-left" style="display: none;">
+                    <div class=" " style="display: flex; justify-content: space-between; align-items: center;">
+                        <button id="empFormToTable" class="btn btn-success mb-3">Table</button>
+                        <h4>Supplier Form</h4>
+                    </div>
+
+                    <div style="border: 1px solid black; padding: 10px;">
+
+                        <!-- Supplier form start -->
+                        <form class="p-2 m-2">
+
+
+
+                            <!-- Supplier Name start -->
+                            <div class="form-floating mb-3 mt-3">
+                                <input type="text" class="form-control" id="supplierName" placeholder="Supplier Name"
+                                    value="">
+                                <label for="supplierName">Supplier Name</label>
+                            </div>
+                            <!-- Supplier Name end -->
+
+                            <!-- supplier address, contact no, email start -->
+                            <div class="row mt-3 p-2 d-flex justify-content-center align-items-center ">
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                        placeholder="Selling Price">
+                                    <label for="floatingInput" class="pl-2">Supplier No</label>
+                                </div>
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                        placeholder="Purchase Price">
+                                    <label for="floatingInput">Supplier Email</label>
+                                </div>
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="QTY">
+                                    <label for="floatingInput">Supplier Address</label>
+                                </div>
+
+                            </div>
+                            <!-- supplier address, contact no, email end -->
+
+                            <!-- category vise brands start -->
+                            <p class="d-inline-flex gap-1">
+
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseCategory" aria-expanded="false"
+                                    aria-controls="collapseCategory">
+                                    Category Vise
+                                </button>
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseBrand" aria-expanded="false" aria-controls="collapseBrand">
+                                    Brand Vise
+                                </button>
+                            </p>
+                            <div class="collapse" id="collapseCategory">
+                                <div class="card card-body">
+                                    <div class="row">
+
+                                        <div class="col-5">
+                                            <select class="form-select" id="selectCategory"
+                                                aria-label="Default select example"
+                                                onchange="selectDFieldValidation(selectCategory,'', 'supplierhascategory', 'brand_id'); filterByCategory()">
+
+                                            </select>
+                                        </div>
+
+                                        <div class="col-7 checkboxes-container"
+                                            style="display: flex; flex-wrap: wrap; gap: 10px;" id="brandByCategory">
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                    id="flexCheckChecked1">
+                                                <label class="form-check-label" for="flexCheckChecked1">
+                                                    Azuz
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="collapse" id="collapseBrand">
+                                <div class="card card-body">
+                                    <div class="row">
+
+                                        <div class="col-5">
+                                            <select class="form-select" id="selectBrand"
+                                                aria-label="Default select example"
+                                                onchange="selectDFieldValidation(selectBrand,'', 'supplierhascategory', 'category_id'); filterByBrand()">
+                                            </select>
+                                        </div>
+
+                                        <div class="col-7 checkboxes-container"
+                                            style="display: flex; flex-wrap: wrap; gap: 10px;" id="categoryByBrand">
+                                            <div class="form-check border-bottom border-3 border-success">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                    id="flexCheckChecked1">
+                                                <label class="form-check-label" for="flexCheckChecked1">
+                                                    Graphic Card
+                                                </label>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <!-- category vise brands end -->
+                            <!-- Bank details start -->
+                            <p class="d-inline-flex gap-1">
+
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseBankDetails" aria-expanded="false"
+                                    aria-controls="collapseBankDetails">
+                                    Bank Details
+                                </button>
+
+                            </p>
+                            <div class="collapse" id="collapseBankDetails">
+                                <div class="card card-body">
+                                    <form class=" ">
+                                        <div class="row mt-3 d-flex justify-content-center align-items-center ">
+                                            <div class="col-6 form-floating  p-1">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="Selling Price">
+                                                <label for="floatingInput" class="pl-2">Bank Name</label>
+                                            </div>
+                                            <div class="col-6 form-floating  p-1">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="Purchase Price">
+                                                <label for="floatingInput">Bank Branch Name</label>
+                                            </div>
+
+                                        </div>
+                                        <div class="row d-flex justify-content-center align-items-center ">
+
+
+                                            <div class="col-6 form-floating p-1">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="QTY">
+                                                <label for="floatingInput">Account Number</label>
+                                            </div>
+                                            <div class="col-6 form-floating p-1">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="QTY">
+                                                <label for="floatingInput">Account Holder Name</label>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+
+                            <br>
+                            <!-- Bank details end -->
+
+
+
+
+                            <!-- add more details modal start-->
+                            <button onclick="document.getElementById('moreSpecModal').style.display='block'"
+                                class="w3-button w3-green">
+                                Add More Specifications</button>
+                            <div id="moreSpecModal" class="w3-modal">
+                                <div class="w3-modal-content w3-animate-top w3-animate-fade w3-card-4">
+                                    <header class="w3-container w3-blue">
+                                        <span onclick="document.getElementById('moreSpecModal').style.display='none'"
+                                            class="w3-button w3-display-topright">&times;</span>
+                                        <h4>Add More Specs</h4>
+                                    </header>
+                                    <div class="w3-container">
+                                        <table class="w3-table-all w3-hoverable mt-3 mb-3">
+                                            <thead>
+                                                <tr class="w3-light-grey">
+                                                    <th>Specification</th>
+                                                    <th>Details</th>
+                                                    <th>Delete Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tr>
+                                                <td>Read/Write Speeds</td>
+                                                <td>7,000/5,100 MB/s</td>
+                                                <td>No</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cache Memory
+                                                </td>
+                                                <td>Samsung 2GB Low Power DDR4 SDRAM
+                                                </td>
+                                                <td>No</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Security</td>
+                                                <td>AES 256-bit Full Disk Encryption, TCG/Opal V2.0, Encrypted Drive
+                                                    (IEEE1667)
+                                                </td>
+                                                <td>No</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <footer class="w3-container ">
+                                        <div class="row p-2 d-flex justify-content-end align-items-center"
+                                            style="display: flex; flex-direction: row; gap:10px;">
+                                            <button class="col-3 btn btn-warning">UPDATE</button>
+                                            <button class="col-3 btn btn-primary">ADD</button>
+
+                                        </div>
+                                    </footer>
+                                </div>
+                            </div>
+                            <!-- add more details modal end-->
+
+
+                            <!-- button gruop start -->
+                            <div class="row p-2 d-flex justify-content-end align-items-center"
+                                style="display: flex; flex-direction: row; gap:10px;">
+                                <button class="col-3 btn btn-warning">UPDATE</button>
+                                <button class="col-3 btn btn-primary">ADD</button>
+
+                            </div>
+                            <!-- button gruop end -->
+
+
+                        </form>
+                        <!-- Supplier form end -->
+                    </div>
+
+
+                </div>
+                <!-- employee form end -->
+
+            </main>
+            <!-- main component end -->
+
+        </div>
+        <!-- ui content area end -->
+    </div>
+
+
+    <!-- <script>
+        const toggler = document.querySelector(".btn");
+
+        toggler.addEventListener("click", function () {
+            document.querySelector("#sidebar").classList.toggle("collapsed");
+        });
+
+        const sidebarItems = document.querySelectorAll(".sidebar-sublink");
+
+        sidebarItems.forEach(function (item) {
+            item.addEventListener("click", function () {
+                document.querySelector("#sidebar").classList.toggle("collapsed");
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            document.querySelector("#sidebar").classList.toggle("collapsed");
+
+        })
+
+        const sidebarItems1 = document.querySelectorAll(".sidebar-item");
+
+        sidebarItems1.forEach(function (item) {
+            const link = item.querySelector(".sidebar-link");
+
+            link.addEventListener("click", function () {
+                sidebarItems1.forEach(function (otherItem) {
+                    otherItem.classList.remove("active"); // Remove "active" from other items
+                });
+                item.classList.add("active"); // Add "active" to the clicked item
+            });
+        });
+
+
+
+
+    </script>
+    <script>
+        const btn = document.getElementById("empaddbtn");
+        btn.addEventListener("click", function () {
+            const table = document.getElementById("empTable");
+            const form = document.getElementById("empForm");
+
+            // Animate table disappearance
+            table.style.opacity = 1; // Ensure opacity is initially 1
+            table.style.transition = "opacity 1.5s ease-out";
+            table.style.display = "none"; // Trigger the animation
+
+            // Delay form appearance slightly
+            setTimeout(function () {
+                form.style.opacity = 0;
+                form.style.display = "block";
+                form.style.transition = "opacity 1.5s ease-in";
+                form.style.opacity = 1; // Gradually fade in
+            }, 100); // Adjust the delay as needed
+        });
+
+        const Formbtn = document.getElementById("empFormToTable")
+        Formbtn.addEventListener("click", function () {
+            const table = document.getElementById("empTable")
+            table.style.display = "block";
+            const form = document.getElementById("empForm")
+            form.style.display = "none"
+        })
+        const tableBtn = document.getElementById("empTable1")
+        tableBtn.addEventListener("click", function () {
+            const table = document.getElementById("empTable")
+            table.style.display = "block";
+            const form = document.getElementById("empForm")
+            form.style.display = "none"
+        })
+
+    </script> -->
+    <script src="templates/layouts/layout1.js"></script>
+    <script src="templates/layouts/layout2.js"></script>
+
+</body>
+
+</html>

@@ -1,31 +1,56 @@
 package lk.example.jeewacomputers.suppliers.entity;
 
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lk.example.jeewacomputers.categorypcpartandbrand.entity.Brand;
-import lk.example.jeewacomputers.categorypcpartandbrand.entity.Category;
+import jakarta.validation.constraints.NotNull;
+import lk.example.jeewacomputers.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.*;
 
-@Entity
-@Data
-@Table(name = "supplier_has_category")
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity // apply as an entity class
+@Table(name = "supplier") // for map with given table
+@Data // generate getters and setters
+@NoArgsConstructor // generate default constructor
+@AllArgsConstructor // all arguments constructor
 public class Supplier {
-       @Id
+    @Id // for pk
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
+    @Column(name = "id ", unique = true) // for map with column name
+    @NotNull 
+    private Integer id;
+
+    @Column(name = "name")
+    @NotNull
+    private String name;
+
+    @Column(name = "supplier_code")
+    private String supplier_code;
+
+    @Column(name = "contactnumber")
+    private String contactnumber;
+
     @ManyToOne(optional = false)
-    @JoinColumn(name = "supplier_id", referencedColumnName = "id")
-    private Brand brand_id;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user_id ;
 
-    @Id
     @ManyToOne(optional = false)
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private Category category_id;   
+    @JoinColumn(name = "supplierstatus_id", referencedColumnName = "id")
+    private SupplierStatus supplierstatus_id ;
 
+      @OneToMany(mappedBy = "supplier")
+    private Set<SupplierHasCategory> categoriesWithItems;
 
+    @Column(name = "email")
+    private String email;
 }

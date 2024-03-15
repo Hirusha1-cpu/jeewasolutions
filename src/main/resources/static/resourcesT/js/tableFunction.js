@@ -44,7 +44,7 @@ const fillDataIntoTable = (tableId, dataList, propertyList, editButtonFunction, 
 
         const btnEdit = document.createElement('button');
         btnEdit.className = 'btn btn-warning'
-        btnEdit.innerHTML = '<i class="fa-solid fa-edit "></i>Edit'
+        btnEdit.innerHTML = '<i class="fa-solid fa-edit "></i>'
         btnEdit.onclick = () => {
             console.log('edit', item.id, index);
             editButtonFunction(item, index)
@@ -54,7 +54,7 @@ const fillDataIntoTable = (tableId, dataList, propertyList, editButtonFunction, 
 
         const btnDelete = document.createElement('button');
         btnDelete.className = 'btn btn-danger ms-1 me-1'
-        btnDelete.innerHTML = '<i class="fa-solid fa-broom "></i>Delete'
+        btnDelete.innerHTML = '<i class="fa-solid fa-broom "></i>'
         btnDelete.onclick = (index) => {
             // console.log('delete',item.id);
             // deleteEmp(index);
@@ -77,7 +77,7 @@ const fillDataIntoTable = (tableId, dataList, propertyList, editButtonFunction, 
 
         const buttonPrint = document.createElement('button');
         buttonPrint.className = 'btn btn-info';
-        buttonPrint.innerHTML = '<i class="fa-solid fa-print "></i>Print';
+        buttonPrint.innerHTML = '<i class="fa-solid fa-print "></i>';
         buttonPrint.onclick = (index) => {
             console.log('print', item.id);
             printButtonFunction(item, index);
