@@ -3,19 +3,29 @@ package lk.example.jeewacomputers.suppliers.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 // import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
+
+import lk.example.jeewacomputers.suppliers.dao.SupplierDao;
 import lk.example.jeewacomputers.suppliers.dao.SupplierHasCategoryDao;
+import lk.example.jeewacomputers.suppliers.entity.Supplier;
 import lk.example.jeewacomputers.suppliers.entity.SupplierHasCategory;
+
 
 @RestController
 public class SupplierHasCategoryController {
     @Autowired
     // create dao object
     private SupplierHasCategoryDao dao;
+
+    @Autowired
+    private SupplierDao supDao; 
 
     // create get mapping for get supplier all data --- [/supplier/findall]
     @GetMapping(value = "/supplierhascategory/getlist", produces = "application/json")
@@ -48,6 +58,20 @@ public class SupplierHasCategoryController {
 
         return dao.listBrandVise(brand_id); 
         //http://localhost:8080/supplierhascategory/getlistbybrand?brand_id=1
+    }
+
+     @PostMapping(value = "/supplierhascategory")
+    public String saveUser(@RequestBody SupplierHasCategory supplierhascategory) {
+ 
+
+        try {
+            Supplier supplierB =  supDao.getReferenceById(supDao.getSupplierNo());
+            supplierhascategory.setSupplier_id(supplierB);
+            dao.save(supplierhascategory);
+            return "OK";
+        } catch (Exception e) {
+            return "Save Not completed" + e.getMessage();
+        }
     }
 
 }

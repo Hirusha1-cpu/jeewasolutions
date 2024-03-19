@@ -29,6 +29,11 @@ public class BrandController {
         return dao.listCategoryViseBrandNames(category_id);
     }
 
+    @GetMapping(value = "/brand/listbrandbycategory/{category_id}", produces = "application/json")
+    public List<Brand> getCategoryByBrandId(@PathVariable("category_id") Integer category_id) {
+        return dao.listCategoryViseBrandId(category_id);
+    }
+
     //brand/listbycategory/1
     // http://localhost:8080/brand/listbycategory?category_id=4
 }

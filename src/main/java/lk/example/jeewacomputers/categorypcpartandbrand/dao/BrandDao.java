@@ -16,6 +16,9 @@ public interface BrandDao extends JpaRepository<Brand, Integer> {
     @Query(value = "select b.name from Brand b where b.id in (select shc.brand_id.id from SupplierHasCategory shc where shc.category_id.id = ?1)")
     public List<String> listCategoryViseBrandNames(Integer category_id);
 
+    @Query(value = "select b from Brand b where b.id in (select shc.brand_id.id from SupplierHasCategory shc where shc.category_id.id = ?1)")
+    public List<Brand> listCategoryViseBrandId(Integer category_id);
+
     //"select c.name from Category c where c.id in (select shc.category_id.id from SupplierHasCategory shc where shc.brand_id.id = ?1)"
 
 // @Query("SELECT b FROM Brand b WHERE b.id IN (SELECT shc.brandId FROM SupplierHasCategory shc WHERE shc.categoryId = :categoryId)")

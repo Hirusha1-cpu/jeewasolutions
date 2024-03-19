@@ -1,5 +1,6 @@
 package lk.example.jeewacomputers.privilege.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +90,28 @@ public class PrivilegeController {
         } catch (Exception e) {
             return "Delete Not Completed" + e.getMessage();
         }
+    }
+
+        //define function for get privilege by user module
+    public HashMap<String, Boolean> getPrivilegeByUserModule(String username, String modulename) {
+    // public Privilege getPrivilegeByUserModule(String username, String modulename) {
+        HashMap<String, Boolean> userPrivilege = new HashMap<String, Boolean>();
+        if (username.equals("Admin")) {
+            userPrivilege.put("select", true);
+            userPrivilege.put("insert", true);
+            userPrivilege.put("update", true);
+            userPrivilege.put("delete", true);
+        } else {
+
+            String userPrivi = dao.getPrivilegeByUserModule(username, modulename);
+            System.out.println(userPrivi);
+            String[] userPriviList = userPrivi.split(",");
+            userPrivilege.put("select", userPriviList[0].equals("1"));
+            userPrivilege.put("insert", userPriviList[1].equals("1"));
+            userPrivilege.put("update", userPriviList[2].equals("1"));
+            userPrivilege.put("delete", userPriviList[3].equals("1"));
+        }
+        return userPrivilege;
     }
 
 

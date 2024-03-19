@@ -28,7 +28,7 @@ public class Supplier {
     @Id // for pk
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
     @Column(name = "id ", unique = true) // for map with column name
-    @NotNull 
+    // @NotNull 
     private Integer id;
 
     @Column(name = "name")
@@ -43,6 +43,7 @@ public class Supplier {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    // @NotNull
     private User user_id ;
 
     @ManyToOne(optional = false)
@@ -57,4 +58,5 @@ public class Supplier {
 
     @Column(name = "email")
     private String email;
+
 }

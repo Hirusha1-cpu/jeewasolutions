@@ -16,14 +16,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import lk.example.jeewacomputers.privilege.controller.PrivilegeController;
+import lk.example.jeewacomputers.privilege.dao.PrivilegeDao;
 import lk.example.jeewacomputers.suppliers.dao.SupplierDao;
 import lk.example.jeewacomputers.suppliers.entity.Supplier;
+import lk.example.jeewacomputers.user.dao.UserDao;
+import lk.example.jeewacomputers.user.entity.User;
 
 @RestController
 public class SupplierController {
     @Autowired
     // create dao object
     private SupplierDao dao;
+
+    @Autowired
+    private PrivilegeController privilegeController;
 
     // create get mapping for get supplier all data --- [/supplier/findall]
     @GetMapping(value = "/supplier/getlist", produces = "application/json")
@@ -49,8 +56,15 @@ public class SupplierController {
     @PostMapping(value = "/supplier")
     public String saveUser(@RequestBody Supplier supplier) {
         // get user authentication object
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "supplier");
+
 
         try {
+            String nextEmpNo = dao.getSupplierCode();
+            supplier.setSupplier_code(nextEmpNo);
+            // supplier.setUser_id(logedUser);
+            // supplier.setSupplierstatus_id(1);
             dao.save(supplier);
             return "OK";
         } catch (Exception e) {

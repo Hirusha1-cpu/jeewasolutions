@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +23,7 @@ public class SupplierBankDetails {
     @Id // for pk
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
     @Column(name = "id ", unique = true) // for map with column name
-    @NotNull
+    // @NotNull
     private Integer id;
 
     @Column(name = "bankname")
@@ -41,8 +40,9 @@ public class SupplierBankDetails {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
-    @NotNull
+    // @NotNull
     @JsonIgnore
     private Supplier supplier_id;
 
+  
 }
