@@ -51,10 +51,10 @@ public class Supplier {
     @JoinColumn(name = "supplierstatus_id", referencedColumnName = "id")
     private SupplierStatus supplierstatus_id ;
 
-    @OneToMany(mappedBy = "supplier_id" ,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "supplier_id" , cascade = CascadeType.ALL)
     private List<SupplierHasCategory> categoriesBrandsWithSuppliers;
 
-    @OneToMany(mappedBy = "supplier_id",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "supplier_id", cascade = CascadeType.ALL)
     private List<SupplierBankDetails> bankDetailsOfSuppliers;
 
     @Column(name = "email")
