@@ -11,5 +11,7 @@ public interface SupplierDao extends JpaRepository<Supplier, Integer> {
 
     @Query(value="SELECT lpad(max(s.supplier_code)+1,5,0) as supplier_code FROM jeewacomputersproject.supplier as s;", nativeQuery = true)
     public String getSupplierCode();
+
+   
  
 } 

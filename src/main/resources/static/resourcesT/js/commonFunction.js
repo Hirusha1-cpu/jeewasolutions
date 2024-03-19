@@ -65,6 +65,7 @@ const fillDataIntoSelect = (fieldId,message, dataList, property, selectedValue)=
     fieldId.innerHTML = '';
     const optionMsg = document.createElement('option');
     optionMsg.value = ""
+    optionMsg.classList = "cc"
     optionMsg.innerText = message;
     optionMsg.selected = 'selected';
     optionMsg.disabled = 'disabled';

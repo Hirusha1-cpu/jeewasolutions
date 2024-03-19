@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import jakarta.transaction.Transactional;
 import lk.example.jeewacomputers.privilege.controller.PrivilegeController;
-import lk.example.jeewacomputers.privilege.dao.PrivilegeDao;
+
 import lk.example.jeewacomputers.suppliers.dao.SupplierDao;
 import lk.example.jeewacomputers.suppliers.entity.Supplier;
-import lk.example.jeewacomputers.user.dao.UserDao;
-import lk.example.jeewacomputers.user.entity.User;
+import lk.example.jeewacomputers.suppliers.entity.SupplierBankDetails;
+import lk.example.jeewacomputers.suppliers.entity.SupplierHasCategory;
 
 @RestController
 public class SupplierController {
@@ -54,17 +55,26 @@ public class SupplierController {
 
     // save user
     @PostMapping(value = "/supplier")
+    @Transactional
     public String saveUser(@RequestBody Supplier supplier) {
         // get user authentication object
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "supplier");
-
+        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
+                "supplier");
 
         try {
             String nextEmpNo = dao.getSupplierCode();
             supplier.setSupplier_code(nextEmpNo);
+
             // supplier.setUser_id(logedUser);
             // supplier.setSupplierstatus_id(1);
+            for (SupplierHasCategory supplierHasCategory : supplier.getCategoriesBrandsWithSuppliers()) {
+                supplierHasCategory.setSupplier_id(supplier);
+            }
+            for (SupplierBankDetails supplierHasBakDetails : supplier.getBankDetailsOfSuppliers()) {
+                supplierHasBakDetails.setSupplier_id(supplier);
+            }
+            
             dao.save(supplier);
             return "OK";
         } catch (Exception e) {

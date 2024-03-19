@@ -9,6 +9,7 @@ const refreshSupplyForm = () => {
     supplierbankdetails = new Object();
     supplierhascategory = new Object();
     supplierhascategory = []
+    supplier.categoriesBrandsWithSuppliers = []
 
     categories = ajaxGetRequest("/category/getlist")
     fillDataIntoSelect(selectCategory, "Select Category", categories, 'name')
@@ -19,13 +20,14 @@ const refreshSupplyForm = () => {
     brandByCategory.innerHTML = ""
     categoryByBrand.innerHTML = ""
 
+    
 }
 
 const filterByCategory = () => {
-    // supplier = new Object();
-    supplier.categoriesBrandsWithSuppliers = []
-    // supplierhascategory = []
-    // listCategoryViseBrandNames = ajaxGetRequest("/brand/listbycategory/" + JSON.parse(selectCategory.value).id) // meken check box generate wenna one
+
+    categoryBrand = new Object();
+    categoryBrand.category_id = JSON.parse(selectCategory.value);
+
     listCategoryViseBrandNames = ajaxGetRequest("/brand/listbrandbycategory/" + JSON.parse(selectCategory.value).id) // meken check box generate wenna one
     console.log("json value", JSON.parse(selectCategory.value).id);
     console.log("listBrandViseCategoryNames==>", listCategoryViseBrandNames);
@@ -40,6 +42,23 @@ const filterByCategory = () => {
         input.className = "form-check-input"
         input.id = "chk" + element.name
 
+
+        input.onchange = function () {
+            if (this.checked) {
+                console.log("ss clicked", element.id);
+
+                categoryBrand.brand_id = element;
+                supplier.categoriesBrandsWithSuppliers.push(categoryBrand)
+            }else{
+                supplier.categoriesBrandsWithSuppliers.forEach( (ele , ind)=>{
+                    if (ele.category_id.id == JSON.parse(selectCategory.value).id && ele.brand_id.id == element.id) {
+                       supplier.categoriesBrandsWithSuppliers.splice(ind, 1); 
+                    }
+                })
+                
+            }
+        }
+
         const label = document.createElement("label")
         label.id = "lbl" + element.name
         label.className = "form-check-label"
@@ -49,31 +68,6 @@ const filterByCategory = () => {
         div.appendChild(input)
 
         brandByCategory.appendChild(div)
-
-        input.onchange = function () {
-            if (this.checked) {
-                console.log("ss clicked",element.id);
-
-                // supplier.categoriesBrandsWithSuppliers.brand_id.name.push(element)
-                const newBrand = {
-                    brand_id: { name: element.name }, // Assuming you want only brand name for now
-                    // Add category_id if needed based on your data structure
-                };
-                const newBrandId = {
-                    brand_id: { id: element.id } // Assuming you want only brand name for now
-                    // Add category_id if needed based on your data structure
-                };
-                supplier.categoriesBrandsWithSuppliers.push(newBrand)
-                supplierhascategory.push(newBrandId)
-                // console.log("arrays ==>",[supplierhascategory][brand_id]);
-                window['supplierhascategory']['brand_id']= JSON.parse(element.id);
-
-                // checkBoxValidator(input.id, '', 'supplierhascategory','brand_id', true, false, label.id, 
-                // element.name+'Selected ',
-                // element.name+'Not Selected')
-            }
-        }
-
 
 
         // input.onchange = function () {
@@ -96,60 +90,63 @@ const filterByCategory = () => {
 
 }
 const filterByBrand = () => {
-    // supplier = new Object();
-    supplier.categoriesBrandsWithSuppliers = []
-    listBrandViseCategories = ajaxGetRequest("/category/listbybrand/" + JSON.parse(selectBrand.value).id) // meken check box generate wenna one
-    console.log("json value", JSON.parse(selectBrand.value).id);
-    console.log("listCategoryViseBrand==>", listBrandViseCategories);
-    categoryByBrand.innerHTML = ""
-    listBrandViseCategories.forEach(element => {
-        console.log(element);
-        const div = document.createElement("div")
-        div.className = "col-lg-4 form-check"
-
-        const input = document.createElement("input")
-        input.type = "checkbox"
-        input.className = "form-check-input"
-        input.id = "chk" + element
-
-        input.onchange = function () {
-            if (this.checked) {
-                const newCategory = {
-                    category_id: { name: element }, // Assuming you want only brand name for now
-                    // Add category_id if needed based on your data structure
-                };
-                supplier.categoriesBrandsWithSuppliers.push(newCategory)
-                supplierhascategory.push(newCategory)
-
-
-            }
-        }
-        // input.onchange = function () {
-        //     if (this.checked) {
-        //         user.roles.push(element)
-
-        //     } else {
-        //         console.log(this.id);
-        //         console.log(this.id.substring(3));
-        //         console.log("unchecked element: " + element);
-        //         let extIndex = user.roles.map(item => item.name).indexOf(element.name)
-        //         if (extIndex != -1) {
-        //             user.roles.splice(extIndex, 1);
-        //         }
-        //     }
-        // }
-
-        const label = document.createElement("label")
-        label.className = "form-check-label"
-        label.innerText = element
-
-        div.appendChild(label)
-        div.appendChild(input)
-
-        categoryByBrand.appendChild(div)
-    });
-
+    console.log("hello");
 }
+// const filterByBrand = () => {
+//     // supplier = new Object();
+//     supplier.categoriesBrandsWithSuppliers = []
+//     listBrandViseCategories = ajaxGetRequest("/category/listbybrand/" + JSON.parse(selectBrand.value).id) // meken check box generate wenna one
+//     console.log("json value", JSON.parse(selectBrand.value).id);
+//     console.log("listCategoryViseBrand==>", listBrandViseCategories);
+//     categoryByBrand.innerHTML = ""
+//     listBrandViseCategories.forEach(element => {
+//         console.log(element);
+//         const div = document.createElement("div")
+//         div.className = "col-lg-4 form-check"
+
+//         const input = document.createElement("input")
+//         input.type = "checkbox"
+//         input.className = "form-check-input"
+//         input.id = "chk" + element
+
+//         input.onchange = function () {
+//             if (this.checked) {
+//                 const newCategory = {
+//                     category_id: { name: element }, // Assuming you want only brand name for now
+//                     // Add category_id if needed based on your data structure
+//                 };
+//                 supplier.categoriesBrandsWithSuppliers.push(newCategory)
+//                 supplierhascategory.push(newCategory)
+
+
+//             }
+//         }
+//         // input.onchange = function () {
+//         //     if (this.checked) {
+//         //         user.roles.push(element)
+
+//         //     } else {
+//         //         console.log(this.id);
+//         //         console.log(this.id.substring(3));
+//         //         console.log("unchecked element: " + element);
+//         //         let extIndex = user.roles.map(item => item.name).indexOf(element.name)
+//         //         if (extIndex != -1) {
+//         //             user.roles.splice(extIndex, 1);
+//         //         }
+//         //     }
+//         // }
+
+//         const label = document.createElement("label")
+//         label.className = "form-check-label"
+//         label.innerText = element
+
+//         div.appendChild(label)
+//         div.appendChild(input)
+
+//         categoryByBrand.appendChild(div)
+//     });
+
+// }
 
 const refreshSupplyTable = () => {
     suppliers = ajaxGetRequest('/supplier/getlist')
@@ -201,8 +198,7 @@ const bankDetails = () => {
     const input3 = document.getElementById("inputAccName")
     const input4 = document.getElementById("inputAccHolderName")
 
-    const saveBankDetailsButton = document.querySelector(".suppAdd");
-    saveBankDetailsButton.addEventListener("click", () => {
+   
         const newBankDetails = {
             bankname: input1.value,
             branchname: input2.value,
@@ -213,13 +209,14 @@ const bankDetails = () => {
 
         supplier.bankDetailsOfSuppliers.push(newBankDetails);
         console.log(supplier.bankDetailsOfSuppliers);
-    });
+   
 
 }
 
 const supplierAdd = () => {
+   // console.log();
     bankDetails();
-    let serverResponse = ajaxRequestBodyMethod("/supplier", "POST", supplier);
+    /* let serverResponse = ajaxRequestBodyMethod("/supplier", "POST", supplier);
     let serverResponse1 = ajaxRequestBodyMethod("/supplierbankdetails", "POST", supplierbankdetails);
     let serverResponse2 = ajaxRequestBodyMethod("/supplierhascategory", "POST", supplierhascategory);
     // let serverResponse2 = ajaxRequestBodyMethod("/supplier", "POST", supplierbankdetails);
@@ -228,7 +225,11 @@ const supplierAdd = () => {
     console.log("serverResponse2=====>", serverResponse2);
     alert(serverResponse)
 
-    console.log("supplier===>", supplier);
-    console.log("supplier bank details===>", supplierbankdetails);
-    console.log("supplier category details===>", supplierhascategory);
+  */ 
+    let serverResponse = ajaxRequestBodyMethod("/supplier", "POST", supplier);
+    alert(serverResponse)
+    console.log("serverResponse==>", serverResponse);
+   console.log("supplier===>", supplier);
+ //   console.log("supplier bank details===>", supplierbankdetails);
+   // console.log("supplier category details===>", supplierhascategory);
 }

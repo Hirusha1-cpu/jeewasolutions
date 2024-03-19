@@ -1,6 +1,7 @@
 package lk.example.jeewacomputers.suppliers.entity;
 
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 // import jakarta.persistence.FetchType;
@@ -50,10 +51,10 @@ public class Supplier {
     @JoinColumn(name = "supplierstatus_id", referencedColumnName = "id")
     private SupplierStatus supplierstatus_id ;
 
-    @OneToMany(mappedBy = "supplier_id")
+    @OneToMany(mappedBy = "supplier_id" ,cascade = CascadeType.ALL)
     private List<SupplierHasCategory> categoriesBrandsWithSuppliers;
 
-    @OneToMany(mappedBy = "supplier_id")
+    @OneToMany(mappedBy = "supplier_id",cascade = CascadeType.ALL)
     private List<SupplierBankDetails> bankDetailsOfSuppliers;
 
     @Column(name = "email")
