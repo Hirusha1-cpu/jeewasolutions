@@ -70,8 +70,189 @@
                         <!-- Supplier form start -->
                         <!-- onsubmit="return false;" -->
                         <form class="p-2 m-2" onsubmit="return false;">
+                            <!-- date start -->
+                            <div class="row p-2">
+                                <div id="date" class="fw-bolder" style="color: red;">2024-09-09</div>
+                            </div>
+                            <!-- date end -->
+                            <!-- purchase order start -->
+                            <div class="row p-2">
 
-                    
+                                <select class="form-select col-5" aria-label="Default select example"
+                                    id="selectPurchaseOrder">
+                                    <option selected>Select Purchase Order</option>
+                                    <option value="1">Graphic Card</option>
+                                    <option value="2">Ram</option>
+                                </select>
+                            </div>
+
+                            <!-- purchase order end -->
+
+                            <!-- grn details start -->
+                            <div class="row fw-semibold  " style="padding-left: 16px; color: green;">
+                                Add GRN Details
+                            </div>
+                            <!-- grn details end -->
+
+                            <!-- qty, unit price and add button start -->
+                            <div class="row p-2 d-flex justify-content-center align-items-center ">
+                                <div class="col-4 form-floating p-1">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    <label for="floatingInput" class="pl-2">Quantity</label>
+                                </div>
+                                <div class="col-4 form-floating p-1">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    <label for="floatingInput">Unit Price</label>
+                                </div>
+                                <div class="col-4 form-floating p-1">
+                                    <button class="btn btn-success">Add GRN </button>
+                                </div>
+
+                            </div>
+                            <!-- qty, unit price and add button end -->
+
+                            <div class="row p-3 fw-semibold" style="color: green;">
+                                Purchase Order Details
+                            </div>
+
+                            <!-- purchase order start -->
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Purchase Code</th>
+                                        <th scope="col">Item Name</th>
+                                        <th scope="col">Item Price</th>
+                                        <th scope="col">Item Qty</th>
+                                        <th scope="col">Line Price</th>
+                                        <th scope="col">Supplier</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Buttons</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">00001</th>
+                                        <td>Ram</td>
+                                        <td>23</td>
+                                        <td>100</td>
+                                        <td>2300</td>
+                                        <td>Azuz distributers</td>
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        <td>
+                                            <!-- <button class="btn btn-success">send</button> -->
+                                            <button class="btn btn-success"><i
+                                                    class="fa-solid fa-money-check-dollar"></i></button>
+                                            <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                            <!-- purchase order end -->
+                            <div class="row p-3 fw-semibold " style="color: green;">
+                                GRN Details
+                            </div>
+
+                            <!-- grn start -->
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">GRN Code</th>
+                                        <th scope="col">Item Name</th>
+                                        <th scope="col">Item Price</th>
+                                        <th scope="col">Item Qty</th>
+                                        <th scope="col">Line Price</th>
+                                        <th scope="col">Supplier</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Buttons</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">00001</th>
+                                        <td>Ram</td>
+                                        <td>23</td>
+                                        <td>100</td>
+                                        <td>2300</td>
+                                        <td>Azuz distributers</td>
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        <td>
+                                            <!-- <button class="btn btn-success">send</button> -->
+                                            <button class="btn btn-success"><i
+                                                    class="fa-solid fa-money-check-dollar"></i></button>
+                                            <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                            <!-- grn end -->
+                            <!-- add more details modal start-->
+                            <button onclick="document.getElementById('moreSpecModal').style.display='block'"
+                                class="w3-button w3-green">
+                                Add More Specifications</button>
+                            <div id="moreSpecModal" class="w3-modal">
+                                <div class="w3-modal-content w3-animate-top w3-animate-fade w3-card-4">
+                                    <header class="w3-container w3-blue">
+                                        <span onclick="document.getElementById('moreSpecModal').style.display='none'"
+                                            class="w3-button w3-display-topright">&times;</span>
+                                        <h4>Add More Specs</h4>
+                                    </header>
+                                    <div class="w3-container">
+                                        <table class="w3-table-all w3-hoverable mt-3 mb-3">
+                                            <thead>
+                                                <tr class="w3-light-grey">
+                                                    <th>Specification</th>
+                                                    <th>Details</th>
+                                                    <th>Delete Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tr>
+                                                <td>Read/Write Speeds</td>
+                                                <td>7,000/5,100 MB/s</td>
+                                                <td>No</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cache Memory
+                                                </td>
+                                                <td>Samsung 2GB Low Power DDR4 SDRAM
+                                                </td>
+                                                <td>No</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Security</td>
+                                                <td>AES 256-bit Full Disk Encryption, TCG/Opal V2.0, Encrypted Drive
+                                                    (IEEE1667)
+                                                </td>
+                                                <td>No</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <footer class="w3-container ">
+                                        <div class="row p-2 d-flex justify-content-end align-items-center"
+                                            style="display: flex; flex-direction: row; gap:10px;">
+                                            <button class="col-3 btn btn-warning">UPDATE</button>
+                                            <button class="col-3 btn btn-primary">ADD</button>
+
+                                        </div>
+                                    </footer>
+                                </div>
+                            </div>
+                            <!-- add more details modal end-->
+
+
+                            <!-- button gruop start -->
+                            <div class="row p-2 d-flex justify-content-end align-items-center"
+                                style="display: flex; flex-direction: row; gap:10px;">
+                                <button class="col-3 btn btn-warning">UPDATE</button>
+                                <button class="col-3 btn btn-primary">ADD</button>
+
+                            </div>
+                            <!-- button gruop end -->
+
+
 
                         </form>
                         <!-- Supplier form end -->
