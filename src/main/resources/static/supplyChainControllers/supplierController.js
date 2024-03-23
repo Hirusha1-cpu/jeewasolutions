@@ -20,7 +20,7 @@ const refreshSupplyForm = () => {
     brandByCategory.innerHTML = ""
     categoryByBrand.innerHTML = ""
 
-    
+
 }
 
 const filterByCategory = () => {
@@ -49,13 +49,13 @@ const filterByCategory = () => {
 
                 categoryBrand.brand_id = element;
                 supplier.categoriesBrandsWithSuppliers.push(categoryBrand)
-            }else{
-                supplier.categoriesBrandsWithSuppliers.forEach( (ele , ind)=>{
+            } else {
+                supplier.categoriesBrandsWithSuppliers.forEach((ele, ind) => {
                     if (ele.category_id.id == JSON.parse(selectCategory.value).id && ele.brand_id.id == element.id) {
-                       supplier.categoriesBrandsWithSuppliers.splice(ind, 1); 
+                        supplier.categoriesBrandsWithSuppliers.splice(ind, 1);
                     }
                 })
-                
+
             }
         }
 
@@ -198,23 +198,23 @@ const bankDetails = () => {
     const input3 = document.getElementById("inputAccName")
     const input4 = document.getElementById("inputAccHolderName")
 
-   
-        const newBankDetails = {
-            bankname: input1.value,
-            branchname: input2.value,
-            accno: input3.value,
-            accholdername: input4.value,
-            // supplier_id:{id: 3}
-        };
 
-        supplier.bankDetailsOfSuppliers.push(newBankDetails);
-        console.log(supplier.bankDetailsOfSuppliers);
-   
+    const newBankDetails = {
+        bankname: input1.value,
+        branchname: input2.value,
+        accno: input3.value,
+        accholdername: input4.value,
+        // supplier_id:{id: 3}
+    };
+
+    supplier.bankDetailsOfSuppliers.push(newBankDetails);
+    console.log(supplier.bankDetailsOfSuppliers);
+
 
 }
 
 const supplierAdd = () => {
-   // console.log();
+    // console.log();
     bankDetails();
     /* let serverResponse = ajaxRequestBodyMethod("/supplier", "POST", supplier);
     let serverResponse1 = ajaxRequestBodyMethod("/supplierbankdetails", "POST", supplierbankdetails);
@@ -225,11 +225,11 @@ const supplierAdd = () => {
     console.log("serverResponse2=====>", serverResponse2);
     alert(serverResponse)
 
-  */ 
+  */
     let serverResponse = ajaxRequestBodyMethod("/supplier", "POST", supplier);
     alert(serverResponse)
     console.log("serverResponse==>", serverResponse);
-   console.log("supplier===>", supplier);
- //   console.log("supplier bank details===>", supplierbankdetails);
-   // console.log("supplier category details===>", supplierhascategory);
+    console.log("supplier===>", supplier);
+    //   console.log("supplier bank details===>", supplierbankdetails);
+    // console.log("supplier category details===>", supplierhascategory);
 }

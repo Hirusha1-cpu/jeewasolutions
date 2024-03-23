@@ -5,7 +5,7 @@
 
 </head>
 
-<head th:replace="~{ layouts/head :: headSupplierFragment}">
+<head th:replace="~{ layouts/head :: headPurchaseFragment}">
 
 </head>
 
@@ -29,8 +29,8 @@
 
                     <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
 
-                        <h4>Supplier Table</h4>
-                        <button id="empaddbtn" class="btn btn-success mb-2">Add Supplier</button>
+                        <h4>Purchase Table</h4>
+                        <button id="empaddbtn" class="btn btn-success mb-2">Add Purchase</button>
                     </div>
                     <div class="container-fluid">
                         <div class="mb-3 table-responsive">
@@ -38,17 +38,15 @@
                                 <thead>
 
                                     <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Memory</th>
-                                    <th scope="col">Power Supply</th>
-                                    <th scope="col">Sales Price</th>
-                                    <th scope="col">Purchase Price</th>
-                                    <th scope="col">Min Discount</th>
-                                    <th scope="col">Max Discount</th>
-                                    <th scope="col">Brand</th>
+                                    <th scope="col">Purchase Code</th>
                                     <th scope="col">Category</th>
-                                    <th scope="col">Pc Part Status</th>
+                                    <th scope="col">Item Brand</th>
+                                    <th scope="col">Item Name</th>
+                                    <th scope="col">Qty</th>
+                                    <th scope="col">Supplier</th>
+                                    <th scope="col">Send Status</th>
                                     <th scope="col">Button</th>
+
 
                                 </thead>
                                 <tbody>
@@ -64,162 +62,195 @@
                 <div id="empForm" class="w3-animate-left" style="display: none;">
                     <div class=" " style="display: flex; justify-content: space-between; align-items: center;">
                         <button id="empFormToTable" class="btn btn-success mb-3">Table</button>
-                        <h4>Supplier Form</h4>
+                        <h4>Purchase Form</h4>
                     </div>
 
                     <div style="border: 1px solid black; padding: 10px;">
 
                         <!-- Supplier form start -->
-                        <form class="p-2 m-2">
+                        <!-- onsubmit="return false;" -->
+                        <form class="p-2 m-2" onsubmit="return false;">
 
-                            <!-- Supplier Name start -->
-                            <div class="form-floating mb-3 mt-3">
-                                <input type="text" class="form-control" id="supplierName" placeholder="Supplier Name"
-                                    value=""
-                                    onchange="textValidation(supplierName, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'supplier', 'name');">
-                                <label for="supplierName">Supplier Name</label>
+                            <!-- category start -->
+                            <div class="mb-3 mt-3">
+                                <div class="row form-floating">
+                                    <div class="" id="CategoryPur">
+                                        <div class="card card-body">
+                                            <div class="row">
+
+                                                <div class="col-5">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="selectPurchCategory" onchange="filterCategoryItems()">
+                                                        >
+
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-7 checkboxes-container"
+                                                    style="display: flex; flex-direction: column; gap: 10px;"
+                                                    id="categoryItemCheckBoxes">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                            <!-- Supplier Name end -->
+                            <!-- category end -->
 
-                            <!-- supplier address, contact no, email start -->
+                            <!-- qty, item price start -->
                             <div class="row mt-3 p-2 d-flex justify-content-center align-items-center ">
                                 <div class="col-4 form-floating mb-3 p-1">
-                                    <input type="text" class="form-control" id="supplierContact"
-                                        placeholder="Selling Price"
-                                        onchange="textValidation(supplierContact,'^[0][7][1245678][0-9]{7}$', 'supplier', 'contactnumber');">
-
-                                    <label for="floatingInput" class="pl-2">Supplier No</label>
+                                    <input type="text" class="purchaseQty form-control" id="purchaseQty"
+                                        onchange="purchaseQtyy()">
+                                    <label for="purchaseQty" class="pl-2">Qty</label>
                                 </div>
                                 <div class="col-4 form-floating mb-3 p-1">
-                                    <input type="text" class="form-control" id="supplierEmail"
-                                        placeholder="Purchase Price"
-                                        onchange="textValidation(supplierEmail, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'supplier', 'email');">
-
-                                    <label for="floatingInput">Supplier Email</label>
+                                    <input type="text" class="purchaseItemPrice form-control" id="purchaseItemPrice"
+                                        placeholder="Purchase Price" onchange="purchaseItemQty()">
+                                    <label for="floatingInput">Item Price</label>
                                 </div>
                                 <div class="col-4 form-floating mb-3 p-1">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="QTY">
-                                    <label for="floatingInput">Supplier Address</label>
+
                                 </div>
 
+
                             </div>
-                            <!-- supplier address, contact no, email end -->
+                            <!-- qty, item price end -->
 
-                            <!-- category vise brands start -->
-                            <p class="d-inline-flex gap-1">
 
-                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseCategory" aria-expanded="false"
-                                    aria-controls="collapseCategory">
-                                    Category Vise
-                                </button>
-                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseBrand" aria-expanded="false" aria-controls="collapseBrand">
-                                    Brand Vise
-                                </button>
-                            </p>
-                            <div class="collapse" id="collapseCategory">
-                                <div class="card card-body">
-                                    <div class="row">
+                            <!-- suppliers list according to categories start -->
+                            <div class="card p-2 mb-3">
+                                <div class="row m-1">
 
-                                        <div class="col-5">
-                                            <select class="cat form-select" id="selectCategory"
-                                                aria-label="Default select example"
-                                                onchange="selectDFieldValidation(selectCategory,'', 'supplierhascategory', 'category_id'); filterByCategory()">
+                                    <div class=" col-2 p-2" style="font-weight: bolder;" id="">Suppliers List</div>
+                                    <div class="col form-check p-2">
+                                        <input class="form-check-input allSupplierList" type="checkbox" value=""
+                                            id="allSupplierList1" onchange="allSuppliers(this);">
 
-                                            </select>
-                                        </div>
-
-                                        <div class="col-7 checkboxes-container"
-                                            style="display: flex; flex-wrap: wrap; gap: 10px;" id="brandByCategory">
-                                            <div class="form-check  ">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="flexCheckChecked1">
-                                                <label class="form-check-label" for="flexCheckChecked1">
-                                                    Azuz
-                                                </label>
-                                            </div>
-                                        </div>
+                                        <label class="form-check-label " style="font-weight: bolder;"
+                                            for="allSupplierList1">
+                                            All
+                                        </label>
                                     </div>
+
+                                </div>
+                                <div class="col-7 checkboxes-container supplierlist" id="supplierlistByCategory"
+                                    style="display: flex;  flex-wrap: wrap; gap: 10px;">
+
+
                                 </div>
                             </div>
-                            <div class="collapse" id="collapseBrand">
-                                <div class="card card-body">
-                                    <div class="row">
+                            <!-- suppliers list according to categories end -->
 
-                                        <div class="col-5">
-                                            <select class="form-select" id="selectBrand"
-                                                aria-label="Default select example"
-                                                onchange="selectDFieldValidation(selectBrand,'', 'supplierhascategory', 'brand_id'); filterByBrand()">
-                                            </select>
-                                        </div>
 
-                                        <div class="col-7 checkboxes-container"
-                                            style="display: flex; flex-wrap: wrap; gap: 10px;" id="categoryByBrand">
-                                            <div class="form-check border-bottom border-3 border-success">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="flexCheckChecked1">
-                                                <label class="form-check-label" for="flexCheckChecked1">
-                                                    Graphic Card
-                                                </label>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
+                            <!-- add button start -->
+                            <div class="mb-3">
+                                <button class="btn btn-success" onclick="addItemSupp()">Add</button>
                             </div>
-                            <br>
-                            <!-- category vise brands end -->
-                            <!-- Bank details start -->
-                            <p class="d-inline-flex gap-1">
+                            <!-- add button end -->
 
-                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseBankDetails" aria-expanded="false"
-                                    aria-controls="collapseBankDetails">
-                                    Bank Details
-                                </button>
+                            <!-- table of descriptions start -->
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Item Code</th>
+                                        <th scope="col">Item Category</th>
+                                        <th scope="col">Item brand</th>
+                                        <th scope="col">Item Name</th>
+                                        <th scope="col">Item Qty</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Buttons</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">00001</th>
+                                        <td>Ram</td>
+                                        <td>Azus</td>
+                                        <td>AES 256-bit....</td>
+                                        <td>1</td>
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        <td>
+                                            <!-- <button class="btn btn-success">send</button> -->
+                                            <button class="btn btn-danger">delete</button>
+                                            <button class="btn btn-info"><i
+                                                    class="fa-solid fa-pen-to-square"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: lightcoral;">
+                                        <th scope="row">00002</th>
+                                        <td>Graphic Card</td>
+                                        <td>Azus</td>
 
-                            </p>
-                            <div class="collapse" id="collapseBankDetails">
-                                <div class="card card-body">
-                                    <form class=" ">
-                                        <div class="row mt-3 d-flex justify-content-center align-items-center ">
-                                            <div class="col-6 form-floating  p-1">
-                                                <input type="text" class="form-control" id="inputBankName"
-                                                    onchange="textValidation(inputBankName,'^([A-Z][a-z]{2,30})$', 'supplierbankdetails', 'bankname');">
-                                                <label for="floatingInput" class="pl-2">Bank Name</label>
-                                            </div>
-                                            <div class="col-6 form-floating  p-1">
-                                                <input type="text" class="form-control" id="inputBankBranch"
-                                                    onchange="textValidation(inputBankBranch,'^([A-Z][a-z]{2,30})$', 'supplierbankdetails', 'branchname');">
-                                                <label for="floatingInput">Bank Branch Name</label>
-                                            </div>
+                                        <td>AES 256-bit.....</td>
+                                        <td>2</td>
+                                        <td><i class="fa-solid fa-xmark" style="color: #e51f1f;"></i></td>
+                                        <td>
+                                            <!-- <button class="btn btn-success">send</button> -->
+                                            <button class="btn btn-danger">delete</button>
+                                            <button class="btn btn-info"><i
+                                                    class="fa-solid fa-pen-to-square"></i></button>
 
-                                        </div>
-                                        <div class="row d-flex justify-content-center align-items-center ">
+                                        </td>
+                                    </tr>
 
+                                </tbody>
+                            </table>
+                            <!-- table of descriptions end -->
 
-                                            <div class="col-6 form-floating p-1">
-                                                <input type="text" class="form-control" id="inputAccName"
-                                                    onchange="textValidation(inputAccName,'^([0-9]{2,10})$', 'supplierbankdetails', 'accno');">
-                                                <label for="floatingInput">Account Number</label>
-                                            </div>
-                                            <div class="col-6 form-floating p-1">
-                                                <input type="text" class="form-control" id="inputAccHolderName"
-                                                    onchange="textValidation(inputAccHolderName,'^([A-Z][a-z]{2,30})$', 'supplierbankdetails', 'accholdername');">
-                                                <label for="floatingInput">Account Holder Name</label>
-                                            </div>
-                                        </div>
-
-                                    </form>
-                                </div>
-                            </div>
-
-                            <br>
-                            <!-- Bank details end -->
+                            <hr>
 
 
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Purchase Code</th>
+                                        <th scope="col">Item Code</th>
+                                        <th scope="col">Supplier</th>
+                                        <th scope="col">Supplier Status</th>
+                                        <th scope="col">Supplier Contact</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Buttons</th>
 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>00001</td>
+                                        <td> Singer-(Kamal Sampath)</td>
+                                        <td>Active</td>
+                                        <td>hirusaaj@gmail.com</td>
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        <td>
+                                            <button class="btn btn-success">send</button>
+                                            <button class="btn btn-info"><i
+                                                    class="fa-solid fa-pen-to-square"></i></button>
+
+                                            <button class="btn btn-danger">delete</button>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>00002</td>
+                                        <td>Panasonic-(Kamal Sampath)</td>
+                                        <td>Active</td>
+                                        <td>hirusaaj@gmail.com</td>
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        <td><button class="btn btn-success"><i class="fa-solid fa-check"></i></button>
+                                            <button class="btn btn-info"><i
+                                                    class="fa-solid fa-pen-to-square"></i></button>
+
+                                            <button class="btn btn-danger">cancel</button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <form action=""></form>
 
                             <!-- add more details modal start-->
                             <button onclick="document.getElementById('moreSpecModal').style.display='block'"
@@ -278,12 +309,11 @@
                             <!-- button gruop start -->
                             <div class="row p-2 d-flex justify-content-end align-items-center"
                                 style="display: flex; flex-direction: row; gap:10px;">
-                                <button class="col-3 btn btn-warning" onclick="">UPDATE</button>
-                                <button class="col-3 btn btn-primary suppAdd" onclick="supplierAdd()">ADD</button>
+                                <button class="col-3 btn btn-warning" disabled>UPDATE</button>
+                                <button class="col-3 btn btn-primary" disabled>ADD</button>
 
                             </div>
                             <!-- button gruop end -->
-
 
                         </form>
                         <!-- Supplier form end -->

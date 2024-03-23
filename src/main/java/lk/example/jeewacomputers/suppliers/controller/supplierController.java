@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,11 @@ public class SupplierController {
     public List<Supplier> findAllData() {
         // login user authentication and authorization
         return dao.findAll(Sort.by(Direction.DESC, "id"));
+    }
+
+   @GetMapping(value = "/supplier/namebycategory/{category_id}", produces = "application/json")
+    public List<Supplier> getSupplierNameByCategory(@PathVariable("category_id") Integer category_id) {
+        return dao.getSupplierNameFromCategory(category_id);
     }
 
     @RequestMapping(value = "/supplier")

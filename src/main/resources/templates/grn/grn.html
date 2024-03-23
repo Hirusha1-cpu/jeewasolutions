@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{ layouts/head :: headFragment}">
+
+</head>
+
+<head th:replace="~{ layouts/head :: headGRNFragment}">
+
+</head>
+
+
+<body>
+    <div class="wrapper">
+
+        <!-- side bar -->
+        <aside th:replace="~{ layouts/sidebar :: sidebarfragment}"></aside>
+
+
+        <!-- ui content area start -->
+        <div class="main">
+            <!-- top navbar -->
+            <nav th:replace="~{ layouts/navbar :: topnavbarfragment}"></nav>
+            <!-- main component start -->
+            <main class="content px-3 py-2 w3-container">
+
+                <!-- employee table start -->
+                <div class="w3-animate-right" id="empTable">
+
+                    <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
+
+                        <h4>GRN Table</h4>
+                        <button id="empaddbtn" class="btn btn-success mb-2">Add GRN</button>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="mb-3 table-responsive">
+                            <table class="table table-dark table-bordered border-primary" id="graphicTab">
+                                <thead>
+
+                                    <th scope="col">#</th>
+                                    <th scope="col">Purchase Code</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Item Brand</th>
+                                    <th scope="col">Item Name</th>
+                                    <th scope="col">Qty</th>
+                                    <th scope="col">Supplier</th>
+                                    <th scope="col">Send Status</th>
+                                    <th scope="col">Button</th>
+
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- employee table end -->
+
+                <!-- employee form start -->
+                <div id="empForm" class="w3-animate-left" style="display: none;">
+                    <div class=" " style="display: flex; justify-content: space-between; align-items: center;">
+                        <button id="empFormToTable" class="btn btn-success mb-3">Table</button>
+                        <h4>GRN Form</h4>
+                    </div>
+
+                    <div style="border: 1px solid black; padding: 10px;">
+
+                        <!-- Supplier form start -->
+                        <!-- onsubmit="return false;" -->
+                        <form class="p-2 m-2" onsubmit="return false;">
+
+                    
+
+                        </form>
+                        <!-- Supplier form end -->
+                    </div>
+
+
+                </div>
+                <!-- employee form end -->
+
+            </main>
+            <!-- main component end -->
+
+        </div>
+        <!-- ui content area end -->
+    </div>
+
+
+    <script src="templates/layouts/layout1.js"></script>
+    <script src="templates/layouts/layout2.js"></script>
+
+</body>
+
+</html>
