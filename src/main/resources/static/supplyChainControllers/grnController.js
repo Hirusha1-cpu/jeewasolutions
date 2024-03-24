@@ -7,5 +7,6 @@ window.addEventListener('load', () => {
 const refreshGrnForm = () => {
     grn = new Object();
     purchaseOrders = ajaxGetRequest("/purchase/getlist")
-    fillDataIntoSelect(selectPurchCategory,"Select Category",categories, 'name')
+    fillDataIntoSelect(selectPurchaseOrder,"Select Purchase Order",purchaseOrders, 'purchase_code')
 }
+

@@ -24,7 +24,7 @@
             <!-- main component start -->
             <main class="content px-3 py-2 w3-container">
 
-                <!-- employee table start -->
+                <!-- GRN table start -->
                 <div class="w3-animate-right" id="empTable">
 
                     <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
@@ -56,9 +56,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- employee table end -->
+                <!-- GRN table end -->
 
-                <!-- employee form start -->
+                <!-- GRN form start -->
                 <div id="empForm" class="w3-animate-left" style="display: none;">
                     <div class=" " style="display: flex; justify-content: space-between; align-items: center;">
                         <button id="empFormToTable" class="btn btn-success mb-3">Table</button>
@@ -75,7 +75,55 @@
                                 <div id="date" class="fw-bolder" style="color: red;">2024-09-09</div>
                             </div>
                             <!-- date end -->
+                            <!-- filering start -->
+                            <div class="row">
+
+                                <div class="col-3 p-2 checkboxes-container" style="display: flex; flex-direction: column; gap: 10px;">
+                                    <div class="form-check  ">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1">
+                                        <label class="form-check-label" for="flexCheckChecked1">
+                                            Category Vise
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-5 p-2">
+    
+                                    <select class="form-select col-5" aria-label="Default select example"
+                                        id="selectPurchaseOrder">
+                                        <option selected>Select Category</option>
+                                        <option value="1">Graphic Card</option>
+                                        <option value="2">Ram</option>
+                                    </select>
+                                </div>
+                                <div class="col-4"></div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-3 p-2 checkboxes-container" style="display: flex; flex-direction: column; gap: 10px;">
+                                    <div class="form-check  ">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1">
+                                        <label class="form-check-label" for="flexCheckChecked1">
+                                            Supplier Vise
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-5 p-2">
+    
+                                    <select class="form-select col-5" aria-label="Default select example"
+                                        id="selectPurchaseOrder">
+                                        <option selected>Select Supplier</option>
+                                        <option value="1">Azus</option>
+                                        <option value="2">Gigabyte</option>
+                                    </select>
+                                </div>
+                                <div class="col-4"></div>
+                            </div>
+
+                            <!-- filering end -->
                             <!-- purchase order start -->
+                            <div class="row fw-semibold  " style="padding-left: 16px; color: green;">
+                                Purchase orders due today
+                            </div>
                             <div class="row p-2">
 
                                 <select class="form-select col-5" aria-label="Default select example"
@@ -260,7 +308,7 @@
 
 
                 </div>
-                <!-- employee form end -->
+                <!-- GRN form end -->
 
             </main>
             <!-- main component end -->
