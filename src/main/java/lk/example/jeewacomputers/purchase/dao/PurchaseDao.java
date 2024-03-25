@@ -6,5 +6,5 @@ import lk.example.jeewacomputers.purchase.entity.Purchase;
 
 public interface PurchaseDao extends JpaRepository<Purchase, Integer> {
 
-    
+     
 } 

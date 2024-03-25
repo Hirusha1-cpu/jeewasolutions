@@ -89,7 +89,7 @@
                                 <div class="col-5 p-2">
     
                                     <select class="form-select col-5" aria-label="Default select example"
-                                        id="selectPurchaseOrder">
+                                        id="selectCategories">
                                         <option selected>Select Category</option>
                                         <option value="1">Graphic Card</option>
                                         <option value="2">Ram</option>
@@ -110,7 +110,7 @@
                                 <div class="col-5 p-2">
     
                                     <select class="form-select col-5" aria-label="Default select example"
-                                        id="selectPurchaseOrder">
+                                        id="selectSuppliers">
                                         <option selected>Select Supplier</option>
                                         <option value="1">Azus</option>
                                         <option value="2">Gigabyte</option>
@@ -127,10 +127,8 @@
                             <div class="row p-2">
 
                                 <select class="form-select col-5" aria-label="Default select example"
-                                    id="selectPurchaseOrder">
-                                    <option selected>Select Purchase Order</option>
-                                    <option value="1">Graphic Card</option>
-                                    <option value="2">Ram</option>
+                                    id="selectPurchaseOrder1" onchange="addPurchaseOrderItemToTable()">
+                                   
                                 </select>
                             </div>
 
@@ -164,9 +162,10 @@
                             </div>
 
                             <!-- purchase order start -->
-                            <table class="table">
+                            <table class="table" id="selectedPurchaseOrderTable">
                                 <thead>
                                     <tr>
+                                        <th scope="col">#</th>
                                         <th scope="col">Purchase Code</th>
                                         <th scope="col">Item Name</th>
                                         <th scope="col">Item Price</th>

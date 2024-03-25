@@ -40,6 +40,7 @@ public class PurchaseController {
         // login user authentication and authorization
         return dao.findAll(Sort.by(Direction.DESC, "id"));
     }
+    
 
     // load the employee ui file using requesting this url (/employee)
     @RequestMapping(value = "/purchase")

@@ -8,12 +8,14 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import lk.example.jeewacomputers.grnanditem.dao.GrnDao;
 import lk.example.jeewacomputers.grnanditem.entity.Grn;
+import lk.example.jeewacomputers.purchase.entity.Purchase;
 
 @RestController
 public class GrnController {
@@ -25,6 +27,12 @@ public class GrnController {
     public List<Grn> findAll() {
         // login user authentication and authorization
         return dao.findAll(Sort.by(Direction.DESC, "id"));
+    }
+
+    @GetMapping(value = "/grn/purchaseoredrs/{purchase_id}", produces = "application/json")
+    public List<Grn> findPurchaseOrders(@PathVariable("purchase_id") Integer purchase_id) {
+        // login user authentication and authorization
+        return dao.getPurchaseOrdersWithCode(purchase_id);
     }
 
     @RequestMapping(value = "/grn")

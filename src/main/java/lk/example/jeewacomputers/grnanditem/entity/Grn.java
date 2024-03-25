@@ -60,5 +60,9 @@ public class Grn {
     // @NotNull
     private String paid_status;
 
+    @Column(name = "lineprice")
+    // @NotNull
+    private String lineprice;
+
 
 }
