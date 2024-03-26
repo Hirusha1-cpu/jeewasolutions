@@ -78,7 +78,8 @@
                             <!-- filering start -->
                             <div class="row">
 
-                                <div class="col-3 p-2 checkboxes-container" style="display: flex; flex-direction: column; gap: 10px;">
+                                <div class="col-3 p-2 checkboxes-container"
+                                    style="display: flex; flex-direction: column; gap: 10px;">
                                     <div class="form-check  ">
                                         <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1">
                                         <label class="form-check-label" for="flexCheckChecked1">
@@ -87,7 +88,7 @@
                                     </div>
                                 </div>
                                 <div class="col-5 p-2">
-    
+
                                     <select class="form-select col-5" aria-label="Default select example"
                                         id="selectCategories">
                                         <option selected>Select Category</option>
@@ -99,7 +100,8 @@
                             </div>
                             <div class="row">
 
-                                <div class="col-3 p-2 checkboxes-container" style="display: flex; flex-direction: column; gap: 10px;">
+                                <div class="col-3 p-2 checkboxes-container"
+                                    style="display: flex; flex-direction: column; gap: 10px;">
                                     <div class="form-check  ">
                                         <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1">
                                         <label class="form-check-label" for="flexCheckChecked1">
@@ -108,7 +110,7 @@
                                     </div>
                                 </div>
                                 <div class="col-5 p-2">
-    
+
                                     <select class="form-select col-5" aria-label="Default select example"
                                         id="selectSuppliers">
                                         <option selected>Select Supplier</option>
@@ -128,7 +130,7 @@
 
                                 <select class="form-select col-5" aria-label="Default select example"
                                     id="selectPurchaseOrder1" onchange="addPurchaseOrderItemToTable()">
-                                   
+
                                 </select>
                             </div>
 
@@ -136,24 +138,37 @@
 
                             <!-- grn details start -->
                             <div class="row fw-semibold  " style="padding-left: 16px; color: green;">
-                                Add GRN Details
+                                <div class="col-2">
+                                    Add GRN Details
+                                </div>
+                                <div class="col-2">
+
+                                    <span id="purchaseOId" style="color: red;"></span>
+                                </div>
                             </div>
                             <!-- grn details end -->
 
                             <!-- qty, unit price and add button start -->
                             <div class="row p-2 d-flex justify-content-center align-items-center ">
                                 <div class="col-4 form-floating p-1">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    <input type="text" class="form-control" id="inputPurchaseQuantity" placeholder="">
                                     <label for="floatingInput" class="pl-2">Quantity</label>
                                 </div>
                                 <div class="col-4 form-floating p-1">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    <input type="text" class="form-control" id="inputPurchaseItemPrice" placeholder="">
                                     <label for="floatingInput">Unit Price</label>
                                 </div>
                                 <div class="col-4 form-floating p-1">
-                                    <button class="btn btn-success">Add GRN </button>
+                                    <input type="text" class="form-control" id="inputPurchaseLinePrice" placeholder="">
+                                    <label for="floatingInput">Line Price</label>
                                 </div>
 
+
+                            </div>
+                            <div class="row">
+                                <div class="col-4 p-2 form-floating p-1">
+                                    <button class="btn btn-success">Add GRN</button>
+                                </div>
                             </div>
                             <!-- qty, unit price and add button end -->
 
@@ -177,21 +192,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">00001</th>
-                                        <td>Ram</td>
-                                        <td>23</td>
-                                        <td>100</td>
-                                        <td>2300</td>
-                                        <td>Azuz distributers</td>
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        <td>
-                                            <!-- <button class="btn btn-success">send</button> -->
-                                            <button class="btn btn-success"><i
-                                                    class="fa-solid fa-money-check-dollar"></i></button>
-                                            <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                        </td>
-                                    </tr>
 
 
                                 </tbody>

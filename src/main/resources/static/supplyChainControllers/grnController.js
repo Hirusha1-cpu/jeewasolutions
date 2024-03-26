@@ -20,10 +20,15 @@ const refreshGrnForm = () => {
 }
 
 const purchaseOrderTable = () => {
+    inputPurchaseQuantity.value = ""
+    inputPurchaseItemPrice.value = ""
+    inputPurchaseLinePrice.value = ""
+    purchaseOId.innerHTML = ""
+
     purchaseOrders = ajaxGetRequest("/grn/purchaseoredrs/" + JSON.parse(selectPurchaseOrder1.value).id)
-    console.log(purchaseOrders);
-    
-    const processedData = processPurchaseOrders(purchaseOrders); 
+    console.log("purchaseOrders",purchaseOrders);
+
+    const processedData = processPurchaseOrders(purchaseOrders);
 
     // Add new items to existingItems
     existingItems.push(...processedData);
@@ -42,10 +47,14 @@ const purchaseOrderTable = () => {
 const processPurchaseOrders = (purchaseOrders) => {
     const processedItems = [];
     for (const purchaseOrder of purchaseOrders) {
-       
+
         processedItems.push(purchaseOrder);
+        inputPurchaseQuantity.value = purchaseOrders[0].purchase_id.purchaseHasCategory[0]?.qty ?? "-"
+        inputPurchaseItemPrice.value = purchaseOrders[0].purchase_id.purchaseHasCategory[0]?.itemprice ?? "-"
+        inputPurchaseLinePrice.value = purchaseOrders[0].purchase_id.purchaseHasCategory[0]?.lineprice ?? "-"
+        purchaseOId.innerHTML = purchaseOrders[0].purchase_id.id
     }
-    console.log("processedItems",processedItems);
+    console.log("processedItems", processedItems);
     return processedItems;
 };
 const getPurchaseCode = (rowObject) => {
