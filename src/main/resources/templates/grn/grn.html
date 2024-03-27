@@ -90,7 +90,8 @@
                                 <div class="col-5 p-2">
 
                                     <select class="form-select col-5" aria-label="Default select example"
-                                        id="selectCategories">
+                                        id="selectCategories" 
+                                        >
                                         <option selected>Select Category</option>
                                         <option value="1">Graphic Card</option>
                                         <option value="2">Ram</option>
@@ -129,7 +130,8 @@
                             <div class="row p-2">
 
                                 <select class="form-select col-5" aria-label="Default select example"
-                                    id="selectPurchaseOrder1" onchange="addPurchaseOrderItemToTable()">
+                                    id="selectPurchaseOrder1" onchange="
+                                    selectDFieldValidation(selectPurchaseOrder1,'', 'grn', 'purchase_id'); addPurchaseOrderItemToTable()">
 
                                 </select>
                             </div>
@@ -151,15 +153,18 @@
                             <!-- qty, unit price and add button start -->
                             <div class="row p-2 d-flex justify-content-center align-items-center ">
                                 <div class="col-4 form-floating p-1">
-                                    <input type="text" class="form-control" id="inputPurchaseQuantity" placeholder="">
+                                    <input type="number" class="form-control" id="inputPurchaseQuantity" placeholder=""
+                                    onkeyup="textValidation(inputPurchaseQuantity, '', 'grn', 'qty');">
                                     <label for="floatingInput" class="pl-2">Quantity</label>
                                 </div>
                                 <div class="col-4 form-floating p-1">
-                                    <input type="text" class="form-control" id="inputPurchaseItemPrice" placeholder="">
+                                    <input type="text" class="form-control" id="inputPurchaseItemPrice" placeholder=""
+                                    onkeyup="textValidation(inputPurchaseItemPrice, '', 'grn', 'item_price'); generateLinePrice()">
                                     <label for="floatingInput">Unit Price</label>
                                 </div>
                                 <div class="col-4 form-floating p-1">
-                                    <input type="text" class="form-control" id="inputPurchaseLinePrice" placeholder="">
+                                    <input type="text" class="form-control" id="inputPurchaseLinePrice" placeholder=""
+                                    onchange="textValidation(inputPurchaseLinePrice, '', 'grn', 'lineprice');">
                                     <label for="floatingInput">Line Price</label>
                                 </div>
 
@@ -167,7 +172,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-4 p-2 form-floating p-1">
-                                    <button class="btn btn-success">Add GRN</button>
+                                    <button class="btn btn-success" onclick="addGrn()">Add GRN</button>
                                 </div>
                             </div>
                             <!-- qty, unit price and add button end -->
@@ -202,9 +207,10 @@
                             </div>
 
                             <!-- grn start -->
-                            <table class="table">
+                            <table class="table" id="selectedGrnTable">
                                 <thead>
                                     <tr>
+                                        <th scope="col">#</th>
                                         <th scope="col">GRN Code</th>
                                         <th scope="col">Item Name</th>
                                         <th scope="col">Item Price</th>
@@ -216,23 +222,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">00001</th>
-                                        <td>Ram</td>
-                                        <td>23</td>
-                                        <td>100</td>
-                                        <td>2300</td>
-                                        <td>Azuz distributers</td>
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        <td>
-                                            <!-- <button class="btn btn-success">send</button> -->
-                                            <button class="btn btn-success"><i
-                                                    class="fa-solid fa-money-check-dollar"></i></button>
-                                            <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-
-
+     
                                 </tbody>
                             </table>
                             <!-- grn end -->

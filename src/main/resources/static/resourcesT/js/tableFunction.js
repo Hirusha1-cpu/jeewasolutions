@@ -112,7 +112,7 @@ const fillDataIntoTable = (tableId, dataList, propertyList, editButtonFunction, 
 
 }
 
-const fillDataIntoPurcahseTable = (tableId, dataList, propertyList, purchaseButtonFunction, deleteButtonFunction,
+const fillDataIntoPurcahseTable = (tableId, dataList, propertyList, purchaseButtonFunction, deleteButtonFunction,sendButtonFunction,
     buttonVisibility = true, privilegeOb = null) => {
     //create variable for store body
     const tableBody = tableId.children[1];
@@ -172,6 +172,14 @@ const fillDataIntoPurcahseTable = (tableId, dataList, propertyList, purchaseButt
             // deleteEmp(index);
             deleteButtonFunction(item, index);
         }
+        const btnSend = document.createElement('button');
+        btnSend.className = 'btn btn-info ms-1 me-1'
+        btnSend.innerHTML = '<i class="fa-regular fa-paper-plane"></i>'
+        btnSend.onclick = (index) => {
+            // console.log('delete',item.id);
+            // deleteEmp(index);
+            sendButtonFunction(item, index);
+        }
 
         const deleteEmp = (rowindex) => {
             const userConfirm = confirm('Are you sure you want to delete' + employees[rowindex].fullname);
@@ -193,6 +201,7 @@ const fillDataIntoPurcahseTable = (tableId, dataList, propertyList, purchaseButt
             tdButton.appendChild(btnEdit);
             
             tdButton.appendChild(btnDelete);
+            tdButton.appendChild(btnSend);
 
             // tdButton.appendChild(buttonPrint);
             tr.appendChild(tdButton);
@@ -202,3 +211,4 @@ const fillDataIntoPurcahseTable = (tableId, dataList, propertyList, purchaseButt
     })
 
 }
+
