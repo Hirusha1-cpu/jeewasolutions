@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -58,9 +59,10 @@ public class Purchase {
     @JoinColumn(name="purchasestatus_id", referencedColumnName = "id")
     private PurchaseStatus purchasestatus_id;
 
+    @JsonIgnoreProperties(value = {"contactnumber","user_id","supplier_code","supplierstatus_id","categoriesBrandsWithSuppliers","bankDetailsOfSuppliers","email"})
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name="supplier_id", referencedColumnName = "id")
-    @JsonIgnore
+    // @JsonIgnore
     private Supplier supplier_id;
 
     @ManyToOne
