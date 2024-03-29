@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,12 @@ public class PurchaseController {
         // login user authentication and authorization
         return dao.findAll(Sort.by(Direction.DESC, "id"));
     }
+
+      @GetMapping(value = "/purchase/purchaseoredrs/{id}", produces = "application/json")
+    public Purchase findPurchaseOrders(@PathVariable("id") Integer id) {
+        // login user authentication and authorization
+        return dao.getPurchaseOrdersWithCode(id);
+    }
     
 
     // load the employee ui file using requesting this url (/employee)
@@ -60,7 +67,7 @@ public class PurchaseController {
 
         try {
             // set auto generated value
-            Supplier supplier = entityManager.find(Supplier.class, 2); // Assuming supplier ID is 1
+            // Supplier supplier = entityManager.find(Supplier.class, 2); // Assuming supplier ID is 1
 
             for (PurchaseHasCategory purchaseHasCategory : purchase.getPurchaseHasCategory()) {
                 purchaseHasCategory.setPurchase_id(purchase);
@@ -70,7 +77,7 @@ public class PurchaseController {
             purchase.setPurchase_code("PUR-ABC123");
             purchase.setNote("hhh");
             purchase.setAdded_datetime(LocalDateTime.now().toLocalDate());
-            purchase.setSupplier_id(supplier);
+            // purchase.setSupplier_id(supplier);
             // extPur.setPurchasestatus_id();
             // oparation
             dao.save(purchase);

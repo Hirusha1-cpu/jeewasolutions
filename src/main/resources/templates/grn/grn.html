@@ -92,9 +92,6 @@
                                     <select class="form-select col-5" aria-label="Default select example"
                                         id="selectCategories" 
                                         >
-                                        <option selected>Select Category</option>
-                                        <option value="1">Graphic Card</option>
-                                        <option value="2">Ram</option>
                                     </select>
                                 </div>
                                 <div class="col-4"></div>
@@ -115,8 +112,7 @@
                                     <select class="form-select col-5" aria-label="Default select example"
                                         id="selectSuppliers">
                                         <option selected>Select Supplier</option>
-                                        <option value="1">Azus</option>
-                                        <option value="2">Gigabyte</option>
+                                        
                                     </select>
                                 </div>
                                 <div class="col-4"></div>
@@ -137,46 +133,6 @@
                             </div>
 
                             <!-- purchase order end -->
-
-                            <!-- grn details start -->
-                            <div class="row fw-semibold  " style="padding-left: 16px; color: green;">
-                                <div class="col-2">
-                                    Add GRN Details
-                                </div>
-                                <div class="col-2">
-
-                                    <span id="purchaseOId" style="color: red;"></span>
-                                </div>
-                            </div>
-                            <!-- grn details end -->
-
-                            <!-- qty, unit price and add button start -->
-                            <div class="row p-2 d-flex justify-content-center align-items-center ">
-                                <div class="col-4 form-floating p-1">
-                                    <input type="number" class="form-control" id="inputPurchaseQuantity" placeholder=""
-                                    onkeyup="textValidation(inputPurchaseQuantity, '', 'grn', 'qty');">
-                                    <label for="floatingInput" class="pl-2">Quantity</label>
-                                </div>
-                                <div class="col-4 form-floating p-1">
-                                    <input type="text" class="form-control" id="inputPurchaseItemPrice" placeholder=""
-                                    onkeyup="textValidation(inputPurchaseItemPrice, '', 'grn', 'item_price'); generateLinePrice()">
-                                    <label for="floatingInput">Unit Price</label>
-                                </div>
-                                <div class="col-4 form-floating p-1">
-                                    <input type="text" class="form-control" id="inputPurchaseLinePrice" placeholder=""
-                                    onchange="textValidation(inputPurchaseLinePrice, '', 'grn', 'lineprice');">
-                                    <label for="floatingInput">Line Price</label>
-                                </div>
-
-
-                            </div>
-                            <div class="row">
-                                <div class="col-4 p-2 form-floating p-1">
-                                    <button class="btn btn-success" onclick="addGrn()">Add GRN</button>
-                                </div>
-                            </div>
-                            <!-- qty, unit price and add button end -->
-
                             <div class="row p-3 fw-semibold" style="color: green;">
                                 Purchase Order Details
                             </div>
@@ -202,6 +158,49 @@
                                 </tbody>
                             </table>
                             <!-- purchase order end -->
+
+                            <!-- grn details start -->
+                            <div class="row fw-semibold  " style="padding-left: 16px; color: green;">
+                                <div class="col-2">
+                                    Add GRN Details
+                                </div>
+                                <div class="col-2">
+
+                                    <span id="purchaseOId" style="color: red;"></span>
+                                </div>
+                            </div>
+                            <!-- grn details end -->
+
+                            <!-- qty, unit price and add button start -->
+                            <div class="row p-2 d-flex justify-content-center align-items-center ">
+                                <div class="col-3 form-floating p-1">
+                                    <input type="number" class="form-control" id="inputPurchaseQuantity" placeholder=""
+                                    onkeyup="generateLinePrice()">
+                                    <label for="floatingInput" class="pl-2">Quantity</label>
+                                </div>
+                                <div class="col-3 form-floating p-1">
+                                    <input type="text" class="form-control" id="inputPurchaseItemPrice" placeholder=""
+                                    onkeyup=" generateLinePrice()">
+                                    <label for="floatingInput">Unit Price</label>
+                                </div>
+                                <div class="col-3 form-floating p-1">
+                                    <input type="text" class="form-control" id="inputPurchaseLinePrice" placeholder="" >
+                                    <label for="floatingInput">Line Price</label>
+                                </div>
+                                <div class="col-3 form-floating p-1">
+                                    <input type="text" class="form-control" id="inputPurchaseDiscount" placeholder="">
+                                    <label for="floatingInput">Discount</label>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-4 p-2 form-floating p-1">
+                                    <button class="btn btn-success" onclick="addGrn()">Add GRN</button>
+                                </div>
+                            </div>
+                            <!-- qty, unit price and add button end -->
+
+                     
                             <div class="row p-3 fw-semibold " style="color: green;">
                                 GRN Details
                             </div>
@@ -226,6 +225,46 @@
                                 </tbody>
                             </table>
                             <!-- grn end -->
+                            <!-- grn Supplier Invoice,Total Amount,Net Amount start-->
+                            <div class="row p-2 d-flex justify-content-center align-items-center ">
+                                <div class="col-3 form-floating p-1">
+                                    <input type="number" class="form-control" id="inputPurchaseQuantity" placeholder=""
+                                    onkeyup="textValidation(inputPurchaseQuantity,'', 'grn', 'supplierinvoiceno');">
+                                    <label for="inputPurchaseQuantity" class="pl-2">Supplier Invoice</label>
+                                </div>
+                                <div class="col-3 form-floating p-1">
+                                    <input type="text" class="form-control" id="inputGrnTotalAmount" placeholder=""
+                                    onchange="textValidation(inputGrnTotalAmount,'', 'grn', 'totalamount');">
+                                    <label for="inputGrnTotalAmount">Total Amount</label>
+                                </div>
+                                <div class="col-3 form-floating p-1">
+                                    <input type="text" class="form-control" id="inputGrnDiscount" placeholder=""
+                                    onkeyup="textValidation(inputGrnDiscount,'', 'grn', 'discountrate'); generateNetAmount()" >
+                                    <label for="inputGrnDiscount">Discount Rate</label>
+                                </div>
+                                <div class="col-3 form-floating p-1">
+                                    <input type="text" class="form-control" id="inputGrnNetAmount" placeholder=""
+                                    onchange="textValidation(inputGrnNetAmount,'', 'grn','netamount');">
+                                    <label for="inputGrnNetAmount">Net Amount</label>
+                                </div>
+
+
+                            </div>
+                            <!-- grn Supplier Invoice,Total Amount,Net Amount end-->
+                            <div class="row p-2  ">
+                                <div class="col-3 p-2 checkboxes-container">
+                                    <div class="form-check  ">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1">
+                                        <label class="form-check-label" for="flexCheckChecked1">
+                                            Item Status
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
                             <!-- add more details modal start-->
                             <button onclick="document.getElementById('moreSpecModal').style.display='block'"
                                 class="w3-button w3-green">

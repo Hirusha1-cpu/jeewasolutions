@@ -33,13 +33,7 @@ public class GrnController {
     }
 
     @GetMapping(value = "/grn/getlist/{purchase_id}", produces = "application/json")
-    public List<Grn> findGrnAll() {
-        // login user authentication and authorization
-        return dao.findAll(Sort.by(Direction.DESC, "id"));
-    }
-
-    @GetMapping(value = "/grn/purchaseoredrs/{purchase_id}", produces = "application/json")
-    public List<Grn> findPurchaseOrders(@PathVariable("purchase_id") Integer purchase_id) {
+    public Grn findGrnAll(@PathVariable("purchase_id") Integer purchase_id) {
         // login user authentication and authorization
         return dao.getPurchaseOrdersWithCode(purchase_id);
     }

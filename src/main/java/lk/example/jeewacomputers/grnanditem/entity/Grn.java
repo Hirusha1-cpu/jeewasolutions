@@ -1,7 +1,8 @@
 package lk.example.jeewacomputers.grnanditem.entity;
 
 import java.time.LocalDate;
-
+import java.util.*;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,9 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+// import jakarta.validation.constraints.NotNull;
 import lk.example.jeewacomputers.purchase.entity.Purchase;
+
 import lk.example.jeewacomputers.user.entity.User;
 // import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -44,25 +47,37 @@ public class Grn {
     // @NotNull
     private User addeduser_id ;
 
-    @Column(name = "discount")
-    // @NotNull
-    private String discount;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "grn_item_status_id" , referencedColumnName = "id")
+    private GrnItemStatus grnItemStatus;
 
-    @Column(name = "qty")
+    @Column(name = "grnno")
     // @NotNull
-    private Integer qty;
+    private String grnno;
 
-    @Column(name = "item_price")
+    @Column(name = "supplierinvoiceno")
     // @NotNull
-    private Integer item_price;
+    private String supplierinvoiceno;
 
-    @Column(name = "paid_status")
+    @Column(name = "receiveddate")
     // @NotNull
-    private String paid_status;
+    private LocalDate receiveddate;
 
-    @Column(name = "lineprice")
+    @Column(name = "totalamount")
     // @NotNull
-    private String lineprice;
+    private Integer totalamount;
+
+    @Column(name = "discountrate")
+    // @NotNull
+    private Integer discountrate;
+
+    @Column(name = "netamount")
+    // @NotNull
+    private Integer netamount;
+
+    @OneToMany(mappedBy = "grn_id", cascade = CascadeType.ALL)
+    private List<GrnHasCategory> grnHasCategory;
+
 
 
 }
