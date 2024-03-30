@@ -2,6 +2,10 @@ package lk.example.jeewacomputers.grnanditem.entity;
 
 import java.time.LocalDate;
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,6 +40,7 @@ public class Grn {
     @ManyToOne(optional = false)
     @JoinColumn(name = "purchase_id", referencedColumnName = "id")
     // @NotNull
+    // @JsonIgnore
     private Purchase purchase_id ;
 
     @Column(name = "added_datetime")
@@ -75,9 +80,13 @@ public class Grn {
     // @NotNull
     private Integer netamount;
 
-    @OneToMany(mappedBy = "grn_id", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = {"grn_id"})
+    @OneToMany(mappedBy = "grn_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @JsonIgnore
     private List<GrnHasCategory> grnHasCategory;
 
 
-
+    
+    
+    
 }

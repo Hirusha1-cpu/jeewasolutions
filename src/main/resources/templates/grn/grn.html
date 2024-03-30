@@ -175,17 +175,18 @@
                             <div class="row p-2 d-flex justify-content-center align-items-center ">
                                 <div class="col-3 form-floating p-1">
                                     <input type="text" class="form-control" id="inputPurchaseQuantity" placeholder=""
-                                    onkeyup="generateLinePrice()">
+                                    onchange="textDValidation(inputPurchaseQuantity,'','grnHasItems','qty'); generateLinePrice()">
                                     <label for="floatingInput" class="pl-2">Quantity</label>
                                 </div>
                                 <div class="col-3 form-floating p-1">
                                     <input type="text" class="form-control" id="inputPurchaseItemPrice" placeholder=""
-                                    onkeyup=" generateLinePrice()">
+                                    onchange="textDValidation(inputPurchaseItemPrice,'','grnHasItems','item_price'); generateLinePrice()">
                                     <label for="floatingInput">Unit Price</label>
                                 </div>
                                 <div class="col-3 form-floating p-1">
-                                    <input type="text" class="form-control" id="inputPurchaseLinePrice" placeholder="" >
-                                    <label for="floatingInput">Line Price</label>
+                                    <input type="text" class="form-control" id="inputPurchaseLinePrice" placeholder="" 
+                                    >
+                                    <label for="inputPurchaseLinePrice">Line Price</label>
                                 </div>
                                 <div class="col-3 form-floating p-1">
                                     <input type="text" class="form-control" id="inputPurchaseDiscount" placeholder="">

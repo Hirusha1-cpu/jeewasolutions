@@ -18,7 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import jakarta.transaction.Transactional;
 import lk.example.jeewacomputers.grnanditem.dao.GrnDao;
 import lk.example.jeewacomputers.grnanditem.entity.Grn;
-import lk.example.jeewacomputers.purchase.entity.Purchase;
+import lk.example.jeewacomputers.grnanditem.entity.GrnHasCategory;
+
 
 @RestController
 public class GrnController {
@@ -57,6 +58,9 @@ public class GrnController {
 
         try {
             
+            for(GrnHasCategory grnHasCategory : grn.getGrnHasCategory()){
+                grnHasCategory.setGrn_id(grn);
+            }
             dao.save(grn);
             return "OK";
 

@@ -27,6 +27,35 @@ const textValidation = (fieldId, Pattern, object, property) => {
         }
     }
 }
+//create text feild validation function
+const textDValidation = (fieldId, Pattern, object, property) => {
+
+    const fieldValue = fieldId.value;
+    const regPattern = new RegExp(Pattern);
+
+    if (fieldValue !== '') {
+        if (regPattern.test(fieldValue)) {
+            fieldId.style.border = '2px solid green';
+            //object property value binding
+            // console.log(window['employee']);
+            window[object][property] = JSON.parse(fieldValue);
+        } else {
+            //need to bind null
+
+            fieldId.style.border = '2px solid red';
+            window[object][property] = null;
+
+        }
+    } else {
+         //need to bind null
+        window[object][property] = null;
+        if (fieldId.required) {
+            fieldId.style.border = '2px solid red';
+        } else {
+            fieldId.style.border = '2px solid #ced4da';
+        }
+    }
+}
 
 //create select field validation function
 const selectFieldValidation = (fieldId, Pattern, object, property) => {
