@@ -10,6 +10,9 @@ const refreshGrnForm = () => {
     existingGItems = []
     purchaseOrdersArray = []
     grnArray = []
+    grnHasItems = new Object();
+    grn.grnHasCategory = new Array();
+    myArray = []
 
     purchaseOrdersList = ajaxGetRequest("/purchase/getlist")
     fillDataIntoSelect(selectPurchaseOrder1, "Select Purchase Order", purchaseOrdersList, 'id')
@@ -104,19 +107,25 @@ const processGrnItems = (grnArray) => {
 
         processedGItems.push(grnItem);
     }
-    console.log("processedItems", processedGItems);
+    console.log("processedGGItems", processedGItems);
     return processedGItems;
 };
 const getGrnCode = (rowOb) => { return null }
-const getGrnItemName = (rowOb) => { return rowOb.purchase_id.purchaseHasCategory[0].itemname }
-const getGrnItemPrice = (rowOb) => { return rowOb.item_price }
-const getGrnItemQty = (rowOb) => { return rowOb.qty }
-const getGrnLinePrice = (rowOb) => { return rowOb.lineprice }
-const getGrnSupplierName = (rowOb) => { return rowOb.purchase_id.supplier_id.name }
+// const getGrnItemName = (rowOb) => { return rowOb.purchase_id.purchaseHasCategory[0].itemname }
+const getGrnItemName = (rowOb) => { return null }
+// const getGrnItemPrice = (rowOb) => { return rowOb.item_price }
+const getGrnItemPrice = (rowOb) => { return null }
+// const getGrnItemQty = (rowOb) => { return rowOb.qty }
+const getGrnItemQty = (rowOb) => { return null }
+// const getGrnLinePrice = (rowOb) => { return rowOb.lineprice }
+const getGrnLinePrice = (rowOb) => { return null }
+// const getGrnSupplierName = (rowOb) => { return rowOb.purchase_id.supplier_id.name }
+const getGrnSupplierName = (rowOb) => { return null }
 const getGrnPurchaseOrderStatus = (rowOb) => {
-    if (rowOb.purchase_id.purchasestatus_id.status == "active") {
-        return '<i class="fa-solid fa-check"></i>'
-    }
+    // if (rowOb.purchase_id.purchasestatus_id.status == "active") {
+    //     return '<i class="fa-solid fa-check"></i>'
+    // }
+    return null
 }
 
 
@@ -188,16 +197,36 @@ const addPurchaseOrderItemToTable = () => {
 
 }
 
-const generateLinePrice = () => {
-    const qty = parseInt(grn.qty, 10) || 0; // Handle potential NaN values
-    const itemPrice = parseInt(grn.item_price, 10) || 0;
-    const linePrice = qty * itemPrice;
+// const generateLinePrice = () => {
+//     const qty = parseInt(grn.qty, 10) || 0; // Handle potential NaN values
+//     const itemPrice = parseInt(grn.item_price, 10) || 0;
+//     const linePrice = qty * itemPrice;
 
+//     inputPurchaseLinePrice.value = linePrice;
+//     grn.lineprice = linePrice;
+// }
+
+const generateLinePrice = () => {
+    const qty1 = parseInt(inputPurchaseQuantity.value)
+    const itemPrice1 = parseInt(inputPurchaseItemPrice.value)
+    const linePrice = qty1 * itemPrice1;
+
+    grnHasItems.lineprice = linePrice;
     inputPurchaseLinePrice.value = linePrice;
-    grn.lineprice = linePrice;
 }
 
 const addGrn = () => {
+    console.log("grn", grn);
+
+    
+    myArray.push(grnHasItems);
+
+    // Access the last item using array destructuring
+    const lastItem = myArray.slice(-1)[0];
+
+    console.log(lastItem); // Output: { qty: 10, lineprice: 120, item_price: 12 }
+
+    grn.grnHasCategory.push(lastItem); // Push all filtered items
     console.log("grn", grn);
     let serverResponse = ajaxRequestBodyMethod("/grn", "POST", grn);
     console.log(serverResponse);

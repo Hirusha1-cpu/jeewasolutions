@@ -158,7 +158,8 @@ const addToGrnTable = () =>{
     // console.log("selectPurchaseOrder1.value",selectPurchaseOrder1.value);
     // console.log("selectPurchaseOrder1.value",JSON.parse(selectPurchaseOrder1.value).id);
     // grns = ajaxGetRequest("/grn/getlist/" + selectPurchaseOrder1.value)
-    grns = ajaxGetRequest("/grn/getlist")
+    // grns = ajaxGetRequest("/grn/getlist")
+    grns = ajaxGetRequest("/purchase/purchaseoredrs")
 
     console.log("grns", grns);
     gArray.push(grns)
@@ -166,12 +167,12 @@ const addToGrnTable = () =>{
     const processedGData = processGrnItems(gArray);
     console.log("grnArray", gArray);
     // Filter new or updated items (assuming IDs are unique)
-    const newItems = processedGData.filter(newItem => {
-        return !existingGItems.some(existingItem => existingItem.id === newItem.id);
+    const newIGtems = processedGData.filter(newItem1 => {
+        return !existingGItems.some(existingItem1 => existingItem1.id === newItem1.id);
     });
 
     // Update existingGItems with new items
-    existingGItems.push(...newItems);
+    existingGItems.push(...newIGtems);
     // existingGItems.push(...processedGData);
     console.log("existingGItems"), existingGItems;
     displayGRNProperties = [
