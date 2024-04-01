@@ -13,6 +13,6 @@ public interface GrnDao extends JpaRepository<Grn, Integer> {
     public Grn getPurchaseOrdersWithCode(Integer purchase_id);
 
     @Query(value = "SELECT id FROM jeewacomputersproject.grn where purchase_id = ?1", nativeQuery = true)
-    public Grn getPurchaseOrdersWithCode(Integer purchase_id);
+    public Grn getGrnIdByPurchaseId(Integer purchase_id);
 
 } 
