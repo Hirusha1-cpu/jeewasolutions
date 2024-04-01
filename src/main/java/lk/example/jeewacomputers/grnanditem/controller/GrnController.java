@@ -1,21 +1,25 @@
 package lk.example.jeewacomputers.grnanditem.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.transaction.Transactional;
+import lk.example.jeewacomputers.employee.entity.Employee;
 import lk.example.jeewacomputers.grnanditem.dao.GrnDao;
 import lk.example.jeewacomputers.grnanditem.entity.Grn;
 import lk.example.jeewacomputers.grnanditem.entity.GrnHasCategory;
@@ -39,6 +43,12 @@ public class GrnController {
         return dao.getPurchaseOrdersWithCode(purchase_id);
     }
 
+    @GetMapping(value = "/grn/{purchase_id}", produces = "application/json")
+    public Grn findGrnId(@PathVariable("purchase_id") Integer purchase_id) {
+        // login user authentication and authorization
+        return dao.getGrnIdByPurchaseId(purchase_id);
+    }
+
     @RequestMapping(value = "/grn")
     public ModelAndView employeeUI() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -51,6 +61,7 @@ public class GrnController {
         viewEmp.setViewName("grn/grn.html");
         return viewEmp;
     }
+
 
     @PostMapping(value = "/grn")
     @Transactional
@@ -71,4 +82,13 @@ public class GrnController {
 
     }
 
+    @PutMapping(value = "/grn/{id}")
+    @Transactional
+    public ResponseEntity<Grn> updateGrn(@PathVariable Integer id, @RequestBody Grn grn) {
+        Grn existGrn = dao.findById(id).orElseThrow();
+      
+        dao.save(existGrn);
+    
+        return ResponseEntity.ok(existGrn);
+    }
 }

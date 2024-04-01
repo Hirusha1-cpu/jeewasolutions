@@ -112,20 +112,25 @@ const processGrnItems = (grnArray) => {
 };
 const getGrnCode = (rowOb) => { return null }
 // const getGrnItemName = (rowOb) => { return rowOb.purchase_id.purchaseHasCategory[0].itemname }
-const getGrnItemName = (rowOb) => { return null }
+const getGrnItemName = (rowOb) => { 
+    console.log(rowOb);
+    return rowOb.grnHasCategory[0]?.itemname ?? "-";
+}
 // const getGrnItemPrice = (rowOb) => { return rowOb.item_price }
-const getGrnItemPrice = (rowOb) => { return null }
+const getGrnItemPrice = (rowOb) => { return rowOb.grnHasCategory[0]?.item_price ?? "-";  }
 // const getGrnItemQty = (rowOb) => { return rowOb.qty }
-const getGrnItemQty = (rowOb) => { return null }
+const getGrnItemQty = (rowOb) => { return rowOb.grnHasCategory[0]?.qty ?? "-" }
 // const getGrnLinePrice = (rowOb) => { return rowOb.lineprice }
-const getGrnLinePrice = (rowOb) => { return null }
+const getGrnLinePrice = (rowOb) => { return rowOb.grnHasCategory[0]?.lineprice ?? "-"}
 // const getGrnSupplierName = (rowOb) => { return rowOb.purchase_id.supplier_id.name }
-const getGrnSupplierName = (rowOb) => { return null }
+const getGrnSupplierName = (rowOb) => { return rowOb.purchase_id.supplier_id?.name ?? "-"}
 const getGrnPurchaseOrderStatus = (rowOb) => {
-    // if (rowOb.purchase_id.purchasestatus_id.status == "active") {
-    //     return '<i class="fa-solid fa-check"></i>'
-    // }
-    return null
+    if (rowOb.purchase_id.purchasestatus_id?.status == "active") {
+        return '<i class="fa-solid fa-check"></i>'
+    }else{
+        return '-'
+    }
+    // return null
 }
 
 
@@ -217,8 +222,6 @@ const generateLinePrice = () => {
 
 const addGrn = () => {
     console.log("grn", grn);
-
-    
     myArray.push(grnHasItems);
 
     // Access the last item using array destructuring
@@ -228,8 +231,21 @@ const addGrn = () => {
 
     grn.grnHasCategory.push(lastItem); // Push all filtered items
     console.log("grn", grn);
+    // delete grn.purchase_id;
     let serverResponse = ajaxRequestBodyMethod("/grn", "POST", grn);
     console.log(serverResponse);
     grnItemTable()
+}
 
+const generateNetAmount = () =>{
+    console.log("hi");
+}
+
+const addGrnMain = () => {
+    console.log(grn);
+    delete grn.grnHasCategory;
+    
+    //metana kalin eka natuwa grn eka post krnna
+    let serverResponse = ajaxRequestBodyMethod("/grn/"+JSON.parse(selectPurchaseOrder1.value).id, "PUT", grn); // meken put ekak call karnna
+    console.log(serverResponse);
 }
