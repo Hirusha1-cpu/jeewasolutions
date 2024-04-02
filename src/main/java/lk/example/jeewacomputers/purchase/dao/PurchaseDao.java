@@ -10,5 +10,10 @@ public interface PurchaseDao extends JpaRepository<Purchase, Integer> {
     @Query(value="SELECT * FROM jeewacomputersproject.purchase where id = ?1", nativeQuery = true)
     public Purchase getPurchaseOrdersWithCode(Integer id);
     
-     
+    @Query(value="SELECT * FROM jeewacomputersproject.purchase where supplier_id = ?1", nativeQuery = true)
+    public Purchase getPurchaseOrdersBySupplier(Integer supplier_id);
+
+    @Query(value="SELECT p.id FROM jeewacomputersproject.purchase p INNER JOIN jeewacomputersproject.grn g ON p.id = g.purchase_id WHERE g.purchase_id IS NOT NULL;", nativeQuery = true)
+    public List<Purchase> getPurchaseOrdersNotInGRN();
+         
 } 

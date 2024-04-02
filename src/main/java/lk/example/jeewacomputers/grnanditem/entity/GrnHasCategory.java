@@ -1,5 +1,7 @@
 package lk.example.jeewacomputers.grnanditem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +30,7 @@ public class GrnHasCategory {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "grn_id", referencedColumnName = "id")
+    @JsonIgnore
     // @NotNull
     private Grn grn_id ;
 

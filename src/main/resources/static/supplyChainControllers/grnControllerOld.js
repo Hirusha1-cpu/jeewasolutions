@@ -14,6 +14,7 @@ const refreshGrnForm = () => {
     grn.grnHasCategory = new Array();
     myArray = []
 
+    // purchaseOrdersList = ajaxGetRequest("/purchase/getporeds")
     purchaseOrdersList = ajaxGetRequest("/purchase/getlist")
     fillDataIntoSelect(selectPurchaseOrder1, "Select Purchase Order", purchaseOrdersList, 'id')
 
@@ -22,8 +23,14 @@ const refreshGrnForm = () => {
 
     suppliers = ajaxGetRequest("/supplier/getlist")
     fillDataIntoSelect(selectSuppliers, "Select Supplier", suppliers, 'name')
-
+    console.log(suppliers);
+    // getPurchBySuppliers() 
 }
+
+// const getPurchBySuppliers = () =>{
+//     purchaseOrdersList = ajaxGetRequest("/purchase/getpurchasesupplier/1")
+//     fillDataIntoSelect(selectPurchaseOrder1, "Select Purchase Order", purchaseOrdersList, 'id')
+// }
 
 const purchaseOrderTable = () => {
     inputPurchaseQuantity.value = ""
@@ -39,8 +46,8 @@ const purchaseOrderTable = () => {
 
     const processedData = processPurchaseOrders(purchaseOrdersArray);
 
-     // Filter new or updated items (assuming IDs are unique)
-     const newItems = processedData.filter(newItem => {
+    // Filter new or updated items (assuming IDs are unique)
+    const newItems = processedData.filter(newItem => {
         return !existingItems.some(existingItem => existingItem.id === newItem.id);
     });
 
@@ -112,22 +119,22 @@ const processGrnItems = (grnArray) => {
 };
 const getGrnCode = (rowOb) => { return null }
 // const getGrnItemName = (rowOb) => { return rowOb.purchase_id.purchaseHasCategory[0].itemname }
-const getGrnItemName = (rowOb) => { 
+const getGrnItemName = (rowOb) => {
     console.log(rowOb);
     return rowOb.grnHasCategory[0]?.itemname ?? "-";
 }
 // const getGrnItemPrice = (rowOb) => { return rowOb.item_price }
-const getGrnItemPrice = (rowOb) => { return rowOb.grnHasCategory[0]?.item_price ?? "-";  }
+const getGrnItemPrice = (rowOb) => { return rowOb.grnHasCategory[0]?.item_price ?? "-"; }
 // const getGrnItemQty = (rowOb) => { return rowOb.qty }
 const getGrnItemQty = (rowOb) => { return rowOb.grnHasCategory[0]?.qty ?? "-" }
 // const getGrnLinePrice = (rowOb) => { return rowOb.lineprice }
-const getGrnLinePrice = (rowOb) => { return rowOb.grnHasCategory[0]?.lineprice ?? "-"}
+const getGrnLinePrice = (rowOb) => { return rowOb.grnHasCategory[0]?.lineprice ?? "-" }
 // const getGrnSupplierName = (rowOb) => { return rowOb.purchase_id.supplier_id.name }
-const getGrnSupplierName = (rowOb) => { return rowOb.purchase_id.supplier_id?.name ?? "-"}
+const getGrnSupplierName = (rowOb) => { return rowOb.purchase_id.supplier_id?.name ?? "-" }
 const getGrnPurchaseOrderStatus = (rowOb) => {
     if (rowOb.purchase_id.purchasestatus_id?.status == "active") {
         return '<i class="fa-solid fa-check"></i>'
-    }else{
+    } else {
         return '-'
     }
     // return null
@@ -233,19 +240,34 @@ const addGrn = () => {
     console.log("grn", grn);
     // delete grn.purchase_id;
     let serverResponse = ajaxRequestBodyMethod("/grn", "POST", grn);
-    console.log(serverResponse);
+    console.log("serverResponse", serverResponse);
+    let grnObjects = ajaxGetRequest("grn/getlists/"+serverResponse)
+    console.log("grnObjects", grnObjects);
+    grn = grnObjects
     grnItemTable()
+    inputPurchaseQuantity.value = ""
+    inputPurchaseItemPrice.value = ""
+    inputPurchaseLinePrice.value = ""
+    inputPurchaseDiscount.value = ""
 }
 
-const generateNetAmount = () =>{
+const generateNetAmount = () => {
     console.log("hi");
 }
 
 const addGrnMain = () => {
     console.log(grn);
-    delete grn.grnHasCategory;
-    
+    console.log(grnItems.id);
+    // delete grn.grnHasCategory;
+
+    const id = grnItems.id
     //metana kalin eka natuwa grn eka post krnna
-    let serverResponse = ajaxRequestBodyMethod("/grn/"+JSON.parse(selectPurchaseOrder1.value).id, "PUT", grn); // meken put ekak call karnna
-    console.log(serverResponse);
+    let serverResponse1 = ajaxRequestBodyMethod(`/grn/${id}`, "PUT", grn); // meken put ekak call karnna
+    console.log(serverResponse1);
+
+    inputSupplierInvoice.value = ""
+    inputGrnTotalAmount.value = ""
+    inputGrnDiscount.value = ""
+    inputGrnNetAmount.value = ""
+
 }

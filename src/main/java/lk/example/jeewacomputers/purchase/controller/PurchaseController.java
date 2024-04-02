@@ -42,7 +42,19 @@ public class PurchaseController {
         return dao.findAll(Sort.by(Direction.DESC, "id"));
     }
 
-      @GetMapping(value = "/purchase/purchaseoredrs/{id}", produces = "application/json")
+    @GetMapping(value = "/purchase/getporeds", produces = "application/json")
+    public List<Purchase> findPOrdrers() {
+        // login user authentication and authorization
+        return dao.getPurchaseOrdersNotInGRN();
+    }
+
+    @GetMapping(value = "/purchase/getpurchasesupplier/{supplier_id}", produces = "application/json")
+    public Purchase findPurchaseBySupplier(@PathVariable("supplier_id") Integer supplier_id) {
+        // login user authentication and authorization
+        return dao.getPurchaseOrdersBySupplier(supplier_id);
+    }
+
+    @GetMapping(value = "/purchase/purchaseoredrs/{id}", produces = "application/json")
     public Purchase findPurchaseOrders(@PathVariable("id") Integer id) {
         // login user authentication and authorization
         return dao.getPurchaseOrdersWithCode(id);

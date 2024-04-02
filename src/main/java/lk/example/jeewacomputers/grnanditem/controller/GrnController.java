@@ -17,13 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
 import jakarta.transaction.Transactional;
-import lk.example.jeewacomputers.employee.entity.Employee;
 import lk.example.jeewacomputers.grnanditem.dao.GrnDao;
 import lk.example.jeewacomputers.grnanditem.entity.Grn;
 import lk.example.jeewacomputers.grnanditem.entity.GrnHasCategory;
-
 
 @RestController
 public class GrnController {
@@ -43,17 +40,16 @@ public class GrnController {
         return dao.getPurchaseOrdersWithCode(purchase_id);
     }
 
-    @GetMapping(value = "/grn/{purchase_id}", produces = "application/json")
-    public Grn findGrnId(@PathVariable("purchase_id") Integer purchase_id) {
+    @GetMapping(value = "/grn/getlists/{id}", produces = "application/json")
+    public Grn findGrn(@PathVariable("id") Integer id) {
         // login user authentication and authorization
-        return dao.getGrnIdByPurchaseId(purchase_id);
+        return dao.getGrnIdByPurchaseId(id);
     }
 
     @RequestMapping(value = "/grn")
     public ModelAndView employeeUI() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(auth);
-
         ModelAndView viewEmp = new ModelAndView();
         viewEmp.addObject("logusername", auth.getName());
         viewEmp.addObject("modulename", "GRN");
@@ -62,33 +58,67 @@ public class GrnController {
         return viewEmp;
     }
 
-
     @PostMapping(value = "/grn")
     @Transactional
     public String save(@RequestBody Grn grn) {
 
         try {
-            
-            for(GrnHasCategory grnHasCategory : grn.getGrnHasCategory()){
+            for (GrnHasCategory grnHasCategory : grn.getGrnHasCategory()) {
                 grnHasCategory.setGrn_id(grn);
             }
-            dao.save(grn);
-            return "OK";
-
+            Grn saveGrn = dao.save(grn);
+            return saveGrn.getId().toString();
         } catch (Exception e) {
-
             return "Save not completed :" + e.getMessage();
         }
-
     }
 
     @PutMapping(value = "/grn/{id}")
     @Transactional
-    public ResponseEntity<Grn> updateGrn(@PathVariable Integer id, @RequestBody Grn grn) {
-        Grn existGrn = dao.findById(id).orElseThrow();
-      
-        dao.save(existGrn);
+    // public Grn updateGrn(@PathVariable Integer id, @RequestBody Grn grn) {
+    //     System.out.println(id);
+    //     System.out.println(dao.findById(id));
+    //     return dao.findById(id)
+    //     .map(onegrn -> {
+    //         System.out.println(onegrn);
+    //         // onegrn.setId(grn.getId());
+    //         onegrn.setSupplierinvoiceno(grn.getSupplierinvoiceno());
+    //         onegrn.setNetamount(grn.getNetamount());
+    //       return dao.save(onegrn);
+    //     })
+    //     .orElseGet(() -> {
+    //         System.out.println("new grn");
+    //         grn.setId(id);
+    //       return dao.save(grn);
+    //     });      
+    // }
+    public Grn updateGrn(@PathVariable Integer id, @RequestBody Grn grn) {
+        Grn objectGrn = dao.getGrnIdByPurchaseId(id);
+        Grn existingGrn = objectGrn;
     
-        return ResponseEntity.ok(existGrn);
+        if (existingGrn != null) {
+            existingGrn.setDiscountrate(grn.getDiscountrate());
+            existingGrn.setTotalamount(grn.getTotalamount());
+            existingGrn.setSupplierinvoiceno(grn.getSupplierinvoiceno());
+            existingGrn.setNetamount(grn.getNetamount());
+            return dao.save(existingGrn);
+        } else {
+           
+            return null; 
+        }
     }
+    // public ResponseEntity<Grn> updateGrn(@PathVariable Integer id, @RequestBody Grn grn) {
+    //     Optional<Grn> optionalGrn = dao.getGrnIdByPurchaseId(id);
+    //     if (optionalGrn.isPresent()) {
+    //         Grn existingGrn = optionalGrn.get();
+    //         existingGrn.setDiscountrate(grn.getDiscountrate());
+    //         existingGrn.setTotalamount(grn.getTotalamount());
+    //         existingGrn.setSupplierinvoiceno(grn.getSupplierinvoiceno());
+    //         existingGrn.setNetamount(grn.getNetamount());
+    //         Grn updatedGrn = dao.save(existingGrn);
+    //         return ResponseEntity.ok(updatedGrn);
+    //     } else {
+    //         return ResponseEntity.notFound().build();
+    //     }
+    // }
 }
