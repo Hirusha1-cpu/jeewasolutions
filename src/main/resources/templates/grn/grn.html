@@ -142,13 +142,13 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Purchase Code</th>
+                                        <!-- <th scope="col">Purchase Code</th> -->
                                         <th scope="col">Item Name</th>
                                         <th scope="col">Item Price</th>
                                         <th scope="col">Item Qty</th>
                                         <th scope="col">Line Price</th>
-                                        <th scope="col">Supplier</th>
-                                        <th scope="col">Status</th>
+                                        <!-- <th scope="col">Supplier</th> -->
+                                        <!-- <th scope="col">Status</th> -->
                                         <th scope="col">Buttons</th>
                                     </tr>
                                 </thead>
@@ -194,6 +194,13 @@
                                 </div>
 
                             </div>
+                            <div class="row p-2 d-flex justify-content-center align-items-center ">
+                                <div class="col-3 form-floating p-1">
+                                    <input type="text" class="form-control" id="inputSerialNo" placeholder=""
+                                    onchange="textDValidation(inputSerialNo,'','grnHasItems','serialno');">
+                                    <label for="floatingInput">Serial No</label>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-4 p-2 form-floating p-1">
                                     <button class="btn btn-success" onclick="addGrn()">Add GRN</button>
@@ -216,7 +223,7 @@
                                         <th scope="col">Item Price</th>
                                         <th scope="col">Item Qty</th>
                                         <th scope="col">Line Price</th>
-                                        <th scope="col">Supplier</th>
+                                        <!-- <th scope="col">Supplier</th> -->
                                         <th scope="col">Status</th>
                                         <th scope="col">Buttons</th>
                                     </tr>

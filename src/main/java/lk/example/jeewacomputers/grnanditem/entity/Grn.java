@@ -3,7 +3,6 @@ package lk.example.jeewacomputers.grnanditem.entity;
 import java.time.LocalDate;
 import java.util.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -80,14 +79,10 @@ public class Grn {
     // @NotNull
     private Integer netamount;
 
-    @JsonIgnoreProperties(value = {"grn_id"})
+    @JsonIgnoreProperties(value = {"grn_id,availableitems_id"})
     @OneToMany(mappedBy = "grn_id", cascade = CascadeType.ALL, orphanRemoval = true)
     // @JsonIgnore
     private List<GrnHasCategory> grnHasCategory;
-
-
-
-    
-    
+      
     
 }

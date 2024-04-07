@@ -63,6 +63,10 @@ public class GrnHasCategory {
     // @NotNull
     private String itemcode;
 
+    @Column(name = "serialno")
+    // @NotNull
+    private String serialno;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "availableitems_id", referencedColumnName = "id")
     // @NotNull

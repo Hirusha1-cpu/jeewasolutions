@@ -30,19 +30,13 @@ public class AvailableItems {
     // @NotNull
     private Integer item_price;
 
-    @Column(name = "line_price")
-    // @NotNull
-    private Integer line_price;
-
-    @Column(name = "qty")
-    // @NotNull
-    private Integer qty;
-
-    @Column(name = "paid_status")
-    // @NotNull
-    private String paid_status;
-
     @Column(name = "itemcode")
     // @NotNull
     private String itemcode;
+
+    @Column(name = "serialno")
+    // @NotNull
+    private String serialno;
+
+  
 }
