@@ -174,8 +174,8 @@
                             <!-- qty, unit price and add button start -->
                             <div class="row p-2 d-flex justify-content-center align-items-center ">
                                 <div class="col-3 form-floating p-1">
-                                    <input type="text" class="form-control" id="inputPurchaseQuantity" placeholder=""
-                                    onchange="textDValidation(inputPurchaseQuantity,'','grnHasItems','qty'); generateLinePrice()">
+                                    <input type="number" class="inputPurchaseQuantity form-control" id="inputPurchaseQuantity" placeholder=""
+                                    onchange="textDValidation(inputPurchaseQuantity,'','grnHasItems','qty'); generateLinePrice(); generateSerialNumberList();">
                                     <label for="floatingInput" class="pl-2">Quantity</label>
                                 </div>
                                 <div class="col-3 form-floating p-1">
@@ -194,7 +194,7 @@
                                 </div>
 
                             </div>
-                            <div class="row p-2 d-flex justify-content-center align-items-center ">
+                            <div class="row p-2 d-flex justify-content-center align-items-center " id="inputSerialNoDiv">
                                 <div class="col-3 form-floating p-1">
                                     <input type="text" class="form-control" id="inputSerialNo" placeholder=""
                                     onchange="textDValidation(inputSerialNo,'','grnHasItems','serialno');">

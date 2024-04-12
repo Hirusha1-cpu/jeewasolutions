@@ -1,7 +1,9 @@
 package lk.example.jeewacomputers.grnanditem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,9 +11,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lk.example.jeewacomputers.categorypcpartandbrand.entity.Category;
-
+import java.util.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -63,12 +66,15 @@ public class GrnHasCategory {
     // @NotNull
     private String itemcode;
 
-    @Column(name = "serialno")
-    // @NotNull
-    private String serialno;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "availableitems_id", referencedColumnName = "id")
     // @NotNull
     private AvailableItems availableitems_id ;
+
+    // @JsonIgnoreProperties(value = {"grn_has_category_id"})
+    @OneToMany(mappedBy = "grn_has_category_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @JsonIgnore
+    private List<SerialNo> serialNumbers; 
+
+
 }

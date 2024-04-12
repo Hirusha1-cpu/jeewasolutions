@@ -11,9 +11,11 @@ const refreshGrnForm = () => {
     purchaseOrdersArray = []
     grnArray = []
     grnHasItems = new Object();
+    serialNo = new Object();
     grn.grnHasCategory = new Array();
-    grn.grnHasCategory.availableitems_id = new Array();
-    myArray = []
+    // grn.grnHasCategory.serialNumbers = new Array();
+    // grn.grnHasCategory.availableitems_id = new Array();
+    // myArray = []
 
     // purchaseOrdersList = ajaxGetRequest("/purchase/getporeds")
     purchaseOrdersList = ajaxGetRequest("/purchase/getlist")
@@ -207,15 +209,59 @@ const generateLinePrice = () => {
     grnHasItems.lineprice = linePrice;
     inputPurchaseLinePrice.value = linePrice;
 }
+const generateSerialNumberList = () =>{
+    const inputSerialNoDiv = document.querySelector("#inputSerialNoDiv");
+
+    inputSerialNoDiv.innerHTML = ""
+    const qty = parseInt(document.querySelector(".inputPurchaseQuantity").value)
+    const serialNumbers = []; // Array to store serial number objects
+
+    for (let id = 1; id <= qty; id++) {
+        const div = document.createElement("div");
+        div.className = "col-3 form-floating p-1";
+
+        const label = document.createElement("label");
+        label.setAttribute("for", "floatingInput");
+        label.innerText = "Serial No " + id;
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.className = "form-control";
+        input.id = "txtqty" + id;
+
+        // Add event listener to each input field
+        input.addEventListener("input", () => {
+            updateSerialNo(id, input.value);
+        });
+
+        div.appendChild(label);
+        div.appendChild(input);
+        inputSerialNoDiv.appendChild(div);
+    }
+    console.log("serialNo",serialNo);
+    for (let id in serialNo) {
+        serialNumbers.push({ id: parseInt(id), serialno: serialNo[id] });
+    }
+
+    return serialNumbers;
+
+}
+// Function to update serialNo object
+const updateSerialNo = (id, value) => {
+    serialNo[id] = value;
+    console.log("serialNo", serialNo);
+}
 
 const addGrn = () => {
+    const serialNumbers = generateSerialNumberList();
+
     console.log("grn", grn);
-    myArray.push(grnHasItems);
-    // Access the last item using array destructuring
-    const lastItem = myArray.slice(-1)[0];
-    console.log(lastItem); // Output: { qty: 10, lineprice: 120, item_price: 12 }
+    grnHasItems.serialNumbers = serialNumbers;
     grn.grnHasCategory.push(grnHasItems); // Push all filtered items
     // grn.grnHasCategory.availableitems_id.push(availableItem)
+    // grn.grnHasCategory.serialNumbers.push(serialNo)
+    // grn.grnHasCategory.serialNumbers = serialNumbers; 
+    // grn.grnHasCategory.push(serialNumbers)
     console.log("grn", grn);
     // delete grn.purchase_id;
 
@@ -230,7 +276,7 @@ const addGrn = () => {
     inputPurchaseItemPrice.value = ""
     inputPurchaseLinePrice.value = ""
     inputPurchaseDiscount.value = ""
-    inputSerialNo.value = ""
+    // inputSerialNo.value = ""
 }
 
 const generateNetAmount = () => {
@@ -253,3 +299,4 @@ const addGrnMain = () => {
     inputGrnNetAmount.value = ""
 
 }
+

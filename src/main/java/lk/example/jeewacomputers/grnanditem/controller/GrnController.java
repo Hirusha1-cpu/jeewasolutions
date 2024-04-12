@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,11 +18,15 @@ import org.springframework.web.servlet.ModelAndView;
 import jakarta.transaction.Transactional;
 import lk.example.jeewacomputers.grnanditem.dao.AvailableItemsDao;
 import lk.example.jeewacomputers.grnanditem.dao.GrnDao;
+import lk.example.jeewacomputers.grnanditem.dao.GrnHasCategoryDao;
+import lk.example.jeewacomputers.grnanditem.dao.SerialNoDao;
 import lk.example.jeewacomputers.grnanditem.entity.AvailableItems;
 import lk.example.jeewacomputers.grnanditem.entity.Grn;
 import lk.example.jeewacomputers.grnanditem.entity.GrnHasCategory;
+import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
 
 @RestController
+// @EnableTransactionManagement
 public class GrnController {
     @Autowired
     // create dao object
@@ -30,6 +35,11 @@ public class GrnController {
     @Autowired
     // create dao object
     private AvailableItemsDao availableitemsDao;
+
+    @Autowired
+    private SerialNoDao serialNoDao;
+    @Autowired
+    private GrnHasCategoryDao grnHasCategoryDao;
 
     @GetMapping(value = "/grn/getlist", produces = "application/json")
     public List<Grn> findAll() {
@@ -65,26 +75,31 @@ public class GrnController {
     @Transactional
     public String save(@RequestBody Grn grn) {
 
-        // GrnHasCategory ghc = dao.getGrnHasCategoryByGrnid(id);
-        // Integer maxId = dao.getMaxGrnId();
-        // System.out.println(""+maxId+" " + grn.getId());
         try {
-
             AvailableItems newItem = new AvailableItems();
             for (GrnHasCategory grnHasCategory : grn.getGrnHasCategory()) {
+                // grnHasCategory = grnHasCategoryDao.save(grnHasCategory);
+
+                for (SerialNo newSerials : grnHasCategory.getSerialNumbers()) {
+                    // newSerials.set
+                    newSerials.setGrn_has_category_id(grnHasCategory);; // Set the reference
+                    // serialNoDao.save(newSerials);
+                    // newSerials.setGrn_has_category_id(grnHasCategory);
+                    // serialNoDao.save(newSerials);
+                }
+
                 grnHasCategory.setGrn_id(grn);
-               
-                newItem.setItemname(grnHasCategory.getItemname());
-                newItem.setItem_price(grnHasCategory.getItem_price());
-                newItem.setItemcode(grnHasCategory.getItemcode());
+                // newItem.setItemname(grnHasCategory.getItemname());
+                // newItem.setItem_price(grnHasCategory.getItem_price());
+                // newItem.setItemcode(grnHasCategory.getItemcode());
+                // availableitemsDao.save(newItem);
+                // newItem.setSerialno(newSerial.getSerialno());
 
                 // newItem.setSerialno(grnHasCategory.getAvailableitems_id().getSerialno());
-                newItem.setSerialno(grnHasCategory.getSerialno());
-                availableitemsDao.save(newItem);
+                // newItem.setSerialno(grnHasCategory.getSerialno());
                 // System.out.println(grnHasCategory);
                 // return "Ok";
             }
-         
 
             Grn saveGrn = dao.save(grn);
             return saveGrn.getId().toString();
