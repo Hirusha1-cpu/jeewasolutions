@@ -66,13 +66,11 @@ public class GrnHasCategory {
     // @NotNull
     private String itemcode;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "availableitems_id", referencedColumnName = "id")
-    // @NotNull
-    private AvailableItems availableitems_id ;
-
     // @JsonIgnoreProperties(value = {"grn_has_category_id"})
-    @OneToMany(mappedBy = "grn_has_category_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "grn_has_category_id"
+    , cascade = CascadeType.ALL
+    , orphanRemoval = true
+    )
     // @JsonIgnore
     private List<SerialNo> serialNumbers; 
 

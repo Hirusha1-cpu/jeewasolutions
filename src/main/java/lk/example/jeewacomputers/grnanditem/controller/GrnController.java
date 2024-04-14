@@ -16,11 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import jakarta.transaction.Transactional;
-import lk.example.jeewacomputers.grnanditem.dao.AvailableItemsDao;
 import lk.example.jeewacomputers.grnanditem.dao.GrnDao;
 import lk.example.jeewacomputers.grnanditem.dao.GrnHasCategoryDao;
 import lk.example.jeewacomputers.grnanditem.dao.SerialNoDao;
-import lk.example.jeewacomputers.grnanditem.entity.AvailableItems;
 import lk.example.jeewacomputers.grnanditem.entity.Grn;
 import lk.example.jeewacomputers.grnanditem.entity.GrnHasCategory;
 import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
@@ -31,10 +29,6 @@ public class GrnController {
     @Autowired
     // create dao object
     private GrnDao dao;
-
-    @Autowired
-    // create dao object
-    private AvailableItemsDao availableitemsDao;
 
     @Autowired
     private SerialNoDao serialNoDao;
@@ -76,19 +70,19 @@ public class GrnController {
     public String save(@RequestBody Grn grn) {
 
         try {
-            AvailableItems newItem = new AvailableItems();
+            //   SerialNo newSerialNo = new SerialNo();
             for (GrnHasCategory grnHasCategory : grn.getGrnHasCategory()) {
+                grnHasCategory.setGrn_id(grn);
+                // System.out.println(grn);
                 // grnHasCategory = grnHasCategoryDao.save(grnHasCategory);
-
                 for (SerialNo newSerials : grnHasCategory.getSerialNumbers()) {
                     // newSerials.set
-                    newSerials.setGrn_has_category_id(grnHasCategory);; // Set the reference
+                    newSerials.setGrn_has_category_id(grnHasCategory);// Set the reference
                     // serialNoDao.save(newSerials);
                     // newSerials.setGrn_has_category_id(grnHasCategory);
                     // serialNoDao.save(newSerials);
                 }
-
-                grnHasCategory.setGrn_id(grn);
+                // grnHasCategory.setGrn_id(grn);
                 // newItem.setItemname(grnHasCategory.getItemname());
                 // newItem.setItem_price(grnHasCategory.getItem_price());
                 // newItem.setItemcode(grnHasCategory.getItemcode());
