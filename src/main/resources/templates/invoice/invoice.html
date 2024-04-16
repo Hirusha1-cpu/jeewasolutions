@@ -5,7 +5,7 @@
 
 </head>
 
-<head th:replace="~{ layouts/head :: headGRNFragment}">
+<head th:replace="~{ layouts/head :: headInvoiceFragment}">
 
 </head>
 
@@ -61,7 +61,7 @@
                 <!-- Invoice form start -->
                 <div id="empForm" class="w3-animate-left" style="display: none;">
                     <div class=" " style="display: flex; justify-content: space-between; align-items: center;">
-                        <button id="empFormToTable" class="btn btn-success mb-3">Table</button>
+                        <!-- <button id="empFormToTable" class="btn btn-success mb-3">Table</button> -->
                         <h4>Invoice Form</h4>
                     </div>
 
@@ -69,188 +69,217 @@
 
                         <!-- Invoice form start -->
                         <form class="p-2 m-2" onsubmit="return false">
-                            <!-- date start -->
-                            <div class="row p-2">
-                                <div id="date" class="fw-bolder" style="color: red;">2024-09-09</div>
-                            </div>
-                            <!-- date end -->
-                            <!-- choose category start -->
                             <div class="row">
-                                <div class="col-2 mt-1">
-                                    <label for="category">Select the category</label>
-                                </div>
-                                <div class="col-5">
-                                    <select class="form-select" id="category" aria-label="Default select example">
-                                        <option selected>Select A Category</option>
-                                        <option value="1">Graphic Card</option>
-                                        <option value="2">Ram</option>
-                                        <option value="3">MotherBoard</option>
-                                        <option value="3">Monitor</option>
-                                        <option value="3">Hard Disk</option>
-                                        <option value="3">Casing</option>
-                                        <option value="3">Power Supply</option>
-                                        <option value="3">Processor</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- choose category end -->
-                            <!-- select item name start -->
-                            <div class="row mt-2">
-                                <div class="col-2 mt-1">
-                                    <label for="category">Select item name</label>
-                                </div>
-                                <div class="col-6">
-                                    <select class="form-select" id="category" aria-label="Default select example">
-                                        <option selected>Select Item</option>
-                                        <option value="1">Graphic Card</option>
-                                        <option value="2">Ram</option>
-                                        <option value="3">MotherBoard</option>
-                                        <option value="3">Monitor</option>
-                                        <option value="3">Hard Disk</option>
-                                        <option value="3">Casing</option>
-                                        <option value="3">Power Supply</option>
-                                        <option value="3">Processor</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- select item name end -->
+                                <!-- form start  -->
+                                <div class="col-9">
 
-                            <div class="row p-2">
-                                <div id="itemDtails" class="fw-bolder" style="color: rgb(0, 0, 255);">Item Details</div>
-                            </div>
-                            <!-- item details start -->
-                            <div class="row mt-3">
-                                <div class="row">
-
-                                    <div class="col-2">Item name</div>
-                                    <div class="col-6">
-                                        <label for="" class="" style="font-weight: bold;" id="lblItemName">NVIDIA
-                                            GeForce RTX 4090
-                                        </label>
+                                    <!-- date start -->
+                                    <div class="row p-2">
+                                        <div id="date" class="fw-bolder" style="color: red;">2024-09-09</div>
                                     </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-2 mt-1">Item Qty</div>
-                                    <div class="col-1">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    <!-- date end -->
+                                    <!-- choose category start -->
+                                    <div class="row">
+                                        <div class="col-2 mt-1">
+                                            <label for="category">Select the category</label>
+                                        </div>
+                                        <div class="col-5">
+                                            <select class="form-select" id="category" aria-label="Default select example">
+                                                <option selected>Select A Category</option>
+                                                <option value="1">Graphic Card</option>
+                                                <option value="2">Ram</option>
+                                                <option value="3">MotherBoard</option>
+                                                <option value="3">Monitor</option>
+                                                <option value="3">Hard Disk</option>
+                                                <option value="3">Casing</option>
+                                                <option value="3">Power Supply</option>
+                                                <option value="3">Processor</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-2 mt-1">Item UnitPrice</div>
-                                    <div class="col-3">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="Rs.">
+                                    <!-- choose category end -->
+                                    <!-- select item name start -->
+                                    <div class="row mt-2">
+                                        <div class="col-2 mt-1">
+                                            <label for="category">Select item name</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <select class="form-select" id="category" aria-label="Default select example">
+                                                <option selected>Select Item</option>
+                                                <option value="1">Graphic Card</option>
+                                                <option value="2">Ram</option>
+                                                <option value="3">MotherBoard</option>
+                                                <option value="3">Monitor</option>
+                                                <option value="3">Hard Disk</option>
+                                                <option value="3">Casing</option>
+                                                <option value="3">Power Supply</option>
+                                                <option value="3">Processor</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="mr-1">
-                                        <button class="btn btn-info" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseItemDetails" aria-expanded="false"
-                                            aria-controls="collapseItemDetails">
-                                            Add Item
-                                        </button>
-                                        <div class="collapse mt-3" id="collapseItemDetails">
-                                            <div class="card card-body">
-                                                <table class="table ">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">Item Code</th>
-                                                            <th scope="col">Item Name</th>
-                                                            <th scope="col">Item Price</th>
-                                                            <th scope="col">Item Qty</th>
-                                                            <th scope="col">Buttons</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row">00001</th>
-                                                            <td>Ram</td>
-                                                            <td>23</td>
-                                                            <td>100</td>
-                                                             <td>
-                                                                <!-- <button class="btn btn-success">send</button> -->
-                                                                <button class="btn btn-success"><i class="fa-solid fa-money-check-dollar"></i></button>
-                                                                <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                            </td>
-                                                        </tr>
-                                                        
-                                
-                                                    </tbody>
-                                                </table>
+                                    <!-- select item name end -->
+        
+                                    <div class="row p-2">
+                                        <div id="itemDtails" class="fw-bolder" style="color: rgb(0, 0, 255);">Item Details</div>
+                                    </div>
+                                    <!-- item details start -->
+                                    <div class="row mt-3">
+                                        <div class="row">
+        
+                                            <div class="col-2">Item name</div>
+                                            <div class="col-6">
+                                                <label for="" class="" style="font-weight: bold;" id="lblItemName">NVIDIA
+                                                    GeForce RTX 4090
+                                                </label>
                                             </div>
                                         </div>
-    
-                                    </div>
-
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-2 mt-1">Discount</div>
-                                    <div class="col-3">
-                                        <select class="form-select" id="category" aria-label="Default select example">
-                                            <option selected>Select Discount Type</option>
-                                            <option value="1">Customer Vise</option>
-                                            <option value="2">Manually</option>
-                                        </select>
-                                        <div class="form-floating p-1 mt-2 mb-2">
-                                            <input type="text" class="form-control" disabled id="floatingInput"
-                                                placeholder="%">
-                                            <label for="floatingInput">Discount Rate</label>
+                                        <div class="row mt-2">
+                                            <div class="col-2 mt-1">Item Qty</div>
+                                            <div class="col-1">
+                                                <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-2 mt-1">Item UnitPrice</div>
+                                            <div class="col-3">
+                                                <input type="text" class="form-control" id="floatingInput" placeholder="Rs.">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="mr-1">
+                                                <button class="btn btn-info" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseItemDetails" aria-expanded="false"
+                                                    aria-controls="collapseItemDetails">
+                                                    Add Item
+                                                </button>
+                                                <div class="collapse mt-3" id="collapseItemDetails">
+                                                    <div class="card card-body">
+                                                        <table class="table ">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">Item Code</th>
+                                                                    <th scope="col">Item Name</th>
+                                                                    <th scope="col">Item Price</th>
+                                                                    <th scope="col">Item Qty</th>
+                                                                    <th scope="col">Buttons</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th scope="row">00001</th>
+                                                                    <td>Ram</td>
+                                                                    <td>23</td>
+                                                                    <td>100</td>
+                                                                     <td>
+                                                                        <!-- <button class="btn btn-success">send</button> -->
+                                                                        <button class="btn btn-success"><i class="fa-solid fa-money-check-dollar"></i></button>
+                                                                        <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                                    </td>
+                                                                </tr>
+                                                                
+                                        
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+            
+                                            </div>
+        
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-2 mt-1">Discount</div>
+                                            <div class="col-3">
+                                                <select class="form-select" id="category" aria-label="Default select example">
+                                                    <option selected>Select Discount Type</option>
+                                                    <option value="1">Customer Vise</option>
+                                                    <option value="2">Manually</option>
+                                                </select>
+                                                <div class="form-floating p-1 mt-2 mb-2">
+                                                    <input type="text" class="form-control" disabled id="floatingInput"
+                                                        placeholder="%">
+                                                    <label for="floatingInput">Discount Rate</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <select class="form-select" id="customer" disabled
+                                                    aria-label="Default select example">
+                                                    <option selected>Select Customer</option>
+                                                    <option value="1">Ravina</option>
+                                                    <option value="2">Ravina</option>
+                                                </select>
+                                            </div>
+        
+                                        </div>
+                                        <div class="row ">
+                                            <div class="col-2 mt-1">Item TotalPrice</div>
+                                            <div class="col-3">
+                                                <input type="text" class="form-control" id="floatingInput" placeholder="Rs.">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-2 mt-1">Cutomer payment</div>
+                                            <div class="col-3">
+                                                <input type="text" class="form-control" id="floatingInput" placeholder="Rs.">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-2 mt-1">Balance</div>
+                                            <div class="col-3">
+                                                <input type="text" class="form-control" id="floatingInput" placeholder="Rs.">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-3">
+        
+                                                <button class="btn btn-danger" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseBankDetails" aria-expanded="false"
+                                                    aria-controls="collapseBankDetails">
+                                                    Submit payment
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-4">
-                                        <select class="form-select" id="customer" disabled
-                                            aria-label="Default select example">
-                                            <option selected>Select Customer</option>
-                                            <option value="1">Ravina</option>
-                                            <option value="2">Ravina</option>
-                                        </select>
-                                    </div>
-
-                                </div>
-                                <div class="row ">
-                                    <div class="col-2 mt-1">Item TotalPrice</div>
-                                    <div class="col-3">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="Rs.">
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-2 mt-1">Cutomer payment</div>
-                                    <div class="col-3">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="Rs.">
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-2 mt-1">Balance</div>
-                                    <div class="col-3">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="Rs.">
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-3">
-
-                                        <button class="btn btn-danger" type="button" data-bs-toggle="collapse"
+                                    <!-- item details end -->
+        
+                                    <!-- customer details start -->
+                                    <p class="d-inline-flex gap-1 mt-4">
+        
+                                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
                                             data-bs-target="#collapseBankDetails" aria-expanded="false"
                                             aria-controls="collapseBankDetails">
-                                            Submit payment
+                                            Customer Details
                                         </button>
+        
+                                    </p><br>
+        
+                                    <!-- customer details end -->
+        
+
+                                </div>    
+                                <!-- form end -->
+                                <!-- update start -->
+                                <div class="col-3">
+                                    <!-- invoice no -->
+                                    <div class="row mt-3">
+                                        <div class="col-6 mt-1">Item Invoice No</div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                        </div>
+                                    </div>
+                                    <!-- serial no -->
+                                    <div class="row mt-3">
+                                        <div class="col-6 mt-1">Item Serial No</div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                        </div>
+                                    </div>
+                                    <!-- button -->
+                                    <div class="row mt-3">
+                                        <button class="btn btn-warning" type="button">Update</button>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- item details end -->
-
-                            <!-- customer details start -->
-                            <p class="d-inline-flex gap-1 mt-4">
-
-                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseBankDetails" aria-expanded="false"
-                                    aria-controls="collapseBankDetails">
-                                    Customer Details
-                                </button>
-
-                            </p><br>
-
-                            <!-- customer details end -->
-
-
+                                <!-- update end -->
+                            </div>    
 
 
                             <!-- add more details modal start-->
@@ -334,7 +363,7 @@
 
 
     <script src="templates/layouts/layout1.js"></script>
-    <script src="templates/layouts/layout2.js"></script>
+    <script src="templates/layouts/layout3.js"></script>
 
 </body>
 
