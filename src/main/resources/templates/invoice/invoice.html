@@ -9,13 +9,11 @@
 
 </head>
 
-
 <body>
     <div class="wrapper">
 
         <!-- side bar -->
         <aside th:replace="~{ layouts/sidebar :: sidebarfragment}"></aside>
-
 
         <!-- ui content area start -->
         <div class="main">
@@ -29,30 +27,156 @@
 
                     <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
 
-                        <h4>Invoice Table</h4>
+                        <h4 class="fw-bolder">Warrenty </h4>
                         <button id="empaddbtn" class="btn btn-success mb-2">Add Invoice</button>
                     </div>
                     <div class="container-fluid">
-                        <div class="mb-3 table-responsive">
-                            <table class="table table-dark table-bordered border-primary" id="graphicTab">
-                                <thead>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="row">
 
-                                    <th scope="col">#</th>
-                                    <th scope="col">Purchase Code</th>
-                                    <th scope="col">Category</th>
-                                    <th scope="col">Item Brand</th>
-                                    <th scope="col">Item Name</th>
-                                    <th scope="col">Qty</th>
-                                    <th scope="col">Supplier</th>
-                                    <th scope="col">Send Status</th>
-                                    <th scope="col">Button</th>
+                                        <div class="col-2 mt-1">Barcode</div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control mb-1" id="floatingInput"
+                                                placeholder="978-0307408427">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+
+                                        <div class="col-2">Item name</div>
+                                        <div class="col-6">
+                                            <label for="" class="" style="font-weight: bold;" id="lblItemName">NVIDIA
+                                                GeForce RTX 4090
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+
+                                        <div class="col-2  mt-1">Serial No</div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput"
+                                                placeholder="AB12CDEFG34H56JK">
+                                        </div>
+                                    </div>
+                            
+                                    <div class="row mt-3">
+                                        <div class="col-2 mt-1">UnitPrice</div>
+                                        <div class="col-3">
+                                            <input type="text" class="form-control" id="floatingInput"
+                                                placeholder="Rs.">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="mr-1">
+                                            <button class="btn btn-warning" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseItemWarrenty" aria-expanded="false"
+                                                aria-controls="collapseItemWarrenty">
+                                                Warrenty
+                                            </button>
+                                            <div class="collapse mt-3" id="collapseItemWarrenty">
+                                                <div class="card card-body">
+                                                    <form class=" ">
+                                                        <div
+                                                            class="row mt-3 d-flex justify-content-center align-items-center ">
+                                                            <div class="col-6 form-floating  p-1">
+                                                                <input type="text" class="form-control"
+                                                                    id="inputBankName">
+                                                                <label for="inputBankName" class="pl-2">Customer
+                                                                    Name</label>
+                                                            </div>
+                                                            <div class="col-6 form-floating  p-1">
+                                                                <input type="text" class="form-control"
+                                                                    id="inputBankBranch">
+                                                                <label for="inputBankBranch">Customer Contact
+                                                                    No:</label>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="row  d-flex justify-content-center align-items-center ">
+                                                            <div class="col-6 form-floating  p-1">
+                                                                <input type="text" class="form-control"
+                                                                    id="inputBankName">
+                                                                <label for="inputBankName" class="pl-2">Item
+                                                                    Name</label>
+                                                            </div>
+                                                            <div class="col-6 form-floating  p-1">
+                                                                <input type="date" class="form-control"
+                                                                    id="inputBankBranch">
+                                                                <label for="inputBankBranch">Warrenty Start
+                                                                    Date</label>
+                                                            </div>
+
+                                                        </div>
+                                                        <div
+                                                            class="row d-flex justify-content-center align-items-center ">
 
 
-                                </thead>
-                                <tbody>
+                                                            <div class="col-6 form-floating p-1">
+                                                                <input type="text" class="form-control"
+                                                                    id="inputAccName">
+                                                                <label for="inputAccName">Warrenty Period</label>
+                                                            </div>
+                                                            <div class="col-6 form-floating p-1">
+                                                                <input type="text" class="form-control"
+                                                                    id="inputAccHolderName">
+                                                                <label for="inputAccHolderName">Warrenty Ending
+                                                                    Date</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                      
+                                                                <label for="" class="fw-bolder">To Be Expire On <span style="color: red;">2023-09-08</span></label>
+                                                            
+                                                        </div>
+                                                      
 
-                                </tbody>
-                            </table>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class=" form-floating p-1">
+                                                    <button class="btn btn-success">Return Company</button>
+                                                    <button class="btn btn-danger" style="color: white;">Ready Repair</button>
+                                                </div>
+                                         
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+
+                                <div class="mb-3 table-responsive">
+                                    <table class="table table-dark table-bordered border-primary" id="graphicTab">
+                                        <thead>
+
+                                            <th scope="col">#</th>
+                                            <th scope="col">Barcode</th>
+                                            <th scope="col">Serial No</th>
+                                            <th scope="col">Item Name</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Button</th>
+
+                                        </thead>
+                                        <tbody>
+                                            <th scope="row">1</th>
+                                            <td>978-0307408427</td>
+                                            <td>AB12CDEFG34H56JK</td>
+                                            <td>Panasonic-Graphic card</td>
+                                            <td>Return Company</td>
+                                            <td><button class="btn btn-success"><i class="fa-solid fa-check"></i></button>
+                                                <button class="btn btn-info">
+                                                    <i class="fa-solid fa-pen-to-square"></i></button>
+    
+                                                <button class="btn btn-danger"><i class="fa-solid fa-pen-to-square"></i></button>
+                                            </td>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -60,8 +184,8 @@
 
                 <!-- Invoice form start -->
                 <div id="empForm" class="w3-animate-left" style="display: none;">
-                    <div class=" " style="display: flex; justify-content: space-between; align-items: center;">
-                        <!-- <button id="empFormToTable" class="btn btn-success mb-3">Table</button> -->
+                    <div class="" style="display: flex; justify-content: space-between; align-items: center;">
+                        <button id="empFormToTable" class="btn btn-success mb-3">Warrenty Form</button>
                         <h4>Invoice Form</h4>
                     </div>
 
@@ -84,7 +208,8 @@
                                             <label for="category">Select the category</label>
                                         </div>
                                         <div class="col-5">
-                                            <select class="form-select" id="category" aria-label="Default select example">
+                                            <select class="form-select" id="category"
+                                                aria-label="Default select example">
                                                 <option selected>Select A Category</option>
                                                 <option value="1">Graphic Card</option>
                                                 <option value="2">Ram</option>
@@ -104,7 +229,8 @@
                                             <label for="category">Select item name</label>
                                         </div>
                                         <div class="col-6">
-                                            <select class="form-select" id="category" aria-label="Default select example">
+                                            <select class="form-select" id="category"
+                                                aria-label="Default select example">
                                                 <option selected>Select Item</option>
                                                 <option value="1">Graphic Card</option>
                                                 <option value="2">Ram</option>
@@ -118,38 +244,122 @@
                                         </div>
                                     </div>
                                     <!-- select item name end -->
-        
                                     <div class="row p-2">
-                                        <div id="itemDtails" class="fw-bolder" style="color: rgb(0, 0, 255);">Item Details</div>
+                                        <div id="itemDtails" class="fw-bolder" style="color: rgb(0, 0, 255);">Item
+                                            Details
+                                        </div>
                                     </div>
                                     <!-- item details start -->
                                     <div class="row mt-3">
                                         <div class="row">
-        
+
+                                            <div class="col-2 mt-1">Barcode</div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control mb-1" id="floatingInput"
+                                                    placeholder="978-0307408427">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+
                                             <div class="col-2">Item name</div>
                                             <div class="col-6">
-                                                <label for="" class="" style="font-weight: bold;" id="lblItemName">NVIDIA
+                                                <label for="" class="" style="font-weight: bold;"
+                                                    id="lblItemName">NVIDIA
                                                     GeForce RTX 4090
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-2 mt-1">Item Qty</div>
-                                            <div class="col-1">
-                                                <input type="text" class="form-control" id="floatingInput" placeholder="">
+
+                                            <div class="col-2 mt-1">Item Serial No</div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="AB12CDEFG34H56JK">
                                             </div>
                                         </div>
+                                
                                         <div class="row mt-3">
                                             <div class="col-2 mt-1">Item UnitPrice</div>
                                             <div class="col-3">
-                                                <input type="text" class="form-control" id="floatingInput" placeholder="Rs.">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="Rs.">
                                             </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="mr-1">
+                                                <button class="btn btn-warning" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseItemWarrenty" aria-expanded="false"
+                                                    aria-controls="collapseItemWarrenty">
+                                                    Warrenty
+                                                </button>
+                                                <div class="collapse mt-3" id="collapseItemWarrenty">
+                                                    <div class="card card-body">
+                                                        <form class=" ">
+                                                            <div
+                                                                class="row mt-3 d-flex justify-content-center align-items-center ">
+                                                                <div class="col-6 form-floating  p-1">
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputBankName">
+                                                                    <label for="inputBankName" class="pl-2">Customer
+                                                                        Name</label>
+                                                                </div>
+                                                                <div class="col-6 form-floating  p-1">
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputBankBranch">
+                                                                    <label for="inputBankBranch">Customer Contact
+                                                                        No:</label>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="row  d-flex justify-content-center align-items-center ">
+                                                                <div class="col-6 form-floating  p-1">
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputBankName">
+                                                                    <label for="inputBankName" class="pl-2">Item
+                                                                        Name</label>
+                                                                </div>
+                                                                <div class="col-6 form-floating  p-1">
+                                                                    <input type="date" class="form-control"
+                                                                        id="inputBankBranch">
+                                                                    <label for="inputBankBranch">Warrenty Start
+                                                                        Date</label>
+                                                                </div>
+
+                                                            </div>
+                                                            <div
+                                                                class="row d-flex justify-content-center align-items-center ">
+
+
+                                                                <div class="col-6 form-floating p-1">
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputAccName">
+                                                                    <label for="inputAccName">Warrenty Period</label>
+                                                                </div>
+                                                                <div class="col-6 form-floating p-1">
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputAccHolderName">
+                                                                    <label for="inputAccHolderName">Warrenty Ending
+                                                                        Date</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-3 form-floating p-1">
+
+                                                                    <button class="btn btn-success">Add</button>
+                                                                </div>
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                         <div class="row mt-3">
                                             <div class="mr-1">
                                                 <button class="btn btn-info" type="button" data-bs-toggle="collapse"
                                                     data-bs-target="#collapseItemDetails" aria-expanded="false"
-                                                    aria-controls="collapseItemDetails">
+                                                    aria-controls="collapseItemDetails" style="color: white;">
                                                     Add Item
                                                 </button>
                                                 <div class="collapse mt-3" id="collapseItemDetails">
@@ -170,31 +380,37 @@
                                                                     <td>Ram</td>
                                                                     <td>23</td>
                                                                     <td>100</td>
-                                                                     <td>
+                                                                    <td>
                                                                         <!-- <button class="btn btn-success">send</button> -->
-                                                                        <button class="btn btn-success"><i class="fa-solid fa-money-check-dollar"></i></button>
-                                                                        <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                                        <button class="btn btn-success"><i
+                                                                                class="fa-solid fa-money-check-dollar"></i></button>
+                                                                        <button class="btn btn-danger"><i
+                                                                                class="fa-solid fa-trash"></i></button>
                                                                     </td>
                                                                 </tr>
-                                                                
-                                        
+
+
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
-            
                                             </div>
-        
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-2 mt-1">Discount</div>
                                             <div class="col-3">
-                                                <select class="form-select" id="category" aria-label="Default select example">
+                                                <select class="form-select" id="category"
+                                                    aria-label="Default select example">
                                                     <option selected>Select Discount Type</option>
                                                     <option value="1">Customer Vise</option>
                                                     <option value="2">Manually</option>
                                                 </select>
-                                                <div class="form-floating p-1 mt-2 mb-2">
+                                                <div class="form-floating p-1 mt-1 mb-1">
+                                                    <input type="text" class="form-control" disabled id="floatingInput"
+                                                        placeholder="0775656567">
+                                                    <label for="floatingInput">Phone Number</label>
+                                                </div>
+                                                <div class="form-floating p-1 mt-1 mb-2">
                                                     <input type="text" class="form-control" disabled id="floatingInput"
                                                         placeholder="%">
                                                     <label for="floatingInput">Discount Rate</label>
@@ -208,29 +424,33 @@
                                                     <option value="2">Ravina</option>
                                                 </select>
                                             </div>
-        
+
+
                                         </div>
                                         <div class="row ">
                                             <div class="col-2 mt-1">Item TotalPrice</div>
                                             <div class="col-3">
-                                                <input type="text" class="form-control" id="floatingInput" placeholder="Rs.">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="Rs.">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-2 mt-1">Cutomer payment</div>
                                             <div class="col-3">
-                                                <input type="text" class="form-control" id="floatingInput" placeholder="Rs.">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="Rs.">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-2 mt-1">Balance</div>
                                             <div class="col-3">
-                                                <input type="text" class="form-control" id="floatingInput" placeholder="Rs.">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="Rs.">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-3">
-        
+
                                                 <button class="btn btn-danger" type="button" data-bs-toggle="collapse"
                                                     data-bs-target="#collapseBankDetails" aria-expanded="false"
                                                     aria-controls="collapseBankDetails">
@@ -240,22 +460,18 @@
                                         </div>
                                     </div>
                                     <!-- item details end -->
-        
                                     <!-- customer details start -->
                                     <p class="d-inline-flex gap-1 mt-4">
-        
+
                                         <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
                                             data-bs-target="#collapseBankDetails" aria-expanded="false"
                                             aria-controls="collapseBankDetails">
                                             Customer Details
                                         </button>
-        
-                                    </p><br>
-        
-                                    <!-- customer details end -->
-        
 
-                                </div>    
+                                    </p><br>
+                                    <!-- customer details end -->
+                                </div>
                                 <!-- form end -->
                                 <!-- update start -->
                                 <div class="col-3">
@@ -279,8 +495,7 @@
                                     </div>
                                 </div>
                                 <!-- update end -->
-                            </div>    
-
+                            </div>
 
                             <!-- add more details modal start-->
                             <button onclick="document.getElementById('moreSpecModal').style.display='block'"
@@ -335,7 +550,6 @@
                             </div>
                             <!-- add more details modal end-->
 
-
                             <!-- button gruop start -->
                             <div class="row p-2 d-flex justify-content-end align-items-center"
                                 style="display: flex; flex-direction: row; gap:10px;">
@@ -345,11 +559,9 @@
                             </div>
                             <!-- button gruop end -->
 
-
                         </form>
                         <!-- Invoice form end -->
                     </div>
-
 
                 </div>
                 <!-- Invoice form end -->

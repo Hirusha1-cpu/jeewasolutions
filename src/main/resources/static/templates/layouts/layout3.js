@@ -1,17 +1,30 @@
 const table = document.getElementById("empTable");
-    const form = document.getElementById("empForm");
+const form = document.getElementById("empForm");
 
-    // Animate table disappearance
-    table.style.opacity = 1; // Ensure opacity is initially 1
-    table.style.transition = "opacity 1.5s ease-out";
-    table.style.display = "none"; // Trigger the animation
+// Animate table disappearance
+table.style.opacity = 1; // Ensure opacity is initially 1
+table.style.transition = "opacity 1.5s ease-out";
+table.style.display = "none"; // Trigger the animation
 
-    // Delay form appearance slightly
-    setTimeout(function () {
-        form.style.opacity = 0;
-        form.style.display = "block";
-        form.style.transition = "opacity 1.5s ease-in";
-        form.style.opacity = 1; // Gradually fade in
-    }, 100); // Adjust the delay as needed
+// Delay form appearance slightly
+setTimeout(function () {
+    form.style.opacity = 0;
+    form.style.display = "block";
+    form.style.transition = "opacity 1.5s ease-in";
+    form.style.opacity = 1; // Gradually fade in
+}, 100); // Adjust the delay as needed
 
-    
+const Formbtn = document.getElementById("empaddbtn")
+Formbtn.addEventListener("click", function () {
+    const table = document.getElementById("empTable")
+    table.style.display = "none";
+    const form = document.getElementById("empForm")
+    form.style.display = "block"
+})
+const tableBtn = document.getElementById("empFormToTable")
+tableBtn.addEventListener("click", function () {
+    const table = document.getElementById("empTable")
+    table.style.display = "block";
+    const form = document.getElementById("empForm")
+    form.style.display = "none"
+})    
