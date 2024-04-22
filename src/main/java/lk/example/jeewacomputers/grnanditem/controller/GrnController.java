@@ -22,6 +22,7 @@ import lk.example.jeewacomputers.grnanditem.dao.SerialNoDao;
 import lk.example.jeewacomputers.grnanditem.entity.Grn;
 import lk.example.jeewacomputers.grnanditem.entity.GrnHasCategory;
 import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
+import lk.example.jeewacomputers.service.BarCodeGenerator;
 
 @RestController
 // @EnableTransactionManagement
@@ -29,6 +30,10 @@ public class GrnController {
     @Autowired
     // create dao object
     private GrnDao dao;
+
+    @Autowired
+    private BarCodeGenerator barcodeGenerator; // Inject the BarcodeGenerator service
+
 
     @Autowired
     private SerialNoDao serialNoDao;
@@ -78,6 +83,8 @@ public class GrnController {
                 for (SerialNo newSerials : grnHasCategory.getSerialNumbers()) {
                     // newSerials.set
                     newSerials.setGrn_has_category_id(grnHasCategory);// Set the reference
+                    barcodeGenerator.generateQRCodee(newSerials);
+                    
                     // serialNoDao.save(newSerials);
                     // newSerials.setGrn_has_category_id(grnHasCategory);
                     // serialNoDao.save(newSerials);

@@ -9,6 +9,7 @@
 
 </head>
 
+
 <body>
     <div class="wrapper">
 
@@ -41,6 +42,17 @@
                                             <input type="text" class="form-control mb-1" id="floatingInput"
                                                 placeholder="978-0307408427">
                                         </div>
+                                        <div class="row">
+                                            <div class="col-4 p-2 form-floating p-1">
+                                                <form id="qrCodeForm" method="POST" enctype="multipart/form-data">
+                                                    <input type="file" name="qrCodeImage" accept="image/*">
+                                                    <button type="submit">Read QR Code</button>
+                                                  </form>
+                                               
+                                            </div>
+                                        </div>
+
+                                        
                                     </div>
                                     <div class="row mt-2">
 
@@ -255,9 +267,19 @@
 
                                             <div class="col-2 mt-1">Barcode</div>
                                             <div class="col-6">
-                                                <input type="text" class="form-control mb-1" id="floatingInput"
+                                                <input type="text" class="form-control mb-1" id="barcodeNo"
                                                     placeholder="978-0307408427">
                                             </div>
+                                            <div class="row">
+                                                <div class="col-4 p-2 form-floating p-1">
+                                                    <form id="uploadForm" enctype="multipart/form-data">
+                                                        <input type="file" id="qrCodeImage" name="qrCodeImage" accept="image/*">
+                                                        <button type="submit">Upload QR Code</button>
+                                                    </form>                                                    
+                                                                                                      
+                                                </div>
+                                            </div>
+                                           
                                         </div>
                                         <div class="row mt-2">
 

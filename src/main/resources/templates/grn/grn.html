@@ -90,8 +90,7 @@
                                 <div class="col-5 p-2">
 
                                     <select class="form-select col-5" aria-label="Default select example"
-                                        id="selectCategories" 
-                                        >
+                                        id="selectCategories">
                                     </select>
                                 </div>
                                 <div class="col-4"></div>
@@ -112,7 +111,7 @@
                                     <select class="form-select col-5" aria-label="Default select example"
                                         id="selectSuppliers">
                                         <option selected>Select Supplier</option>
-                                        
+
                                     </select>
                                 </div>
                                 <div class="col-4"></div>
@@ -126,7 +125,8 @@
                             <div class="row p-2">
 
                                 <select class="form-select col-5" aria-label="Default select example"
-                                    id="selectPurchaseOrder1" onchange="
+                                    id="selectPurchaseOrder1"
+                                    onchange="
                                     selectDFieldValidation(selectPurchaseOrder1,'', 'grn', 'purchase_id'); addPurchaseOrderItemToTable()">
 
                                 </select>
@@ -174,18 +174,19 @@
                             <!-- qty, unit price and add button start -->
                             <div class="row p-2 d-flex justify-content-center align-items-center ">
                                 <div class="col-3 form-floating p-1">
-                                    <input type="number" class="inputPurchaseQuantity form-control" id="inputPurchaseQuantity" placeholder=""
-                                    onchange="textDValidation(inputPurchaseQuantity,'','grnHasItems','qty'); generateLinePrice(); generateSerialNumberList();">
+                                    <input type="number" class="inputPurchaseQuantity form-control"
+                                        id="inputPurchaseQuantity" placeholder=""
+                                        onchange="textDValidation(inputPurchaseQuantity,'','grnHasItems','qty'); generateLinePrice(); generateSerialNumberList();">
                                     <label for="floatingInput" class="pl-2">Quantity</label>
                                 </div>
                                 <div class="col-3 form-floating p-1">
                                     <input type="text" class="form-control" id="inputPurchaseItemPrice" placeholder=""
-                                    onchange="textDValidation(inputPurchaseItemPrice,'','grnHasItems','item_price'); generateLinePrice()">
+                                        onchange="textDValidation(inputPurchaseItemPrice,'','grnHasItems','item_price'); generateLinePrice()">
                                     <label for="floatingInput">Unit Price</label>
                                 </div>
                                 <div class="col-3 form-floating p-1">
-                                    <input type="text" class="form-control" id="inputPurchaseLinePrice" placeholder="" 
-                                   onchange="" >
+                                    <input type="text" class="form-control" id="inputPurchaseLinePrice" placeholder=""
+                                        onchange="">
                                     <label for="inputPurchaseLinePrice">Line Price</label>
                                 </div>
                                 <div class="col-3 form-floating p-1">
@@ -194,10 +195,11 @@
                                 </div>
 
                             </div>
-                            <div class="row p-2 d-flex justify-content-center align-items-center " id="inputSerialNoDiv">
+                            <div class="row p-2 d-flex justify-content-center align-items-center "
+                                id="inputSerialNoDiv">
                                 <div class="col-3 form-floating p-1">
                                     <input type="text" class="form-control" id="inputSerialNo" placeholder=""
-                                    onchange="textDValidation(inputSerialNo,'','grnHasItems','serialno');">
+                                        onchange="textDValidation(inputSerialNo,'','grnHasItems','serialno');">
                                     <label for="floatingInput">Serial No</label>
                                 </div>
                             </div>
@@ -206,9 +208,10 @@
                                     <button class="btn btn-success" onclick="addGrn()">Add GRN</button>
                                 </div>
                             </div>
+                            
                             <!-- qty, unit price and add button end -->
 
-                     
+
                             <div class="row p-3 fw-semibold " style="color: green;">
                                 GRN Details
                             </div>
@@ -229,7 +232,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-     
+
                                 </tbody>
                             </table>
                             <!-- grn end -->
@@ -237,22 +240,22 @@
                             <div class="row p-2 d-flex justify-content-center align-items-center ">
                                 <div class="col-3 form-floating p-1">
                                     <input type="number" class="form-control" id="inputSupplierInvoice" placeholder=""
-                                    onkeyup="textValidation(inputSupplierInvoice,'', 'grn', 'supplierinvoiceno');">
+                                        onkeyup="textValidation(inputSupplierInvoice,'', 'grn', 'supplierinvoiceno');">
                                     <label for="inputSupplierInvoice" class="pl-2">Supplier Invoice</label>
                                 </div>
                                 <div class="col-3 form-floating p-1">
                                     <input type="text" class="form-control" id="inputGrnTotalAmount" placeholder=""
-                                    onchange="textValidation(inputGrnTotalAmount,'', 'grn', 'totalamount');">
+                                        onchange="textValidation(inputGrnTotalAmount,'', 'grn', 'totalamount');">
                                     <label for="inputGrnTotalAmount">Total Amount</label>
                                 </div>
                                 <div class="col-3 form-floating p-1">
                                     <input type="text" class="form-control" id="inputGrnDiscount" placeholder=""
-                                    onkeyup="textValidation(inputGrnDiscount,'', 'grn', 'discountrate'); generateNetAmount()" >
+                                        onkeyup="textValidation(inputGrnDiscount,'', 'grn', 'discountrate'); generateNetAmount()">
                                     <label for="inputGrnDiscount">Discount Rate</label>
                                 </div>
                                 <div class="col-3 form-floating p-1">
                                     <input type="text" class="form-control" id="inputGrnNetAmount" placeholder=""
-                                    onchange="textValidation(inputGrnNetAmount,'', 'grn','netamount');">
+                                        onchange="textValidation(inputGrnNetAmount,'', 'grn','netamount');">
                                     <label for="inputGrnNetAmount">Net Amount</label>
                                 </div>
 

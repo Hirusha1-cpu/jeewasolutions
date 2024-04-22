@@ -1,7 +1,9 @@
 package lk.example.jeewacomputers.purchase.controller;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -16,13 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lk.example.jeewacomputers.purchase.dao.PurchaseDao;
 import lk.example.jeewacomputers.purchase.entity.Purchase;
 import lk.example.jeewacomputers.purchase.entity.PurchaseHasCategory;
-import lk.example.jeewacomputers.suppliers.entity.Supplier;
+import lk.example.jeewacomputers.service.BarCodeGenerator;
 
 
 @RestController
@@ -30,16 +35,21 @@ public class PurchaseController {
     @Autowired
     private PurchaseDao dao;
 
+        @Autowired
+    private BarCodeGenerator barcodeGenerator; // Inject the BarcodeGenerator service
+
     @PersistenceContext
     private EntityManager entityManager;
-    // It acts as a bridge between your Java application and the underlying relational database
-
+    // It acts as a bridge between your Java application and the underlying
+    // relational database
 
     // create get mapping for get supplier all data --- [/supplier/findall]
     @GetMapping(value = "/purchase/getlist", produces = "application/json")
-    public List<Purchase> findAllData() {
+    public List<Purchase> findAllData() throws NotFoundException, FormatException, IOException {
         // login user authentication and authorization
+        barcodeGenerator.readQRCode("/Users/hirushafernando/Documents/Project_BIT/PROJECT/jeewa_main/Ui_Structures-QRCODE.png");       
         return dao.findAll(Sort.by(Direction.DESC, "id"));
+
     }
 
     @GetMapping(value = "/purchase/getporeds", produces = "application/json")
@@ -59,7 +69,6 @@ public class PurchaseController {
         // login user authentication and authorization
         return dao.getPurchaseOrdersWithCode(id);
     }
-    
 
     // load the employee ui file using requesting this url (/employee)
     @RequestMapping(value = "/purchase")
@@ -79,7 +88,8 @@ public class PurchaseController {
 
         try {
             // set auto generated value
-            // Supplier supplier = entityManager.find(Supplier.class, 2); // Assuming supplier ID is 1
+            // Supplier supplier = entityManager.find(Supplier.class, 2); // Assuming
+            // supplier ID is 1
 
             for (PurchaseHasCategory purchaseHasCategory : purchase.getPurchaseHasCategory()) {
                 purchaseHasCategory.setPurchase_id(purchase);
