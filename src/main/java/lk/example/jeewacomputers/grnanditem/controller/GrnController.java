@@ -71,7 +71,7 @@ public class GrnController {
     }
 
     @PostMapping(value = "/grn")
-    @Transactional
+    // @Transactional
     public String save(@RequestBody Grn grn) {
 
         try {
@@ -82,6 +82,10 @@ public class GrnController {
                 // grnHasCategory = grnHasCategoryDao.save(grnHasCategory);
                 for (SerialNo newSerials : grnHasCategory.getSerialNumbers()) {
                     // newSerials.set
+                    newSerials.setAvailability(Boolean.TRUE);
+                    newSerials.setCategory_id(grnHasCategory.getCategory_id());
+                    newSerials.setItemcode(grnHasCategory.getItemcode());
+                    newSerials.setItemname(grnHasCategory.getItemname());
                     newSerials.setGrn_has_category_id(grnHasCategory);// Set the reference
                     barcodeGenerator.generateQRCodee(newSerials);
                     

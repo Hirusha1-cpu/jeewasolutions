@@ -1,6 +1,9 @@
-document.getElementById('uploadForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadForm = document.getElementById('uploadForm');
     
+    uploadForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+    console.log("ssss");
     const formData = new FormData();
     formData.append('qrCodeImage', document.getElementById('qrCodeImage').files[0]);
 
@@ -17,5 +20,6 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
         console.error('Error:', error);
         // Handle errors
     });
+})
 });
 

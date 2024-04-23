@@ -47,7 +47,7 @@ public class PurchaseController {
     @GetMapping(value = "/purchase/getlist", produces = "application/json")
     public List<Purchase> findAllData() throws NotFoundException, FormatException, IOException {
         // login user authentication and authorization
-        barcodeGenerator.readQRCode("/Users/hirushafernando/Documents/Project_BIT/PROJECT/jeewa_main/Ui_Structures-QRCODE.png");       
+        // barcodeGenerator.readQRCode("/Users/hirushafernando/Documents/Project_BIT/PROJECT/jeewa_main/Ui_Structures-QRCODE.png");       
         return dao.findAll(Sort.by(Direction.DESC, "id"));
 
     }

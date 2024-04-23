@@ -79,7 +79,7 @@ public class Grn {
     // @NotNull
     private Integer netamount;
 
-    @JsonIgnoreProperties(value = {"grn_id,availableitems_id"})
+    @JsonIgnoreProperties(value = {"grn_id"})
     @OneToMany(mappedBy = "grn_id", cascade = CascadeType.ALL, orphanRemoval = true)
     // @JsonIgnore
     private List<GrnHasCategory> grnHasCategory;

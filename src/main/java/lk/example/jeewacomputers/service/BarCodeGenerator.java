@@ -68,6 +68,7 @@ public class BarCodeGenerator {
 
             // Decode QR code
             String qrCodeContent = readQRCode(base64Image);
+            
 
             return qrCodeContent;
         } catch (IOException e) {

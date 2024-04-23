@@ -191,6 +191,8 @@ const checkBoxButton = (rowObject) => {
     inputPurchaseItemPrice.value = rowObject.itemprice
     inputPurchaseLinePrice.value = rowObject.lineprice
     purchaseOId.innerHTML = rowObject.id
+    grnHasItems.category_id = rowObject.category_id
+    
 }
 
 const addPurchaseOrderItemToTable = () => {
@@ -240,7 +242,7 @@ const generateSerialNumberList = () =>{
     }
     console.log("serialNo",serialNo);
     for (let id in serialNo) {
-        serialNumbers.push({ id: parseInt(id), serialno: serialNo[id] });
+        serialNumbers.push({ serialno: serialNo[id] });
     }
 
     return serialNumbers;
