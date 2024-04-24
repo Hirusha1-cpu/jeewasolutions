@@ -28,7 +28,7 @@
 
                     <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
 
-                        <h4>Employee Table</h4>
+                        <h4>Privilege Table</h4>
                         <button id="empaddbtn" class="btn btn-success mb-2">Add Privilege</button>
                     </div>
                     <div class="container-fluid">
@@ -60,18 +60,20 @@
                 <div id="empForm" class="w3-animate-left" style="display: none;" >
                     <div class=" " style="display: flex; justify-content: space-between; align-items: center;">
                         <button id="empFormToTable" class="btn btn-success mb-3">Table</button>
-                        <h4>Employee Form</h4>
+                        <h4>Privilege Form</h4>
                     </div>
 
                     <div style="border: 1px solid black; padding: 10px;">
 
                         <!-- Privilege form start -->
                         <form onsubmit="return false" id="formPrivilege">
+                             <!-- date start -->
+                             <div class="row p-2">
+                                <div id="date" class="fw-bolder" style="color: red;">2024-09-09</div>
+                            </div>
+                            <!-- date end -->
 
-
-                            <div class="p-5 pt-0 fw-bold">
-
-                                <div class="row main justify-content-md-center ">
+                                <div class="row justify-content-md-center ">
                                     <!-- style="margin-top: 10px;width: 1200px; margin-left: 200px;" -->
                                     <div class="container ">
                                         <!-- Required field -->
@@ -79,7 +81,7 @@
 
                                             <div>
                                                 <b>
-                                                    <p class="fw-bold fs-5 fw-bold">
+                                                    <p class="fw-bold fw-bold">
                                                         <span class="text-danger">
 
                                                             * Required
@@ -90,53 +92,43 @@
                                         </div>
                                         <!-- Required field end -->
                                         <!-- role start -->
-                                        <div class="row">
-                                            <div class="mb-3 row " style="height: 40px;">
-                                                <label for="selectRole"
-                                                    class="col-lg-2 col-form-label fs-5 fw-bold">Role</label>
-                                                <div class="col-lg-10 ">
-                                                    <select id="selectRole" class="form-select form-select-lg"
-                                                        aria-label="Default select example"
-                                                        onchange="selectDFieldValidation(selectRole,'', 'privilege', 'role_id'); generateModuleList()">
+                                        <div class="row form-floating ms-3 me-3">
+                                      
+                                            <select id="selectRole" class="form-select "
+                                            aria-label="Default select example"
+                                            onchange="selectDFieldValidation(selectRole,'', 'privilege', 'role_id'); generateModuleList()">
+                                            
+                                            
+                                        </select>
+                                        <label for="selectRole"
+                                            class="col form-label fw-bold">Role</label>
 
-
-                                                    </select>
-
-
-                                                </div>
-                                            </div>
+                                   
 
 
                                         </div>
                                         <!-- role end -->
                                         <!-- module start -->
-                                        <div class="row">
-                                            <div class="mb-3 row " style="height: 40px;">
-                                                <label for="selectModule"
-                                                    class="col-lg-2 col-form-label fs-5 fw-bold">Module</label>
-                                                <div class="col-lg-10 ">
-                                                    <select id="selectModule" class="form-select form-select-lg"
-                                                        aria-label="Default select example"
-                                                        onchange="selectDFieldValidation(selectModule,'', 'privilege', 'module_id')">
+                                        <div class="row mt-3 form-floating ms-3 me-3">
+                                            <select id="selectModule" class="form-select "
+                                            aria-label="Default select example"
+                                            onchange="selectDFieldValidation(selectModule,'', 'privilege', 'module_id')">
+                                            
+                                            > </select>
+                                        
+                                        <label for="selectModule"
+                                            class="">Module</label>
 
-                                                        >
-
-
-                                                    </select>
-
-
-                                                </div>
-                                            </div>
 
 
                                         </div>
                                         <!-- module end -->
                                         <!-- select start -->
-                                        <div class="row">
+                                        <div class="row ms-3 me-3">
                                             <div class="mb-3 row "
                                                 style="height: 40px; display: flex; justify-content: center; align-items: center;">
                                                 <label for="inputSelect1"
-                                                    class="col-lg-2 col-form-label fs-5 fw-bold">Select</label>
+                                                    class="col-2 col-form-label ">Select</label>
 
                                                 <div class="col-lg-10 form-check mt-1  " id="inputSelect1">
 
@@ -158,11 +150,11 @@
                                         </div>
                                         <!-- select end -->
                                         <!-- insert start -->
-                                        <div class="row">
+                                        <div class="row ms-3 me-3">
                                             <div class="mb-3 row "
                                                 style="height: 40px; display: flex; justify-content: center; align-items: center;">
                                                 <label for="inputInsert1"
-                                                    class="col-lg-2 col-form-label fs-5 fw-bold">Insert</label>
+                                                    class="col-2 col-form-label ">Insert</label>
 
                                                 <div class="col-lg-10 form-check mt-1  " id="inputInsert1">
 
@@ -184,11 +176,11 @@
                                         </div>
                                         <!-- insert end -->
                                         <!-- update start -->
-                                        <div class="row">
+                                        <div class="row ms-3 me-3">
                                             <div class="mb-3 row "
                                                 style="height: 40px; display: flex; justify-content: center; align-items: center;">
                                                 <label for="inputUpdate1"
-                                                    class="col-lg-2 col-form-label fs-5 fw-bold">Update</label>
+                                                    class="col-2 col-form-label ">Update</label>
 
                                                 <div class="col-lg-10 form-check mt-1  " id="inputUpdate1">
 
@@ -210,11 +202,11 @@
                                         </div>
                                         <!-- Update end -->
                                         <!-- Delete start -->
-                                        <div class="row">
+                                        <div class="row ms-3 me-3">
                                             <div class="mb-3 row "
                                                 style="height: 40px; display: flex; justify-content: center; align-items: center;">
                                                 <label for="inputDelete1"
-                                                    class="col-lg-2 col-form-label fs-5 fw-bold">Delete</label>
+                                                    class="col-2 col-form-label ">Delete</label>
 
                                                 <div class="col-lg-10 form-check mt-1  " id="inputDelete1">
 
@@ -237,18 +229,18 @@
                                         <!-- Update end -->
 
                                         <!-- button group start -->
-                                        <div class="row mt-4 mb-3"
+                                        <div class="row ms-3 me-3 mt-4 mb-3"
                                             style="display: flex;justify-content: space-between;">
                                             <div class="col">
-                                                <button type="button" class="btn btn-lg btn-info"><i
+                                                <button type="button" class="btn btn-info"><i
                                                         class="fa-solid fa-broom"></i>Clear</button>
                                             </div>
                                             <div class="col"
                                                 style="display: flex; justify-content: flex-end;gap:10px">
-                                                <button type="button" class="btn btn-lg btn-warning"
+                                                <button type="button" class="btn btn-warning"
                                                     style="border-radius: 30px;" onclick="buttonEmpUpdate()"><i
                                                         class="fa-solid fa-pen-to-square"></i>Update</button>
-                                                <button type="button" class="btn btn-lg btn-success"
+                                                <button type="button" class="btn btn-success"
                                                     style="border-radius: 30px;" onclick="buttonEmpAdd()"><i
                                                         class="fa-solid fa-plus"></i>Add</button>
                                             </div>
@@ -259,7 +251,7 @@
 
                                     </div>
                                 </div>
-                            </div>
+              
 
 
                         </form>

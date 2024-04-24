@@ -55,214 +55,185 @@
                 <!-- employee table end -->
 
                 <!-- employee form start -->
-                <div id="empForm" class="w3-animate-left" style="display: none;" >
+                <div id="empForm" class="w3-animate-left" style="display: none;">
                     <div class=" " style="display: flex; justify-content: space-between; align-items: center;">
                         <button id="empFormToTable" class="btn btn-success mb-3">Table</button>
-                        <h4>Employee Form</h4>
+                        <h4>User Form</h4>
                     </div>
 
                     <div style="border: 1px solid black; padding: 10px;">
 
                         <!-- user form start -->
                         <form onsubmit="return false" id="formUser">
+                            <!-- date start -->
+                            <div class="row p-2">
+                                <div id="date" class="fw-bolder" style="color: red;">2024-09-09</div>
+                            </div>
+                            <!-- date end -->
 
 
-                            <div class="p-5 pt-0 fw-bold">
 
-                                <div class="row main justify-content-md-center ">
-                                    <!-- style="margin-top: 10px;width: 1200px; margin-left: 200px;" -->
-                                    <div class="container ">
-                                        <!-- Required field -->
-                                        <div class="row" style="margin-left: 10px;">
+                            <div class="row ">
+                                <!-- style="margin-top: 10px;width: 1200px; margin-left: 200px;" -->
+                                <div class="container ">
+                                    <!-- Required field -->
+                                    <div class="row" style="margin-left: 10px;">
 
-                                            <div>
-                                                <b>
-                                                    <p class="fw-bold fs-5 fw-bold">
-                                                        <span class="text-danger">
+                                        <div>
+                                            <b>
+                                                <p class="fw-bold fw-bold">
+                                                    <span class="text-danger">
 
-                                                            * Required
-                                                        </span>
-                                                    </p>
-                                                </b>
-                                            </div>
+                                                        * Required
+                                                    </span>
+                                                </p>
+                                            </b>
                                         </div>
-                                        <!-- Required field end -->
-                                        <!-- Employee start -->
-                                        <div class="row">
-                                            <div class="mb-3 row " style="height: 40px;">
-                                                <label for="selectEmployee"
-                                                    class="col-lg-2 col-form-label fs-5 fw-bold">User</label>
-                                                <div class="col-lg-10 ">
-                                                    <select id="selectEmployee"
-                                                        class="form-select form-select-lg" required
-                                                        aria-label="Default select example"
-                                                        onchange="selectDFieldValidation(selectEmployee,'', 'user', 'employee'); generateUserEmail()">
+                                    </div>
+                                    <!-- Required field end -->
+                                    <!-- Employee start -->
+                                    <div class="mb-3  ms-3 me-3 row form-floating">
 
-                                                    </select>
+                                        <select id="selectEmployee" class="form-select" required
+                                            aria-label="Default select example"
+                                            onchange="selectDFieldValidation(selectEmployee,'', 'user', 'employee'); generateUserEmail()">
 
+                                        </select>
+                                        <label for="selectEmployee" class="">
+                                            User</label>
 
-                                                </div>
-                                            </div>
+                                    </div>
 
+                                    <!-- Employee end -->
+                                    <!-- username start -->
+                                    <div class="mb-3  ms-3 me-3 row form-floating">
 
-                                        </div>
+                                        <input type="text" class="form-control form-control-lg "
+                                            placeholder="Enter Username" id="inputUsername" required
+                                            onkeyup="textValidation(inputUsername, '^[A-Z][a-z]{2,30}$', 'user', 'username')">
 
-                                        <!-- Employee end -->
-                                        <!-- username start -->
-                                        <div class="row">
-                                            <div class="mb-3 row " style="height: 40px;">
-                                                <label for="inputUsername"
-                                                    class="col-lg-2 col-form-label fs-5 fw-bold">
+                                        <label for="inputUsername" class="">
 
-                                                    Username
-                                                    <i class="fa-solid fa-question" data-bs-toggle="tooltip"
-                                                        data-bs-title="Enter UserName"
-                                                        data-bs-placement="bottom"></i>
-                                                </label>
-                                                <div class="col-lg-10 ">
-                                                    <input type="text" class="form-control form-control-lg "
-                                                        placeholder="Enter Username" id="inputUsername" required
-                                                        onkeyup="textValidation(inputUsername, '^[A-Z][a-z]{2,30}$', 'user', 'username')">
+                                            Username
+                                            <i class="fa-solid fa-question" data-bs-toggle="tooltip"
+                                                data-bs-title="Enter UserName" data-bs-placement="bottom"></i>
+                                        </label>
+
+                                    </div>
+                                    <!-- username end -->
+                                    <!-- password start -->
+                                    <div class="mb-3  ms-3 me-3 row form-floating">
 
 
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                        <!-- username end -->
-                                        <!-- password start -->
-                                        <div class="row">
-                                            <div class="mb-3 row " style="height: 40px;">
-                                                <label for="inputPassword"
-                                                    class="col-lg-2 col-form-label fs-5 fw-bold">Password</label>
-                                                <div class="col-lg-10 ">
-                                                    <input type="password" class="form-control form-control-lg "
-                                                        placeholder="Enter Password" id="inputPassword" required
-                                                        onkeyup="textValidation(inputPassword, '^[A-Z][a-z]{2,30}$', 'user', 'password')">
-
-
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-
-                                        <!-- password end -->
-                                        <!-- password re start -->
-                                        <div class="row">
-                                            <div class="mb-3 row " style="height: 40px;">
-                                                <label for="inputRePassword"
-                                                    class="col-lg-2 col-form-label fs-5 fw-bold">Re-Password</label>
-                                                <div class="col-lg-10 ">
-                                                    <input type="password" class="form-control form-control-lg "
-                                                        placeholder="Enter Re-Password" id="inputRePassword"
-                                                        required onkeyup="passwordValidation()">
-
-
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-
-                                        <!-- password re end -->
-                                        <!-- email start -->
-                                        <div class="row">
-                                            <div class="mb-3 row " style="height: 40px;">
-                                                <label for="inputEmail"
-                                                    class="col-lg-2 col-form-label fs-5 fw-bold">Email</label>
-                                                <div class="col-lg-10 ">
-                                                    <input type="email" class="form-control form-control-lg "
-                                                        placeholder="Enter Email" id="inputEmail" required
-                                                        onkeyup="textValidation(inputEmail, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'user', 'email')">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- email end -->
-                                        <!-- role start -->
-                                        <div class="row">
-                                            <div class="mb-3 row" style="height: 40px;">
-                                                <label for="inputRole"
-                                                    class="col-lg-2 col-form-label fs-5 fw-bold">Role</label>
-                                                <div class="col-lg-10 " id="inputRole">
-                                                    <div class="col-lg-4 form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="selectManager">
-                                                        <label class="form-check-label" for="selectManager">
-                                                            Manager
-                                                        </label>
-
-                                                    </div>
-                                                    <div class="col-lg-4 form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="selectCashier">
-                                                        <label class="form-check-label" for="selectCashier">
-                                                            Cashier
-                                                        </label>
-
-                                                    </div>
-                                                    <div class="col-lg-4 form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="selectSManager">
-                                                        <label class="form-check-label" for="selectSManager">
-                                                            Store-Manager
-                                                        </label>
-
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <!-- role end -->
-                                        <!-- status start -->
-                                        <div class="row mt-4">
-                                            <div class="mb-3 mt-3 row ml-2" style="height: 40px;">
-                                                <label for="inputStatus1"
-                                                    class="col-lg-2 col-form-label fs-5 fw-bold">Status</label>
-                                                <div class="col-lg-10 form-check mt-2" id="inputStatus1">
-
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="inputStatus" checked onchange="checkBoxValidator(inputStatus,'','user', 
-                                                        'status',true, false, inputStatusLbl,'User Account is active ',
-                                                         'User Account is not-active')">
-                                                    <!-- (fieldId, pattern, object, property, trueValue,falseValue, labelId, labelTrueValue,labelFalseValue) -->
-                                                    <label class="form-check-label" for="inputStatus"
-                                                        id="inputStatusLbl">
-                                                    </label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <!-- status end -->
-
-
-
-                                        <!-- button group start -->
-                                        <div class="row mt-4 mb-3"
-                                            style="display: flex;justify-content: space-between;">
-                                            <div class="col">
-                                                <button type="button" class="btn btn-lg btn-info"><i
-                                                        class="fa-solid fa-broom"></i>Clear</button>
-                                            </div>
-                                            <div class="col"
-                                                style="display: flex; justify-content: flex-end;gap:10px">
-                                                <button type="button" class="btn btn-lg btn-warning"
-                                                    style="border-radius: 30px;" onclick="buttonUserUpdate()"><i
-                                                        class="fa-solid fa-pen-to-square"></i>Update</button>
-                                                <button type="button" class="btn btn-lg btn-success"
-                                                    style="border-radius: 30px;" onclick="buttonUserAdd()"><i
-                                                        class="fa-solid fa-plus"></i>Add</button>
-                                            </div>
-                                        </div>
-                                        <!-- button group end -->
+                                        <input type="password" class="form-control " placeholder="Enter Password"
+                                            id="inputPassword" required
+                                            onkeyup="textValidation(inputPassword, '^[A-Z][a-z]{2,30}$', 'user', 'password')">
+                                        <label for="inputPassword" class="">Password</label>
 
 
 
                                     </div>
+
+                                    <!-- password end -->
+                                    <!-- password re start -->
+                                    <div class="mb-3  ms-3 me-3 row form-floating">
+
+                                        <input type="password" class="form-control "
+                                            placeholder="Enter Re-Password" id="inputRePassword" required
+                                            onkeyup="passwordValidation()">
+
+                                        <label for="inputRePassword"
+                                            class="">Re-Password</label>
+
+                                    </div>
+
+                                    <!-- password re end -->
+                                    <!-- email start -->
+                                    <div class="mb-3  ms-3 me-3 row form-floating">
+
+                                        <input type="email" class="form-control"
+                                        placeholder="Enter Email" id="inputEmail" required
+                                        onkeyup="textValidation(inputEmail, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'user', 'email')">
+                                        <label for="inputEmail"
+                                            class="">Email</label>
+                                 
+                                        
+                                    </div>
+
+                                    <!-- email end -->
+                                    <!-- role start -->
+                                    <div class="mb-3  ms-3 me-3 row">
+                               
+                                            <label for="inputRole"
+                                                class="">Role</label>
+                                            <div class="col " id="inputRole">
+                                                <div class="col-lg-4 form-check">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        id="selectManager">
+                                                    <label class="form-check-label" for="selectManager">
+                                                        Manager
+                                                    </label>
+
+                                                </div>
+                                                <div class="col-lg-4 form-check">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        id="selectCashier">
+                                                    <label class="form-check-label" for="selectCashier">
+                                                        Cashier
+                                                    </label>
+
+                                                </div>
+                                                <div class="col-lg-4 form-check">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        id="selectSManager">
+                                                    <label class="form-check-label" for="selectSManager">
+                                                        Store-Manager
+                                                    </label>
+
+                                                </div>
+                                            </div>
+
+                                 
+                                    </div>
+                                    <!-- role end -->
+                                    <!-- status start -->
+                               
+                                    <div class="row ms-3 me-3">
+                                        <div class="form-check form-check-inline">
+                                          <label for="inputStatus" class="form-check-label col-2">Status</label>
+                                          <input class="form-check-input" type="checkbox" value="" id="inputStatus" checked
+                                                 onchange="checkBoxValidator(inputStatus,'','user', 'status',true, false, inputStatusLbl,'User Account is active ',
+                                                                             'User Account is not-active')">
+                                          <label class="form-check-label fw-bold" for="inputStatus" id="inputStatusLbl"></label>
+                                        </div>
+                                      </div>
+                                      
+                                    <!-- status end -->
+
+
+
+                                    <!-- button group start -->
+                                    <div class="row ms-3 me-3 mt-4 mb-3" style="display: flex;justify-content: space-between;">
+                                        <div class="col">
+                                            <button type="button" class="btn btn-info"><i
+                                                    class="fa-solid fa-broom"></i>Clear</button>
+                                        </div>
+                                        <div class="col" style="display: flex; justify-content: flex-end;gap:10px">
+                                            <button type="button" class="btn btn-warning"
+                                                style="border-radius: 30px;" onclick="buttonUserUpdate()"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Update</button>
+                                            <button type="button" class="btn btn-success"
+                                                style="border-radius: 30px;" onclick="buttonUserAdd()"><i
+                                                    class="fa-solid fa-plus"></i>Add</button>
+                                        </div>
+                                    </div>
+                                    <!-- button group end -->
+
+
+
                                 </div>
                             </div>
+
 
 
                         </form>

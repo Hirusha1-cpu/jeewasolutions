@@ -6,7 +6,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import jakarta.transaction.Transactional;
 import lk.example.jeewacomputers.grnanditem.dao.GrnDao;
-import lk.example.jeewacomputers.grnanditem.dao.GrnHasCategoryDao;
-import lk.example.jeewacomputers.grnanditem.dao.SerialNoDao;
 import lk.example.jeewacomputers.grnanditem.entity.Grn;
 import lk.example.jeewacomputers.grnanditem.entity.GrnHasCategory;
 import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
@@ -33,12 +30,6 @@ public class GrnController {
 
     @Autowired
     private BarCodeGenerator barcodeGenerator; // Inject the BarcodeGenerator service
-
-
-    @Autowired
-    private SerialNoDao serialNoDao;
-    @Autowired
-    private GrnHasCategoryDao grnHasCategoryDao;
 
     @GetMapping(value = "/grn/getlist", produces = "application/json")
     public List<Grn> findAll() {

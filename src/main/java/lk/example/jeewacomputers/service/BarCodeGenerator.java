@@ -3,7 +3,6 @@ package lk.example.jeewacomputers.service;
 import java.io.IOException;
 import java.nio.file.*;
 import java.awt.image.BufferedImage; // For BufferedImage
-import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 
 import org.springframework.stereotype.Service;

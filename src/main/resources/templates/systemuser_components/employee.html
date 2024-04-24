@@ -67,265 +67,240 @@
 
                         <!-- Item form start -->
                         <form onsubmit="return false">
+                            <!-- date start -->
+                            <div class="row p-2">
+                                <div id="date" class="fw-bolder" style="color: red;">2024-09-09</div>
+                            </div>
+                            <!-- date end -->
 
 
-                            <div class="p-5 pt-0 fw-bold">
 
-                                <div class="row main justify-content-md-center ">
-                                    <!-- style="margin-top: 10px;width: 1200px; margin-left: 200px;" -->
-                                    <div class="container ">
-                                        <!-- Required field -->
-                                        <div class="row" style="margin-left: 10px;">
+                            <div class="row justify-content-md-center ">
+                                <!-- style="margin-top: 10px;width: 1200px; margin-left: 200px;" -->
+                                <div class="container ">
+                                    <!-- Required field -->
+                                    <div class="row" style="margin-left: 10px;">
 
-                                            <div>
-                                                <b>
-                                                    <p class="fw-bold fs-5 fw-bold">
-                                                        <span class="text-danger">
+                                        <div>
+                                            <b>
+                                                <p class=" fw-bold">
+                                                    <span class="text-danger">
 
-                                                            * Required
-                                                        </span>
-                                                    </p>
-                                                </b>
-                                            </div>
+                                                        * Required
+                                                    </span>
+                                                </p>
+                                            </b>
                                         </div>
-                                        <!-- Required field end -->
-                                        <!-- full name start -->
-                                        <div class="row">
-                                            <div class="mb-3 row " style="height: 40px;">
-                                                <label for="inputFullName1"
-                                                    class="col-lg-2 col-form-label fs-5 fw-bold">Full
-                                                    Name</label>
-                                                <div class="col-lg-10 ">
-                                                    <input type="text" class="form-control form-control-lg "
-                                                        placeholder="Enter Full Name" id="inputFullName1" required
-                                                        onchange='generateCallingNameValues()'
-                                                        onkeyup="textValidation(inputFullName1, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'employee', 'fullname')">
+                                    </div>
+                                    <!-- Required field end -->
+                                    <!-- full name start -->
+                                    <div class="row form-floating ms-3 me-3">
+
+                                        <!-- <div class="form-floating "> -->
+                                        <input type="text" class="form-control " placeholder="Enter Full Name"
+                                            id="inputFullName1" required onchange='generateCallingNameValues()'
+                                            onkeyup="textValidation(inputFullName1, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'employee', 'fullname')">
+                                        <label for="inputFullName1" class="">Full
+                                            Name</label>
 
 
-                                                </div>
-                                            </div>
+                                        <!-- </div> -->
+                                    </div>
+                                    <!-- fullname end -->
+                                    <div class="row mt-3 ms-3 me-3">
+                                        <!-- calling name start -->
 
+                                        <div class="col p-1 form-floating">
+                                            <input placeholder="Enter Calling Name" type="text" class="form-control"
+                                                id="inputCallingName" list="dtaList"
+                                                onkeyup="txtCallingNameValidator(this)"
+                                                onchange="txtCallingNameValidator(this)">
+                                            <datalist id="dtaList">
+                                                <option value="Hirusha">
+                                                <option value="Achintha">
+                                                <option value="Fernando">
+
+                                            </datalist>
+                                            <label for="inputCallingName" class="">CallingName</label>
+                                        </div>
+
+
+                                        <!-- calling name end -->
+                                        <!-- nic start -->
+                                        <div class="col p-1 form-floating">
+
+                                            <input placeholder="Enter NIC" type="text" class="form-control"
+                                                id="inputNIC"
+                                                onkeyup="textValidation(inputNIC, '^(([0-9]{9}[VvXxSs])|([0-9]{12}))$', 'employee', 'nic');">
+                                            <label for="inputNIC" class="">NIC</label>
 
                                         </div>
-                                        <!-- fullname end -->
-                                        <div class="row">
-                                            <!-- calling name start -->
-                                            <div class="col">
+                                        <!-- nic end -->
+                                        <!-- gender start -->
+                                        <div class="col p-1 ms-3">
+                                            <div class="row">
+
                                                 <label for="inputCallingName"
-                                                    class="col-sm-2 col-form-label fs-5 fw-bold">CallingName</label>
-                                                <div class="col-lg-10">
-                                                    <input placeholder="Enter Calling Name" type="text"
-                                                        class="form-control form-control-lg" id="inputCallingName"
-                                                        list="dtaList" onkeyup="txtCallingNameValidator(this)"
-                                                        onchange="txtCallingNameValidator(this)">
-                                                    <datalist id="dtaList">
-                                                        <option value="Hirusha">
-                                                        <option value="Achintha">
-                                                        <option value="Fernando">
-
-                                                    </datalist>
-                                                </div>
-
+                                                    class="col-sm-2 col-form-label fw-bold">Gender</label>
                                             </div>
-                                            <!-- calling name end -->
-                                            <!-- nic start -->
-                                            <div class="col">
-                                                <label for="inputNIC"
-                                                    class="col-sm-2 col-form-label fs-5 fw-bold">NIC</label>
-                                                <div class="col-lg-10">
-                                                    <input placeholder="Enter NIC" type="text"
-                                                        class="form-control form-control-lg" id="inputNIC"
-                                                        onkeyup="textValidation(inputNIC, '^(([0-9]{9}[VvXxSs])|([0-9]{12}))$', 'employee', 'nic');">
-                                                </div>
-                                            </div>
-                                            <!-- nic end -->
-                                            <!-- gender start -->
-                                            <div class="col">
-                                                <div class="row">
-
-                                                    <label for="inputCallingName"
-                                                        class="col-sm-2 col-form-label fs-5 fw-bold">Gender</label>
-                                                </div>
-                                                <!-- <div class="row" > -->
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="flexRadioGender"
-                                                        id="flexRadioMale" value="Male"
-                                                        onchange="radioFieldValidator(flexRadioMale,'', 'employee', 'gender')">
-                                                    <label class="form-check-label fs-5 fw-bold" for="flexRadioMale">
-                                                        male
-                                                    </label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="flexRadioGender"
-                                                        id="flexRadioFemale" value="Female"
-                                                        onchange="radioFieldValidator(flexRadioFemale,'', 'employee', 'gender')">
-                                                    <label class="form-check-label fs-5 fw-bold" for="flexRadioFemale">
-                                                        female
-                                                    </label>
-                                                </div>
-                                                <!-- </div> -->
-
-                                            </div>
-                                            <!-- gender end -->
-                                            <!-- dob start -->
-                                            <div class="col">
-                                                <label for="inputCallingName"
-                                                    class="col-sm-2 col-form-label fs-5 fw-bold">
-                                                    DOB<span style="color: red;">*</span>
-
+                                            <!-- <div class="row" > -->
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="flexRadioGender"
+                                                    id="flexRadioMale" value="Male"
+                                                    onchange="radioFieldValidator(flexRadioMale,'', 'employee', 'gender')">
+                                                <label class="form-check-label w-bold" for="flexRadioMale">
+                                                    male
                                                 </label>
-                                                <div class="col-lg-10">
-                                                    <input type="date" class="form-control form-control-lg"
-                                                        id="inputDob" required
-                                                        onchange="dateFieldValidation(inputDob,'^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$','employee','dateofbirth');">
-                                                </div>
-
                                             </div>
-                                            <!-- dob end -->
-
-                                        </div>
-                                        <div class="row">
-                                            <!-- mobile no start -->
-                                            <div class="col">
-                                                <label for="inputMobNo"
-                                                    class="col-sm-2 col-form-label fs-5 fw-bold">Mobile</label>
-                                                <div class="col-lg-10 ">
-                                                    <input placeholder="Enter Mobile No" type="text"
-                                                        class="form-control form-control-lg" id="inputMobNo"
-                                                        onkeyup="textValidation(inputMobNo,'^[0][7][1245678][0-9]{7}$', 'employee', 'mobile');"
-                                                        required>
-                                                </div>
-                                            </div>
-                                            <!-- mobile no end -->
-                                            <!-- land no start -->
-                                            <div class="col">
-                                                <label for="inputLandNo"
-                                                    class="col-sm-2 col-form-label fs-5 fw-bold">LandNo</label>
-                                                <!-- <div class="col-lg-10">
-                                        <input placeholder="Enter Land No" type="text" class="form-control form-control-lg" id="inputLandNo">
-                                    </div> -->
-                                                <div class="input-group mb-3 input-group-lg ">
-                                                    <span class="input-group-text" id="basic-addon1"><i
-                                                            class="fa-sharp fa-solid fa-phone-volume"></i></span>
-                                                    <input type="text" class="form-control" placeholder="Enter Land No"
-                                                        aria-label="Username" aria-describedby="basic-addon1"
-                                                        id="inputLand"
-                                                        onkeyup="textValidation(inputLand, '^[0][12345689][0-9]{8}$', 'employee', 'landno');">
-                                                </div>
-
-                                            </div>
-                                            <!-- land no end -->
-                                            <!-- email start -->
-                                            <div class="col ">
-                                                <label for="inputEmail"
-                                                    class="col-sm-2 col-form-label fs-5 fw-bold">Email<span
-                                                        class="text-danger">(Optional)</span>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="flexRadioGender"
+                                                    id="flexRadioFemale" value="Female"
+                                                    onchange="radioFieldValidator(flexRadioFemale,'', 'employee', 'gender')">
+                                                <label class="form-check-label fw-bold" for="flexRadioFemale">
+                                                    female
                                                 </label>
-                                                <div class="col-lg-10">
-                                                    <input placeholder="Enter Email" type="email"
-                                                        class="form-control form-control-lg" id="inputEmail"
-                                                        onkeyup="textValidation(inputEmail, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'employee', 'email');">
-                                                </div>
                                             </div>
-                                            <!-- email end -->
+                                            <!-- </div> -->
+
                                         </div>
-                                        <div class="row ">
-                                            <!-- address start -->
-                                            <div class="col">
+                                        <!-- gender end -->
+                                        <!-- dob start -->
+                                        <div class="col p-1 form-floating">
 
-                                                <div class="input-group">
-                                                    <span class="input-group-text fs-5 fw-bold">Adress</span>
-                                                    <textarea class="form-control" aria-label="With textarea"
-                                                        id="inputAddress" onkeyup="textValidation(inputAddress, 
-                                            // '^([A-Za-z0-9\\/\\-\\s]{1,20}[/\\s]+([A-Z][a-z]{1,20}[.]))$', 
-                                            '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$',
-                                            'employee', 'address');"></textarea>
-                                                </div>
-                                            </div>
+                                            <input type="date" class="form-control " id="inputDob" required
+                                                onchange="dateFieldValidation(inputDob,'^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$','employee','dateofbirth');">
+                                            <label for="inputCallingName" class="">
+                                                DOB<span style="color: red;">*</span>
 
-                                            <!-- address end -->
-                                            <!-- note start -->
-                                            <div class="col ">
+                                            </label>
 
-                                                <div class="input-group">
-                                                    <span class="input-group-text fs-5 fw-bold">Note:<span
-                                                            class="text-danger">(Optional)</span></span>
-                                                    <textarea class="form-control" aria-label="With textarea">
 
-                                        </textarea>
-                                                </div>
-                                            </div>
-
-                                            <!-- note end -->
                                         </div>
-                                        <div class="row">
-                                            <!-- designation start -->
-                                            <div class="col">
-                                                <label for="inputDesignation"
-                                                    class="col-sm-2 col-form-label fs-5 fw-bold">Designation</label>
-                                                <select id="selectDesignation" class="form-select form-select-lg"
-                                                    aria-label="Default select example"
-                                                    onchange="selectDFieldValidation(selectDesignation,'', 'employee', 'designation_id')">
-                                                    <!-- <option selected disabled value="">Select Designation
-                                        </option>
-                                        <option value="cashier">Cashier</option>
-                                        <option value="manager">Manager</option> -->
-
-                                                </select>
-                                            </div>
-                                            <!-- designation end -->
-                                            <!-- civil status start -->
-                                            <div class="col">
-                                                <label for="inputCivilStatus"
-                                                    class="col-sm-2 col-form-label fs-5 fw-bold">Civil</label>
-                                                <select class="form-select form-select-lg"
-                                                    aria-label="Default select example" id="selectStatus"
-                                                    onchange="selectFieldValidation(selectStatus,'', 'employee', 'civilstatus')">
-                                                    <option selected>Select Civil Status</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
-                                            </div>
-                                            <!-- civil status end -->
-                                            <!-- emp status start -->
-                                            <div class="col">
-                                                <label for="inputDesignation"
-                                                    class="col-sm-2 col-form-label fs-5 fw-bold">EmpStatus</label>
-                                                <select class="form-select form-select-lg"
-                                                    aria-label="Default select example" id="selectEStatus"
-                                                    onchange="selectDFieldValidation(selectEStatus,'', 'employee', 'employeestatus_id')">
-                                                    <!-- <option selected>Select Employee Status</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option> -->
-                                                </select>
-                                            </div>
-                                            <!-- emp status end -->
-                                        </div>
-                                        <!-- button group start -->
-                                        <div class="row mt-4 mb-3"
-                                            style="display: flex;justify-content: space-between;">
-                                            <div class="col">
-                                                <button id="btnEmpclear" type="button" class="btn btn-lg btn-info"><i
-                                                        class="fa-solid fa-broom"></i>Clear</button>
-                                            </div>
-                                            <div class="col" style="display: flex; justify-content: flex-end;gap:10px">
-                                                <button id="btnEmpUpd" type="button" class="btn btn-lg btn-warning"
-                                                    style="border-radius: 30px;" onclick="buttonEmpUpdate()"><i
-                                                        class="fa-solid fa-pen-to-square"></i>Update</button>
-                                                <button id="btnEmpAdd" type="button" class="btn btn-lg btn-success"
-                                                    style="border-radius: 30px;" onclick="buttonEmpAdd()"><i
-                                                        class="fa-solid fa-plus"></i>Add</button>
-                                            </div>
-                                        </div>
-                                        <!-- button group end -->
-
-
+                                        <!-- dob end -->
 
                                     </div>
+                                    <div class="row mt-3 ms-3 me-3">
+                                        <!-- mobile no start -->
+                                        <div class="col form-floating p-1">
+
+                                            <input placeholder="Enter Mobile No" type="text" class="form-control "
+                                                id="inputMobNo"
+                                                onkeyup="textValidation(inputMobNo,'^[0][7][1245678][0-9]{7}$', 'employee', 'mobile');"
+                                                required>
+                                            <label for="inputMobNo" class="">Mobile</label>
+
+                                        </div>
+                                        <!-- mobile no end -->
+                                        <!-- land no start -->
+
+
+                                        <!-- <div class="col-lg-10">
+                                        <input placeholder="Enter Land No" type="text" class="form-control form-control-lg" id="inputLandNo">
+                                    </div> -->
+                                        <div class="col form-floating p-1  ">
+
+                                            <input type="text" class="form-control" placeholder="Enter Land No"
+                                                aria-label="Username" aria-describedby="basic-addon1" id="inputLand"
+                                                onkeyup="textValidation(inputLand, '^[0][12345689][0-9]{8}$', 'employee', 'landno');">
+                                            <label for="inputLandNo" class="">LandNo</label>
+                                        </div>
+
+
+                                        <!-- land no end -->
+                                        <!-- email start -->
+                                        <div class="col form-floating p-1">
+
+                                            <input placeholder="Enter Email" type="email" class="form-control"
+                                                id="inputEmail"
+                                                onkeyup="textValidation(inputEmail, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'employee', 'email');">
+                                            <label for="inputEmail" class="">Email
+                                                <span class="text-danger">(Optional)</span>
+                                            </label>
+
+                                        </div>
+                                        <!-- email end -->
+                                    </div>
+                                    <div class="row mt-3 ms-3 me-3">
+                                        <!-- address start -->
+                                        <div class="col form-floating p-1">
+                                            <input placeholder="enter address" class="form-control" type="text"
+                                                id="inputAddress" onkeyup="textValidation(inputAddress, 
+                                            // '^([A-Za-z0-9\\/\\-\\s]{1,20}[/\\s]+([A-Z][a-z]{1,20}[.]))$', 
+                                            '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$',
+                                            'employee', 'address');">
+                                            <label class="" for="inputAddress">Address</label>
+
+                                        </div>
+
+                                        <!-- address end -->
+                                        <!-- note start -->
+                                        <div class="col form-floating p-1">
+
+                                            <input class="form-control" placeholder="">
+                                            <label class="">Note:<span class="text-danger">(Optional)</span></label>
+                                        </div>
+
+                                        <!-- note end -->
+                                    </div>
+                                    <div class="row mt-3 ms-3 me-3">
+                                        <!-- designation start -->
+                                        <div class="col form-floating p-1">
+                                            <select id="selectDesignation" class="form-select "
+                                                aria-label="Default select example"
+                                                onchange="selectDFieldValidation(selectDesignation,'', 'employee', 'designation_id')">
+                                            </select>
+                                            <label for="selectDesignation" class="">Designation</label>
+
+
+                                        </div>
+                                        <!-- designation end -->
+                                        <!-- civil status start -->
+                                        <div class="col form-floating p-1">
+                                            <select class="form-select " aria-label="Default select example"
+                                                id="selectStatus"
+                                                onchange="selectFieldValidation(selectStatus,'', 'employee', 'civilstatus')">
+                                                <option selected>Select Civil Status</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                            <label for="selectStatus" class="">Civil</label>
+                                        </div>
+                                        <!-- civil status end -->
+                                        <!-- emp status start -->
+                                        <div class="col form-floating p-1">
+                                            <select class="form-select " aria-label="Default select example"
+                                                id="selectEStatus"
+                                                onchange="selectDFieldValidation(selectEStatus,'', 'employee', 'employeestatus_id')">
+                                            </select>
+                                            <label for="selectEStatus" class="">EmpStatus</label>
+
+                                        </div>
+                                        <!-- emp status end -->
+                                    </div>
+                                    <!-- button group start -->
+                                    <div class="row mt-4 mb-3 ms-3 me-3"
+                                        style="display: flex;justify-content: space-between;">
+                                        <div class="col">
+                                            <button id="btnEmpclear" type="button" class="btn  btn-info"><i
+                                                    class="fa-solid fa-broom"></i>Clear</button>
+                                        </div>
+                                        <div class="col" style="display: flex; justify-content: flex-end;gap:10px">
+                                            <button id="btnEmpUpd" type="button" class="btn btn-warning"
+                                                style="border-radius: 30px;" onclick="buttonEmpUpdate()"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Update</button>
+                                            <button id="btnEmpAdd" type="button" class="btn  btn-success"
+                                                style="border-radius: 30px;" onclick="buttonEmpAdd()"><i
+                                                    class="fa-solid fa-plus"></i>Add</button>
+                                        </div>
+                                    </div>
+                                    <!-- button group end -->
+
+
+
                                 </div>
                             </div>
+
 
 
                         </form>
