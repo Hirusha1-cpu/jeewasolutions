@@ -1,6 +1,5 @@
 package lk.example.jeewacomputers.suppliers.controller;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,7 +40,7 @@ public class SupplierController {
         return dao.findAll(Sort.by(Direction.DESC, "id"));
     }
 
-   @GetMapping(value = "/supplier/namebycategory/{category_id}", produces = "application/json")
+    @GetMapping(value = "/supplier/namebycategory/{category_id}", produces = "application/json")
     public List<Supplier> getSupplierNameByCategory(@PathVariable("category_id") Integer category_id) {
         return dao.getSupplierNameFromCategory(category_id);
     }
@@ -67,7 +66,9 @@ public class SupplierController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
                 "supplier");
-
+        // if (!logUserPrivi.get("delete")) {
+        //     return "Delete not completed you have not privilege";
+        // }
         try {
             String nextEmpNo = dao.getSupplierCode();
             supplier.setSupplier_code(nextEmpNo);
@@ -80,7 +81,7 @@ public class SupplierController {
             for (SupplierBankDetails supplierHasBakDetails : supplier.getBankDetailsOfSuppliers()) {
                 supplierHasBakDetails.setSupplier_id(supplier);
             }
-            
+
             dao.save(supplier);
             return "OK";
         } catch (Exception e) {

@@ -1,6 +1,6 @@
 window.addEventListener('load', () => {
     refreshGrnForm();
-    // refreshSupplyTable();
+    refreshGrnTable();
 
 })
 const refreshGrnForm = () => {
@@ -17,17 +17,74 @@ const refreshGrnForm = () => {
     // grn.grnHasCategory.availableitems_id = new Array();
     // myArray = []
 
-    // purchaseOrdersList = ajaxGetRequest("/purchase/getporeds")
-    purchaseOrdersList = ajaxGetRequest("/purchase/getlist")
-    fillDataIntoSelect(selectPurchaseOrder1, "Select Purchase Order", purchaseOrdersList, 'id')
-
+    
     categories = ajaxGetRequest("/category/getlist")
     fillDataIntoSelect(selectCategories, "Select Category", categories, 'name')
-
+    
     suppliers = ajaxGetRequest("/supplier/getlist")
-    fillDataIntoSelect(selectSuppliers, "Select Supplier", suppliers, 'name')
+    fillDataIntoSelect(selectSuppliersList, "Select Supplier", suppliers, 'name')
     console.log(suppliers);
     // getPurchBySuppliers() 
+
+    // purchaseOrdersList = ajaxGetRequest("/purchase/getporeds")
+}
+
+const refreshGrnTable = ()=>{
+    grnList = ajaxGetRequest('/grn/getlist')
+    const displayProperties = [
+        { property: getGrnItemCategory, dataType: 'function' },
+        { property: getGrnItemBrand, dataType: 'function' },
+        { property: getGrnsItemName, dataType: 'function' },
+        { property: getGrnsItemQty, dataType: 'function' },
+        { property: getGrnsItemDiscount, dataType: 'function' },
+        { property: getGrnsItemSupplier, dataType: 'function' },
+        { property: getGrnsItemTotal, dataType: 'function' },
+    ]
+ 
+
+    fillDataIntoTable(grnTab, grnList, displayProperties, refillGrnBtn, updateEmployeeBtn, deleteEmployeeBtn, true, null)
+
+}
+const getGrnItemCategory = (rowObject) => {
+    let GrnItemCategory  = '';
+    rowOb.purchaseHasCategory.forEach(element => {
+        purchCategory = purchCategory + "<p class = 'working-status'>" + element.category_id.name + "</p>"
+    })
+    return purchCate.purchaseHasCategory
+}
+const getGrnItemBrand = (rowObject) => {
+}
+const getGrnsItemName = (rowObject) => {
+}
+const getGrnsItemQty = (rowObject) => {
+}
+const getGrnsItemDiscount = (rowObject) => {
+}
+const getGrnsItemSupplier = (rowObject) => {
+}
+const getGrnsItemTotal = (rowObject) => {
+}
+
+
+const refillGrnBtn = (rowObject) => {
+    console.log("clicked purchase order");
+}
+const updateEmployeeBtn = (rowObject) => {
+    console.log("clicked delete purchase order");
+}
+const deleteEmployeeBtn = (rowObject) => {
+    console.log("clicked send purchase order");
+}
+
+const porderLists = (item) =>{
+    // console.log(item);
+    console.log(JSON.parse(selectSuppliersList.value).id);
+    purchaseOrdersList = ajaxGetRequest("/purchase/getpurchasesupplier/"+JSON.parse(selectSuppliersList.value).id)
+    console.log(purchaseOrdersList);
+    // purchaseOrdersList = ajaxGetRequest("/purchase/getlist")
+    // purchaseOrdersList = ajaxGetRequest("/purchase/getpurchasesupplier/"+ (selectSuppliersList.value).id)
+    fillDataIntoSelectMulProp(selectPurchaseOrder1, "Select Purchase Order", purchaseOrdersList, 'purchase_code', "purchaseHasCategory",)
+
 }
 
 // const getPurchBySuppliers = () =>{
@@ -42,6 +99,7 @@ const purchaseOrderTable = () => {
     purchaseOId.innerHTML = ""
 
     purchaseOrders = ajaxGetRequest("/purchase/purchaseoredrs/" + JSON.parse(selectPurchaseOrder1.value).id)
+
     console.log("purchaseOrders", purchaseOrders);
 
     // purchaseOrdersArray.push(purchaseOrders)

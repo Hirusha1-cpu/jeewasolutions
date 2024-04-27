@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class BrandHasCategory {
      @Id
     @ManyToOne(optional = false)
-    @JoinColumn(name = "supplier_id", referencedColumnName = "id")
+    @JoinColumn(name = "brand_id", referencedColumnName = "id")
     private Brand brand_id;
 
     @Id

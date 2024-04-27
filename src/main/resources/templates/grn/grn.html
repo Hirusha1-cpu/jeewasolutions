@@ -34,17 +34,17 @@
                     </div>
                     <div class="container-fluid">
                         <div class="mb-3 table-responsive">
-                            <table class="table table-dark table-bordered border-primary" id="graphicTab">
+                            <table class="table table-dark table-bordered border-primary" id="grnTab">
                                 <thead>
 
                                     <th scope="col">#</th>
-                                    <th scope="col">Purchase Code</th>
                                     <th scope="col">Category</th>
                                     <th scope="col">Item Brand</th>
                                     <th scope="col">Item Name</th>
                                     <th scope="col">Qty</th>
+                                    <th scope="col">Discount</th>
                                     <th scope="col">Supplier</th>
-                                    <th scope="col">Send Status</th>
+                                    <th scope="col">Total</th>
                                     <th scope="col">Button</th>
 
 
@@ -109,7 +109,7 @@
                                 <div class="col-5 p-2">
 
                                     <select class="form-select col-5" aria-label="Default select example"
-                                        id="selectSuppliers">
+                                        id="selectSuppliersList" onchange="porderLists(globalThis)">
                                         <option selected>Select Supplier</option>
 
                                     </select>

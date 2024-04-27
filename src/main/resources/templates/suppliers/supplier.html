@@ -34,20 +34,16 @@
                     </div>
                     <div class="container-fluid">
                         <div class="mb-3 table-responsive">
-                            <table class="table table-dark table-bordered border-primary" id="graphicTab">
+                            <table class="table table-dark table-bordered border-primary" id="supplyTab">
                                 <thead>
 
                                     <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Memory</th>
-                                    <th scope="col">Power Supply</th>
-                                    <th scope="col">Sales Price</th>
-                                    <th scope="col">Purchase Price</th>
-                                    <th scope="col">Min Discount</th>
-                                    <th scope="col">Max Discount</th>
-                                    <th scope="col">Brand</th>
+                                    <th scope="col">Supplier Name</th>
+                                    <th scope="col">Supplier Code</th>
+                                    <th scope="col">Contact</th>
                                     <th scope="col">Category</th>
-                                    <th scope="col">Pc Part Status</th>
+                                    <th scope="col">Brands</th>                                    
+                                    <th scope="col">Bank Details</th>
                                     <th scope="col">Button</th>
 
                                 </thead>
@@ -130,20 +126,23 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-7 checkboxes-container"
+                                        <div class="col-6 checkboxes-container"
                                             style="display: flex; flex-wrap: wrap; gap: 10px;" id="brandByCategory">
                                             <div class="form-check  ">
                                                 <input class="form-check-input" type="checkbox" value=""
                                                     id="flexCheckChecked1">
                                                 <label class="form-check-label" for="flexCheckChecked1">
-                                                    Azuz
+                                                    <!-- Azuz -->
                                                 </label>
                                             </div>
+                                        </div>
+                                        <div class="col-1">
+                                            <button class="btn btn-success mt-2" type="button"  onclick="addToCateTable()">Add</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="collapse" id="collapseBrand">
+                            <!-- <div class="collapse" id="collapseBrand">
                                 <div class="card card-body">
                                     <div class="row">
 
@@ -154,7 +153,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-7 checkboxes-container"
+                                        <div class="col-4 checkboxes-container"
                                             style="display: flex; flex-wrap: wrap; gap: 10px;" id="categoryByBrand">
                                             <div class="form-check border-bottom border-3 border-success">
                                                 <input class="form-check-input" type="checkbox" value=""
@@ -165,9 +164,25 @@
                                             </div>
 
                                         </div>
+                                      
+
                                     </div>
+                                   
                                 </div>
-                            </div>
+                            </div> -->
+                            <table class="table mt-3 mb-3" id="selectedCategoryTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Brand</th>
+                                        <th scope="col">Buttons</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
                             <br>
                             <!-- category vise brands end -->
                             <!-- Bank details start -->

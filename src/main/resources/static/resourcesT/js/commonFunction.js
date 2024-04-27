@@ -82,4 +82,25 @@ const fillDataIntoSelect = (fieldId,message, dataList, property, selectedValue)=
     })
 
 }
+const fillDataIntoSelectMulProp = (fieldId,message, dataList, property,property2,property3, selectedValue)=>{
+    fieldId.innerHTML = '';
+    const optionMsg = document.createElement('option');
+    optionMsg.value = ""
+    optionMsg.classList = "cc"
+    optionMsg.innerText = message;
+    optionMsg.selected = 'selected';
+    optionMsg.disabled = 'disabled';
+    fieldId.appendChild(optionMsg)
+    
+    dataList.forEach(element => {
+        let option = document.createElement('option');
+        option.value = JSON.stringify(element);
+        option.innerText = element[property]+" "+element[property2][property3];
+        if (selectedValue == element[property]) {
+            option.selected = 'selected';
+        }
+        fieldId.appendChild(option);
+    })
+
+}
 

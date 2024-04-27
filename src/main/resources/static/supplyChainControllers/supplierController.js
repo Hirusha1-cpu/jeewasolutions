@@ -1,6 +1,6 @@
 window.addEventListener('load', () => {
     refreshSupplyForm();
-    // refreshSupplyTable();
+    refreshSupplyTable();
 
 })
 
@@ -14,11 +14,11 @@ const refreshSupplyForm = () => {
     categories = ajaxGetRequest("/category/getlist")
     fillDataIntoSelect(selectCategory, "Select Category", categories, 'name')
 
-    brands = ajaxGetRequest("/brand/getlist")
-    fillDataIntoSelect(selectBrand, "Select Brand", brands, 'name')
+    // brands = ajaxGetRequest("/brand/getlist")
+    // fillDataIntoSelect(selectBrand, "Select Brand", brands, 'name')
 
     brandByCategory.innerHTML = ""
-    categoryByBrand.innerHTML = ""
+    // categoryByBrand.innerHTML = ""
 
 
 }
@@ -26,7 +26,8 @@ const refreshSupplyForm = () => {
 const filterByCategory = () => {
 
     categoryBrand = new Object();
-    categoryBrand.category_id = JSON.parse(selectCategory.value);
+    // categoryBrand.category_id = JSON.parse(selectCategory.value);
+    console.log(categoryBrand.category_id);
 
     listCategoryViseBrandNames = ajaxGetRequest("/brand/listbrandbycategory/" + JSON.parse(selectCategory.value).id) // meken check box generate wenna one
     console.log("json value", JSON.parse(selectCategory.value).id);
@@ -42,13 +43,17 @@ const filterByCategory = () => {
         input.className = "form-check-input"
         input.id = "chk" + element.name
 
-
         input.onchange = function () {
             if (this.checked) {
                 console.log("ss clicked", element.id);
 
-                categoryBrand.brand_id = element;
-                supplier.categoriesBrandsWithSuppliers.push(categoryBrand)
+                const selectedCategoryBrand = {};
+                selectedCategoryBrand.category_id = JSON.parse(selectCategory.value);
+                selectedCategoryBrand.brand_id = element
+
+                // categoryBrand.brand_id = element;
+                // supplier.categoriesBrandsWithSuppliers.push(categoryBrand)
+                supplier.categoriesBrandsWithSuppliers.push(selectedCategoryBrand)
             } else {
                 supplier.categoriesBrandsWithSuppliers.forEach((ele, ind) => {
                     if (ele.category_id.id == JSON.parse(selectCategory.value).id && ele.brand_id.id == element.id) {
@@ -152,31 +157,39 @@ const refreshSupplyTable = () => {
     suppliers = ajaxGetRequest('/supplier/getlist')
     const displayProperties = [
         { property: 'name', dataType: 'string' },
-        { property: 'memory', dataType: 'string' },
-        { property: 'power_spply', dataType: 'string' },
-        { property: 'sales_price', dataType: 'string' },
-        { property: 'purchase_price', dataType: 'string' },
-        { property: 'min_discount_price', dataType: 'string' },
-        { property: 'max_discount_price', dataType: 'string' },
-        { property: getBrand, dataType: 'function' },
-        { property: getCategory, dataType: 'function' },
-        { property: getPcpartstatus, dataType: 'function' },
+        { property: 'supplier_code', dataType: 'string' },
+        { property: 'contactnumber', dataType: 'string' },
+        { property: getCategoryName, dataType: 'function' },
+        { property: getBrandName, dataType: 'function' },
+        { property: getBankDetails, dataType: 'function' },
     ]
 
-    fillDataIntoTable(graphicTab, graphic_Cards, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, true)
-
-
-}
-const getBrand = (rowObject) => {
-    return "<p class = 'working-status'>" + rowObject.brand_id.name + "</p>"
+    fillDataIntoTable(supplyTab, suppliers, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, true)
 }
 
-const getCategory = (rowObject) => {
-    return "<p class = 'working-status'>" + rowObject.category_id.name + "</p>"
+const getCategoryName = (rowObject) => {
+    let userCategory = '';
+    rowObject.categoriesBrandsWithSuppliers.forEach(element => {
+        userCategory = userCategory +"<p class = 'working-status'>" + element.category_id.name  + "</p>"
+    })
+    return userCategory
 }
 
-const getPcpartstatus = (rowObject) => {
-    return "<p class = 'working-status'>" + rowObject.pc_part_status_id.status + "</p>"
+const getBrandName = (rowObject) => {
+    let userBrand = '';
+    rowObject.categoriesBrandsWithSuppliers.forEach(element => {
+        userBrand = userBrand +"<p class = 'working-status'>" + element.brand_id.name + "</p>" 
+    })
+    return  userBrand 
+}
+
+const getBankDetails = (rowObject) => {
+    let bank = '';
+    rowObject.bankDetailsOfSuppliers.forEach(element => {
+        bank = bank +"<p class = 'working-status'>" + element.bankname + "</p>" 
+    })
+    return bank
+
 }
 
 const editEmployeeBtn = () => {
@@ -212,6 +225,31 @@ const bankDetails = () => {
 
 
 }
+const addToCateTable = () => {
+    console.log(supplier);
+    categoryTable()
+}
+const categoryTable = () => {
+    displayProperties = [
+        { property: getCategorySupplier, dataType: 'function' },
+        { property: getBrandSupplier, dataType: 'function' },
+    ]
+    fillDataIntoPurcahseTable(selectedCategoryTable, supplier.categoriesBrandsWithSuppliers, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
+
+}
+// const getSupplierName = (rowOb) => { return rowOb.name ?? "-"; }
+const getCategorySupplier = (rowOb) => { return rowOb.category_id.name ?? "-"; }
+const getBrandSupplier = (rowOb) => { return rowOb.brand_id.name ?? "-"; }
+
+const purchaseOrderBtn = (rowObject) => {
+    console.log("clicked purchase order");
+}
+const deletePurchBtn = (rowObject) => {
+    console.log("clicked delete purchase order");
+}
+const sendPurchBtn = (rowObject) => {
+    console.log("clicked send purchase order");
+}
 
 const supplierAdd = () => {
     // console.log();
@@ -230,6 +268,23 @@ const supplierAdd = () => {
     alert(serverResponse)
     console.log("serverResponse==>", serverResponse);
     console.log("supplier===>", supplier);
+
+    const table = document.getElementById("empTable");
+    const form = document.getElementById("empForm");
+
+    // Animate table disappearance
+    form.style.opacity = 1; // Ensure opacity is initially 1
+    form.style.transition = "opacity 1.5s ease-out";
+    form.style.display = "none"; // Trigger the animation
+
+    // Delay form appearance slightly
+    setTimeout(function () {
+        table.style.opacity = 0;
+        table.style.display = "block";
+        table.style.transition = "opacity 1.5s ease-in";
+        table.style.opacity = 1; // Gradually fade in
+    }, 100); // Adjust the delay as needed
+
     //   console.log("supplier bank details===>", supplierbankdetails);
     // console.log("supplier category details===>", supplierhascategory);
 }

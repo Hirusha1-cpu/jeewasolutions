@@ -8,12 +8,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 import lk.example.jeewacomputers.user.dao.UserDao;
@@ -72,6 +74,43 @@ public class UserController {
             return "OK";
         } catch (Exception e) {
             return "save Not Completed" + e.getMessage();
+        }
+    }
+
+    @PutMapping(value = "/user")
+    public String updateUser(@RequestBody User user) {
+           // get user authentication object
+
+   
+        // check auth person
+        User extUser = dao.getReferenceById(user.getId());
+        if (extUser == null) {
+            return "Update not completed : User Not Exist";
+        }
+        // check duplicate
+        User extUsername = dao.getUserByUsername(user.getUsername());
+
+        if (extUsername != null && !user.getId().equals(extUsername.getId())) {
+            return "Update not completed : User name already exist..!";
+        }
+        try {
+            // if(!user.getPassword().equals("")){
+
+            // if(extUser.getPassword().equals(user.getPassword())){
+            // return "Update Failed : Given password already exist";
+            // }else{
+            // //encrypt password
+
+            // }
+            // }else{
+            // user.setPassword(extUser.getPassword());
+            // }
+            user.setPassword(extUser.getPassword());
+            dao.save(user);
+            return "OK";
+        } catch (Exception e) {
+
+            return "Update not completed" + e.getMessage();
         }
     }
 

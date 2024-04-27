@@ -1,7 +1,7 @@
 //create function for fill data intop table
 
 const fillDataIntoTable = (tableId, dataList, propertyList, editButtonFunction, deleteButtonFunction, printButtonFunction,
-    buttonVisibility = true, privilegeOb = null) => {
+    buttonVisibility = true, privilegeOb = null,selectPurchaseIndex = null) => {
     //create variable for store body
     const tableBody = tableId.children[1];
     tableBody.innerHTML = '';
@@ -37,6 +37,12 @@ const fillDataIntoTable = (tableId, dataList, propertyList, editButtonFunction, 
                 }
             }
             tr.appendChild(td);
+        }
+
+        if (selectPurchaseIndex) {
+            const tdDropdown = document.createElement('td');
+            tdDropdown.appendChild(selectPurchaseIndex);
+            tr.appendChild(tdDropdown);
         }
 
 

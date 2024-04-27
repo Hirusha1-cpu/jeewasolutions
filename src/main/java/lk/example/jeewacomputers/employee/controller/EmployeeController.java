@@ -16,8 +16,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-
 import java.time.LocalDateTime;
 import java.util.List;
 import lk.example.jeewacomputers.employee.dao.EmployeeDao;

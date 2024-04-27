@@ -59,7 +59,7 @@ public class PurchaseController {
     }
 
     @GetMapping(value = "/purchase/getpurchasesupplier/{supplier_id}", produces = "application/json")
-    public Purchase findPurchaseBySupplier(@PathVariable("supplier_id") Integer supplier_id) {
+    public List<Purchase> findPurchaseBySupplier(@PathVariable("supplier_id") Integer supplier_id) {
         // login user authentication and authorization
         return dao.getPurchaseOrdersBySupplier(supplier_id);
     }
