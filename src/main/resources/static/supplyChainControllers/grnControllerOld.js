@@ -124,7 +124,7 @@ const refillGrnBtn = (item) => {
         inputPurchaseItemPrice.value = grn.grnHasCategory[inputValue].item_price
         inputPurchaseLinePrice.value = grn.grnHasCategory[inputValue].lineprice
         inputPurchaseDiscount.value = grn.grnHasCategory[inputValue].discount
-    }else{
+    } else {
         inputPurchaseQuantity.value = grn.grnHasCategory[0].qty
         inputPurchaseItemPrice.value = grn.grnHasCategory[0].item_price
         inputPurchaseLinePrice.value = grn.grnHasCategory[0].lineprice
@@ -149,49 +149,49 @@ const refillGrnBtn = (item) => {
         for (let id = 0; id < qty; id++) {
             const div = document.createElement("div");
             div.className = "col-3 form-floating p-1";
-    
+
             const label = document.createElement("label");
             label.setAttribute("for", "floatingInput");
             label.innerText = "Serial No " + id;
-    
+
             const input = document.createElement("input");
             input.type = "text";
             input.className = "form-control";
             input.id = "txtqty" + id;
-    
+
             input.value = grn.grnHasCategory[inputValue].serialNumbers[id].serialno
-    
+
             // Add event listener to each input field
             input.addEventListener("input", () => {
                 updateSerialNo(id, input.value);
             });
-    
+
             div.appendChild(label);
             div.appendChild(input);
             inputSerialNoDiv.appendChild(div);
         }
-    }else{
+    } else {
 
         for (let id = 0; id < qty; id++) {
             const div = document.createElement("div");
             div.className = "col-3 form-floating p-1";
-    
+
             const label = document.createElement("label");
             label.setAttribute("for", "floatingInput");
-            label.innerText = "Serial No " + (id+1);
-    
+            label.innerText = "Serial No " + (id + 1);
+
             const input = document.createElement("input");
             input.type = "text";
             input.className = "form-control";
             input.id = "txtqty" + id;
-    
+
             input.value = grn.grnHasCategory[0].serialNumbers[id].serialno
-    
+
             // Add event listener to each input field
             input.addEventListener("input", () => {
                 updateSerialNo(id, input.value);
             });
-    
+
             div.appendChild(label);
             div.appendChild(input);
             inputSerialNoDiv.appendChild(div);
@@ -209,6 +209,35 @@ const refillGrnBtn = (item) => {
         serialNo[id] = value;
         console.log("serialNo", serialNo);
     }
+
+    displayProperties = [
+        // { property: getPurchaseCode, dataType: 'function' },
+        { property: getItemName, dataType: 'function' },
+        { property: getItemPrice, dataType: 'function' },
+        { property: getItemQty, dataType: 'function' },
+        { property: getLinePrice, dataType: 'function' },
+        // { property: getSupplierName, dataType: 'function' },
+        // { property: getPurchaseOrderStatus, dataType: 'function' },
+    ]
+    fillDataIntoPurcahsechkTable(selectedPurchaseOrderTable, grn.purchase_id.purchaseHasCategory, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, checkBoxButton, true)
+
+    displayProperties = [
+        { property: getPurchaseForGrnCode, dataType: 'function' },
+        { property: getGrnItemName, dataType: 'function' },
+        { property: getGrnItemPrice, dataType: 'function' },
+        { property: getGrnItemQty, dataType: 'function' },
+        { property: getGrnLinePrice, dataType: 'function' },
+        // { property: getGrnSupplierName, dataType: 'function' },
+        { property: getGrnPurchaseOrderStatus, dataType: 'function' },
+    ]
+    fillDataIntoPurcahseTable(selectedGrnTable, grn.grnHasCategory, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
+
+    // purchaseOrderTable()
+    // grnItemTable()
+    inputSupplierInvoice.value = grn.supplierinvoiceno
+    inputGrnTotalAmount.value = grn.totalamount
+    inputGrnDiscount.value = grn.discountrate
+    inputGrnNetAmount.value = grn.netamount
 
 
     const table = document.getElementById("empTable");

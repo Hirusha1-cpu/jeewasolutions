@@ -170,7 +170,7 @@ const refreshSupplyTable = () => {
 const getCategoryName = (rowObject) => {
     let userCategory = '';
     rowObject.categoriesBrandsWithSuppliers.forEach(element => {
-        userCategory = userCategory +"<p class = 'working-status'>" + element.category_id.name  + "</p>"
+        userCategory = userCategory + "<p class = 'working-status'>" + element.category_id.name + "</p>"
     })
     return userCategory
 }
@@ -178,22 +178,74 @@ const getCategoryName = (rowObject) => {
 const getBrandName = (rowObject) => {
     let userBrand = '';
     rowObject.categoriesBrandsWithSuppliers.forEach(element => {
-        userBrand = userBrand +"<p class = 'working-status'>" + element.brand_id.name + "</p>" 
+        userBrand = userBrand + "<p class = 'working-status'>" + element.brand_id.name + "</p>"
     })
-    return  userBrand 
+    return userBrand
 }
 
 const getBankDetails = (rowObject) => {
     let bank = '';
     rowObject.bankDetailsOfSuppliers.forEach(element => {
-        bank = bank +"<p class = 'working-status'>" + element.bankname + "</p>" 
+        bank = bank + "<p class = 'working-status'>" + element.bankname + "</p>"
     })
     return bank
 
 }
 
-const editEmployeeBtn = () => {
+const editEmployeeBtn = (item) => {
     console.log("edit");
+
+    supplier = JSON.parse(JSON.stringify(item));
+    oldsupplier = JSON.parse(JSON.stringify(item));
+    console.log(supplier);
+    supplierName.value = supplier.name
+    supplierContact.value = supplier.contactnumber
+    supplierEmail.value = supplier.email
+    // supplierAddress.value = supplier.email
+    fillDataIntoSelect(selectCategory, "Select Category", categories, 'name', supplier.categoriesBrandsWithSuppliers[0].category_id.name)
+    const collapseElement = document.getElementById("collapseCategory");
+
+    // Remove the 'collapse' class to open the collapse
+    collapseElement.classList.remove("collapse");
+
+    // Optionally, you can also set aria-expanded attribute to 'true' for accessibility
+    collapseElement.setAttribute("aria-expanded", "true");
+
+    displayProperties = [
+        { property: getCategorySupplier, dataType: 'function' },
+        { property: getBrandSupplier, dataType: 'function' },
+    ]
+    fillDataIntoPurcahseTable(selectedCategoryTable, supplier.categoriesBrandsWithSuppliers, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
+
+    const collapseBankElement = document.getElementById("collapseBankDetails");
+
+    // Remove the 'collapse' class to open the collapse
+    collapseBankElement.classList.remove("collapse");
+
+    // Optionally, you can also set aria-expanded attribute to 'true' for accessibility
+    collapseBankElement.setAttribute("aria-expanded", "true");
+
+    inputBankName.value = supplier.bankDetailsOfSuppliers[0].bankname
+    inputBankBranch.value = supplier.bankDetailsOfSuppliers[0].branchname
+    inputAccName.value = supplier.bankDetailsOfSuppliers[0]
+    inputAccHolderName.value = supplier.bankDetailsOfSuppliers[0]
+
+    const table = document.getElementById("empTable");
+    const form = document.getElementById("empForm");
+
+    // Animate table disappearance
+    table.style.opacity = 1; // Ensure opacity is initially 1
+    table.style.transition = "opacity 1.5s ease-out";
+    table.style.display = "none"; // Trigger the animation
+
+    // Delay form appearance slightly
+    setTimeout(function () {
+        form.style.opacity = 0;
+        form.style.display = "block";
+        form.style.transition = "opacity 1.5s ease-in";
+        form.style.opacity = 1; // Gradually fade in
+    }, 100); // Adjust the delay as needed 
+
 }
 const updateEmployeeBtn = () => {
     console.log("update");
