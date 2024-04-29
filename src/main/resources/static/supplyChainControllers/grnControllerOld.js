@@ -3,6 +3,7 @@ window.addEventListener('load', () => {
     refreshGrnTable();
 
 })
+//refresh the grn form
 const refreshGrnForm = () => {
     grn = new Object();
     availableItem = new Object();
@@ -17,10 +18,10 @@ const refreshGrnForm = () => {
     // grn.grnHasCategory.availableitems_id = new Array();
     // myArray = []
 
-
+    //fill the select of the categories
     categories = ajaxGetRequest("/category/getlist")
     fillDataIntoSelect(selectCategories, "Select Category", categories, 'name')
-
+    //fill the select of the suppliers
     suppliers = ajaxGetRequest("/supplier/getlist")
     fillDataIntoSelect(selectSuppliersList, "Select Supplier", suppliers, 'name')
     console.log(suppliers);
@@ -28,7 +29,7 @@ const refreshGrnForm = () => {
 
     // purchaseOrdersList = ajaxGetRequest("/purchase/getporeds")
 }
-
+//refresh the table of grn
 const refreshGrnTable = () => {
     grnList = ajaxGetRequest('/grn/getlist')
     const displayProperties = [
@@ -41,12 +42,11 @@ const refreshGrnTable = () => {
         { property: getGrnsItemSupplierInvoice, dataType: 'function' },
         { property: getGrnsItemTotal, dataType: 'function' },
     ]
-
-
-    fillDataIntoTable(grnTab, grnList, displayProperties, refillGrnBtn, updateEmployeeBtn, deleteEmployeeBtn, true, null)
+   fillDataIntoTable(grnTab, grnList, displayProperties, refillGrnBtn, updateEmployeeBtn, deleteEmployeeBtn, true, null)
 
 }
 const getGrnItemCategory = (rowObject) => {
+    //object eke array ekk the nm meken for loop eken ekin eka aran pennawa
     let GrnItemCategory = '';
     rowObject.grnHasCategory.forEach(element => {
         GrnItemCategory = GrnItemCategory + "<p class = 'working-status'>" + element.category_id.name + "</p>"
@@ -103,6 +103,7 @@ const deleteEmployeeBtn = (rowObject) => {
 
 const porderLists = (item) => {
     // console.log(item);
+    //when select the supplier get that supplier value id eka aragena ekata adala purchase orders list eka aragnnwa select value widhata
     console.log(JSON.parse(selectSuppliersList.value).id);
     purchaseOrdersList = ajaxGetRequest("/purchase/getpurchasesupplier/" + JSON.parse(selectSuppliersList.value).id)
     console.log(purchaseOrdersList);
@@ -116,6 +117,7 @@ const refillGrnBtn = (item) => {
     oldgrn = JSON.parse(JSON.stringify(item));
     console.log(grn);
     console.log("clicked purchase order");
+        //grn.grnHasCategory.length eka 1 ta wadi nm prompt ekk call wenwa
     if (grn.grnHasCategory.length > 1) {
 
         const inputNo = prompt("Enter a value for purchase.purchaseHasCategory[0]:");
@@ -134,7 +136,8 @@ const refillGrnBtn = (item) => {
     fillDataIntoSelect(selectSuppliersList, "Select Supplier", suppliers, 'name', grn.purchase_id.supplier_id.name);
     purchaseOrdersList1 = ajaxGetRequest("/purchase/getpurchasesupplier/" + JSON.parse(grn.purchase_id.supplier_id.id))
     fillDataIntoSelect(selectPurchaseOrder1, "Select Purchase Order", purchaseOrdersList1, 'purchase_code', grn.purchase_id.purchase_code)
-
+    //mekedi qty eka enter karama ekata adalawa serial no input boxes set ekk generate wela 
+    //
     console.log(inputPurchaseQuantity.value);
     const inputSerialNoDiv = document.querySelector("#inputSerialNoDiv");
 
@@ -266,7 +269,7 @@ const purchaseOrderTable = () => {
     inputPurchaseItemPrice.value = ""
     inputPurchaseLinePrice.value = ""
     purchaseOId.innerHTML = ""
-
+//when select porder then fill the table related to porder with ItemName,ItemPrice,ItemQty,LinePrice wlin
     purchaseOrders = ajaxGetRequest("/purchase/purchaseoredrs/" + JSON.parse(selectPurchaseOrder1.value).id)
 
     console.log("purchaseOrders", purchaseOrders);
@@ -309,7 +312,7 @@ const purchaseOrderTable = () => {
 //     return processedItems;
 // };
 const grnItemTable = () => {
-
+    ////
     grnItems = ajaxGetRequest("/grn/getlist/" + grn.purchase_id.id)
     console.log("grnItems", grnItems);
 
@@ -439,12 +442,14 @@ const generateLinePrice = () => {
     inputPurchaseLinePrice.value = linePrice;
 }
 const generateSerialNumberList = () => {
+    //inputSerialNoDiv id eka allagannwa
     const inputSerialNoDiv = document.querySelector("#inputSerialNoDiv");
 
     inputSerialNoDiv.innerHTML = ""
+    //ita psse qty ekata dana value eka allagannwa
     const qty = parseInt(document.querySelector(".inputPurchaseQuantity").value)
     const serialNumbers = []; // Array to store serial number objects
-
+    //ita passe ekata adalwa qty eke length ekata input box tikk generate wenw
     for (let id = 1; id <= qty; id++) {
         const div = document.createElement("div");
         div.className = "col-3 form-floating p-1";
@@ -467,24 +472,33 @@ const generateSerialNumberList = () => {
         div.appendChild(input);
         inputSerialNoDiv.appendChild(div);
     }
+    // ita passe e array eka push wenwa object ekk widhata serialNumbers kiyna array ekata
     console.log("serialNo", serialNo);
     for (let id in serialNo) {
         serialNumbers.push({ serialno: serialNo[id] });
     }
-
+    //eka return wenwa, eka allagnnwa add grn eken
     return serialNumbers;
 
 }
 // Function to update serialNo object
+//serila no value tika me array ekata danagnnwa
 const updateSerialNo = (id, value) => {
     serialNo[id] = value;
     console.log("serialNo", serialNo);
 }
 
 const addGrn = () => {
+
+    //add grn button eken post wenwa data tika grn table ekata grn main eken wenne ekata adala data 
+    //update wena eka
+    //serial no variable ekata assign wenw check box wla serial no wla output eka
+
     const serialNumbers = generateSerialNumberList();
 
     console.log("grn", grn);
+    //e serial no output eka set krnwa grnHasItems object ekata ita passe e object eka  grn.grnHasCategory arraye
+    //ekata set wenwa ita passe e array eka pass krnwa grn eka haraha post controller ekata
     grnHasItems.serialNumbers = serialNumbers;
     grn.grnHasCategory.push(grnHasItems); // Push all filtered items
     // grn.grnHasCategory.availableitems_id.push(availableItem)
@@ -498,7 +512,9 @@ const addGrn = () => {
     console.log("serverResponse", serverResponse);
     let grnObjects = ajaxGetRequest("grn/getlists/" + serverResponse)
     console.log("grnObjects", grnObjects);
+    //post krama ena response eka set krnwa ayeth grn ekata 
     grn = grnObjects
+    //table eka update krnwa ita psse
     grnItemTable()
 
     inputPurchaseQuantity.value = ""
@@ -518,7 +534,7 @@ const addGrnMain = () => {
     // delete grn.grnHasCategory;
 
     const id = grnItems.id
-    //metana kalin eka natuwa grn eka post krnna
+    //metana kalin post krpu grn ekata update ekk wadinwa
     let serverResponse1 = ajaxRequestBodyMethod(`/grn/${id}`, "PUT", grn); // meken put ekak call karnna
     console.log(serverResponse1);
 
@@ -526,7 +542,7 @@ const addGrnMain = () => {
     inputGrnTotalAmount.value = ""
     inputGrnDiscount.value = ""
     inputGrnNetAmount.value = ""
-
+    // meken form close wela table eka open wenwa
     const table = document.getElementById("empTable");
     const form = document.getElementById("empForm");
 

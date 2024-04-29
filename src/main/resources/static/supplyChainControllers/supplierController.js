@@ -10,28 +10,33 @@ const refreshSupplyForm = () => {
     supplierhascategory = new Object();
     supplierhascategory = []
     supplier.categoriesBrandsWithSuppliers = []
-
+    
+    //category ekata data enter krnna 
     categories = ajaxGetRequest("/category/getlist")
     fillDataIntoSelect(selectCategory, "Select Category", categories, 'name')
 
     // brands = ajaxGetRequest("/brand/getlist")
     // fillDataIntoSelect(selectBrand, "Select Brand", brands, 'name')
 
+    //category 
     brandByCategory.innerHTML = ""
     // categoryByBrand.innerHTML = ""
 
 
 }
 
+//category ekk select krama meka call wela item tika check boxes awilla eka add krnn option eka enwa
 const filterByCategory = () => {
 
     categoryBrand = new Object();
     // categoryBrand.category_id = JSON.parse(selectCategory.value);
     console.log(categoryBrand.category_id);
 
+    // category eka click krama brands tika enw me query eken
     listCategoryViseBrandNames = ajaxGetRequest("/brand/listbrandbycategory/" + JSON.parse(selectCategory.value).id) // meken check box generate wenna one
     console.log("json value", JSON.parse(selectCategory.value).id);
     console.log("listBrandViseCategoryNames==>", listCategoryViseBrandNames);
+    //check boxes generate wenwa
     brandByCategory.innerHTML = ""
     listCategoryViseBrandNames.forEach(element => {
         console.log(element);
@@ -46,7 +51,7 @@ const filterByCategory = () => {
         input.onchange = function () {
             if (this.checked) {
                 console.log("ss clicked", element.id);
-
+                // selectedCategoryBrand me object ekata set wenw category id ekai brand id ekai
                 const selectedCategoryBrand = {};
                 selectedCategoryBrand.category_id = JSON.parse(selectCategory.value);
                 selectedCategoryBrand.brand_id = element
@@ -55,6 +60,7 @@ const filterByCategory = () => {
                 // supplier.categoriesBrandsWithSuppliers.push(categoryBrand)
                 supplier.categoriesBrandsWithSuppliers.push(selectedCategoryBrand)
             } else {
+                //uncheck ewa handle krnw
                 supplier.categoriesBrandsWithSuppliers.forEach((ele, ind) => {
                     if (ele.category_id.id == JSON.parse(selectCategory.value).id && ele.brand_id.id == element.id) {
                         supplier.categoriesBrandsWithSuppliers.splice(ind, 1);
@@ -153,6 +159,9 @@ const filterByBrand = () => {
 
 // }
 
+
+
+//main table eka
 const refreshSupplyTable = () => {
     suppliers = ajaxGetRequest('/supplier/getlist')
     const displayProperties = [
@@ -163,7 +172,7 @@ const refreshSupplyTable = () => {
         { property: getBrandName, dataType: 'function' },
         { property: getBankDetails, dataType: 'function' },
     ]
-
+    //main supply table eka
     fillDataIntoTable(supplyTab, suppliers, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, true)
 }
 
@@ -192,6 +201,7 @@ const getBankDetails = (rowObject) => {
 
 }
 
+//refill supply form
 const editEmployeeBtn = (item) => {
     console.log("edit");
 
@@ -203,6 +213,7 @@ const editEmployeeBtn = (item) => {
     supplierEmail.value = supplier.email
     // supplierAddress.value = supplier.email
     fillDataIntoSelect(selectCategory, "Select Category", categories, 'name', supplier.categoriesBrandsWithSuppliers[0].category_id.name)
+    //open category table collapse model
     const collapseElement = document.getElementById("collapseCategory");
 
     // Remove the 'collapse' class to open the collapse
@@ -217,6 +228,7 @@ const editEmployeeBtn = (item) => {
     ]
     fillDataIntoPurcahseTable(selectedCategoryTable, supplier.categoriesBrandsWithSuppliers, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
 
+    //open bank collapse model
     const collapseBankElement = document.getElementById("collapseBankDetails");
 
     // Remove the 'collapse' class to open the collapse
@@ -227,8 +239,8 @@ const editEmployeeBtn = (item) => {
 
     inputBankName.value = supplier.bankDetailsOfSuppliers[0].bankname
     inputBankBranch.value = supplier.bankDetailsOfSuppliers[0].branchname
-    inputAccName.value = supplier.bankDetailsOfSuppliers[0]
-    inputAccHolderName.value = supplier.bankDetailsOfSuppliers[0]
+    inputAccName.value = supplier.bankDetailsOfSuppliers[0].accno
+    inputAccHolderName.value = supplier.bankDetailsOfSuppliers[0].accholdername
 
     const table = document.getElementById("empTable");
     const form = document.getElementById("empForm");
@@ -254,6 +266,7 @@ const deleteEmployeeBtn = () => {
     console.log("delete");
 }
 
+// enter bank details
 const bankDetails = () => {
 
     supplier.bankDetailsOfSuppliers = []
@@ -263,7 +276,7 @@ const bankDetails = () => {
     const input3 = document.getElementById("inputAccName")
     const input4 = document.getElementById("inputAccHolderName")
 
-
+    // input field values set eka bankdetail entity ekata set wen widhata set krnwa
     const newBankDetails = {
         bankname: input1.value,
         branchname: input2.value,
@@ -272,15 +285,20 @@ const bankDetails = () => {
         // supplier_id:{id: 3}
     };
 
+    //supplier object ekata supplier.bankDetailsOfSuppliers array ekat set wenwa
     supplier.bankDetailsOfSuppliers.push(newBankDetails);
     console.log(supplier.bankDetailsOfSuppliers);
 
-
 }
+
+//category collapse eke add button eka
 const addToCateTable = () => {
     console.log(supplier);
+    //fill data into category table
     categoryTable()
 }
+
+//fill data into category table
 const categoryTable = () => {
     displayProperties = [
         { property: getCategorySupplier, dataType: 'function' },
@@ -289,6 +307,7 @@ const categoryTable = () => {
     fillDataIntoPurcahseTable(selectedCategoryTable, supplier.categoriesBrandsWithSuppliers, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
 
 }
+
 // const getSupplierName = (rowOb) => { return rowOb.name ?? "-"; }
 const getCategorySupplier = (rowOb) => { return rowOb.category_id.name ?? "-"; }
 const getBrandSupplier = (rowOb) => { return rowOb.brand_id.name ?? "-"; }
@@ -303,8 +322,10 @@ const sendPurchBtn = (rowObject) => {
     console.log("clicked send purchase order");
 }
 
+// add button eken post krnw data tika controller ekata
 const supplierAdd = () => {
     // console.log();
+    //bank details tika supplier object ekata set wenawa
     bankDetails();
     /* let serverResponse = ajaxRequestBodyMethod("/supplier", "POST", supplier);
     let serverResponse1 = ajaxRequestBodyMethod("/supplierbankdetails", "POST", supplierbankdetails);
@@ -318,6 +339,37 @@ const supplierAdd = () => {
   */
     let serverResponse = ajaxRequestBodyMethod("/supplier", "POST", supplier);
     alert(serverResponse)
+    console.log("serverResponse==>", serverResponse);
+    console.log("supplier===>", supplier);
+
+    // close the form and table 
+    const table = document.getElementById("empTable");
+    const form = document.getElementById("empForm");
+
+    // Animate table disappearance
+    form.style.opacity = 1; // Ensure opacity is initially 1
+    form.style.transition = "opacity 1.5s ease-out";
+    form.style.display = "none"; // Trigger the animation
+
+    // Delay form appearance slightly
+    setTimeout(function () {
+        table.style.opacity = 0;
+        table.style.display = "block";
+        table.style.transition = "opacity 1.5s ease-in";
+        table.style.opacity = 1; // Gradually fade in
+    }, 100); // Adjust the delay as needed
+
+    // console.log("supplier bank details===>", supplierbankdetails);
+    // console.log("supplier category details===>", supplierhascategory);
+}
+//update button eken PUT krnw data tika controller ekata
+const supplierUpdate = () => {
+    // console.log();
+    bankDetails();
+    //
+    let serverResponse = ajaxRequestBodyMethod("/supplier", "PUT", supplier);
+    alert(serverResponse)
+    refreshSupplyTable();
     console.log("serverResponse==>", serverResponse);
     console.log("supplier===>", supplier);
 

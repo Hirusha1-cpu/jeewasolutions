@@ -1,9 +1,12 @@
 window.addEventListener('load', () => {
+    // refresh the purchase form
     refreshPurchaseForm();
+    // refresh the purchase table 
     refreshPurchaseTable();
 
 })
 
+//refresh the purchase form eka
 const refreshPurchaseForm = () => {
     purchase = new Object();
     purchase.purchaseHasCategory = []
@@ -11,6 +14,7 @@ const refreshPurchaseForm = () => {
     itemCodeCounter = 1;
 
     // purchase.supplier_id = [];
+    //select ekata dann one category eka 
     categories = ajaxGetRequest("/category/getlist")
     fillDataIntoSelect(selectPurchCategory, "Select Category", categories, 'name')
 
@@ -20,7 +24,7 @@ const refreshPurchaseForm = () => {
     purchaseItemPrice.value = ""
 }
 
-
+//refresh the purchase table
 const refreshPurchaseTable = () => {
 
     purchases = ajaxGetRequest('/purchase/getlist')
@@ -37,11 +41,13 @@ const refreshPurchaseTable = () => {
 
 }
 
+
 const getPurchaseCode = (rowOb) => {
     return rowOb.purchase_code;
 }
 const getPurchCategoryName = (rowOb) => {
     // return rowOb.purchaseHasCategory;
+    // array ekk hinda forEach ekk danwa
     let purchCategory = '';
     rowOb.purchaseHasCategory.forEach(element => {
         purchCategory = purchCategory + "<p class = 'working-status'>" + element.category_id.name + "</p>"
@@ -70,27 +76,31 @@ const getPurchItemQty = (rowOb) => {
 const getPurchItemSupplier = (rowOb) => {
     return rowOb.supplier_id.name
 }
+//refill the purchase order form 
 const refillPurchBtn = (item) => {
 
+    //empty the supplierlistByCategory,categoryItemCheckBoxes
     supplierlistByCategory.innerHTML = " "
     categoryItemCheckBoxes.innerHTML = " "
+    //object eka json object ekk kranwa
     purchase = JSON.parse(JSON.stringify(item));
     oldpurchase = JSON.parse(JSON.stringify(item));
 
     console.log("edit");
+    //purchase.purchaseHasCategory.length eka 1 ta wadi nm prompt ekk call wenwa
     if (purchase.purchaseHasCategory.length > 1) {
         const inputNo = prompt("Enter a value for purchase.purchaseHasCategory[0]:");
         const inputValue = parseInt(inputNo)
         console.log(inputValue);
-        
+        //meken input value eka aragena eka set karanwa purchase.purchaseHasCategory[] ekat dagnna 
         if (!isNaN(inputValue)) {
            // Fill data into select and input fields
             fillDataIntoSelect(selectPurchCategory, "Select Category", categories, 'name', purchase.purchaseHasCategory[inputValue].category_id.name);
             purchaseQty.value = purchase.purchaseHasCategory[inputValue].qty;
-            purchaseItemPrice.value = purchase.purchaseHasCategory[inputValue].itemprice;
-            
+            purchaseItemPrice.value = purchase.purchaseHasCategory[inputValue].itemprice;            
         } 
     }
+    //category length eka 1ta samana nm array[0] set wenw
     else {
         // Fill data into select and input fields
         fillDataIntoSelect(selectPurchCategory, "Select Category", categories, 'name', purchase.purchaseHasCategory[0].category_id.name);
@@ -190,7 +200,7 @@ const deleteEmployeeBtn = () => {
     console.log("delete");
 }
 
-
+//category eka select karama ekata adala category eke findall ekk call krla item names tika laba gnnwa
 const filterCategoryItems = () => {
     categoryId = new Object();
     // supplierId = new Object();
@@ -300,7 +310,7 @@ const filterCategoryItems = () => {
     });
 
 }
-
+//siyalu supplierla tika genna gnnwa
 const allSuppliers = () => {
 
     console.log("jjjj");

@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -75,6 +76,7 @@ public class SupplierController {
 
             // supplier.setUser_id(logedUser);
             // supplier.setSupplierstatus_id(1);
+            //metanadi supplier has category ekatai bank details walatai supplier object eken data save wenwa for loop eka haraha
             for (SupplierHasCategory supplierHasCategory : supplier.getCategoriesBrandsWithSuppliers()) {
                 supplierHasCategory.setSupplier_id(supplier);
             }
@@ -87,6 +89,37 @@ public class SupplierController {
         } catch (Exception e) {
             return "Save Not completed" + e.getMessage();
         }
+    }
+    @PutMapping(value = "/supplier")
+    @Transactional
+    public String updateUser(@RequestBody Supplier supplier) {
+          // get user authentication object
+          //supplier module ekata thyena permissions privilege check krla balanwa
+          Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+          HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
+                  "supplier");
+          // if (!logUserPrivi.get("delete")) {
+          //     return "Delete not completed you have not privilege";
+          // }
+          try {
+              String nextEmpNo = dao.getSupplierCode();
+              supplier.setSupplier_code(nextEmpNo);
+  
+              // supplier.setUser_id(logedUser);
+              // supplier.setSupplierstatus_id(1);
+              //metanadi supplier has category ekatai bank details walatai supplier object eken data save wenwa for loop eka haraha
+              for (SupplierHasCategory supplierHasCategory : supplier.getCategoriesBrandsWithSuppliers()) {
+                  supplierHasCategory.setSupplier_id(supplier);
+              }
+              for (SupplierBankDetails supplierHasBakDetails : supplier.getBankDetailsOfSuppliers()) {
+                  supplierHasBakDetails.setSupplier_id(supplier);
+              }
+  
+              dao.save(supplier);
+              return "OK";
+          } catch (Exception e) {
+              return "Save Not completed" + e.getMessage();
+          }
     }
 
 }
