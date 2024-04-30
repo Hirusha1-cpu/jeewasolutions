@@ -137,14 +137,15 @@ const refillGrnBtn = (item) => {
     purchaseOrdersList1 = ajaxGetRequest("/purchase/getpurchasesupplier/" + JSON.parse(grn.purchase_id.supplier_id.id))
     fillDataIntoSelect(selectPurchaseOrder1, "Select Purchase Order", purchaseOrdersList1, 'purchase_code', grn.purchase_id.purchase_code)
     //mekedi qty eka enter karama ekata adalawa serial no input boxes set ekk generate wela 
-    //
+    //mekedi inputSerialNoDiv kiyn id eke div ekata set wenwa serial no input box list ekak
     console.log(inputPurchaseQuantity.value);
     const inputSerialNoDiv = document.querySelector("#inputSerialNoDiv");
 
     inputSerialNoDiv.innerHTML = ""
     const qty = parseInt(document.querySelector(".inputPurchaseQuantity").value)
     const serialNumbers = []; // Array to store serial number objects
-
+    // grn has category eke array length eka 1ta wadi nm prompt box ehekin input value ekk aragena 
+    // ekata adalwa thyena array eke object eka aran pennwa
     if (grn.grnHasCategory.length > 1) {
 
         const inputNo = prompt("Enter a value for purchase.purchaseHasCategory[0]:");

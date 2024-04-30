@@ -11,51 +11,44 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lk.example.jeewacomputers.customer.entity.Customer;
+import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity // apply as an entity class
 @Table(name = "sales") // for map with given table
 @Data // generate getters and setters
 @NoArgsConstructor // generate default constructor
 @AllArgsConstructor // all arguments constructor
-public class Invoice {
-    
+public class SalesHasSerial {
     @Id // for pk
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id ", unique = true) // for map with column name
     // @NotNull 
     private Integer id;
 
-     @Column(name = "invoiceno")
-    private String invoiceno;
+    @ManyToOne
+    @JoinColumn(name = "sales_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Invoice sales_id ;
 
-     @Column(name = "itemserialno")
-    private String itemserialno;
+    @ManyToOne
+    @JoinColumn(name = "serialno_id", referencedColumnName = "id")
+    @JsonIgnore
+    private SerialNo serialno_id ;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name="customer_id", referencedColumnName = "id")
-    private Customer customer_id;
+    @Column(name = "warrentystartdate")
+    private String warrentystartdate;
 
-     @Column(name = "paymentmethod")
-    private String paymentmethod;
+    @Column(name = "warrentyperiod")
+    private String warrentyperiod;
 
-     @Column(name = "referenceno")
-    private String referenceno;
+    @Column(name = "warrentyexpire")
+    private String warrentyexpire;
 
-     @Column(name = "total")
-    private String total;
 
-     @Column(name = "balance")
-    private String balance;
-
-     @Column(name = "customerpaidamount")
-    private String customerpaidamount;
-
-    @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL)
-    private List<SalesHasSerial> salesHasSerials;
-
-    
 }

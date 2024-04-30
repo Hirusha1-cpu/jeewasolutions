@@ -3,6 +3,7 @@ package lk.example.jeewacomputers.grnanditem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,10 +11,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lk.example.jeewacomputers.categorypcpartandbrand.entity.Category;
+import lk.example.jeewacomputers.sales.entity.SalesHasSerial;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import java.util.*;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -55,6 +59,9 @@ public class SerialNo {
     // @JsonIgnore
     // @NotNull
     private Category category_id ;
+
+    @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL)
+    private List<SalesHasSerial> salesHasSerials;
 
 
 

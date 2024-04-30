@@ -48,7 +48,7 @@ public class GrnController {
         // login user authentication and authorization
         return dao.getGrnIdByPurchaseId(id);
     }
-
+    // model eka pennwa
     @RequestMapping(value = "/grn")
     public ModelAndView employeeUI() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -64,7 +64,7 @@ public class GrnController {
     @PostMapping(value = "/grn")
     // @Transactional
     public String save(@RequestBody Grn grn) {
-
+        // serila no list eka grnhascategory eka atulen awama for loop ehekin nested widta pass kranwa
         try {
             //   SerialNo newSerialNo = new SerialNo();
             for (GrnHasCategory grnHasCategory : grn.getGrnHasCategory()) {
@@ -126,7 +126,7 @@ public class GrnController {
     // });
     // }
     public Grn updateGrn(@PathVariable Integer id, @RequestBody Grn grn) { // meken backend eke db eke twice wadin na
-                                                                           // single record ehekata
+        // post krapu grn value ekata update ekk gahwanw                                                                   // single record ehekata
         Grn objectGrn = dao.getGrnIdByPurchaseId(id);
         Grn existingGrn = objectGrn;
 

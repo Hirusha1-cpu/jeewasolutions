@@ -1,3 +1,8 @@
+window.addEventListener('load', () => {
+    refreshInvoiceForm();
+    // refreshGrnTable();
+
+})
 document.addEventListener('DOMContentLoaded', function() {
     const uploadForm = document.getElementById('uploadForm');
     
@@ -23,3 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 });
 
+const refreshInvoiceForm = () =>{
+    const invoiceSerialId = document.getElementById('invoiceSerialId');
+    
+}
