@@ -60,7 +60,7 @@ public class SerialNo {
     // @NotNull
     private Category category_id ;
 
-    @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "serialno_id", cascade = CascadeType.ALL)
     private List<SalesHasSerial> salesHasSerials;
 
 

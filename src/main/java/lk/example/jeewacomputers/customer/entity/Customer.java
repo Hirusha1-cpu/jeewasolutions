@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity // apply as an entity class
-@Table(name = "sales") // for map with given table
+@Table(name = "customer") // for map with given table
 @Data // generate getters and setters
 @NoArgsConstructor // generate default constructor
 @AllArgsConstructor // all arguments constructor

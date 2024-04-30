@@ -20,7 +20,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity // apply as an entity class
-@Table(name = "sales") // for map with given table
+@Table(name = "sales_has_serialno") // for map with given table
 @Data // generate getters and setters
 @NoArgsConstructor // generate default constructor
 @AllArgsConstructor // all arguments constructor
@@ -33,12 +33,12 @@ public class SalesHasSerial {
 
     @ManyToOne
     @JoinColumn(name = "sales_id", referencedColumnName = "id")
-    @JsonIgnore
+    // @JsonIgnore
     private Invoice sales_id ;
 
     @ManyToOne
     @JoinColumn(name = "serialno_id", referencedColumnName = "id")
-    @JsonIgnore
+    // @JsonIgnore
     private SerialNo serialno_id ;
 
     @Column(name = "warrentystartdate")

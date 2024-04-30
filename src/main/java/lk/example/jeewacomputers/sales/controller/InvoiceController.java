@@ -33,7 +33,7 @@ public class InvoiceController {
     }
     
     @GetMapping(value = "/invoice/getlist", produces = "application/json")
-    public List<Invoice> findAll() {
+    public List<Invoice> findAlls() {
         // login user authentication and authorization
         return invoiceDao.findAll(Sort.by(Direction.DESC, "id"));
     }
