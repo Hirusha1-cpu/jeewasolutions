@@ -291,7 +291,8 @@
                                             <div class="col-2">Item name</div>
                                             <div class="col-6" style="font-weight: bold;" >
                                                 <input type="text" class="form-control" id="lblItemName1"
-                                                placeholder="NVIDIA GeForce RTX 4090" >
+                                                placeholder="NVIDIA GeForce RTX 4090" 
+                                                >
                                              
                                             </div>
                                         </div>
@@ -300,7 +301,7 @@
                                             <div class="col-2 mt-1">Item Serial No</div>
                                             <div class="col-6">
                                                 <input type="text" class="form-control" id="invoiceSerialId"
-                                                    placeholder="AB12CDEFG34H56JK" onchange="getItemDetails()">
+                                                    placeholder="AB12CDEFG34H56JK" oninput="textValidation(invoiceSerialId,'', 'invoice', 'serialno'); getItemDetails()">
                                             </div>
                                         </div>
 
@@ -308,7 +309,8 @@
                                             <div class="col-2 mt-1">Item UnitPrice</div>
                                             <div class="col-3">
                                                 <input type="text" class="form-control" id="invoiceUnitPrice"
-                                                    placeholder="Rs.">
+                                                    placeholder="Rs."
+                                                    oninput="textValidation(invoiceUnitPrice,'', 'invoice', 'unitprice'); ">
                                             </div>
                                         </div>
                                         <div class="row mt-3">
@@ -325,14 +327,16 @@
                                                                 class="row mt-3 d-flex justify-content-center align-items-center ">
                                                                 <div class="col-6 form-floating  p-1">
                                                                     <input type="text" class="form-control"
-                                                                        id="inputBankName">
-                                                                    <label for="inputBankName" class="pl-2">Customer
+                                                                        id="inputCustomerName"
+                                                                        oninput="textValidation(inputCustomerName,'', 'invoice', 'customername'); ">
+                                                                    <label for="inputCustomerName" class="pl-2">Customer
                                                                         Name</label>
                                                                 </div>
                                                                 <div class="col-6 form-floating  p-1">
                                                                     <input type="text" class="form-control"
-                                                                        id="inputBankBranch">
-                                                                    <label for="inputBankBranch">Customer Contact
+                                                                        id="inputCustomerContact"
+                                                                        oninput="textValidation(inputCustomerContact,'', 'invoice', 'customercontact'); " >
+                                                                    <label for="inputCustomerContact">Customer Contact
                                                                         No:</label>
                                                                 </div>
                                                             </div>
@@ -340,13 +344,15 @@
                                                                 class="row  d-flex justify-content-center align-items-center ">
                                                                 <div class="col-6 form-floating  p-1">
                                                                     <input type="text" class="form-control"
-                                                                        id="inputWarrentyItemName">
+                                                                        id="inputWarrentyItemName"
+                                                                        oninput="textValidation(inputWarrentyItemName,'', 'invoice', 'warrentyitemname'); ">
                                                                     <label for="inputWarrentyItemName" class="pl-2">Item
                                                                         Name</label>
                                                                 </div>
                                                                 <div class="col-6 form-floating  p-1">
                                                                     <input type="date" class="form-control"
-                                                                        id="inputWarStartDate">
+                                                                        id="inputWarStartDate"
+                                                                        oninput="textValidation(inputWarStartDate,'', 'invoice', 'warrentyitemname'); ">
                                                                     <label for="inputWarStartDate">Warrenty Start
                                                                         Date</label>
                                                                 </div>
@@ -358,12 +364,14 @@
 
                                                                 <div class="col-6 form-floating p-1">
                                                                     <input type="text" class="form-control"
-                                                                        id="inputWarPeriod">
+                                                                        id="inputWarPeriod"
+                                                                        oninput="textValidation(inputWarPeriod,'', 'invoice', 'warrentyperiod'); ">
                                                                     <label for="inputWarPeriod">Warrenty Period</label>
                                                                 </div>
                                                                 <div class="col-6 form-floating p-1">
                                                                     <input type="text" class="form-control"
-                                                                        id="inputWarrentyEnd">
+                                                                        id="inputWarrentyEnd"
+                                                                        oninput="textValidation(inputWarrentyEnd,'', 'invoice', 'warrentyendate'); ">
                                                                     <label for="inputWarrentyEnd">Warrenty Ending
                                                                         Date</label>
                                                                 </div>
@@ -371,7 +379,7 @@
                                                             <div class="row">
                                                                 <div class="col-3 form-floating p-1">
 
-                                                                    <button class="btn btn-success">Add</button>
+                                                                    <button class="btn btn-success" type="button"  onclick="addToTable()">Add</button>
                                                                 </div>
                                                             </div>
 

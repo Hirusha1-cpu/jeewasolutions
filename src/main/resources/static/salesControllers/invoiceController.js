@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 const refreshInvoiceForm = () => {
-
+    invoice = new Object();
 }
 const getItemDetails = () => {
     itemsDetails1 = ajaxGetRequest("/invoice/getlist/" + JSON.parse(invoiceSerialId.value));
@@ -48,7 +48,7 @@ const getItemDetails = () => {
     console.log("Filtered data:", filteredData);
     const warrentyPeriod = filteredData[0].warrenty
     console.log(warrentyPeriod);
-    if (!isNaN(warrentyPeriod )) {
+    if (!isNaN(warrentyPeriod)) {
         inputWarrentyItemName.value = itemsDetails1.itemname
         inputWarPeriod.value = warrentyPeriod + " Days"
         inputWarStartDate.value = new Date().toISOString().slice(0, 10);
@@ -68,4 +68,11 @@ const getItemDetails = () => {
 
 function filterByName(itemname, data) {
     return data.filter((item) => (item.name).includes(itemname));
+}
+
+const addToTable = () =>{
+    lblItemName1.addEventListener("change", (event) => {
+       invoice.itemname =lblItemName1.value;
+      });
+    console.log(invoice);
 }
