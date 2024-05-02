@@ -2,6 +2,7 @@ package lk.example.jeewacomputers.grnanditem.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -49,6 +50,10 @@ public class SerialNo {
     @Column(name = "itemcode")
     // @NotNull
     private String itemcode;
+
+    @Column(name = "itemprice")
+    // @NotNull
+    private Integer itemprice;
     
     @Column(name = "availability")
     // @NotNull
@@ -60,7 +65,9 @@ public class SerialNo {
     // @NotNull
     private Category category_id ;
 
-    @OneToMany(mappedBy = "serialno_id", cascade = CascadeType.ALL)
+    // @JsonIgnoreProperties(value = {"serialno_id"})
+    @OneToMany(mappedBy = "serialno_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<SalesHasSerial> salesHasSerials;
 
 

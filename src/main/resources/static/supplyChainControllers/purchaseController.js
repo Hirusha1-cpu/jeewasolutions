@@ -74,7 +74,8 @@ const getPurchItemQty = (rowOb) => {
 
 }
 const getPurchItemSupplier = (rowOb) => {
-    return rowOb.supplier_id.name
+    // return rowOb.supplier_id.name
+    return null
 }
 //refill the purchase order form 
 const refillPurchBtn = (item) => {
@@ -444,6 +445,7 @@ const addItemSupp = () => {
 
     let serverResponse = ajaxRequestBodyMethod("/purchase", "POST", purchase);
     alert(serverResponse)
+    refreshPurchaseTable()
     console.log("serverResponse==>", serverResponse);
     // Get the table element by its ID
     const itemtable = document.getElementById("ItemSuppTable");

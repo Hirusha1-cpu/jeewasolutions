@@ -339,6 +339,8 @@ const supplierAdd = () => {
   */
     let serverResponse = ajaxRequestBodyMethod("/supplier", "POST", supplier);
     alert(serverResponse)
+    refreshSupplyTable();
+
     console.log("serverResponse==>", serverResponse);
     console.log("supplier===>", supplier);
 

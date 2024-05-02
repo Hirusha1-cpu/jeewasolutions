@@ -47,12 +47,12 @@
                                                 <form id="qrCodeForm" method="POST" enctype="multipart/form-data">
                                                     <input type="file" name="qrCodeImage" accept="image/*">
                                                     <button type="submit">Read QR Code</button>
-                                                  </form>
-                                               
+                                                </form>
+
                                             </div>
                                         </div>
 
-                                        
+
                                     </div>
                                     <div class="row mt-2">
 
@@ -71,7 +71,7 @@
                                                 placeholder="AB12CDEFG34H56JK">
                                         </div>
                                     </div>
-                            
+
                                     <div class="row mt-3">
                                         <div class="col-2 mt-1">UnitPrice</div>
                                         <div class="col-3">
@@ -137,11 +137,12 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                      
-                                                                <label for="" class="fw-bolder">To Be Expire On <span style="color: red;">2023-09-08</span></label>
-                                                            
+
+                                                            <label for="" class="fw-bolder">To Be Expire On <span
+                                                                    style="color: red;">2023-09-08</span></label>
+
                                                         </div>
-                                                      
+
 
                                                     </form>
                                                 </div>
@@ -149,9 +150,10 @@
                                             <div class="row mt-2">
                                                 <div class=" form-floating p-1">
                                                     <button class="btn btn-success">Return Company</button>
-                                                    <button class="btn btn-danger" style="color: white;">Ready Repair</button>
+                                                    <button class="btn btn-danger" style="color: white;">Ready
+                                                        Repair</button>
                                                 </div>
-                                         
+
                                             </div>
                                         </div>
 
@@ -178,11 +180,13 @@
                                             <td>AB12CDEFG34H56JK</td>
                                             <td>Panasonic-Graphic card</td>
                                             <td>Return Company</td>
-                                            <td><button class="btn btn-success"><i class="fa-solid fa-check"></i></button>
+                                            <td><button class="btn btn-success"><i
+                                                        class="fa-solid fa-check"></i></button>
                                                 <button class="btn btn-info">
                                                     <i class="fa-solid fa-pen-to-square"></i></button>
-    
-                                                <button class="btn btn-danger"><i class="fa-solid fa-pen-to-square"></i></button>
+
+                                                <button class="btn btn-danger"><i
+                                                        class="fa-solid fa-pen-to-square"></i></button>
                                             </td>
 
                                         </tbody>
@@ -273,22 +277,22 @@
                                             <div class="row">
                                                 <div class="col-4 p-2 form-floating p-1">
                                                     <form id="uploadForm" enctype="multipart/form-data">
-                                                        <input type="file" id="qrCodeImage" name="qrCodeImage" accept="image/*">
+                                                        <input type="file" id="qrCodeImage" name="qrCodeImage"
+                                                            accept="image/*">
                                                         <button type="submit">Upload QR Code</button>
-                                                    </form>                                                    
-                                                                                                      
+                                                    </form>
+
                                                 </div>
                                             </div>
-                                           
+
                                         </div>
                                         <div class="row mt-2">
 
                                             <div class="col-2">Item name</div>
-                                            <div class="col-6">
-                                                <label for="" class="" style="font-weight: bold;"
-                                                    id="lblItemName">NVIDIA
-                                                    GeForce RTX 4090
-                                                </label>
+                                            <div class="col-6" style="font-weight: bold;" >
+                                                <input type="text" class="form-control" id="lblItemName1"
+                                                placeholder="NVIDIA GeForce RTX 4090" >
+                                             
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -296,14 +300,14 @@
                                             <div class="col-2 mt-1">Item Serial No</div>
                                             <div class="col-6">
                                                 <input type="text" class="form-control" id="invoiceSerialId"
-                                                    placeholder="AB12CDEFG34H56JK">
+                                                    placeholder="AB12CDEFG34H56JK" onchange="getItemDetails()">
                                             </div>
                                         </div>
-                                
+
                                         <div class="row mt-3">
                                             <div class="col-2 mt-1">Item UnitPrice</div>
                                             <div class="col-3">
-                                                <input type="text" class="form-control" id="floatingInput"
+                                                <input type="text" class="form-control" id="invoiceUnitPrice"
                                                     placeholder="Rs.">
                                             </div>
                                         </div>
@@ -336,14 +340,14 @@
                                                                 class="row  d-flex justify-content-center align-items-center ">
                                                                 <div class="col-6 form-floating  p-1">
                                                                     <input type="text" class="form-control"
-                                                                        id="inputBankName">
-                                                                    <label for="inputBankName" class="pl-2">Item
+                                                                        id="inputWarrentyItemName">
+                                                                    <label for="inputWarrentyItemName" class="pl-2">Item
                                                                         Name</label>
                                                                 </div>
                                                                 <div class="col-6 form-floating  p-1">
                                                                     <input type="date" class="form-control"
-                                                                        id="inputBankBranch">
-                                                                    <label for="inputBankBranch">Warrenty Start
+                                                                        id="inputWarStartDate">
+                                                                    <label for="inputWarStartDate">Warrenty Start
                                                                         Date</label>
                                                                 </div>
 
@@ -354,13 +358,13 @@
 
                                                                 <div class="col-6 form-floating p-1">
                                                                     <input type="text" class="form-control"
-                                                                        id="inputAccName">
-                                                                    <label for="inputAccName">Warrenty Period</label>
+                                                                        id="inputWarPeriod">
+                                                                    <label for="inputWarPeriod">Warrenty Period</label>
                                                                 </div>
                                                                 <div class="col-6 form-floating p-1">
                                                                     <input type="text" class="form-control"
-                                                                        id="inputAccHolderName">
-                                                                    <label for="inputAccHolderName">Warrenty Ending
+                                                                        id="inputWarrentyEnd">
+                                                                    <label for="inputWarrentyEnd">Warrenty Ending
                                                                         Date</label>
                                                                 </div>
                                                             </div>

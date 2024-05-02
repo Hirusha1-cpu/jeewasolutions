@@ -42,7 +42,7 @@ public class GraphicCard {
     private String power_spply;
 
     @Column(name = "warrenty")
-    private LocalDate warrenty;
+    private Integer warrenty;
 
     @Column(name = "name")
     @NotNull

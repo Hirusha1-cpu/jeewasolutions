@@ -64,11 +64,14 @@ public class GrnController {
     @PostMapping(value = "/grn")
     // @Transactional
     public String save(@RequestBody Grn grn) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         // serila no list eka grnhascategory eka atulen awama for loop ehekin nested widta pass kranwa
         try {
+            grn.setAddeduser_id(dao.getUsersByUsername(auth.getName()));
             //   SerialNo newSerialNo = new SerialNo();
             for (GrnHasCategory grnHasCategory : grn.getGrnHasCategory()) {
                 grnHasCategory.setGrn_id(grn);
+                grnHasCategory.setItemcode("ITEM001");
                 // System.out.println(grn);
                 // grnHasCategory = grnHasCategoryDao.save(grnHasCategory);
                 for (SerialNo newSerials : grnHasCategory.getSerialNumbers()) {
@@ -83,6 +86,8 @@ public class GrnController {
                     // serialNoDao.save(newSerials);
                     // newSerials.setGrn_has_category_id(grnHasCategory);
                     // serialNoDao.save(newSerials);
+                   
+        
                 }
                 // grnHasCategory.setGrn_id(grn);
                 // newItem.setItemname(grnHasCategory.getItemname());

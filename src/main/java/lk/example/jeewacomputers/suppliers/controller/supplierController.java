@@ -30,7 +30,7 @@ public class SupplierController {
     @Autowired
     // create dao object
     private SupplierDao dao;
-
+    
     @Autowired
     private PrivilegeController privilegeController;
 
@@ -38,6 +38,8 @@ public class SupplierController {
     @GetMapping(value = "/supplier/getlist", produces = "application/json")
     public List<Supplier> findAllData() {
         // login user authentication and authorization
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(auth.getName());
         return dao.findAll(Sort.by(Direction.DESC, "id"));
     }
 
@@ -67,15 +69,15 @@ public class SupplierController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
                 "supplier");
+                
         // if (!logUserPrivi.get("delete")) {
         //     return "Delete not completed you have not privilege";
         // }
         try {
             String nextEmpNo = dao.getSupplierCode();
             supplier.setSupplier_code(nextEmpNo);
-
-            // supplier.setUser_id(logedUser);
-            // supplier.setSupplierstatus_id(1);
+            supplier.setSupplierstatus_id(dao.getSuppStatus("Active"));
+            supplier.setUser_id(dao.getUsersByUsername(auth.getName()));
             //metanadi supplier has category ekatai bank details walatai supplier object eken data save wenwa for loop eka haraha
             for (SupplierHasCategory supplierHasCategory : supplier.getCategoriesBrandsWithSuppliers()) {
                 supplierHasCategory.setSupplier_id(supplier);

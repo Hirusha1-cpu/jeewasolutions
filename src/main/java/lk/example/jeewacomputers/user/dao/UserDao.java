@@ -12,10 +12,13 @@ public interface UserDao extends JpaRepository<User, Integer> {
     // @Query(value = "SELECT * FROM jeewacomputersproject.user WHERE username =
     // ?1", nativeQuery = true)
     // public User getUserByUsername(String username);
+    @Query("select u from User u where u.username = ?1")
+    public User getUsersByUsername(String username);
 
     @Query("SELECT u FROM User u WHERE u.username = :username")
     public User getUserByUsername(@Param("username") String username);
 
+    
     // //create query for get user by given employee
     // @Query(value = "SELECT * FROM jeewacomputersproject.user as u where
     // u.employee_id.id = ?1", nativeQuery = true)

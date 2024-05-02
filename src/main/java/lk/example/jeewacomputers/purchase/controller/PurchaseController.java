@@ -45,7 +45,7 @@ public class PurchaseController {
 
     // create get mapping for get supplier all data --- [/supplier/findall]
     @GetMapping(value = "/purchase/getlist", produces = "application/json")
-    public List<Purchase> findAllData() throws NotFoundException, FormatException, IOException {
+    public List<Purchase> findAllData() {
         // login user authentication and authorization
         // barcodeGenerator.readQRCode("/Users/hirushafernando/Documents/Project_BIT/PROJECT/jeewa_main/Ui_Structures-QRCODE.png");       
         return dao.findAll(Sort.by(Direction.DESC, "id"));
@@ -85,6 +85,7 @@ public class PurchaseController {
     @PostMapping(value = "/purchase")
     @Transactional
     public String save(@RequestBody Purchase purchase) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         try {
             // set auto generated value
@@ -96,6 +97,8 @@ public class PurchaseController {
             }
 
             // extPur.setSupplier_id(sup);
+            purchase.setPurchasestatus_id(dao.getPurchaseStatus("active"));
+            purchase.setAddeduser_id(dao.getUsersByUsername(auth.getName()));
             purchase.setPurchase_code("PUR-ABC123");
             purchase.setNote("hhh");
             purchase.setAdded_datetime(LocalDateTime.now().toLocalDate());

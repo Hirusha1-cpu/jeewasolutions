@@ -34,7 +34,9 @@ public class BarCodeGenerator {
         String qrCodePath = "/Users/hirushafernando/Documents/Project_BIT/PROJECT/jeewa_main/Ui_Structures";
         String qrCodeName = qrCodePath +"--"+serialNo.getSerialno() + "-QRCODE.png";
         var qrcode = new QRCodeWriter();
-        BitMatrix bitMatrix = qrcode.encode(serialNo.getSerialno(), BarcodeFormat.QR_CODE, 400, 400);
+        String combinedData = serialNo.getSerialno() + "," + serialNo.getItemcode();
+
+        BitMatrix bitMatrix = qrcode.encode(combinedData, BarcodeFormat.QR_CODE, 400, 400);
         Path path = FileSystems.getDefault().getPath(qrCodeName);
         MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
 

@@ -16,6 +16,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity // apply as an entity class
 @Table(name = "sales") // for map with given table
 @Data // generate getters and setters
@@ -54,7 +57,9 @@ public class Invoice {
      @Column(name = "customerpaidamount")
     private String customerpaidamount;
 
+    // @JsonIgnoreProperties(value = {"sales_id"})
     @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<SalesHasSerial> salesHasSerials;
 
     

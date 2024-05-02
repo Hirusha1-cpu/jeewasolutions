@@ -32,6 +32,7 @@ const refreshGrnForm = () => {
 //refresh the table of grn
 const refreshGrnTable = () => {
     grnList = ajaxGetRequest('/grn/getlist')
+    console.log(grnList);
     const displayProperties = [
         { property: getGrnItemCategory, dataType: 'function' },
         // { property: getGrnItemBrand, dataType: 'function' },
@@ -313,23 +314,23 @@ const purchaseOrderTable = () => {
 //     return processedItems;
 // };
 const grnItemTable = () => {
-    ////
+    console.log(grn);
     grnItems = ajaxGetRequest("/grn/getlist/" + grn.purchase_id.id)
     console.log("grnItems", grnItems);
 
     // Add new items to existingItems
-    grnArray.push(grnItems)
-    const processedGData = processGrnItems(grnArray);
-    console.log("grnArray", grnArray);
+    // grnArray.push(grnItems)
+    // const processedGData = processGrnItems(grnArray);
+    // console.log("grnArray", grnArray);
     // Filter new or updated items (assuming IDs are unique)
-    const newItems = processedGData.filter(newItem => {
-        return !existingGItems.some(existingItem => existingItem.id === newItem.id);
-    });
+    // const newItems = processedGData.filter(newItem => {
+    //     return !existingGItems.some(existingItem => existingItem.id === newItem.id);
+    // });
 
-    // Update existingGItems with new items
-    existingGItems.push(...newItems);
-    // existingGItems.push(...processedGData);
-    console.log("existingGItems"), existingGItems;
+    // // Update existingGItems with new items
+    // existingGItems.push(...newItems);
+    // // existingGItems.push(...processedGData);
+    // console.log("existingGItems"), existingGItems;
     displayProperties = [
         { property: getPurchaseForGrnCode, dataType: 'function' },
         { property: getGrnItemName, dataType: 'function' },
@@ -342,15 +343,15 @@ const grnItemTable = () => {
     fillDataIntoPurcahseTable(selectedGrnTable, grnItems.grnHasCategory, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
 
 }
-const processGrnItems = (grnArray) => {
-    const processedGItems = [];
-    for (const grnItem of grnArray) {
+// const processGrnItems = (grnArray) => {
+//     const processedGItems = [];
+//     for (const grnItem of grnArray) {
 
-        processedGItems.push(grnItem);
-    }
-    console.log("processedGGItems", processedGItems);
-    return processedGItems;
-};
+//         processedGItems.push(grnItem);
+//     }
+//     console.log("processedGGItems", processedGItems);
+//     return processedGItems;
+// };
 const getPurchaseForGrnCode = (rowOb) => { return null }
 // const getGrnItemName = (rowOb) => { return rowOb.purchase_id.purchaseHasCategory[0].itemname }
 const getGrnItemName = (rowOb) => {
@@ -491,6 +492,7 @@ const updateSerialNo = (id, value) => {
 
 const addGrn = () => {
 
+    
     //add grn button eken post wenwa data tika grn table ekata grn main eken wenne ekata adala data 
     //update wena eka
     //serial no variable ekata assign wenw check box wla serial no wla output eka
@@ -531,7 +533,7 @@ const generateNetAmount = () => {
 
 const addGrnMain = () => {
     console.log(grn);
-    console.log(grnItems.id);
+    // console.log(grnItems.id);
     // delete grn.grnHasCategory;
 
     const id = grnItems.id
@@ -539,10 +541,14 @@ const addGrnMain = () => {
     let serverResponse1 = ajaxRequestBodyMethod(`/grn/${id}`, "PUT", grn); // meken put ekak call karnna
     console.log(serverResponse1);
 
+    refreshGrnTable();
+
     inputSupplierInvoice.value = ""
     inputGrnTotalAmount.value = ""
     inputGrnDiscount.value = ""
     inputGrnNetAmount.value = ""
+
+
     // meken form close wela table eka open wenwa
     const table = document.getElementById("empTable");
     const form = document.getElementById("empForm");
