@@ -30,6 +30,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 const refreshInvoiceForm = () => {
     invoice = new Object();
+    itemTableDetail = new Object();
+    customer_id = new Object();
+    invoice.serialNoList = []
+    serialNumbers = new Object();
+
 }
 const getItemDetails = () => {
     itemsDetails1 = ajaxGetRequest("/invoice/getlist/" + JSON.parse(invoiceSerialId.value));
@@ -70,9 +75,99 @@ function filterByName(itemname, data) {
     return data.filter((item) => (item.name).includes(itemname));
 }
 
-const addToTable = () =>{
-    lblItemName1.addEventListener("change", (event) => {
-       invoice.itemname =lblItemName1.value;
-      });
+const addToTable = () => {
+    //customer table ekata save wenna one data tika e object eke piliwelata
+    invoice.customer_id.name = inputCustomerName.value
+    invoice.customer_id.phone = inputCustomerContact.value
+
+    //me tika wadagath item table eke data tika penna gnna
+    itemTableDetail.itemname = lblItemName1.value;
+    itemTableDetail.serialno = invoiceSerialId.value
+    itemTableDetail.unitprice = invoiceUnitPrice.value
+    
+    //me tikath item table ekata wadagath namuth penann na
+    itemTableDetail.warrentyitemname = inputWarrentyItemName.value
+    itemTableDetail.warrentystartdate = inputWarStartDate.value
+    itemTableDetail.warrentyperiod = inputWarPeriod.value
+    itemTableDetail.warrentyendate = inputWarrentyEnd.value
+
+    // invoice.serialNoList = []
+    // serialNumbers = new Object();
+    //serial number list ekk lesa gnnwa serial number tika
+    serialNumbers.serialno = invoiceSerialId.value
+}
+
+const selectCustomerType = () => {
+
+    const selectedValue = discountCategorySelect.value;
+    // Do something with the selectedValue variable here
+    console.log("Selected discount type:", selectedValue);
+    if (selectedValue == 2) {
+        discountCusRate.disabled = false;
+        discountCusPhone.disabled = true;
+
+        invoice.discountrate = discountCusRate.value
+
+
+    }
+}
+const calculateBalance = () => {
+    invoice.invoicetotalprice = invoiceTotalPrice.value
+    invoice.invoicecustomerpayment = invoiceCustomerPayment.value
+    invoice.invoicebalance = invoice.invoicecustomerpayment - invoice.invoicetotalprice
+    invoiceBalance.value = invoice.invoicebalance
+
+}
+
+const addToSerialiedTable = () => {
+
+    addToTable()
+    invoice.serialNoList.push(serialNumbers)
     console.log(invoice);
+
+    displayProperties = [
+        { property: getSerialedItemCode, dataType: 'function' },
+        { property: getSerialedItemName, dataType: 'function' },
+        { property: getSerialedItemPrice, dataType: 'function' },
+        { property: getSerialedItemWarrenty, dataType: 'function' },
+    ]
+    fillDataIntoPurcahseTable(itemSerializedTable, grnItems.grnHasCategory, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
+    //reset the value attributes
+    lblItemName1.value = ""
+    invoiceSerialId.value = ""
+    invoiceUnitPrice.value = ""
+    inputCustomerName.value = ""
+    inputCustomerContact.value = ""
+    inputWarrentyItemName.value = ""
+    inputWarStartDate.value = ""
+    inputWarPeriod.value = ""
+    inputWarrentyEnd.value = ""
+
+}
+
+const getSerialedItemCode = () => {
+
+}
+const getSerialedItemName = () => {
+
+}
+const getSerialedItemPrice = () => {
+
+}
+const getSerialedItemWarrenty = () => {
+
+}
+
+const purchaseOrderBtn = (rowObject) => {
+    console.log("clicked purchase order");
+}
+const deletePurchBtn = (rowObject) => {
+    console.log("clicked delete purchase order");
+}
+const sendPurchBtn = (rowObject) => {
+    console.log("clicked send purchase order");
+}
+
+const submitInvoice = () =>{
+
 }

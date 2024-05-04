@@ -3,7 +3,6 @@ package lk.example.jeewacomputers.grnanditem.entity;
 import java.time.LocalDate;
 import java.util.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;

@@ -34,33 +34,34 @@ public class Invoice {
 
      @Column(name = "invoiceno")
     private String invoiceno;
-
-     @Column(name = "itemserialno")
-    private String itemserialno;
-
+   
     @ManyToOne(optional = false)
     @JoinColumn(name="customer_id", referencedColumnName = "id")
     private Customer customer_id;
-
-     @Column(name = "paymentmethod")
+    
+    @Column(name = "paymentmethod")
     private String paymentmethod;
-
-     @Column(name = "referenceno")
+    
+    @Column(name = "referenceno")
     private String referenceno;
-
-     @Column(name = "total")
+    
+    @Column(name = "total")
     private String total;
-
-     @Column(name = "balance")
+    
+    @Column(name = "balance")
     private String balance;
-
-     @Column(name = "customerpaidamount")
+    
+    @Column(name = "customerpaidamount")
     private String customerpaidamount;
-
+    
     // @JsonIgnoreProperties(value = {"sales_id"})
     @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<SalesHasSerial> salesHasSerials;
-
+    
+    @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL)
+    // @JoinColumn(name="serialnolist_id", referencedColumnName = "id")
+    @JsonIgnore
+    private List<SerialNoList> serialnolist_id;
     
 }
