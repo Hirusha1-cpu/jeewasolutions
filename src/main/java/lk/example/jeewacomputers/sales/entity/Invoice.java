@@ -19,6 +19,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+
 @Entity // apply as an entity class
 @Table(name = "sales") // for map with given table
 @Data // generate getters and setters
@@ -35,9 +36,9 @@ public class Invoice {
      @Column(name = "invoiceno")
     private String invoiceno;
    
-    @ManyToOne(optional = false)
-    @JoinColumn(name="customer_id", referencedColumnName = "id")
-    private Customer customer_id;
+    // @ManyToOne(optional = false)
+    // @JoinColumn(name="customer_id", referencedColumnName = "id")
+    // private Customer customer_id;
     
     @Column(name = "paymentmethod")
     private String paymentmethod;
@@ -46,22 +47,23 @@ public class Invoice {
     private String referenceno;
     
     @Column(name = "total")
-    private String total;
+    private Integer total;
     
     @Column(name = "balance")
-    private String balance;
+    private Integer balance;
     
     @Column(name = "customerpaidamount")
-    private String customerpaidamount;
+    private Integer customerpaidamount;
     
-    // @JsonIgnoreProperties(value = {"sales_id"})
-    @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @JsonIgnoreProperties(value = {"sales_id","serialno_id"})
+    @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @JsonIgnore
     private List<SalesHasSerial> salesHasSerials;
     
-    @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = {"sales_id"})
+    @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
     // @JoinColumn(name="serialnolist_id", referencedColumnName = "id")
-    @JsonIgnore
+    // @JsonIgnore
     private List<SerialNoList> serialnolist_id;
     
 }

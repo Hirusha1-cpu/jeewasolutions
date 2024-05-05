@@ -68,52 +68,59 @@ public class InvoiceController {
     }
 
     @PostMapping(value = "/invoice")
-    @Transactional
+    // @Transactional
     public String save(@RequestBody Invoice invoice) {
 
         try {
-
-            for (SalesHasSerial salesHasSerial : invoice.getSalesHasSerials()) {
-                salesHasSerial.setSales_id(invoice);
-                //set the warrenty start date for today date
-                salesHasSerial.setWarrentystartdate(LocalDateTime.now());
-                //invoice eken serialnolist ekak pass krnwa eka assign kragnnwa one to many, serial no list ekata
-                List<SerialNoList> serialNos = invoice.getSerialnolist_id();
-                //String[] serialNoArray = serialNos;
-                for (SerialNoList serialNoList : serialNos) {
-                    //get the serial number from list passed from frontend
-                    String serialno = serialNoList.getSerialno();
-                    //set serial number object from dao using query that gain object by object
-                    salesHasSerial.setSerialno_id(invoiceDao.getItemBySerialNo(serialno));
-                    //get the warrenty period that passed from frontend 
-                    Integer warrentyPeriod = serialNoList.getWarrentyperiod();
-                    //set the warrenty period to the salesHasSerial entity
-                    salesHasSerial.setWarrentyperiod(warrentyPeriod);
-                    //calculate the warrenty expire date
-                    LocalDateTime warrentyExpireDate = salesHasSerial.getWarrentystartdate().plusDays(warrentyPeriod);
-                    //set warrenty expire date to salesHasSerial
-                    salesHasSerial.setWarrentyexpire(warrentyExpireDate);
-                    //serialNoList eke salesid ekata invoice eka set kranwa
-                    serialNoList.setSales_id(invoice);
-
-                    System.out.println(serialno);
+            // List<SalesHasSerial> salesHasSerials = invoice.getSalesHasSerials();
+            System.out.println(invoice);
+            if (invoice.getSalesHasSerials() != null) {
+                for (SalesHasSerial salesHasSerial : invoice.getSalesHasSerials()) {
+                    salesHasSerial.setSales_id(invoice);
+                    //set the warrenty start date for today date
+                    // salesHasSerial.setWarrentystartdate(LocalDateTime.now());
+                    //invoice eken serialnolist ekak pass krnwa eka assign kragnnwa one to many, serial no list ekata
+                    List<SerialNoList> serialNos = invoice.getSerialnolist_id();
+                    //String[] serialNoArray = serialNos;
+                    for (SerialNoList serialNoList : serialNos) {
+                        //get the serial number from list passed from frontend
+                        String serialno = serialNoList.getSerialno();
+                        //set serial number object from dao using query that gain object by object
+                        salesHasSerial.setSerialno_id(invoiceDao.getItemBySerialNo(serialno));
+                        //get the warrenty period that passed from frontend 
+                        // Integer warrentyPeriod = serialNoList.getWarrentyperiod();
+                        //set the warrenty period to the salesHasSerial entity
+                        // salesHasSerial.setWarrentyperiod(warrentyPeriod);
+                        //calculate the warrenty expire date
+                        // LocalDateTime warrentyExpireDate = salesHasSerial.getWarrentystartdate().plusDays(warrentyPeriod);
+                        //set warrenty expire date to salesHasSerial
+                        // salesHasSerial.setWarrentyexpire(warrentyExpireDate);
+                        //serialNoList eke salesid ekata invoice eka set kranwa
+                        serialNoList.setSales_id(invoice);
+    
+                        System.out.println(serialno);
+                    }
+                    // // salesHasSerial.setSerialno_id(invoice);
+                    // Integer id = serialNoDao.getIdOfSerialNo(invoice.getItemserialno());
+                    // Optional<SerialNo> sn = serialNoDao.findById(id);
+                    // System.out.println(sn);
+                    // salesHasSerial.setSerialno_id(sn);
                 }
-                // // salesHasSerial.setSerialno_id(invoice);
-                // Integer id = serialNoDao.getIdOfSerialNo(invoice.getItemserialno());
-                // Optional<SerialNo> sn = serialNoDao.findById(id);
-                // System.out.println(sn);
-                // salesHasSerial.setSerialno_id(sn);
+            }else{
+                System.out.println("No SalesHasSerial entries found for this invoice.");
+
             }
             //customer entity ekata set krnwa customer attribute tika
-            customer.setName(invoice.getCustomer_id().getName());
-            customer.setPhone(invoice.getCustomer_id().getPhone());
-            customer.setCustomercode(invoice.getCustomer_id().getCustomercode());
-            customer.setBuymode(invoice.getCustomer_id().getBuymode());
-            customer.setBuyrounds(invoice.getCustomer_id().getBuyrounds());
-            //invoice eke customer id eakata customer set karanwa
-            invoice.setCustomer_id(customer);
-            customerdao.save(customer);
+            // customer.setName(invoice.getCustomer_id().getName());
+            // customer.setPhone(invoice.getCustomer_id().getPhone());
+            // customer.setCustomercode(invoice.getCustomer_id().getCustomercode());
+            // customer.setBuymode(invoice.getCustomer_id().getBuymode());
+            // customer.setBuyrounds(invoice.getCustomer_id().getBuyrounds());
+            // //invoice eke customer id eakata customer set karanwa
+            // invoice.setCustomer_id(customer);
+            // customerdao.save(customer);
             invoiceDao.save(invoice);
+            System.out.println(invoice);
 
             return "OK";
 

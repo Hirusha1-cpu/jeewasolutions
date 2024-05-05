@@ -1,5 +1,7 @@
 package lk.example.jeewacomputers.sales.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,7 @@ public class SerialNoList {
 
     @ManyToOne
     @JoinColumn(name = "sales_id", referencedColumnName = "id")
+    // @JsonIgnoreProperties(value = {"sales_id"})
     // @JsonIgnore
     private Invoice sales_id ;
 

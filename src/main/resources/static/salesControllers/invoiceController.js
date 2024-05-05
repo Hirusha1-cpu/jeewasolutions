@@ -1,8 +1,3 @@
-window.addEventListener('load', () => {
-    refreshInvoiceForm();
-    // refreshGrnTable();
-
-})
 document.addEventListener('DOMContentLoaded', function () {
     const uploadForm = document.getElementById('uploadForm');
 
@@ -27,12 +22,20 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     })
 });
+window.addEventListener('load', () => {
+    refreshInvoiceForm();
+    // refreshGrnTable();
+
+})
 
 const refreshInvoiceForm = () => {
     invoice = new Object();
+    itable = []
     itemTableDetail = new Object();
     customer_id = new Object();
-    invoice.serialNoList = []
+    invoice.serialnolist_id = new Array();
+    invoice.salesHasSerials = new Array();
+    saleSerial = new Object();
     serialNumbers = new Object();
 
 }
@@ -52,14 +55,19 @@ const getItemDetails = () => {
 
     console.log("Filtered data:", filteredData);
     const warrentyPeriod = filteredData[0].warrenty
+    serialNumbers.warrentyperiod = warrentyPeriod
+    saleSerial.warrentyperiod = warrentyPeriod
+
     console.log(warrentyPeriod);
     if (!isNaN(warrentyPeriod)) {
         inputWarrentyItemName.value = itemsDetails1.itemname
         inputWarPeriod.value = warrentyPeriod + " Days"
         inputWarStartDate.value = new Date().toISOString().slice(0, 10);
+        // saleSerial.warrentystartdate=inputWarStartDate.value
         const newDate = new Date(inputWarStartDate.value);
         newDate.setDate(newDate.getDate() + warrentyPeriod);
         inputWarrentyEnd.value = newDate.toISOString().slice(0, 10);
+        // saleSerial.warrentyexpire=inputWarrentyEnd.value
         //open bank collapse model
         const collapseWarrentyElement = document.getElementById("collapseItemWarrenty");
 
@@ -77,20 +85,20 @@ function filterByName(itemname, data) {
 
 const addToTable = () => {
     //customer table ekata save wenna one data tika e object eke piliwelata
-    invoice.customer_id.name = inputCustomerName.value
-    invoice.customer_id.phone = inputCustomerContact.value
+    // customer_id.name = inputCustomerName.value
+    // customer_id.phone = inputCustomerContact.value
+    
 
     //me tika wadagath item table eke data tika penna gnna
     itemTableDetail.itemname = lblItemName1.value;
-    itemTableDetail.serialno = invoiceSerialId.value
+    // itemTableDetail.serialno = invoiceSerialId.value
     itemTableDetail.unitprice = invoiceUnitPrice.value
     
     //me tikath item table ekata wadagath namuth penann na
     itemTableDetail.warrentyitemname = inputWarrentyItemName.value
     itemTableDetail.warrentystartdate = inputWarStartDate.value
-    itemTableDetail.warrentyperiod = inputWarPeriod.value
     itemTableDetail.warrentyendate = inputWarrentyEnd.value
-
+    
     // invoice.serialNoList = []
     // serialNumbers = new Object();
     //serial number list ekk lesa gnnwa serial number tika
@@ -105,57 +113,60 @@ const selectCustomerType = () => {
     if (selectedValue == 2) {
         discountCusRate.disabled = false;
         discountCusPhone.disabled = true;
-
-        invoice.discountrate = discountCusRate.value
-
-
+        // invoice.discountrate = discountCusRate.value
     }
 }
 const calculateBalance = () => {
-    invoice.invoicetotalprice = invoiceTotalPrice.value
-    invoice.invoicecustomerpayment = invoiceCustomerPayment.value
-    invoice.invoicebalance = invoice.invoicecustomerpayment - invoice.invoicetotalprice
-    invoiceBalance.value = invoice.invoicebalance
-
+    invoice.total = invoiceTotalPrice.value
+    invoice.customerpaidamount = invoiceCustomerPayment.value
+    invoice.balance = invoice.customerpaidamount - invoice.total
+    invoiceBalance.value = invoice.balance
 }
 
 const addToSerialiedTable = () => {
 
     addToTable()
-    invoice.serialNoList.push(serialNumbers)
+    invoice.serialnolist_id.push(serialNumbers)
+    invoice.salesHasSerials.push(saleSerial)
     console.log(invoice);
+    console.log(itemTableDetail);
+    itable.push(itemTableDetail)
+
+    let serverResponse = ajaxRequestBodyMethod("/invoice", "POST", invoice);
+    console.log("serverResponse", serverResponse);
 
     displayProperties = [
-        { property: getSerialedItemCode, dataType: 'function' },
-        { property: getSerialedItemName, dataType: 'function' },
-        { property: getSerialedItemPrice, dataType: 'function' },
-        { property: getSerialedItemWarrenty, dataType: 'function' },
+        { property: getSerialedItemCode, dataType: 'function'},
+        { property: getSerialedItemName, dataType: 'function'},
+        { property: getSerialedItemPrice, dataType: 'function'},
+        { property: getSerialedItemWarrenty, dataType: 'function'},
     ]
-    fillDataIntoPurcahseTable(itemSerializedTable, grnItems.grnHasCategory, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
+    fillDataIntoPurcahseTable(itemSerializedTable, itable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
     //reset the value attributes
-    lblItemName1.value = ""
-    invoiceSerialId.value = ""
-    invoiceUnitPrice.value = ""
-    inputCustomerName.value = ""
-    inputCustomerContact.value = ""
-    inputWarrentyItemName.value = ""
-    inputWarStartDate.value = ""
-    inputWarPeriod.value = ""
-    inputWarrentyEnd.value = ""
+    // lblItemName1.value = ""
+    // invoiceSerialId.value = ""
+    // invoiceUnitPrice.value = ""
+    // inputCustomerName.value = ""
+    // inputCustomerContact.value = ""
+    // inputWarrentyItemName.value = ""
+    // inputWarStartDate.value = ""
+    // inputWarPeriod.value = ""
+    // inputWarrentyEnd.value = ""
 
 }
 
-const getSerialedItemCode = () => {
-
+const getSerialedItemCode = (rowOb) => {
+    return null
 }
-const getSerialedItemName = () => {
-
+const getSerialedItemName = (rowOb) => {
+    console.log(rowOb);
+    return rowOb.itemname
 }
-const getSerialedItemPrice = () => {
-
+const getSerialedItemPrice = (rowOb) => {
+    return rowOb.unitprice
 }
 const getSerialedItemWarrenty = () => {
-
+    return "warrentied"
 }
 
 const purchaseOrderBtn = (rowObject) => {
@@ -169,5 +180,11 @@ const sendPurchBtn = (rowObject) => {
 }
 
 const submitInvoice = () =>{
+    // invoice.invoicetotalprice = invoiceTotalPrice.value
+    // invoice.invoicebalance = invoiceBalance.value
+    //serial number list
+    console.log(invoice);
+    // invoice.serialNoList.push(serialNumbers)
+  
 
 }

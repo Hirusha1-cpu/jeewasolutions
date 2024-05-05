@@ -2,6 +2,9 @@ package lk.example.jeewacomputers.sales.entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,12 +36,12 @@ public class SalesHasSerial {
 
     @ManyToOne
     @JoinColumn(name = "sales_id", referencedColumnName = "id")
-    // @JsonIgnore
+    // @JsonIgnoreProperties(value = {"sales_id"})
     private Invoice sales_id ;
 
     @ManyToOne
     @JoinColumn(name = "serialno_id", referencedColumnName = "id")
-    // @JsonIgnore
+    // @JsonIgnoreProperties(value = {"serialno_id"})
     private SerialNo serialno_id ;
 
     @Column(name = "warrentystartdate")

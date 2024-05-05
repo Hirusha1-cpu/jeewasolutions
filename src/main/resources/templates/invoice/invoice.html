@@ -302,7 +302,7 @@
                                             <div class="col-6">
                                                 <input type="text" class="form-control" id="invoiceSerialId"
                                                     placeholder="AB12CDEFG34H56JK"
-                                                    oninput="textValidation(invoiceSerialId,'', 'itemTableDetail', 'serialno'); getItemDetails()">
+                                                    oninput="textValidation(invoiceSerialId,'', 'serialNumbers', 'serialno'); getItemDetails()">
                                             </div>
                                         </div>
 
@@ -366,7 +366,7 @@
                                                                 <div class="col-6 form-floating p-1">
                                                                     <input type="text" class="form-control"
                                                                         id="inputWarPeriod"
-                                                                        oninput="textValidation(inputWarPeriod,'', 'itemTableDetail', 'warrentyperiod'); ">
+                                                                        oninput="textValidation(inputWarPeriod,'', 'serialNumbers', 'warrentyperiod'); ">
                                                                     <label for="inputWarPeriod">Warrenty Period</label>
                                                                 </div>
                                                                 <div class="col-6 form-floating p-1">
@@ -404,6 +404,8 @@
                                                         <table class="table " id="itemSerializedTable">
                                                             <thead>
                                                                 <tr>
+
+                                                                    <th scope="col">#</th>
                                                                     <th scope="col">Item Code</th>
                                                                     <th scope="col">Item Name</th>
                                                                     <th scope="col">Item Price</th>
@@ -412,20 +414,6 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <th scope="row">00001</th>
-                                                                    <td>Ram</td>
-                                                                    <td>23</td>
-                                                                    <td>yes</td>
-                                                                    <td>
-                                                                        <!-- <button class="btn btn-success">send</button> -->
-                                                                        <button class="btn btn-success"><i
-                                                                                class="fa-solid fa-money-check-dollar"></i></button>
-                                                                        <button class="btn btn-danger"><i
-                                                                                class="fa-solid fa-trash"></i></button>
-                                                                    </td>
-                                                                </tr>
-
 
                                                             </tbody>
                                                         </table>
@@ -438,7 +426,7 @@
                                             <div class="col-3">
                                                 <input type="text" class="form-control" id="invoiceTotalPrice"
                                                     placeholder="Rs."
-                                                    oninput="textValidation(invoiceTotalPrice,'', 'invoice', 'invoicetotalprice'); ">
+                                                    oninput="textValidation(invoiceTotalPrice,'', 'invoice', 'total'); ">
                                             </div>
 
 
@@ -461,7 +449,8 @@
                                                 <div class="form-floating p-1 mt-1 mb-2">
                                                     <input type="text" class="form-control" disabled
                                                         id="discountCusRate" placeholder="%"
-                                                        oninput="textValidation(discountCusRate,'', 'invoice', 'discountCusRate'); ">
+                                                       
+                                                        >
                                                     <label for="discountCusRate">Discount Rate</label>
                                                 </div>
                                             </div>
@@ -585,7 +574,7 @@
                                             <div class="col-4">
                                                 <input type="text" class="form-control" id="invoiceCustomerPaymentRefference"
                                                     placeholder="Referrance No:"
-                                                    oninput="textValidation(invoiceCustomerPaymentRefference,'', 'invoice', 'invoicecustomerpaymentrefference'); calculateBalance()">
+                                                    oninput="textValidation(invoiceCustomerPaymentRefference,'', 'invoice', 'referenceno'); calculateBalance()">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -593,7 +582,7 @@
                                             <div class="col-3">
                                                 <input type="text" class="form-control" id="invoiceCustomerPayment"
                                                     placeholder="Rs."
-                                                    oninput="textValidation(invoiceCustomerPayment,'', 'invoice', 'invoicecustomerpayment'); calculateBalance()">
+                                                    oninput="textValidation(invoiceCustomerPayment,'', 'invoice', 'customerpaidamount'); calculateBalance()">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -601,7 +590,7 @@
                                             <div class="col-3">
                                                 <input type="text" class="form-control" id="invoiceBalance"
                                                     placeholder="Rs."
-                                                    oninput="textValidation(invoiceBalance,'', 'invoice', 'invoicebalance'); ">
+                                                    oninput="textValidation(invoiceBalance,'', 'invoice', 'balance'); ">
                                             </div>
                                         </div>
                                         <div class="row mt-2">

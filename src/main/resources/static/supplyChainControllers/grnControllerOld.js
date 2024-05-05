@@ -26,7 +26,7 @@ const refreshGrnForm = () => {
     fillDataIntoSelect(selectSuppliersList, "Select Supplier", suppliers, 'name')
     console.log(suppliers);
     // getPurchBySuppliers() 
-
+    
     // purchaseOrdersList = ajaxGetRequest("/purchase/getporeds")
 }
 //refresh the table of grn
@@ -433,7 +433,6 @@ const addPurchaseOrderItemToTable = () => {
     purchaseOrderTable()
     selectPurchaseOrder1.value = ""
 }
-
 
 const generateLinePrice = () => {
     const qty1 = parseInt(inputPurchaseQuantity.value)
