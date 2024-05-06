@@ -65,9 +65,9 @@ public class SerialNo {
     private Category category_id ;
 
     // @JsonIgnoreProperties(value = {"serialno_id"})
-    @OneToMany(mappedBy = "serialno_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<SalesHasSerial> salesHasSerials;
+    // @OneToMany(mappedBy = "serialno_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @JsonIgnore
+    // private List<SalesHasSerial> salesHasSerials;
 
 
 

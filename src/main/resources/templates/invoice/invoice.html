@@ -292,7 +292,7 @@
                                             <div class="col-6" style="font-weight: bold;">
                                                 <input type="text" class="form-control" id="lblItemName1"
                                                     placeholder="NVIDIA GeForce RTX 4090"
-                                                    oninput="textValidation(lblItemName1,'', 'itemTableDetail', 'itemname');">
+                                                    onchange="textValidation(lblItemName1,'', 'itemTableDetail', 'itemname');">
 
                                             </div>
                                         </div>
@@ -300,9 +300,15 @@
 
                                             <div class="col-2 mt-1">Item Serial No</div>
                                             <div class="col-6">
+<!-- 
                                                 <input type="text" class="form-control" id="invoiceSerialId"
                                                     placeholder="AB12CDEFG34H56JK"
-                                                    oninput="textValidation(invoiceSerialId,'', 'serialNumbers', 'serialno'); getItemDetails()">
+                                                    oninput="textValidation(invoiceSerialId,'', 'serialNumbers', 'serialno'); getItemDetails()"> -->
+                                                <select class="form-select" id="invoiceSerialId"
+                                                    aria-label="Default select example"
+                                                    onchange="getItemDetails()">
+                                                    
+                                                </select>
                                             </div>
                                         </div>
 
@@ -311,7 +317,7 @@
                                             <div class="col-3">
                                                 <input type="text" class="form-control" id="invoiceUnitPrice"
                                                     placeholder="Rs."
-                                                    oninput="textValidation(invoiceUnitPrice,'', 'itemTableDetail', 'unitprice'); ">
+                                                    onchange="textValidation(invoiceUnitPrice,'', 'itemTableDetail', 'unitprice'); ">
                                             </div>
                                         </div>
                                         <div class="row mt-3">
@@ -394,8 +400,8 @@
                                         <div class="row mt-3">
                                             <div class="mr-1">
                                                 <button class="btn btn-info" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseItemDetails" aria-expanded="false"
-                                                    aria-controls="collapseItemDetails" style="color: white;"
+                                                    data-bs-target="#collapseItemDetails1" aria-expanded="false"
+                                                    aria-controls="collapseItemDetails1" style="color: white;"
                                                     onclick="addToSerialiedTable()">
                                                     Add Item
                                                 </button>
@@ -448,9 +454,7 @@
                                                 </div>
                                                 <div class="form-floating p-1 mt-1 mb-2">
                                                     <input type="text" class="form-control" disabled
-                                                        id="discountCusRate" placeholder="%"
-                                                       
-                                                        >
+                                                        id="discountCusRate" placeholder="%">
                                                     <label for="discountCusRate">Discount Rate</label>
                                                 </div>
                                             </div>
@@ -465,8 +469,8 @@
 
 
                                         </div>
-                                    
-                                        <div class="row mt-2">
+
+                                        <!-- <div class="row mt-2">
                                             <div class="col-6 p-2 checkboxes-container"
                                                 style="display: flex; flex-direction: column; gap: 10px;">
                                                 <div class="form-check  ">
@@ -516,9 +520,7 @@
                                                                     class="pl-2">Balance</label>
                                                             </div>
                                                             <div class="col-6 form-floating  p-1">
-                                                                <!-- <input type="text" class="form-control"
-                                                                    id="inputMonthlyPlan"
-                                                                    oninput="textValidation(inputMonthlyPlan,'', 'invoice', 'warrentystartdate'); "> -->
+
                                                                 <select class="form-select" id="installmentMonthlyPlan"
                                                                     aria-label="Default select example"
                                                                     onchange="selectDFieldValidation(installmentMonthlyPlan,'', 'invoice', 'monthlyplan'); ">
@@ -559,7 +561,7 @@
                                                     </form>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="row mt-2">
                                             <div class="col-2 mt-1">Payment Method</div>
                                             <div class="col-3">
@@ -572,8 +574,8 @@
                                                 </select>
                                             </div>
                                             <div class="col-4">
-                                                <input type="text" class="form-control" id="invoiceCustomerPaymentRefference"
-                                                    placeholder="Referrance No:"
+                                                <input type="text" class="form-control"
+                                                    id="invoiceCustomerPaymentRefference" placeholder="Referrance No:"
                                                     oninput="textValidation(invoiceCustomerPaymentRefference,'', 'invoice', 'referenceno'); calculateBalance()">
                                             </div>
                                         </div>

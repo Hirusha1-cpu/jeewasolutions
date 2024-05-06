@@ -31,36 +31,52 @@ window.addEventListener('load', () => {
 const refreshInvoiceForm = () => {
     invoice = new Object();
     itable = []
-    itemTableDetail = new Object();
+    serialno_id = new Object();
     customer_id = new Object();
+    customer_id1 = new Object();
     invoice.serialnolist_id = new Array();
     invoice.salesHasSerials = new Array();
     saleSerial = new Object();
     serialNumbers = new Object();
+    serialNoListCount = ajaxGetRequest("/serialno/getlist")
+
+    fillDataIntoSelect(invoiceSerialId, "Select SerialNumber List", serialNoListCount, 'serialno')
+
+    const collapseInvoiceElement = document.getElementById("collapseItemDetails");
+
+    // Remove the 'collapse' class to open the collapse
+    collapseInvoiceElement.classList.remove("collapse");
+
+    // Optionally, you can also set aria-expanded attribute to 'true' for accessibility
+    collapseInvoiceElement.setAttribute("aria-expanded", "true");
 
 }
 const getItemDetails = () => {
-    itemsDetails1 = ajaxGetRequest("/invoice/getlist/" + JSON.parse(invoiceSerialId.value));
-    console.log(itemsDetails1);
-    console.log(itemsDetails1.itemname);
-    lblItemName1.value = itemsDetails1.itemname
-    invoiceUnitPrice.value = itemsDetails1.itemprice
+     serialObject = JSON.parse(invoiceSerialId.value)
+    console.log(serialObject);
+
+    // itemsDetails1 = ajaxGetRequest("/invoice/getlist/" + JSON.parse(invoiceSerialId.value));
+    // console.log(itemsDetails1);
+    // console.log(itemsDetails1.itemname);
+    lblItemName1.value = serialObject.itemname
+    invoiceUnitPrice.value = serialObject.itemprice
     // let categoryName;
     // categoryName = itemsDetails1.category_id.name
-    const categoryname1 = (itemsDetails1.category_id.name).replace(/\s/g, '').toLowerCase()
+    const categoryname1 = (serialObject.category_id.name).replace(/\s/g, '').toLowerCase()
     categoriesItems = ajaxGetRequest(`/${categoryname1}/getlist`, categoryname1)
     console.log(categoriesItems);
 
-    const filteredData = filterByName(itemsDetails1.itemname, categoriesItems);
+    const filteredData = filterByName(serialObject.itemname, categoriesItems);
 
     console.log("Filtered data:", filteredData);
-    const warrentyPeriod = filteredData[0].warrenty
-    serialNumbers.warrentyperiod = warrentyPeriod
+
+    const warrentyPeriod = filteredData.warrenty
+    // serialNumbers.warrentyperiod = warrentyPeriod
     saleSerial.warrentyperiod = warrentyPeriod
 
     console.log(warrentyPeriod);
     if (!isNaN(warrentyPeriod)) {
-        inputWarrentyItemName.value = itemsDetails1.itemname
+        // inputWarrentyItemName.value = itemsDetails1.itemname
         inputWarPeriod.value = warrentyPeriod + " Days"
         inputWarStartDate.value = new Date().toISOString().slice(0, 10);
         // saleSerial.warrentystartdate=inputWarStartDate.value
@@ -77,32 +93,37 @@ const getItemDetails = () => {
         // Optionally, you can also set aria-expanded attribute to 'true' for accessibility
         collapseWarrentyElement.setAttribute("aria-expanded", "true");
     }
+    // itemsDetails1 = null
 }
 
 function filterByName(itemname, data) {
-    return data.filter((item) => (item.name).includes(itemname));
+    console.log(data)
+    return data.filter(
+        (item) => (item.name).includes(itemname)
+        );
 }
 
 const addToTable = () => {
     //customer table ekata save wenna one data tika e object eke piliwelata
-    // customer_id.name = inputCustomerName.value
-    // customer_id.phone = inputCustomerContact.value
+    customer_id1.name = inputCustomerName.value
+    customer_id1.phone = inputCustomerContact.value
+    invoice.customer_id = customer_id1
     
-
+    itemTableDetail = new Object();
     //me tika wadagath item table eke data tika penna gnna
     itemTableDetail.itemname = lblItemName1.value;
     // itemTableDetail.serialno = invoiceSerialId.value
     itemTableDetail.unitprice = invoiceUnitPrice.value
     
     //me tikath item table ekata wadagath namuth penann na
-    itemTableDetail.warrentyitemname = inputWarrentyItemName.value
-    itemTableDetail.warrentystartdate = inputWarStartDate.value
-    itemTableDetail.warrentyendate = inputWarrentyEnd.value
+    // itemTableDetail.warrentyitemname = inputWarrentyItemName.value
+    // itemTableDetail.warrentystartdate = inputWarStartDate.value
+    // itemTableDetail.warrentyendate = inputWarrentyEnd.value
     
     // invoice.serialNoList = []
     // serialNumbers = new Object();
     //serial number list ekk lesa gnnwa serial number tika
-    serialNumbers.serialno = invoiceSerialId.value
+    // serialNumbers.serialno = invoiceSerialId.value
 }
 
 const selectCustomerType = () => {
@@ -125,15 +146,28 @@ const calculateBalance = () => {
 
 const addToSerialiedTable = () => {
 
+    
     addToTable()
-    invoice.serialnolist_id.push(serialNumbers)
+    // invoice.serialnolist_id.push(serialNumbers)
+    saleSerial.serialno_id = serialObject
     invoice.salesHasSerials.push(saleSerial)
+
     console.log(invoice);
     console.log(itemTableDetail);
     itable.push(itemTableDetail)
+    console.log(itable);
 
-    let serverResponse = ajaxRequestBodyMethod("/invoice", "POST", invoice);
-    console.log("serverResponse", serverResponse);
+    lblItemName1.value = ""
+    invoiceSerialId.value = ""
+    invoiceUnitPrice.value = ""
+    inputCustomerName.value = ""
+    inputCustomerContact.value = ""
+    inputWarrentyItemName.value = ""
+    inputWarStartDate.value = ""
+    inputWarPeriod.value = ""
+    inputWarrentyEnd.value = ""
+
+  
 
     displayProperties = [
         { property: getSerialedItemCode, dataType: 'function'},
@@ -142,16 +176,8 @@ const addToSerialiedTable = () => {
         { property: getSerialedItemWarrenty, dataType: 'function'},
     ]
     fillDataIntoPurcahseTable(itemSerializedTable, itable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
+
     //reset the value attributes
-    // lblItemName1.value = ""
-    // invoiceSerialId.value = ""
-    // invoiceUnitPrice.value = ""
-    // inputCustomerName.value = ""
-    // inputCustomerContact.value = ""
-    // inputWarrentyItemName.value = ""
-    // inputWarStartDate.value = ""
-    // inputWarPeriod.value = ""
-    // inputWarrentyEnd.value = ""
 
 }
 
@@ -186,5 +212,6 @@ const submitInvoice = () =>{
     console.log(invoice);
     // invoice.serialNoList.push(serialNumbers)
   
-
+    let serverResponse = ajaxRequestBodyMethod("/invoice", "POST", invoice);
+    console.log("serverResponse", serverResponse);
 }

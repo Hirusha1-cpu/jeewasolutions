@@ -55,15 +55,15 @@ public class Invoice {
     @Column(name = "customerpaidamount")
     private Integer customerpaidamount;
     
-    @JsonIgnoreProperties(value = {"sales_id","serialno_id"})
+    @JsonIgnoreProperties(value = {"sales_id"})
     @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
     // @JsonIgnore
     private List<SalesHasSerial> salesHasSerials;
     
-    @JsonIgnoreProperties(value = {"sales_id"})
-    @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    // @JoinColumn(name="serialnolist_id", referencedColumnName = "id")
-    // @JsonIgnore
-    private List<SerialNoList> serialnolist_id;
+    // @JsonIgnoreProperties(value = {"sales_id"})
+    // @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    // // @JoinColumn(name="serialnolist_id", referencedColumnName = "id")
+    // // @JsonIgnore
+    // private List<SerialNoList> serialnolist_id;
     
 }
