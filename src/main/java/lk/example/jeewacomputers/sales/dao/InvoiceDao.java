@@ -15,5 +15,7 @@ public interface InvoiceDao extends JpaRepository<Invoice, Integer>{
 
     // @Query(value ="select warrenty from ?1")
     // public Integer getWarrenty(String category);
+
+    
     
 } 

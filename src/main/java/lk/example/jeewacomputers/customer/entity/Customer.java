@@ -31,7 +31,7 @@ public class Customer {
     private String phone;
 
      @Column(name = "buyrounds")
-    private String buyrounds;
+    private Integer buyrounds;
 
      @Column(name = "buymode")
     private String buymode;

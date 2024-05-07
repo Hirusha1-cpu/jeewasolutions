@@ -1,5 +1,49 @@
 package lk.example.jeewacomputers.payment.entity;
 
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lk.example.jeewacomputers.sales.entity.Invoice;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+@Entity
+@Table(name = "incomepayment")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class IncomePayment {
-    
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    private Integer id;
+
+    @Column(name = "payment")
+    private Integer payment;
+
+    @Column(name = "date")
+    private LocalDate date;
+
+    @Column(name = "invoiceno")
+    private String invoiceno;
+
+    @OneToOne
+    @JoinColumn(name = "sales_id", referencedColumnName = "id")
+    // @JsonIgnoreProperties(value = {"sales_id"})
+    private Invoice sales_id ;
+
+
 }

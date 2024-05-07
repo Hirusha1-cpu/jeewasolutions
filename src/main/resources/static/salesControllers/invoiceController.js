@@ -34,6 +34,7 @@ const refreshInvoiceForm = () => {
     serialno_id = new Object();
     customer_id = new Object();
     customer_id1 = new Object();
+    incomePaymentsObj = new Object();
     invoice.serialnolist_id = new Array();
     invoice.salesHasSerials = new Array();
     saleSerial = new Object();
@@ -211,6 +212,9 @@ const submitInvoice = () =>{
     //serial number list
     console.log(invoice);
     // invoice.serialNoList.push(serialNumbers)
+    incomePaymentsObj.payment = invoiceTotalPrice.value
+    // incomePaymentsObj.sales_id = invoice
+    invoice.incomePayments = incomePaymentsObj
   
     let serverResponse = ajaxRequestBodyMethod("/invoice", "POST", invoice);
     console.log("serverResponse", serverResponse);

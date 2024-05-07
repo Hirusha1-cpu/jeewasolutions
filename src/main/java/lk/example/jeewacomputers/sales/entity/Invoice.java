@@ -9,8 +9,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lk.example.jeewacomputers.customer.entity.Customer;
+import lk.example.jeewacomputers.payment.entity.IncomePayment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,9 +38,9 @@ public class Invoice {
      @Column(name = "invoiceno")
     private String invoiceno;
    
-    // @ManyToOne(optional = false)
-    // @JoinColumn(name="customer_id", referencedColumnName = "id")
-    // private Customer customer_id;
+    @ManyToOne(optional = false)
+    @JoinColumn(name="customer_id", referencedColumnName = "id")
+    private Customer customer_id;
     
     @Column(name = "paymentmethod")
     private String paymentmethod;
@@ -59,6 +61,11 @@ public class Invoice {
     @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
     // @JsonIgnore
     private List<SalesHasSerial> salesHasSerials;
+
+    @JsonIgnoreProperties(value = {"sales_id"})
+    @OneToOne(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @JsonIgnore
+    private IncomePayment incomePayments;
     
     // @JsonIgnoreProperties(value = {"sales_id"})
     // @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
