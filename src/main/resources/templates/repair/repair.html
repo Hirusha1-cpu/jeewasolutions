@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{ layouts/head :: headFragment}">
+
+</head>
+
+<head th:replace="~{ layouts/head :: headRepairFragment}">
+
+</head>
+
+
+<body>
+    <div class="wrapper">
+
+        <!-- side bar -->
+        <aside th:replace="~{ layouts/sidebar :: sidebarfragment}"></aside>
+
+
+        <!-- ui content area start -->
+        <div class="main">
+            <!-- top navbar -->
+            <nav th:replace="~{ layouts/navbar :: topnavbarfragment}"></nav>
+            <!-- main component start -->
+            <main class="content px-3 py-2 w3-container">
+
+                <!-- employee table start -->
+                <div class="w3-animate-right" id="empTable">
+
+                    <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
+
+                        <h4>Repair Table</h4>
+                        <button id="empaddbtn" class="btn btn-success mb-2">Add Repair</button>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="mb-3 table-responsive">
+                            <table class="table table-dark table-bordered border-primary" id="purchaseTab">
+                                <thead>
+
+                                    <th scope="col">#</th>
+                                    <th scope="col">Purchase Code</th>
+                                    <th scope="col">Category</th>
+                                    <!-- <th scope="col">Item Brand</th> -->
+                                    <th scope="col">Item Name</th>
+                                    <th scope="col">Qty</th>
+                                    <th scope="col">Supplier</th>
+                                    <!-- <th scope="col">Send Status</th> -->
+                                    <th scope="col">Button</th>
+
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- employee table end -->
+
+                <!-- employee form start -->
+                <div id="empForm" class="w3-animate-left" style="display: none;">
+                    <div class=" " style="display: flex; justify-content: space-between; align-items: center;">
+                        <button id="empFormToTable" class="btn btn-success mb-3">Table</button>
+                        <h4>Repair Form</h4>
+                    </div>
+
+                    <div style="border: 1px solid black; padding: 10px;">
+
+                        <!-- repair form start -->
+                        <!-- onsubmit="return false;" -->
+                        <form class="p-2 m-2" onsubmit="return false">
+
+                            <!-- date start -->
+                            <div class="row p-2">
+                                <div id="date" class="fw-bolder" style="color: red;">2024-09-09</div>
+                            </div>
+                            <!-- date end -->
+                            <!-- purchase order start -->
+                            <div class="row p-2 d-flex justify-content-center align-items-center me-3">
+                                <div class="col-3">
+            
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title fw-bolder" style="color: red;">Urgent Repairs</h5>
+                                            <p class="card-text"><span class="fw-bolder me-2">23</span>Repairs</p>
+                                            <select class="form-select col-5" aria-label="Default select example"
+                                                id="selectPurchaseOrder">
+                                                <option selected>Select Repair</option>
+                                                <option value="1">Graphic Card | rtx </option>
+                                                <option value="2">Ram | Azuz</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+            
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title fw-bolder" style="color: red;">Shop Repairs</h5>
+                                            <p class="card-text"><span class="fw-bolder me-2">23</span>Repairs</p>
+                                            <select class="form-select col-5" aria-label="Default select example"
+                                                id="selectPurchaseOrder">
+                                                <option selected>Select Repair</option>
+                                                <option value="1">Graphic Card | rtx </option>
+                                                <option value="2">Ram | Azuz</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+            
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title fw-bolder" style="color: red;">Out Of Shop Repairs</h5>
+                                            <p class="card-text"><span class="fw-bolder me-2">23</span>Repairs</p>
+                                            <select class="form-select col-5" aria-label="Default select example"
+                                                id="selectPurchaseOrder">
+                                                <option selected>Select Repair</option>
+                                                <option value="1">Graphic Card | rtx </option>
+                                                <option value="2">Ram | Azuz</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+            
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title fw-bolder" style="color: red;">Processing Repairs</h5>
+                                            <p class="card-text"><span class="fw-bolder me-2">23</span>Repairs</p>
+                                            <select class="form-select col-5" aria-label="Default select example"
+                                                id="selectPurchaseOrder">
+                                                <option selected>Select Repair</option>
+                                                <option value="1">Graphic Card | rtx </option>
+                                                <option value="2">Ram | Azuz</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                            </div>
+            
+                            <!-- purchase order end -->
+            
+                            <!-- grn details start -->
+                            <div class="row fw-semibold  " style="padding-left: 16px; color: green;">
+                                Item Details | Graphic Card | rtx
+                            </div>
+                            <!-- grn details end -->
+            
+                            <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                                <div class="col-4 form-floating p-1">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    <label for="floatingInput" class="pl-2">Item</label>
+                                </div>
+                                <div class="col-4 form-floating p-1">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    <label for="floatingInput">Category</label>
+                                </div>
+                                <!-- <div class="col-4 form-floating p-1">
+                                   <button class="btn btn-success">Add GRN </button>
+                                </div> -->
+            
+                            </div>
+                            <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                                <div class="col-4 form-floating p-1">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    <label for="floatingInput" class="pl-2">Status</label>
+                                </div>
+                            </div>
+                            <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                                <div class="col form-floating p-1">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    <label for="floatingInput" class="pl-2">Reason</label>
+                                </div>
+                            </div>
+                            <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                                <div class="col-4 form-floating p-1">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    <label for="floatingInput" class="pl-2">Customer Name</label>
+                                </div>
+                                <div class="col-4 form-floating p-1">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    <label for="floatingInput">Phone</label>
+                                </div>
+                                <!-- <div class="col-4 form-floating p-1">
+                                   <button class="btn btn-success">Add GRN </button>
+                                </div> -->
+            
+                            </div>
+                            <!-- Item details add model start -->
+                            <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Add Item Details
+                            </button>
+            
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Repaired Items</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- for existing shop item -->
+                                            <div class="row">
+                                                <div class="row mt-2">
+                                                    <div class="col-2 ">Item Barcode <br>/ Item Code</div>
+                                                    <div class="col-4">
+                                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+            
+                                                    <div class="col-2">Category</div>
+                                                    <div class="col-6">
+                                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+            
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+            
+                                                    <div class="col-2">Item name</div>
+                                                    <div class="col-6">
+                                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+            
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-2 mt-1">Item Qty</div>
+                                                    <div class="col-2">
+                                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="row  mt-2 d-flex justify-content-end">
+                                                   <div class="col-2">
+            
+                                                       <button type="button" class="btn btn-primary">Add Item</button>
+                                                   </div>
+            
+                                                </div>
+                                            </div>
+                                          
+                                            <hr style="border:2px solid black;">
+                                            <!-- for not existing items in shop -->
+                                            <div class="row">
+                                                <div class="row mt-2">
+            
+                                                    <div class="col-2">Item name</div>
+                                                    <div class="col-6">
+                                                            <input type="text" class="form-control" id="floatingInput" placeholder=" GeForce RTX 4090">
+                                                       
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-2 mt-1">Item Qty</div>
+                                                    <div class="col-2">
+                                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-2 mt-1">Total price</div>
+                                                    <div class="col-2">
+                                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2 mt-2 d-flex justify-content-end">
+                                                    <div class="col-2">
+             
+                                                        <button type="button" class="btn btn-primary">Add Item</button>
+                                                    </div>
+             
+                                                 </div>
+                                               
+            
+                                            </div>
+                                            <hr style="border:2px solid black;">
+                                            <div class="row">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Item Code</th>
+                                                            <th scope="col">Item Name</th>
+                                                            <th scope="col">Item Price</th>
+                                                            <th scope="col">Item Qty</th>
+                                                            <th scope="col">Total Price</th>
+                                                            <th scope="col">Buttons</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">00001</th>
+                                                            <td>Ram</td>
+                                                            <td>23</td>
+                                                            <td>100</td>
+                                                            <td>2300</td>
+                                                            <td>
+                                                                <!-- <button class="btn btn-success">send</button> -->
+                                                                <button class="btn btn-success"><i class="fa-solid fa-money-check-dollar"></i></button>
+                                                                <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                
+                                
+                                                    </tbody>
+                                                </table>
+                                            </div>
+            
+                                            <div class="d-flex justify-content-end gap-3">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Submit</button>
+            
+                                            </div>
+            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Item details add model end -->
+            
+                            <div class="row p-3 fw-semibold" style="color: green;">
+                                Repair Item Details
+                            </div>
+            
+                            <!-- purchase order start -->
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Item Code</th>
+                                        <th scope="col">Item Name</th>
+                                        <th scope="col">Item Price</th>
+                                        <th scope="col">Item Qty</th>
+                                        <th scope="col">Line Price</th>
+                                        <th scope="col">Supplier</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Buttons</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">00001</th>
+                                        <td>Ram</td>
+                                        <td>23</td>
+                                        <td>100</td>
+                                        <td>2300</td>
+                                        <td>Azuz distributers</td>
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        <td>
+                                            <!-- <button class="btn btn-success">send</button> -->
+                                            <button class="btn btn-success"><i class="fa-solid fa-money-check-dollar"></i></button>
+                                            <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+            
+            
+                                </tbody>
+                            </table>
+                            <!-- purchase order end -->
+                            <div class="row ps-3 fw-semibold" style="color: green;">
+                                Repair Details
+                            </div>
+                            <!-- Repaire detail start -->
+                    
+                            <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                                <div class="col-4 form-floating p-1">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    <label for="floatingInput">Item Name</label>
+            
+                                </div>
+                                <div class="col-4 form-floating p-1">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    <label for="floatingInput">Category</label>
+                                </div>
+                                <div class="col-4 form-floating p-1">
+                                   <!-- <button class="btn btn-success">Add GRN </button> -->
+                                   <select class="form-select col-5 p-3" aria-label="Default select example"
+                                   id="selectPurchaseOrder1">
+                                   <option selected>Select Repair Status</option>
+                                   <option value="1">Processing</option>
+                                   <option value="2">Complete</option>
+                               </select>
+                                </div>
+            
+                            </div>
+                            <div class="row col-8 py-2 p-2 ps-2 d-flex justify-content-start align-items-center ">
+                                <div class="form-floating p-1">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <label for="floatingTextarea">Repair Description</label>
+                                  </div>
+            
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-3">
+            
+                                    <button class="btn btn-danger" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseBankDetails" aria-expanded="false" aria-controls="collapseBankDetails">
+                                    Submit Repair
+                                </button>
+                                </div>
+                            </div>
+            
+                            <div class="row py-2 p-2 ps-2 d-flex justify-content-start align-items-center ">
+                                <div class="row ps-3  fw-semibold" style="color: green;">
+                                    Repair Payments
+                                </div>
+                                <div class="row mt-2 mb-1">
+            
+                                    <div class="col-2">Repair ID</div>
+                                    <div class="col-6">
+                                        <label for="" class="" style="font-weight: bold;" id="lblItemName">10008332
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row mt-2 mb-1">
+            
+                                    <div class="col-2">Customer ID</div>
+                                    <div class="col-6">
+                                        <label for="" class="" style="font-weight: bold;" id="lblItemName">90008332
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row mt-2 mb-1">
+            
+                                    <div class="col-2">Item name</div>
+                                    <div class="col-6">
+                                        <label for="" class="" style="font-weight: bold;" id="lblItemName">NVIDIA GeForce RTX 4090
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row mt-2 mb-1">
+            
+                                    <div class="col-2">Total</div>
+                                    <div class="col-6">
+                                        <label for="" class="" style="font-weight: bold;" id="lblItemName">Rs.2000.00
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2 mt-1">Cashier Paid</div>
+                                    <div class="col-4">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-2 mt-1">Balance</div>
+                                    <div class="col-4">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                    </div>
+                                </div>
+            
+                                <div class="row mt-2 ">
+                                    <div class="col-3">
+            
+                                        <button class="btn btn-danger " type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseBankDetails" aria-expanded="false" aria-controls="collapseBankDetails">
+                                        Submit payment
+                                    </button>
+                                    </div>
+                                </div>
+            
+            
+                            </div>
+            
+                            <!-- Repaire detail end -->
+                          
+                            <!-- add more details modal start-->
+                            <button onclick="document.getElementById('moreSpecModal').style.display='block'"
+                                class="w3-button w3-green">
+                                Add More Specifications</button>
+                            <div id="moreSpecModal" class="w3-modal">
+                                <div class="w3-modal-content w3-animate-top w3-animate-fade w3-card-4">
+                                    <header class="w3-container w3-blue">
+                                        <span onclick="document.getElementById('moreSpecModal').style.display='none'"
+                                            class="w3-button w3-display-topright">&times;</span>
+                                        <h4>Add More Specs</h4>
+                                    </header>
+                                    <div class="w3-container">
+                                        <table class="w3-table-all w3-hoverable mt-3 mb-3">
+                                            <thead>
+                                                <tr class="w3-light-grey">
+                                                    <th>Specification</th>
+                                                    <th>Details</th>
+                                                    <th>Delete Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tr>
+                                                <td>Read/Write Speeds</td>
+                                                <td>7,000/5,100 MB/s</td>
+                                                <td>No</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cache Memory
+                                                </td>
+                                                <td>Samsung 2GB Low Power DDR4 SDRAM
+                                                </td>
+                                                <td>No</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Security</td>
+                                                <td>AES 256-bit Full Disk Encryption, TCG/Opal V2.0, Encrypted Drive (IEEE1667)
+                                                </td>
+                                                <td>No</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <footer class="w3-container ">
+                                        <div class="row p-2 d-flex justify-content-end align-items-center"
+                                            style="display: flex; flex-direction: row; gap:10px;">
+                                            <button class="col-3 btn btn-warning">UPDATE</button>
+                                            <button class="col-3 btn btn-primary">ADD</button>
+            
+                                        </div>
+                                    </footer>
+                                </div>
+                            </div>
+                            <!-- add more details modal end-->
+            
+            
+                            <!-- button gruop start -->
+                            <div class="row p-2 d-flex justify-content-end align-items-center"
+                                style="display: flex; flex-direction: row; gap:10px;">
+                                <button class="col-3 btn btn-warning">UPDATE</button>
+                                <button class="col-3 btn btn-primary">ADD</button>
+            
+                            </div>
+                            <!-- button gruop end -->
+            
+            
+                        </form>
+                        <!-- repair form end -->
+                    </div>
+
+
+                </div>
+                <!-- employee form end -->
+
+            </main>
+            <!-- main component end -->
+
+        </div>
+        <!-- ui content area end -->
+    </div>
+
+
+    <script src="templates/layouts/layout1.js"></script>
+    <script src="templates/layouts/layout2.js"></script>
+
+</body>
+
+</html>

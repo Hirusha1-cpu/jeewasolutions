@@ -1,5 +1,6 @@
 package lk.example.jeewacomputers.grnanditem.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -19,6 +20,7 @@ import lk.example.jeewacomputers.grnanditem.dao.GrnDao;
 import lk.example.jeewacomputers.grnanditem.entity.Grn;
 import lk.example.jeewacomputers.grnanditem.entity.GrnHasCategory;
 import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
+import lk.example.jeewacomputers.payment.entity.ExpensePayment;
 import lk.example.jeewacomputers.service.BarCodeGenerator;
 
 @RestController
@@ -86,9 +88,7 @@ public class GrnController {
                     // serialNoDao.save(newSerials);
                     // newSerials.setGrn_has_category_id(grnHasCategory);
                     // serialNoDao.save(newSerials);
-                   
-        
-                }
+             }
                 // grnHasCategory.setGrn_id(grn);
                 // newItem.setItemname(grnHasCategory.getItemname());
                 // newItem.setItem_price(grnHasCategory.getItem_price());
@@ -134,6 +134,12 @@ public class GrnController {
         // post krapu grn value ekata update ekk gahwanw                                                                   // single record ehekata
         Grn objectGrn = dao.getGrnIdByPurchaseId(id);
         Grn existingGrn = objectGrn;
+
+        // ExpensePayment expensePayment = grn.getExpensePayments();
+        // expensePayment.setGrn_id(grn);
+        // expensePayment.setGrnpayemntdate(LocalDate.now());
+
+        // expensePayment.setGrnno("0001");
 
         if (existingGrn != null) {
             existingGrn.setDiscountrate(grn.getDiscountrate());

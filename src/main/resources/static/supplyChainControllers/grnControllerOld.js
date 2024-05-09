@@ -10,6 +10,8 @@ const refreshGrnForm = () => {
     existingItems = []
     existingGItems = []
     purchaseOrdersArray = []
+    expensePaymentsObj = {}
+    expensePayments = {}
     grnArray = []
     grnHasItems = new Object();
     serialNo = new Object();
@@ -534,7 +536,12 @@ const addGrnMain = () => {
     console.log(grn);
     // console.log(grnItems.id);
     // delete grn.grnHasCategory;
+    expensePaymentsObj.grnpayment = inputGrnNetAmount.value
+    expensePaymentsObj.grn_id = grn
 
+    let serverResponsepayment = ajaxRequestBodyMethod(`/expensepayment`, "POST", expensePaymentsObj); // meken put ekak call karnna
+    console.log(serverResponsepayment);
+    
     const id = grnItems.id
     //metana kalin post krpu grn ekata update ekk wadinwa
     let serverResponse1 = ajaxRequestBodyMethod(`/grn/${id}`, "PUT", grn); // meken put ekak call karnna

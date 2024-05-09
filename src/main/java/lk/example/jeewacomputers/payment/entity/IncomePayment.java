@@ -45,5 +45,4 @@ public class IncomePayment {
     // @JsonIgnoreProperties(value = {"sales_id"})
     private Invoice sales_id ;
 
-
 }

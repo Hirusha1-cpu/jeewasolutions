@@ -14,7 +14,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lk.example.jeewacomputers.payment.entity.ExpensePayment;
 // import jakarta.validation.constraints.NotNull;
 import lk.example.jeewacomputers.purchase.entity.Purchase;
 
@@ -83,6 +85,11 @@ public class Grn {
     @OneToMany(mappedBy = "grn_id", cascade = CascadeType.ALL, orphanRemoval = true)
     // @JsonIgnore
     private List<GrnHasCategory> grnHasCategory;
+
+    @JsonIgnoreProperties(value = {"grn_id"})
+    @OneToOne(mappedBy = "grn_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @JsonIgnore
+    private ExpensePayment expensePayments;
       
     
 }
