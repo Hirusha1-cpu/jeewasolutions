@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lk.example.jeewacomputers.repair.entity.Repair;
 import lk.example.jeewacomputers.sales.entity.Invoice;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,9 +41,14 @@ public class IncomePayment {
     @Column(name = "invoiceno")
     private String invoiceno;
 
-    @OneToOne
+    @OneToOne(optional = true)
     @JoinColumn(name = "sales_id", referencedColumnName = "id")
     // @JsonIgnoreProperties(value = {"sales_id"})
     private Invoice sales_id ;
+
+    @OneToOne(optional = true)
+    @JoinColumn(name = "repair_id", referencedColumnName = "id")
+    // @JsonIgnoreProperties(value = {"sales_id"})
+    private Repair repair_id ;
 
 }

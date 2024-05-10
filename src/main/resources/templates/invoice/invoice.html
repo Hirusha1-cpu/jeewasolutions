@@ -34,131 +34,150 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-6">
-                                <div class="row">
+                                <form class="" onsubmit="return false">
                                     <div class="row">
-
-                                        <div class="col-2 mt-1">Barcode</div>
-                                        <div class="col-6">
-                                            <input type="text" class="form-control mb-1" id="floatingInput"
-                                                placeholder="978-0307408427">
-                                        </div>
                                         <div class="row">
-                                            <div class="col-4 p-2 form-floating p-1">
-                                                <form id="qrCodeForm" method="POST" enctype="multipart/form-data">
-                                                    <input type="file" name="qrCodeImage" accept="image/*">
-                                                    <button type="submit">Read QR Code</button>
-                                                </form>
 
+                                            <div class="col-2 mt-1">Barcode</div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control mb-1" id="floatingInput"
+                                                    placeholder="978-0307408427">
                                             </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="row mt-2">
-
-                                        <div class="col-2">Item name</div>
-                                        <div class="col-6">
-                                            <label for="" class="" style="font-weight: bold;" id="lblItemName">NVIDIA
-                                                GeForce RTX 4090
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-
-                                        <div class="col-2  mt-1">Serial No</div>
-                                        <div class="col-6">
-                                            <input type="text" class="form-control" id="floatingInput"
-                                                placeholder="AB12CDEFG34H56JK">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <div class="col-2 mt-1">UnitPrice</div>
-                                        <div class="col-3">
-                                            <input type="text" class="form-control" id="floatingInput"
-                                                placeholder="Rs.">
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="mr-1">
-                                            <button class="btn btn-warning" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#collapseItemWarrenty" aria-expanded="false"
-                                                aria-controls="collapseItemWarrenty">
-                                                Warrenty
-                                            </button>
-                                            <div class="collapse mt-3" id="collapseItemWarrenty">
-                                                <div class="card card-body">
-                                                    <form class=" ">
-                                                        <div
-                                                            class="row mt-3 d-flex justify-content-center align-items-center ">
-                                                            <div class="col-6 form-floating  p-1">
-                                                                <input type="text" class="form-control"
-                                                                    id="inputBankName">
-                                                                <label for="inputBankName" class="pl-2">Customer
-                                                                    Name</label>
-                                                            </div>
-                                                            <div class="col-6 form-floating  p-1">
-                                                                <input type="text" class="form-control"
-                                                                    id="inputBankBranch">
-                                                                <label for="inputBankBranch">Customer Contact
-                                                                    No:</label>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            class="row  d-flex justify-content-center align-items-center ">
-                                                            <div class="col-6 form-floating  p-1">
-                                                                <input type="text" class="form-control"
-                                                                    id="inputBankName">
-                                                                <label for="inputBankName" class="pl-2">Item
-                                                                    Name</label>
-                                                            </div>
-                                                            <div class="col-6 form-floating  p-1">
-                                                                <input type="date" class="form-control"
-                                                                    id="inputBankBranch">
-                                                                <label for="inputBankBranch">Warrenty Start
-                                                                    Date</label>
-                                                            </div>
-
-                                                        </div>
-                                                        <div
-                                                            class="row d-flex justify-content-center align-items-center ">
-
-
-                                                            <div class="col-6 form-floating p-1">
-                                                                <input type="text" class="form-control"
-                                                                    id="inputAccName">
-                                                                <label for="inputAccName">Warrenty Period</label>
-                                                            </div>
-                                                            <div class="col-6 form-floating p-1">
-                                                                <input type="text" class="form-control"
-                                                                    id="inputAccHolderName">
-                                                                <label for="inputAccHolderName">Warrenty Ending
-                                                                    Date</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-
-                                                            <label for="" class="fw-bolder">To Be Expire On <span
-                                                                    style="color: red;">2023-09-08</span></label>
-
-                                                        </div>
-
-
+                                            <div class="row">
+                                                <div class="col-4 p-2 form-floating p-1">
+                                                    <form id="qrCodeForm" method="POST" enctype="multipart/form-data">
+                                                        <input type="file" name="qrCodeImage" accept="image/*">
+                                                        <button type="submit">Read QR Code</button>
                                                     </form>
+
                                                 </div>
                                             </div>
-                                            <div class="row mt-2">
-                                                <div class=" form-floating p-1">
-                                                    <button class="btn btn-success">Return Company</button>
-                                                    <button class="btn btn-danger" style="color: white;">Ready
-                                                        Repair</button>
-                                                </div>
 
+
+                                        </div>
+                                        <div class="row mt-2">
+
+                                            <div class="col-2">Item name</div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" id="lblItemWarrentyName"
+                                                placeholder="NVIDIA GeForce RTX 4090">
+                                            
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+
+                                            <div class="col-2  mt-1">Serial No</div>
+                                            <div class="col-6">
+                                                <select class="form-select" id="warrentySerialId"
+                                                aria-label="Default select example" onchange="getWarrentyItemDetails()">
+
+                                            </select>
                                             </div>
                                         </div>
 
+                                        <div class="row mt-3">
+                                            <div class="col-2 mt-1">UnitPrice</div>
+                                            <div class="col-3">
+                                                <input type="text" class="form-control" id="warrentyUnitPrice"
+                                                    placeholder="Rs.">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-2 mt-1">Status Of repair</div>
+                                            <div class="col-3">
+                                                <input type="text" class="form-control" id="warrentyItemStatus"
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-2 mt-1">Fault</div>
+                                            <div class="col">
+                                                <textarea class="form-control" placeholder="Leave a comment here"
+                                                    id="warrentyFault"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="mr-1">
+                                                <button class="btn btn-warning" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseItemsWarrenty" aria-expanded="false"
+                                                    aria-controls="collapseItemsWarrenty">
+                                                    Warrenty
+                                                </button>
+                                                <div class="collapse mt-3" id="collapseItemsWarrenty">
+                                                    <div class="card card-body">
+                                                        <form class=" ">
+                                                            <div
+                                                                class="row mt-3 d-flex justify-content-center align-items-center ">
+                                                                <div class="col-6 form-floating  p-1">
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputWarrentyCustomerName">
+                                                                    <label for="inputWarrentyCustomerName" class="pl-2">Customer
+                                                                        Name</label>
+                                                                </div>
+                                                                <div class="col-6 form-floating  p-1">
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputWarrentyCustomerContact">
+                                                                    <label for="inputWarrentyCustomerContact">Customer Contact
+                                                                        No:</label>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="row  d-flex justify-content-center align-items-center ">
+                                                                <div class="col-6 form-floating  p-1">
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputBankName">
+                                                                    <label for="inputBankName" class="pl-2">Item
+                                                                        Name</label>
+                                                                </div>
+                                                                <div class="col-6 form-floating  p-1">
+                                                                    <input type="date" class="form-control"
+                                                                        id="inputWarrentyItemStart">
+                                                                    <label for="inputWarrentyItemStart">Warrenty Start
+                                                                        Date</label>
+                                                                </div>
+
+                                                            </div>
+                                                            <div
+                                                                class="row d-flex justify-content-center align-items-center ">
+
+
+                                                                <div class="col-6 form-floating p-1">
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputWarrentyItemPeriod">
+                                                                    <label for="inputWarrentyItemPeriod">Warrenty Period</label>
+                                                                </div>
+                                                                <div class="col-6 form-floating p-1">
+                                                                    <input type="text" class="form-control"
+                                                                        id="inputWarrentyItemEnd">
+                                                                    <label for="inputWarrentyItemEnd">Warrenty Ending
+                                                                        Date</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+
+                                                                <label for="" class="fw-bolder">To Be Expire On <span
+                                                                        style="color: red;">2023-09-08</span></label>
+
+                                                            </div>
+
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class=" form-floating p-1">
+                                                        <button class="btn btn-success">Return Company</button>
+                                                        <button class="btn btn-danger" style="color: white;"
+                                                        onclick="readyRepair()"
+                                                        >Ready Repair</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                             <div class="col-6">
 
@@ -300,14 +319,13 @@
 
                                             <div class="col-2 mt-1">Item Serial No</div>
                                             <div class="col-6">
-<!-- 
+                                                <!-- 
                                                 <input type="text" class="form-control" id="invoiceSerialId"
                                                     placeholder="AB12CDEFG34H56JK"
                                                     oninput="textValidation(invoiceSerialId,'', 'serialNumbers', 'serialno'); getItemDetails()"> -->
                                                 <select class="form-select" id="invoiceSerialId"
-                                                    aria-label="Default select example"
-                                                    onchange="getItemDetails()">
-                                                    
+                                                    aria-label="Default select example" onchange="getItemDetails()">
+
                                                 </select>
                                             </div>
                                         </div>

@@ -35,4 +35,7 @@ public class Customer {
 
      @Column(name = "buymode")
     private String buymode;
+
+     @Column(name = "repairs")
+    private Integer repairs;
 }

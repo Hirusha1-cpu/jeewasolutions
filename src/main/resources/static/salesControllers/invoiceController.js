@@ -25,8 +25,10 @@ document.addEventListener('DOMContentLoaded', function () {
 window.addEventListener('load', () => {
     refreshInvoiceForm();
     // refreshGrnTable();
+    refreshRepairTable();
 
 })
+
 
 const refreshInvoiceForm = () => {
     invoice = new Object();
@@ -53,7 +55,7 @@ const refreshInvoiceForm = () => {
 
 }
 const getItemDetails = () => {
-     serialObject = JSON.parse(invoiceSerialId.value)
+    serialObject = JSON.parse(invoiceSerialId.value)
     console.log(serialObject);
 
     // itemsDetails1 = ajaxGetRequest("/invoice/getlist/" + JSON.parse(invoiceSerialId.value));
@@ -96,37 +98,34 @@ const getItemDetails = () => {
     }
     // itemsDetails1 = null
 }
-
 function filterByName(itemname, data) {
     console.log(data)
     return data.filter(
         (item) => (item.name).includes(itemname)
-        );
+    );
 }
-
 const addToTable = () => {
     //customer table ekata save wenna one data tika e object eke piliwelata
     customer_id1.name = inputCustomerName.value
     customer_id1.phone = inputCustomerContact.value
     invoice.customer_id = customer_id1
-    
+
     itemTableDetail = new Object();
     //me tika wadagath item table eke data tika penna gnna
     itemTableDetail.itemname = lblItemName1.value;
     // itemTableDetail.serialno = invoiceSerialId.value
     itemTableDetail.unitprice = invoiceUnitPrice.value
-    
+
     //me tikath item table ekata wadagath namuth penann na
     // itemTableDetail.warrentyitemname = inputWarrentyItemName.value
     // itemTableDetail.warrentystartdate = inputWarStartDate.value
     // itemTableDetail.warrentyendate = inputWarrentyEnd.value
-    
+
     // invoice.serialNoList = []
     // serialNumbers = new Object();
     //serial number list ekk lesa gnnwa serial number tika
     // serialNumbers.serialno = invoiceSerialId.value
 }
-
 const selectCustomerType = () => {
 
     const selectedValue = discountCategorySelect.value;
@@ -144,10 +143,9 @@ const calculateBalance = () => {
     invoice.balance = invoice.customerpaidamount - invoice.total
     invoiceBalance.value = invoice.balance
 }
-
 const addToSerialiedTable = () => {
 
-    
+
     addToTable()
     // invoice.serialnolist_id.push(serialNumbers)
     saleSerial.serialno_id = serialObject
@@ -168,20 +166,19 @@ const addToSerialiedTable = () => {
     inputWarPeriod.value = ""
     inputWarrentyEnd.value = ""
 
-  
+
 
     displayProperties = [
-        { property: getSerialedItemCode, dataType: 'function'},
-        { property: getSerialedItemName, dataType: 'function'},
-        { property: getSerialedItemPrice, dataType: 'function'},
-        { property: getSerialedItemWarrenty, dataType: 'function'},
+        { property: getSerialedItemCode, dataType: 'function' },
+        { property: getSerialedItemName, dataType: 'function' },
+        { property: getSerialedItemPrice, dataType: 'function' },
+        { property: getSerialedItemWarrenty, dataType: 'function' },
     ]
     fillDataIntoPurcahseTable(itemSerializedTable, itable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
 
     //reset the value attributes
 
 }
-
 const getSerialedItemCode = (rowOb) => {
     return null
 }
@@ -195,7 +192,6 @@ const getSerialedItemPrice = (rowOb) => {
 const getSerialedItemWarrenty = () => {
     return "warrentied"
 }
-
 const purchaseOrderBtn = (rowObject) => {
     console.log("clicked purchase order");
 }
@@ -205,8 +201,7 @@ const deletePurchBtn = (rowObject) => {
 const sendPurchBtn = (rowObject) => {
     console.log("clicked send purchase order");
 }
-
-const submitInvoice = () =>{
+const submitInvoice = () => {
     // invoice.invoicetotalprice = invoiceTotalPrice.value
     // invoice.invoicebalance = invoiceBalance.value
     //serial number list
@@ -215,7 +210,90 @@ const submitInvoice = () =>{
     incomePaymentsObj.payment = invoiceTotalPrice.value
     // incomePaymentsObj.sales_id = invoice
     invoice.incomePayments = incomePaymentsObj
-  
+
     let serverResponse = ajaxRequestBodyMethod("/invoice", "POST", invoice);
     console.log("serverResponse", serverResponse);
+}
+
+
+const refreshRepairTable = () => {
+    repair = new Object();
+    warrentyItem = new Object();
+    usedItems = new Object();
+    customer_id = new Object();
+    customerObj = new Object();
+    repair.duetoRepair = new Array();
+    repair.usedItems = new Array();
+    useItem = new Object();
+
+
+    serialNoListCountForWarrenty = ajaxGetRequest("/serialno/getlist")
+    fillDataIntoSelect(warrentySerialId, "Select SerialNumber List", serialNoListCountForWarrenty, 'serialno')
+
+}
+
+const getWarrentyItemDetails = () => {
+    serialwarrentyObject = JSON.parse(warrentySerialId.value)
+    console.log(serialwarrentyObject);
+
+    lblItemWarrentyName.value = serialwarrentyObject.itemname
+    warrentyUnitPrice.value = serialwarrentyObject.itemprice
+
+    // let categoryName;
+    // categoryName = itemsDetails1.category_id.name
+    const categoryWarrentyname = (serialwarrentyObject.category_id.name).replace(/\s/g, '').toLowerCase()
+    categoriesWarrentyItems = ajaxGetRequest(`/${categoryWarrentyname}/getlist`, categoryWarrentyname)
+    console.log(categoriesWarrentyItems);
+
+    const filteredWarrentyData = filterByWarrentyName(serialwarrentyObject.itemname, categoriesWarrentyItems);
+
+    console.log("Filtered data:", filteredWarrentyData);
+
+    const warrentyItemPeriod = filteredWarrentyData[0].warrenty
+
+    console.log(warrentyItemPeriod);
+    if (!isNaN(warrentyItemPeriod)) {
+        // inputWarrentyItemName.value = itemsDetails1.itemname
+        inputWarrentyItemPeriod.value = warrentyItemPeriod + " Days"
+        inputWarrentyItemStart.value = new Date().toISOString().slice(0, 10);
+        // saleSerial.warrentystartdate=inputWarStartDate.value
+        const newWarrentyDate = new Date(inputWarrentyItemStart.value);
+        newWarrentyDate.setDate(newWarrentyDate.getDate() + warrentyItemPeriod);
+        inputWarrentyItemEnd.value = newWarrentyDate.toISOString().slice(0, 10);
+        // saleSerial.warrentyexpire=inputWarrentyEnd.value
+        //open bank collapse model
+        const collapseWarrentyItemElement = document.getElementById("collapseItemsWarrenty");
+
+        // Remove the 'collapse' class to open the collapse
+        collapseWarrentyItemElement.classList.remove("collapse");
+
+        // Optionally, you can also set aria-expanded attribute to 'true' for accessibility
+        collapseWarrentyItemElement.setAttribute("aria-expanded", "true");
+    }
+    // itemsDetails1 = null
+}
+function filterByWarrentyName(itemname, data) {
+    console.log(data)
+    return data.filter(
+        (item) => (item.name).includes(itemname)
+    );
+}
+
+const readyRepair = () => {
+    warrentyItem.serialno = serialwarrentyObject.serialno
+    warrentyItem.itemname = serialwarrentyObject.itemname
+    warrentyItem.category = serialwarrentyObject.category_id.name
+    warrentyItem.statusofrepair = warrentyItemStatus.value
+    warrentyItem.fault = warrentyFault.value
+    customerObj.name = inputWarrentyCustomerName.value
+    customerObj.phone = inputWarrentyCustomerContact.value
+    repair.customer_id = customerObj
+
+    repair.duetoRepair.push(warrentyItem);
+    repair.usedItems.push(useItem)
+
+    console.log(repair);
+    
+    let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
+    console.log("serverResponse", serverResponse1);
 }

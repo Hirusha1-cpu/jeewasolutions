@@ -63,7 +63,7 @@ public class Invoice {
     private List<SalesHasSerial> salesHasSerials;
 
     @JsonIgnoreProperties(value = {"sales_id"})
-    @OneToOne(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true, optional = true)
     // @JsonIgnore
     private IncomePayment incomePayments;
     

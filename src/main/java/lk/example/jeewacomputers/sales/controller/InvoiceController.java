@@ -42,7 +42,7 @@ public class InvoiceController {
     // @Autowired
     private IncomePayment incomePayment;
 
-    @Autowired
+    // @Autowired
     private IncomePaymentDao incomePaymentDao;
 
     // @Autowired

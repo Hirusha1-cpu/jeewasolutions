@@ -79,7 +79,7 @@
                             <!-- purchase order start -->
                             <div class="row p-2 d-flex justify-content-center align-items-center me-3">
                                 <div class="col-3">
-            
+
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title fw-bolder" style="color: red;">Urgent Repairs</h5>
@@ -94,7 +94,7 @@
                                     </div>
                                 </div>
                                 <div class="col-3">
-            
+
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title fw-bolder" style="color: red;">Shop Repairs</h5>
@@ -109,10 +109,11 @@
                                     </div>
                                 </div>
                                 <div class="col-3">
-            
+
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5 class="card-title fw-bolder" style="color: red;">Out Of Shop Repairs</h5>
+                                            <h5 class="card-title fw-bolder" style="color: red;">Out Of Shop Repairs
+                                            </h5>
                                             <p class="card-text"><span class="fw-bolder me-2">23</span>Repairs</p>
                                             <select class="form-select col-5" aria-label="Default select example"
                                                 id="selectPurchaseOrder">
@@ -124,7 +125,7 @@
                                     </div>
                                 </div>
                                 <div class="col-3">
-            
+
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title fw-bolder" style="color: red;">Processing Repairs</h5>
@@ -138,411 +139,485 @@
                                         </div>
                                     </div>
                                 </div>
-            
+
                             </div>
-            
+
                             <!-- purchase order end -->
-            
-                            <!-- grn details start -->
-                            <div class="row fw-semibold  " style="padding-left: 16px; color: green;">
-                                Item Details | Graphic Card | rtx
-                            </div>
-                            <!-- grn details end -->
-            
-                            <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
-                                <div class="col-4 form-floating p-1">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                    <label for="floatingInput" class="pl-2">Item</label>
+                    </div>
+                    <!-- ................. -->
+                    <!-- Nav tabs -->
+                    <div id="myTabs" >
+
+
+                        <ul class="nav nav-tabs" role="tablist">
+
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#item1">Item 1</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#item2">Item 2</a>
+                            </li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+
+
+                            <div id="item1" class="container tab-pane active "><br>
+                                <!-- grn details start -->
+                                <div class="row fw-semibold  " style="padding-left: 16px; color: green;">
+                                    Item Details | Ram | Trancendence
                                 </div>
-                                <div class="col-4 form-floating p-1">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                    <label for="floatingInput">Category</label>
-                                </div>
-                                <!-- <div class="col-4 form-floating p-1">
+                                <!-- grn details end -->
+
+                                <div class="row py-1 p-2 d-flex justify-content-start align-items-center " >
+                                    <div class="col-4 form-floating p-1">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                        <label for="floatingInput" class="pl-2">Item</label>
+                                    </div>
+                                    <div class="col-4 form-floating p-1">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                        <label for="floatingInput">Category</label>
+                                    </div>
+                                    <!-- <div class="col-4 form-floating p-1">
                                    <button class="btn btn-success">Add GRN </button>
                                 </div> -->
-            
-                            </div>
-                            <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
-                                <div class="col-4 form-floating p-1">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                    <label for="floatingInput" class="pl-2">Status</label>
+
+                                </div>
+                                <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                                    <div class="col-4 form-floating p-1">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                        <label for="floatingInput" class="pl-2">Status</label>
+                                    </div>
+                                </div>
+                                <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                                    <div class="col form-floating p-1">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                        <label for="floatingInput" class="pl-2">Reason</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
-                                <div class="col form-floating p-1">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                    <label for="floatingInput" class="pl-2">Reason</label>
+                            <div id="item2" class="container tab-pane fade"><br>
+                                <!-- grn details start -->
+                                <div class="row fw-semibold  " style="padding-left: 16px; color: green;">
+                                    Item Details | Graphic Card | rtx
                                 </div>
-                            </div>
-                            <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
-                                <div class="col-4 form-floating p-1">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                    <label for="floatingInput" class="pl-2">Customer Name</label>
-                                </div>
-                                <div class="col-4 form-floating p-1">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                    <label for="floatingInput">Phone</label>
-                                </div>
-                                <!-- <div class="col-4 form-floating p-1">
+                                <!-- grn details end -->
+
+                                <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                                    <div class="col-4 form-floating p-1">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                        <label for="floatingInput" class="pl-2">Item</label>
+                                    </div>
+                                    <div class="col-4 form-floating p-1">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                        <label for="floatingInput">Category</label>
+                                    </div>
+                                    <!-- <div class="col-4 form-floating p-1">
                                    <button class="btn btn-success">Add GRN </button>
                                 </div> -->
-            
+
+                                </div>
+                                <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                                    <div class="col-4 form-floating p-1">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                        <label for="floatingInput" class="pl-2">Status</label>
+                                    </div>
+                                </div>
+                                <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                                    <div class="col form-floating p-1">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                        <label for="floatingInput" class="pl-2">Reason</label>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- Item details add model start -->
-                            <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Add Item Details
-                            </button>
-            
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Repaired Items</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <!-- ............... -->
+
+                    <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                        <div class="col-4 form-floating p-1">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            <label for="floatingInput" class="pl-2">Customer Name</label>
+                        </div>
+                        <div class="col-4 form-floating p-1">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            <label for="floatingInput">Phone</label>
+                        </div>
+                        <!-- <div class="col-4 form-floating p-1">
+                                   <button class="btn btn-success">Add GRN </button>
+                                </div> -->
+
+                    </div>
+                    <!-- Item details add model start -->
+                    <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        Add Item Details
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Repaired Items</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- for existing shop item -->
+                                    <div class="row">
+                                        <div class="row mt-2">
+                                            <div class="col-2 ">Item Barcode <br>/ Item Code</div>
+                                            <div class="col-4">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="">
+                                            </div>
                                         </div>
-                                        <div class="modal-body">
-                                            <!-- for existing shop item -->
-                                            <div class="row">
-                                                <div class="row mt-2">
-                                                    <div class="col-2 ">Item Barcode <br>/ Item Code</div>
-                                                    <div class="col-4">
-                                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-            
-                                                    <div class="col-2">Category</div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
-            
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-            
-                                                    <div class="col-2">Item name</div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
-            
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-2 mt-1">Item Qty</div>
-                                                    <div class="col-2">
-                                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="row  mt-2 d-flex justify-content-end">
-                                                   <div class="col-2">
-            
-                                                       <button type="button" class="btn btn-primary">Add Item</button>
-                                                   </div>
-            
-                                                </div>
+                                        <div class="row mt-2">
+
+                                            <div class="col-2">Category</div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="">
+
                                             </div>
-                                          
-                                            <hr style="border:2px solid black;">
-                                            <!-- for not existing items in shop -->
-                                            <div class="row">
-                                                <div class="row mt-2">
-            
-                                                    <div class="col-2">Item name</div>
-                                                    <div class="col-6">
-                                                            <input type="text" class="form-control" id="floatingInput" placeholder=" GeForce RTX 4090">
-                                                       
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-2 mt-1">Item Qty</div>
-                                                    <div class="col-2">
-                                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-2 mt-1">Total price</div>
-                                                    <div class="col-2">
-                                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-2 mt-2 d-flex justify-content-end">
-                                                    <div class="col-2">
-             
-                                                        <button type="button" class="btn btn-primary">Add Item</button>
-                                                    </div>
-             
-                                                 </div>
-                                               
-            
+                                        </div>
+                                        <div class="row mt-2">
+
+                                            <div class="col-2">Item name</div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="">
+
                                             </div>
-                                            <hr style="border:2px solid black;">
-                                            <div class="row">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">Item Code</th>
-                                                            <th scope="col">Item Name</th>
-                                                            <th scope="col">Item Price</th>
-                                                            <th scope="col">Item Qty</th>
-                                                            <th scope="col">Total Price</th>
-                                                            <th scope="col">Buttons</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row">00001</th>
-                                                            <td>Ram</td>
-                                                            <td>23</td>
-                                                            <td>100</td>
-                                                            <td>2300</td>
-                                                            <td>
-                                                                <!-- <button class="btn btn-success">send</button> -->
-                                                                <button class="btn btn-success"><i class="fa-solid fa-money-check-dollar"></i></button>
-                                                                <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                            </td>
-                                                        </tr>
-                                
-                                
-                                                    </tbody>
-                                                </table>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-2 mt-1">Item Qty</div>
+                                            <div class="col-2">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="">
                                             </div>
-            
-                                            <div class="d-flex justify-content-end gap-3">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Submit</button>
-            
+                                        </div>
+                                        <div class="row  mt-2 d-flex justify-content-end">
+                                            <div class="col-2">
+
+                                                <button type="button" class="btn btn-primary">Add Item</button>
                                             </div>
-            
+
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <!-- Item details add model end -->
-            
-                            <div class="row p-3 fw-semibold" style="color: green;">
-                                Repair Item Details
-                            </div>
-            
-                            <!-- purchase order start -->
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Item Code</th>
-                                        <th scope="col">Item Name</th>
-                                        <th scope="col">Item Price</th>
-                                        <th scope="col">Item Qty</th>
-                                        <th scope="col">Line Price</th>
-                                        <th scope="col">Supplier</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Buttons</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">00001</th>
-                                        <td>Ram</td>
-                                        <td>23</td>
-                                        <td>100</td>
-                                        <td>2300</td>
-                                        <td>Azuz distributers</td>
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        <td>
-                                            <!-- <button class="btn btn-success">send</button> -->
-                                            <button class="btn btn-success"><i class="fa-solid fa-money-check-dollar"></i></button>
-                                            <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-            
-            
-                                </tbody>
-                            </table>
-                            <!-- purchase order end -->
-                            <div class="row ps-3 fw-semibold" style="color: green;">
-                                Repair Details
-                            </div>
-                            <!-- Repaire detail start -->
-                    
-                            <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
-                                <div class="col-4 form-floating p-1">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                    <label for="floatingInput">Item Name</label>
-            
-                                </div>
-                                <div class="col-4 form-floating p-1">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                    <label for="floatingInput">Category</label>
-                                </div>
-                                <div class="col-4 form-floating p-1">
-                                   <!-- <button class="btn btn-success">Add GRN </button> -->
-                                   <select class="form-select col-5 p-3" aria-label="Default select example"
-                                   id="selectPurchaseOrder1">
-                                   <option selected>Select Repair Status</option>
-                                   <option value="1">Processing</option>
-                                   <option value="2">Complete</option>
-                               </select>
-                                </div>
-            
-                            </div>
-                            <div class="row col-8 py-2 p-2 ps-2 d-flex justify-content-start align-items-center ">
-                                <div class="form-floating p-1">
-                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                    <label for="floatingTextarea">Repair Description</label>
-                                  </div>
-            
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-3">
-            
-                                    <button class="btn btn-danger" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseBankDetails" aria-expanded="false" aria-controls="collapseBankDetails">
-                                    Submit Repair
-                                </button>
-                                </div>
-                            </div>
-            
-                            <div class="row py-2 p-2 ps-2 d-flex justify-content-start align-items-center ">
-                                <div class="row ps-3  fw-semibold" style="color: green;">
-                                    Repair Payments
-                                </div>
-                                <div class="row mt-2 mb-1">
-            
-                                    <div class="col-2">Repair ID</div>
-                                    <div class="col-6">
-                                        <label for="" class="" style="font-weight: bold;" id="lblItemName">10008332
-                                        </label>
+
+                                    <hr style="border:2px solid black;">
+                                    <!-- for not existing items in shop -->
+                                    <div class="row">
+                                        <div class="row mt-2">
+
+                                            <div class="col-2">Item name</div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder=" GeForce RTX 4090">
+
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-2 mt-1">Item Qty</div>
+                                            <div class="col-2">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-2 mt-1">Total price</div>
+                                            <div class="col-2">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2 mt-2 d-flex justify-content-end">
+                                            <div class="col-2">
+
+                                                <button type="button" class="btn btn-primary">Add Item</button>
+                                            </div>
+
+                                        </div>
+
+
                                     </div>
-                                </div>
-                                <div class="row mt-2 mb-1">
-            
-                                    <div class="col-2">Customer ID</div>
-                                    <div class="col-6">
-                                        <label for="" class="" style="font-weight: bold;" id="lblItemName">90008332
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row mt-2 mb-1">
-            
-                                    <div class="col-2">Item name</div>
-                                    <div class="col-6">
-                                        <label for="" class="" style="font-weight: bold;" id="lblItemName">NVIDIA GeForce RTX 4090
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row mt-2 mb-1">
-            
-                                    <div class="col-2">Total</div>
-                                    <div class="col-6">
-                                        <label for="" class="" style="font-weight: bold;" id="lblItemName">Rs.2000.00
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-2 mt-1">Cashier Paid</div>
-                                    <div class="col-4">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-2 mt-1">Balance</div>
-                                    <div class="col-4">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                    </div>
-                                </div>
-            
-                                <div class="row mt-2 ">
-                                    <div class="col-3">
-            
-                                        <button class="btn btn-danger " type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseBankDetails" aria-expanded="false" aria-controls="collapseBankDetails">
-                                        Submit payment
-                                    </button>
-                                    </div>
-                                </div>
-            
-            
-                            </div>
-            
-                            <!-- Repaire detail end -->
-                          
-                            <!-- add more details modal start-->
-                            <button onclick="document.getElementById('moreSpecModal').style.display='block'"
-                                class="w3-button w3-green">
-                                Add More Specifications</button>
-                            <div id="moreSpecModal" class="w3-modal">
-                                <div class="w3-modal-content w3-animate-top w3-animate-fade w3-card-4">
-                                    <header class="w3-container w3-blue">
-                                        <span onclick="document.getElementById('moreSpecModal').style.display='none'"
-                                            class="w3-button w3-display-topright">&times;</span>
-                                        <h4>Add More Specs</h4>
-                                    </header>
-                                    <div class="w3-container">
-                                        <table class="w3-table-all w3-hoverable mt-3 mb-3">
+                                    <hr style="border:2px solid black;">
+                                    <div class="row">
+                                        <table class="table">
                                             <thead>
-                                                <tr class="w3-light-grey">
-                                                    <th>Specification</th>
-                                                    <th>Details</th>
-                                                    <th>Delete Status</th>
+                                                <tr>
+                                                    <th scope="col">Item Code</th>
+                                                    <th scope="col">Item Name</th>
+                                                    <th scope="col">Item Price</th>
+                                                    <th scope="col">Item Qty</th>
+                                                    <th scope="col">Total Price</th>
+                                                    <th scope="col">Buttons</th>
                                                 </tr>
                                             </thead>
-                                            <tr>
-                                                <td>Read/Write Speeds</td>
-                                                <td>7,000/5,100 MB/s</td>
-                                                <td>No</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cache Memory
-                                                </td>
-                                                <td>Samsung 2GB Low Power DDR4 SDRAM
-                                                </td>
-                                                <td>No</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Security</td>
-                                                <td>AES 256-bit Full Disk Encryption, TCG/Opal V2.0, Encrypted Drive (IEEE1667)
-                                                </td>
-                                                <td>No</td>
-                                            </tr>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">00001</th>
+                                                    <td>Ram</td>
+                                                    <td>23</td>
+                                                    <td>100</td>
+                                                    <td>2300</td>
+                                                    <td>
+                                                        <!-- <button class="btn btn-success">send</button> -->
+                                                        <button class="btn btn-success"><i
+                                                                class="fa-solid fa-money-check-dollar"></i></button>
+                                                        <button class="btn btn-danger"><i
+                                                                class="fa-solid fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+
+
+                                            </tbody>
                                         </table>
                                     </div>
-                                    <footer class="w3-container ">
-                                        <div class="row p-2 d-flex justify-content-end align-items-center"
-                                            style="display: flex; flex-direction: row; gap:10px;">
-                                            <button class="col-3 btn btn-warning">UPDATE</button>
-                                            <button class="col-3 btn btn-primary">ADD</button>
-            
-                                        </div>
-                                    </footer>
+
+                                    <div class="d-flex justify-content-end gap-3">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Submit</button>
+
+                                    </div>
+
                                 </div>
                             </div>
-                            <!-- add more details modal end-->
-            
-            
-                            <!-- button gruop start -->
-                            <div class="row p-2 d-flex justify-content-end align-items-center"
-                                style="display: flex; flex-direction: row; gap:10px;">
-                                <button class="col-3 btn btn-warning">UPDATE</button>
-                                <button class="col-3 btn btn-primary">ADD</button>
-            
-                            </div>
-                            <!-- button gruop end -->
-            
-            
-                        </form>
-                        <!-- repair form end -->
+                        </div>
+                    </div>
+                    <!-- Item details add model end -->
+
+                    <div class="row p-3 fw-semibold" style="color: green;">
+                        Repair Item Details
                     </div>
 
+                    <!-- purchase order start -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Item Code</th>
+                                <th scope="col">Item Name</th>
+                                <th scope="col">Item Price</th>
+                                <th scope="col">Item Qty</th>
+                                <th scope="col">Line Price</th>
+                                <th scope="col">Supplier</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Buttons</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">00001</th>
+                                <td>Ram</td>
+                                <td>23</td>
+                                <td>100</td>
+                                <td>2300</td>
+                                <td>Azuz distributers</td>
+                                <td><i class="fa-solid fa-check"></i></td>
+                                <td>
+                                    <!-- <button class="btn btn-success">send</button> -->
+                                    <button class="btn btn-success"><i
+                                            class="fa-solid fa-money-check-dollar"></i></button>
+                                    <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                </td>
+                            </tr>
 
+
+                        </tbody>
+                    </table>
+                    <!-- purchase order end -->
+                    <div class="row ps-3 fw-semibold" style="color: green;">
+                        Repair Details
+                    </div>
+                    <!-- Repaire detail start -->
+
+                    <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                        <div class="col-4 form-floating p-1">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            <label for="floatingInput">Item Name</label>
+
+                        </div>
+                        <div class="col-4 form-floating p-1">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            <label for="floatingInput">Category</label>
+                        </div>
+                        <div class="col-4 form-floating p-1">
+                            <!-- <button class="btn btn-success">Add GRN </button> -->
+                            <select class="form-select col-5 p-3" aria-label="Default select example"
+                                id="selectPurchaseOrder1">
+                                <option selected>Select Repair Status</option>
+                                <option value="1">Processing</option>
+                                <option value="2">Complete</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row col-8 py-2 p-2 ps-2 d-flex justify-content-start align-items-center ">
+                        <div class="form-floating p-1">
+                            <textarea class="form-control" placeholder="Leave a comment here"
+                                id="floatingTextarea"></textarea>
+                            <label for="floatingTextarea">Repair Description</label>
+                        </div>
+
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+
+                            <button class="btn btn-danger" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseBankDetails" aria-expanded="false"
+                                aria-controls="collapseBankDetails">
+                                Submit Repair
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row py-2 p-2 ps-2 d-flex justify-content-start align-items-center ">
+                        <div class="row ps-3  fw-semibold" style="color: green;">
+                            Repair Payments
+                        </div>
+                        <div class="row mt-2 mb-1">
+
+                            <div class="col-2">Repair ID</div>
+                            <div class="col-6">
+                                <label for="" class="" style="font-weight: bold;" id="lblItemName">10008332
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-1">
+
+                            <div class="col-2">Customer ID</div>
+                            <div class="col-6">
+                                <label for="" class="" style="font-weight: bold;" id="lblItemName">90008332
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-1">
+
+                            <div class="col-2">Item name</div>
+                            <div class="col-6">
+                                <label for="" class="" style="font-weight: bold;" id="lblItemName">NVIDIA GeForce RTX
+                                    4090
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-1">
+
+                            <div class="col-2">Total</div>
+                            <div class="col-6">
+                                <label for="" class="" style="font-weight: bold;" id="lblItemName">Rs.2000.00
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2 mt-1">Cashier Paid</div>
+                            <div class="col-4">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-2 mt-1">Balance</div>
+                            <div class="col-4">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="row mt-2 ">
+                            <div class="col-3">
+
+                                <button class="btn btn-danger " type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseBankDetails" aria-expanded="false"
+                                    aria-controls="collapseBankDetails">
+                                    Submit payment
+                                </button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!-- Repaire detail end -->
+
+                    <!-- add more details modal start-->
+                    <button onclick="document.getElementById('moreSpecModal').style.display='block'"
+                        class="w3-button w3-green">
+                        Add More Specifications</button>
+                    <div id="moreSpecModal" class="w3-modal">
+                        <div class="w3-modal-content w3-animate-top w3-animate-fade w3-card-4">
+                            <header class="w3-container w3-blue">
+                                <span onclick="document.getElementById('moreSpecModal').style.display='none'"
+                                    class="w3-button w3-display-topright">&times;</span>
+                                <h4>Add More Specs</h4>
+                            </header>
+                            <div class="w3-container">
+                                <table class="w3-table-all w3-hoverable mt-3 mb-3">
+                                    <thead>
+                                        <tr class="w3-light-grey">
+                                            <th>Specification</th>
+                                            <th>Details</th>
+                                            <th>Delete Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td>Read/Write Speeds</td>
+                                        <td>7,000/5,100 MB/s</td>
+                                        <td>No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cache Memory
+                                        </td>
+                                        <td>Samsung 2GB Low Power DDR4 SDRAM
+                                        </td>
+                                        <td>No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Security</td>
+                                        <td>AES 256-bit Full Disk Encryption, TCG/Opal V2.0, Encrypted Drive (IEEE1667)
+                                        </td>
+                                        <td>No</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <footer class="w3-container ">
+                                <div class="row p-2 d-flex justify-content-end align-items-center"
+                                    style="display: flex; flex-direction: row; gap:10px;">
+                                    <button class="col-3 btn btn-warning">UPDATE</button>
+                                    <button class="col-3 btn btn-primary">ADD</button>
+
+                                </div>
+                            </footer>
+                        </div>
+                    </div>
+                    <!-- add more details modal end-->
+
+
+                    <!-- button gruop start -->
+                    <div class="row p-2 d-flex justify-content-end align-items-center"
+                        style="display: flex; flex-direction: row; gap:10px;">
+                        <button class="col-3 btn btn-warning">UPDATE</button>
+                        <button class="col-3 btn btn-primary">ADD</button>
+
+                    </div>
+                    <!-- button gruop end -->
+
+
+                    </form>
+                    <!-- repair form end -->
                 </div>
-                <!-- employee form end -->
 
-            </main>
-            <!-- main component end -->
 
         </div>
-        <!-- ui content area end -->
+        <!-- employee form end -->
+
+        </main>
+        <!-- main component end -->
+
+    </div>
+    <!-- ui content area end -->
     </div>
 
 
