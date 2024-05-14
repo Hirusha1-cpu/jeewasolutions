@@ -229,6 +229,7 @@ const refreshRepairTable = () => {
 
     serialNoListCountForWarrenty = ajaxGetRequest("/serialno/getlist")
     fillDataIntoSelect(warrentySerialId, "Select SerialNumber List", serialNoListCountForWarrenty, 'serialno')
+    repairItemIntoTable()
 
 }
 
@@ -237,7 +238,15 @@ const getWarrentyItemDetails = () => {
     console.log(serialwarrentyObject);
 
     lblItemWarrentyName.value = serialwarrentyObject.itemname
-    warrentyUnitPrice.value = serialwarrentyObject.itemprice
+    // warrentyUnitPrice.value = serialwarrentyObject.itemprice
+
+    customer3 = ajaxGetRequest1("/invoice/getcustomer/" + serialwarrentyObject.serialno)
+    console.log(customer3);
+    const parts = customer3.split(",");
+    console.log(parts);
+ 
+    inputWarrentyCustomerName.value = parts[0]
+    inputWarrentyCustomerContact.value = parts[1];
 
     // let categoryName;
     // categoryName = itemsDetails1.category_id.name
@@ -270,6 +279,8 @@ const getWarrentyItemDetails = () => {
         // Optionally, you can also set aria-expanded attribute to 'true' for accessibility
         collapseWarrentyItemElement.setAttribute("aria-expanded", "true");
     }
+    inputItemRepName.value=serialwarrentyObject.itemname
+
     // itemsDetails1 = null
 }
 function filterByWarrentyName(itemname, data) {
@@ -279,11 +290,51 @@ function filterByWarrentyName(itemname, data) {
     );
 }
 
+const repairItemIntoTable = () =>{
+    const repairtable = ajaxGetRequest("/repair/getlist")
+    console.log(repairtable);
+
+
+    displayProperties = [
+        { property: getSerialNo, dataType: 'function' },
+        { property: getSerialNoItemName, dataType: 'function' },
+        { property: getRepairItemStatus, dataType: 'function' },
+        { property: getRepairItemCustomer, dataType: 'function' },
+    ]
+    fillDataIntoPurcahseTable(repairItemTable, repairtable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
+
+}
+
+const getSerialNo = (rowOb) =>{
+    let ItemRepair = '';
+    rowOb.duetoRepair.forEach(element => {
+        ItemRepair = ItemRepair + "<p class = 'working-status'>" + element.serialno + "</p>"
+    })
+    return ItemRepair
+}
+const getSerialNoItemName = (rowOb) =>{
+    let ItemSerialNo = '';
+    rowOb.duetoRepair.forEach(element => {
+        ItemSerialNo = ItemSerialNo + "<p class = 'working-status'>" + element.itemname + "</p>"
+    })
+    return ItemSerialNo
+}
+const getRepairItemStatus = (rowOb) =>{
+    let ItemStatus = '';
+    rowOb.duetoRepair.forEach(element => {
+        ItemStatus = ItemStatus + "<p class = 'working-status'>" + element.statusofrepair + "</p>"
+    })
+    return ItemStatus
+}
+const getRepairItemCustomer = (rowOb) =>{
+    return rowOb.customer_id.name
+}
+
 const readyRepair = () => {
     warrentyItem.serialno = serialwarrentyObject.serialno
     warrentyItem.itemname = serialwarrentyObject.itemname
     warrentyItem.category = serialwarrentyObject.category_id.name
-    warrentyItem.statusofrepair = warrentyItemStatus.value
+    // warrentyItem.statusofrepair = warrentyItemStatus.value
     warrentyItem.fault = warrentyFault.value
     customerObj.name = inputWarrentyCustomerName.value
     customerObj.phone = inputWarrentyCustomerContact.value
@@ -293,7 +344,9 @@ const readyRepair = () => {
     repair.usedItems.push(useItem)
 
     console.log(repair);
-    
+
     let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
     console.log("serverResponse", serverResponse1);
+    repairItemIntoTable()
+ 
 }

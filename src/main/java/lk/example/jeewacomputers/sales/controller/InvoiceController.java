@@ -76,6 +76,12 @@ public class InvoiceController {
         return invoiceDao.getItemBySerialNo(serialno);
     }
 
+    @GetMapping(value = "/invoice/getcustomer/{serialno}", produces = "application/json")
+    public String findCustomer(@PathVariable("serialno") String serialno) {
+        // login user authentication and authorization
+        return invoiceDao.getCustomerNameBySerialNo(serialno);
+    }
+
     @PostMapping(value = "/invoice")
     // @Transactional
     public String save(@RequestBody Invoice invoice) {
@@ -89,6 +95,7 @@ public class InvoiceController {
             newCustomer.setPhone(invoice.getCustomer_id().getPhone());
             // customerdao.save(newCustomer);
             Customer existingcs = customerdao.getCustomerByPhone(invoice.getCustomer_id().getPhone());
+            
             if (existingcs == null) {
                 customerdao.save(newCustomer);
                 Customer existingcs1 = customerdao.getCustomerByPhone(invoice.getCustomer_id().getPhone());

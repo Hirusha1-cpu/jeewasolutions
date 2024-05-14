@@ -16,6 +16,23 @@ const ajaxGetRequest = (url) =>{
     })
     return serverResponse;
 }
+const ajaxGetRequest1 = (url) =>{
+    let serverResponse;
+    $.ajax(url, {
+        async: false,
+        type: 'GET',
+        dataType: 'text',
+        success: function (data, status, ahr) {
+            console.log("success" + status + " " + ahr);
+            serverResponse = data;
+        },
+        error: function (ahr, status, errormsg) {
+            console.log("Fail" + errormsg + " " + status);
+            serverResponse = [];
+        }
+    })
+    return serverResponse;
+}
 //common ajax function(post,put,delete)
 const ajaxRequestBodyMethod = (url, method, object)=>{
     let serverResponse;
