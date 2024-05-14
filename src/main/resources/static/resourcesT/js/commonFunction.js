@@ -99,6 +99,30 @@ const fillDataIntoSelect = (fieldId,message, dataList, property, selectedValue)=
     })
 
 }
+const fillDataIntoSelect2 = (fieldId,message, dataList, property, selectedValue)=>{
+    fieldId.innerHTML = '';
+    const optionMsg = document.createElement('option');
+    optionMsg.value = ""
+    optionMsg.classList = "cc"
+    optionMsg.innerText = message;
+    optionMsg.selected = 'selected';
+    optionMsg.disabled = 'disabled';
+    fieldId.appendChild(optionMsg)
+    
+    dataList.forEach(element => {
+        element.duetoRepair.forEach(data=>{
+
+            let option = document.createElement('option');
+            option.value = JSON.stringify(data);
+            option.innerText = data[property];
+            if (selectedValue == data[property]) {
+                option.selected = 'selected';
+            }
+            fieldId.appendChild(option);
+        })
+    })
+
+}
 const fillDataIntoSelectMulProp = (fieldId,message, dataList, property,property2,property3, selectedValue)=>{
     fieldId.innerHTML = '';
     const optionMsg = document.createElement('option');
