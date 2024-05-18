@@ -42,7 +42,7 @@ public class Repair {
     private String technicalnote;
 
     @JsonIgnoreProperties(value = {"repair_id"})
-    @OneToMany(mappedBy = "repair_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "repair_id", cascade = CascadeType.ALL)
     // @JsonIgnore
     private List<UsedItems> usedItems;
 

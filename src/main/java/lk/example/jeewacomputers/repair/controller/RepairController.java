@@ -98,9 +98,21 @@ public class RepairController {
     // @Transactional
     public Repair saveUpdate(@PathVariable Integer id,@RequestBody Repair repair) {
         Repair exRepair = repairDao.getRepairById(id);
-        // exRepair.setUsedItems(repair.getUsedItems());
         exRepair.setTechnicalnote(repair.getTechnicalnote());
         exRepair.setRepairstatus(repair.getRepairstatus());
+
+        List<UsedItems> usedItemsInRepair = repair.getUsedItems();  
+        exRepair.setUsedItems(usedItemsInRepair);
+
+        for (UsedItems usedItems2 : repair.getUsedItems()) {
+            // purchaseHasCategory.setPurchase_id(purchase);
+            usedItems2.setRepair_id(exRepair);
+        }
+
+        IncomePayment incomePayment = repair.getIncomePayments();
+        incomePayment.setRepair_id(exRepair);
+        exRepair.setIncomePayments(repair.getIncomePayments());
+
         Repair repair2 =  repairDao.save(exRepair);
         return repair2;
     }

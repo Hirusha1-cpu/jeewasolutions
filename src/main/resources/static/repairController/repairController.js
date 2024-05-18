@@ -62,13 +62,13 @@ const addUsedItemToSubTable = () =>{
   repairUpdate.id = repair.id
   console.log(repairUpdate);
 
-  displayProperties = [
-    { property: getUsedItemCode, dataType: 'function' },
-    { property: getUsedItemName, dataType: 'function' },
-    { property: getUsedItemPrice, dataType: 'function' },
-    { property: getUsedItemTotal, dataType: 'function' },
-]
-fillDataIntoPurcahseTable(repairUsedItemTable, repairUpdate.usedItemsForRepair, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
+//   displayProperties = [
+//     { property: getUsedItemCode, dataType: 'function' },
+//     { property: getUsedItemName, dataType: 'function' },
+//     { property: getUsedItemPrice, dataType: 'function' },
+//     { property: getUsedItemTotal, dataType: 'function' },
+// ]
+// fillDataIntoPurcahseTable(repairUsedItemTable, repairUpdate.usedItemsForRepair, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
 
 }
 const getUsedItemCode = (rowOb) =>{
@@ -109,22 +109,22 @@ const submitRepair = () =>{
   repairUpdate.repairstatus = selectRepairStatus.value
   repairUpdate.technicalnote = repairTechnicalNote.value
   console.log(repairUpdate);
-  let id  = repair.id
-  let serverResponse2 = ajaxRequestBodyMethod(`/repair/${id}`, "PUT", repairUpdate);
-  console.log("serverResponse", serverResponse2);
-  repairPaymentUpdate = serverResponse2
+  // let id  = repair.id
+  // let serverResponse2 = ajaxRequestBodyMethod(`/repair/${id}`, "PUT", repairUpdate);
+  // console.log("serverResponse", serverResponse2);
+  // repairPaymentUpdate = serverResponse2
   repairItemNamePayment.textContent = usedItemsForRepair.itemname
-  repairTotalPrice.textContent = 1000
+  repairTotalPrice.textContent = parseInt(1000)
 
 }
 
 const submitPayment = () =>{
-  paymentOb.payment = repairTotalPrice.textContent
-  // paymentOb.repair_id = repairPaymentUpdate
-  repairPaymentUpdate.incomePayments = paymentOb
-  console.log(repairPaymentUpdate);
-  let id2 = repairPaymentUpdate.id
-  let serverResponse2 = ajaxRequestBodyMethod(`/repair/${id2}`, "PUT", repairPaymentUpdate);
+  paymentOb.payment = parseInt(1000)
+  // paymentOb.repair_id = repairUpdate
+  repairUpdate.incomePayments = paymentOb
+  console.log(repairUpdate);
+  let id2 = repair.id
+  let serverResponse2 = ajaxRequestBodyMethod(`/repair/${id2}`, "PUT", repairUpdate);
   console.log("serverResponse", serverResponse2);
 
 }
