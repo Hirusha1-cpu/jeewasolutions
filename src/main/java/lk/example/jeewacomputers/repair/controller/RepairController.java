@@ -1,7 +1,9 @@
 package lk.example.jeewacomputers.repair.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,6 +40,11 @@ public class RepairController {
     public List<Repair> findAlls() {
         // login user authentication and authorization
         return repairDao.findAll(Sort.by(Direction.DESC, "id"));
+    }
+    @GetMapping(value = "/repair/getlist/{id}", produces = "application/json")
+    public Repair findRepair(@PathVariable("id") Integer id) {
+        // login user authentication and authorization
+        return repairDao.getRepairById(id);
     }
 
     @RequestMapping(value = "/repair")
@@ -86,5 +93,17 @@ public class RepairController {
         }
 
     }
+
+    @PutMapping(value = "/repair/{id}")
+    // @Transactional
+    public Repair saveUpdate(@PathVariable Integer id,@RequestBody Repair repair) {
+        Repair exRepair = repairDao.getRepairById(id);
+        // exRepair.setUsedItems(repair.getUsedItems());
+        exRepair.setTechnicalnote(repair.getTechnicalnote());
+        exRepair.setRepairstatus(repair.getRepairstatus());
+        Repair repair2 =  repairDao.save(exRepair);
+        return repair2;
+    }
+
 
 }

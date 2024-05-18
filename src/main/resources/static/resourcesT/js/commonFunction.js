@@ -110,10 +110,11 @@ const fillDataIntoSelect2 = (fieldId,message, dataList, property, selectedValue)
     fieldId.appendChild(optionMsg)
     
     dataList.forEach(element => {
+        
         element.duetoRepair.forEach(data=>{
-
+            data.customer_id = element.customer_id.name
             let option = document.createElement('option');
-            option.value = JSON.stringify(data);
+            option.value = JSON.stringify(element);
             option.innerText = data[property];
             if (selectedValue == data[property]) {
                 option.selected = 'selected';

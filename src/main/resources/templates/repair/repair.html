@@ -143,7 +143,7 @@
                     </div>
                     <!-- ................. -->
                     <!-- Nav tabs -->
-                    <div id="myTabs" >
+                    <div id="myTabs">
 
 
                         <ul class="nav nav-tabs" role="tablist">
@@ -167,14 +167,14 @@
                                 </div>
                                 <!-- grn details end -->
 
-                                <div class="row py-1 p-2 d-flex justify-content-start align-items-center " >
+                                <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                                     <div class="col-4 form-floating p-1">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                        <label for="floatingInput" class="pl-2">Item</label>
+                                        <input type="text" class="form-control" id="repairItemName1" placeholder="">
+                                        <label for="repairItemName" class="pl-2">Item</label>
                                     </div>
                                     <div class="col-4 form-floating p-1">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                        <label for="floatingInput">Category</label>
+                                        <input type="text" class="form-control" id="repairItemCategory" placeholder="">
+                                        <label for="repairItemCategory">Category</label>
                                     </div>
                                     <!-- <div class="col-4 form-floating p-1">
                                    <button class="btn btn-success">Add GRN </button>
@@ -183,14 +183,14 @@
                                 </div>
                                 <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                                     <div class="col-4 form-floating p-1">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                        <label for="floatingInput" class="pl-2">Status</label>
+                                        <input type="text" class="form-control" id="repairItemStatus" placeholder="">
+                                        <label for="repairItemStatus" class="pl-2">Status</label>
                                     </div>
                                 </div>
                                 <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                                     <div class="col form-floating p-1">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                        <label for="floatingInput" class="pl-2">Reason</label>
+                                        <input type="text" class="form-control" id="repairItemFault" placeholder="">
+                                        <label for="repairItemFault" class="pl-2">Reason</label>
                                     </div>
                                 </div>
                             </div>
@@ -234,12 +234,12 @@
 
                     <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                         <div class="col-4 form-floating p-1">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="">
-                            <label for="floatingInput" class="pl-2">Customer Name</label>
+                            <input type="text" class="form-control" id="repairCustomerName" placeholder="">
+                            <label for="repairCustomerName" class="pl-2">Customer Name</label>
                         </div>
                         <div class="col-4 form-floating p-1">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="">
-                            <label for="floatingInput">Phone</label>
+                            <input type="text" class="form-control" id="repairCustomerPhone" placeholder="">
+                            <label for="repairCustomerPhone">Phone</label>
                         </div>
                         <!-- <div class="col-4 form-floating p-1">
                                    <button class="btn btn-success">Add GRN </button>
@@ -268,15 +268,18 @@
                                         <div class="row mt-2">
                                             <div class="col-2 ">Item Barcode <br>/ Item Code</div>
                                             <div class="col-4">
-                                                <input type="text" class="form-control" id="floatingInput"
-                                                    placeholder="">
+                                                <select class="form-select" id="repairUsedItemCode"
+                                                    aria-label="Default select example"
+                                                    onchange="getUsedItemDetails()">
+
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="row mt-2">
 
                                             <div class="col-2">Category</div>
                                             <div class="col-6">
-                                                <input type="text" class="form-control" id="floatingInput"
+                                                <input type="text" class="form-control" id="repairUsedItemCategory"
                                                     placeholder="">
 
                                             </div>
@@ -285,22 +288,16 @@
 
                                             <div class="col-2">Item name</div>
                                             <div class="col-6">
-                                                <input type="text" class="form-control" id="floatingInput"
+                                                <input type="text" class="form-control" id="repairUsedItemItemName"
                                                     placeholder="">
 
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-2 mt-1">Item Qty</div>
-                                            <div class="col-2">
-                                                <input type="text" class="form-control" id="floatingInput"
-                                                    placeholder="">
                                             </div>
                                         </div>
                                         <div class="row  mt-2 d-flex justify-content-end">
                                             <div class="col-2">
 
-                                                <button type="button" class="btn btn-primary">Add Item</button>
+                                                <button type="button" class="btn btn-primary"
+                                                    onclick="addUsedItemToSubTable()">Add Item</button>
                                             </div>
 
                                         </div>
@@ -344,13 +341,12 @@
                                     </div>
                                     <hr style="border:2px solid black;">
                                     <div class="row">
-                                        <table class="table">
+                                        <table class="table" id="repairUsedItemTable">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">Item Code</th>
                                                     <th scope="col">Item Name</th>
                                                     <th scope="col">Item Price</th>
-                                                    <th scope="col">Item Qty</th>
                                                     <th scope="col">Total Price</th>
                                                     <th scope="col">Buttons</th>
                                                 </tr>
@@ -432,7 +428,7 @@
                         Repair Details
                     </div>
                     <!-- Repaire detail start -->
-                    <div id="myTabs2" >
+                    <div id="myTabs2">
 
 
                         <ul class="nav nav-tabs" role="tablist">
@@ -452,32 +448,33 @@
                             <div id="itemrepair1" class="container tab-pane active ">
                                 <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                                     <div class="col-4 form-floating p-1">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                        <label for="floatingInput">Item1 Name</label>
-            
+                                        <input type="text" class="form-control" id="repairItemName" placeholder=""
+                                        >
+                                        <label for="repairItemName">Item1 Name</label>
+
                                     </div>
                                     <div class="col-4 form-floating p-1">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="">
-                                        <label for="floatingInput">Category</label>
+                                        <input type="text" class="form-control" id="repairCategoryName" placeholder="">
+                                        <label for="repairCategoryName">Category</label>
                                     </div>
                                     <div class="col-4 form-floating p-1">
                                         <!-- <button class="btn btn-success">Add GRN </button> -->
                                         <select class="form-select col-5 p-3" aria-label="Default select example"
-                                            id="selectPurchaseOrder1">
+                                            id="selectRepairStatus">
                                             <option selected>Select Repair Status</option>
-                                            <option value="1">Processing</option>
-                                            <option value="2">Complete</option>
+                                            <option value="Processing">Processing</option>
+                                            <option value="Complete">Complete</option>
                                         </select>
                                     </div>
-            
+
                                 </div>
                                 <div class="row col-8 py-2 p-2 ps-2 d-flex justify-content-start align-items-center ">
                                     <div class="form-floating p-1">
                                         <textarea class="form-control" placeholder="Leave a comment here"
-                                            id="floatingTextarea"></textarea>
-                                        <label for="floatingTextarea">Repair Description</label>
+                                            id="repairTechnicalNote"></textarea>
+                                        <label for="repairTechnicalNote">Repair Description</label>
                                     </div>
-            
+
                                 </div>
 
                             </div>
@@ -486,7 +483,7 @@
                                     <div class="col-4 form-floating p-1">
                                         <input type="text" class="form-control" id="floatingInput" placeholder="">
                                         <label for="floatingInput">Item2 Name</label>
-            
+
                                     </div>
                                     <div class="col-4 form-floating p-1">
                                         <input type="text" class="form-control" id="floatingInput" placeholder="">
@@ -501,7 +498,7 @@
                                             <option value="2">Complete</option>
                                         </select>
                                     </div>
-            
+
                                 </div>
                                 <div class="row col-8 py-2 p-2 ps-2 d-flex justify-content-start align-items-center ">
                                     <div class="form-floating p-1">
@@ -509,7 +506,7 @@
                                             id="floatingTextarea"></textarea>
                                         <label for="floatingTextarea">Repair Description</label>
                                     </div>
-            
+
                                 </div>
 
                             </div>
@@ -521,9 +518,7 @@
                     <div class="row mt-2">
                         <div class="col-3">
 
-                            <button class="btn btn-danger" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseBankDetails" aria-expanded="false"
-                                aria-controls="collapseBankDetails">
+                            <button class="btn btn-danger" type="button" onclick="submitRepair()">
                                 Submit Repair
                             </button>
                         </div>
@@ -553,7 +548,7 @@
 
                             <div class="col-2">Item name</div>
                             <div class="col-6">
-                                <label for="" class="" style="font-weight: bold;" id="lblItemName">NVIDIA GeForce RTX
+                                <label for="" class="" style="font-weight: bold;" id="repairItemNamePayment">NVIDIA GeForce RTX
                                     4090
                                 </label>
                             </div>
@@ -562,29 +557,27 @@
 
                             <div class="col-2">Total</div>
                             <div class="col-6">
-                                <label for="" class="" style="font-weight: bold;" id="lblItemName">Rs.2000.00
+                                <label for="" class="" style="font-weight: bold;" id="repairTotalPrice">Rs.2000.00
                                 </label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-2 mt-1">Cashier Paid</div>
                             <div class="col-4">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                <input type="text" class="form-control" id="repairCustomerPaid" placeholder="">
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-2 mt-1">Balance</div>
                             <div class="col-4">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="">
+                                <input type="text" class="form-control" id="repairCustomerBalance" placeholder="">
                             </div>
                         </div>
 
                         <div class="row mt-2 ">
                             <div class="col-3">
 
-                                <button class="btn btn-danger " type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseBankDetails" aria-expanded="false"
-                                    aria-controls="collapseBankDetails">
+                                <button class="btn btn-danger " type="button" onclick="submitPayment()">
                                     Submit payment
                                 </button>
                             </div>

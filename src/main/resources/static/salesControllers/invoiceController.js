@@ -166,8 +166,6 @@ const addToSerialiedTable = () => {
     inputWarPeriod.value = ""
     inputWarrentyEnd.value = ""
 
-
-
     displayProperties = [
         { property: getSerialedItemCode, dataType: 'function' },
         { property: getSerialedItemName, dataType: 'function' },
@@ -341,7 +339,7 @@ const readyRepair = () => {
     repair.customer_id = customerObj
 
     repair.duetoRepair.push(warrentyItem);
-    repair.usedItems.push(useItem)
+    // repair.usedItems.push(useItem)
 
     console.log(repair);
 
