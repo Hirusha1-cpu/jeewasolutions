@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lk.example.jeewacomputers.grnanditem.entity.Accessories;
 import lk.example.jeewacomputers.grnanditem.entity.Grn;
 import lk.example.jeewacomputers.sales.entity.Invoice;
 import lombok.AllArgsConstructor;
@@ -44,6 +45,11 @@ public class ExpensePayment {
     @JoinColumn(name = "grn_id", referencedColumnName = "id")
     // @JsonIgnoreProperties(value = {"sales_id"})
     private Grn grn_id ;
+
+    @OneToOne
+    @JoinColumn(name = "accessories_id", referencedColumnName = "id")
+    // @JsonIgnoreProperties(value = {"sales_id"})
+    private Accessories accessories_id ;
 
 
 

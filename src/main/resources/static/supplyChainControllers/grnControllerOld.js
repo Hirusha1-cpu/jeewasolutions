@@ -28,7 +28,7 @@ const refreshGrnForm = () => {
     fillDataIntoSelect(selectSuppliersList, "Select Supplier", suppliers, 'name')
     console.log(suppliers);
     // getPurchBySuppliers() 
-    
+
     // purchaseOrdersList = ajaxGetRequest("/purchase/getporeds")
 }
 //refresh the table of grn
@@ -45,7 +45,7 @@ const refreshGrnTable = () => {
         { property: getGrnsItemSupplierInvoice, dataType: 'function' },
         { property: getGrnsItemTotal, dataType: 'function' },
     ]
-   fillDataIntoTable(grnTab, grnList, displayProperties, refillGrnBtn, updateEmployeeBtn, deleteEmployeeBtn, true, null)
+    fillDataIntoTable(grnTab, grnList, displayProperties, refillGrnBtn, updateEmployeeBtn, deleteEmployeeBtn, true, null)
 
 }
 const getGrnItemCategory = (rowObject) => {
@@ -120,7 +120,7 @@ const refillGrnBtn = (item) => {
     oldgrn = JSON.parse(JSON.stringify(item));
     console.log(grn);
     console.log("clicked purchase order");
-        //grn.grnHasCategory.length eka 1 ta wadi nm prompt ekk call wenwa
+    //grn.grnHasCategory.length eka 1 ta wadi nm prompt ekk call wenwa
     if (grn.grnHasCategory.length > 1) {
 
         const inputNo = prompt("Enter a value for purchase.purchaseHasCategory[0]:");
@@ -273,7 +273,7 @@ const purchaseOrderTable = () => {
     inputPurchaseItemPrice.value = ""
     inputPurchaseLinePrice.value = ""
     purchaseOId.innerHTML = ""
-//when select porder then fill the table related to porder with ItemName,ItemPrice,ItemQty,LinePrice wlin
+    //when select porder then fill the table related to porder with ItemName,ItemPrice,ItemQty,LinePrice wlin
     purchaseOrders = ajaxGetRequest("/purchase/purchaseoredrs/" + JSON.parse(selectPurchaseOrder1.value).id)
 
     console.log("purchaseOrders", purchaseOrders);
@@ -444,46 +444,57 @@ const generateLinePrice = () => {
     grnHasItems.lineprice = linePrice;
     inputPurchaseLinePrice.value = linePrice;
 }
-const generateSerialNumberList = () => {
-    //inputSerialNoDiv id eka allagannwa
-    const inputSerialNoDiv = document.querySelector("#inputSerialNoDiv");
-
-    inputSerialNoDiv.innerHTML = ""
-    //ita psse qty ekata dana value eka allagannwa
-    const qty = parseInt(document.querySelector(".inputPurchaseQuantity").value)
-    const serialNumbers = []; // Array to store serial number objects
-    //ita passe ekata adalwa qty eke length ekata input box tikk generate wenw
-    for (let id = 1; id <= qty; id++) {
-        const div = document.createElement("div");
-        div.className = "col-3 form-floating p-1";
-
-        const label = document.createElement("label");
-        label.setAttribute("for", "floatingInput");
-        label.innerText = "Serial No " + id;
-
-        const input = document.createElement("input");
-        input.type = "text";
-        input.className = "form-control";
-        input.id = "txtqty" + id;
-
-        // Add event listener to each input field
-        input.addEventListener("input", () => {
-            updateSerialNo(id, input.value);
-        });
-
-        div.appendChild(label);
-        div.appendChild(input);
-        inputSerialNoDiv.appendChild(div);
+const generateSerialNumberList2 = () =>{
+    
+    if (isSerialNos.checked == true) {
+        generateSerialNumberList()
+    }else{
+        inputSerialNoDiv.className = "d-none" 
     }
-    // ita passe e array eka push wenwa object ekk widhata serialNumbers kiyna array ekata
-    console.log("serialNo", serialNo);
-    for (let id in serialNo) {
-        serialNumbers.push({ serialno: serialNo[id] });
-    }
-    //eka return wenwa, eka allagnnwa add grn eken
-    return serialNumbers;
-
 }
+const generateSerialNumberList = () => {
+    const inputSerialNoDiv = document.querySelector("#inputSerialNoDiv");
+        
+        //inputSerialNoDiv id eka allagannwa
+    
+        inputSerialNoDiv.innerHTML = ""
+        //ita psse qty ekata dana value eka allagannwa
+        const qty = parseInt(document.querySelector(".inputPurchaseQuantity").value)
+        const serialNumbers = []; // Array to store serial number objects
+        //ita passe ekata adalwa qty eke length ekata input box tikk generate wenw
+        for (let id = 1; id <= qty; id++) {
+            const div = document.createElement("div");
+            div.className = "col-6  ";
+        
+            const label = document.createElement("label");
+            label.setAttribute("for", "floatingInput");
+            label.innerText = "Serial No " + id;
+    
+            const input = document.createElement("input");
+            input.type = "text";
+            input.className = "form-control";
+            input.id = "txtqty" + id;
+    
+            // Add event listener to each input field
+            input.addEventListener("input", () => {
+                updateSerialNo(id, input.value);
+            });
+    
+            div.appendChild(label);
+            div.appendChild(input);
+            inputSerialNoDiv.appendChild(div);
+        }
+        // ita passe e array eka push wenwa object ekk widhata serialNumbers kiyna array ekata
+        console.log("serialNo", serialNo);
+        for (let id in serialNo) {
+            serialNumbers.push({ serialno: serialNo[id] });
+        }
+        //eka return wenwa, eka allagnnwa add grn eken
+        return serialNumbers;
+        
+        
+    }
+
 // Function to update serialNo object
 //serila no value tika me array ekata danagnnwa
 const updateSerialNo = (id, value) => {
@@ -493,17 +504,21 @@ const updateSerialNo = (id, value) => {
 
 const addGrn = () => {
 
-    
+
     //add grn button eken post wenwa data tika grn table ekata grn main eken wenne ekata adala data 
     //update wena eka
     //serial no variable ekata assign wenw check box wla serial no wla output eka
-
     const serialNumbers = generateSerialNumberList();
+    if (serialNumbers != "") {
+        grnHasItems.serialNumbers = serialNumbers;
+    }
+    else{
+        grnHasItems.serialNumbers = null
+    }
 
     console.log("grn", grn);
     //e serial no output eka set krnwa grnHasItems object ekata ita passe e object eka  grn.grnHasCategory arraye
     //ekata set wenwa ita passe e array eka pass krnwa grn eka haraha post controller ekata
-    grnHasItems.serialNumbers = serialNumbers;
     grn.grnHasCategory.push(grnHasItems); // Push all filtered items
     // grn.grnHasCategory.availableitems_id.push(availableItem)
     // grn.grnHasCategory.serialNumbers.push(serialNo)
@@ -541,7 +556,7 @@ const addGrnMain = () => {
 
     let serverResponsepayment = ajaxRequestBodyMethod(`/expensepayment`, "POST", expensePaymentsObj); // meken put ekak call karnna
     console.log(serverResponsepayment);
-    
+
     const id = grnItems.id
     //metana kalin post krpu grn ekata update ekk wadinwa
     let serverResponse1 = ajaxRequestBodyMethod(`/grn/${id}`, "PUT", grn); // meken put ekak call karnna
