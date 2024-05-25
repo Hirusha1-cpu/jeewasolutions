@@ -1,21 +1,15 @@
 package lk.example.jeewacomputers.payment.entity;
+
 import java.time.LocalDate;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lk.example.jeewacomputers.grnanditem.entity.Accessories;
 import lk.example.jeewacomputers.grnanditem.entity.Grn;
-import lk.example.jeewacomputers.sales.entity.Invoice;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,11 +39,6 @@ public class ExpensePayment {
     @JoinColumn(name = "grn_id", referencedColumnName = "id")
     // @JsonIgnoreProperties(value = {"sales_id"})
     private Grn grn_id ;
-
-    @OneToOne
-    @JoinColumn(name = "accessories_id", referencedColumnName = "id")
-    // @JsonIgnoreProperties(value = {"sales_id"})
-    private Accessories accessories_id ;
 
 
 

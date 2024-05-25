@@ -12,6 +12,9 @@ const refreshGrnForm = () => {
     purchaseOrdersArray = []
     expensePaymentsObj = {}
     expensePayments = {}
+    accessories = {}
+    grn.grnHasAccessories = []
+    grnHasAccessories = {}
     grnArray = []
     grnHasItems = new Object();
     serialNo = new Object();
@@ -31,6 +34,36 @@ const refreshGrnForm = () => {
 
     // purchaseOrdersList = ajaxGetRequest("/purchase/getporeds")
 }
+const sendAccessories = () => {
+    grnHasAccessories.accessories = accessories
+    grn.grnHasAccessories.push(grnHasAccessories)
+    grnHasItems.serialNumbers = []
+    grn.grnHasCategory.push(grnHasItems);
+    console.log(grn);
+    let serverResponse2 = ajaxRequestBodyMethod("/grn", "POST", grn);
+    console.log("serverResponse", serverResponse2);
+    // grn1 = {}
+    console.log(grn);
+    accessories.itemtype  = ""
+    accessories.itemcode = ""
+    accessories.itemname = ""
+    accessories.suppliername = ""
+    accessories.suppliercontact = ""
+    grnHasAccessories.qty = ""
+    grnHasAccessories.unitprice = ""
+    grnHasAccessories.lineprice = ""
+
+    repairItemType.value = ""
+    repairItemCode.value = ""
+    repairItemName.value = ""
+    repairItemSupname.value = ""
+    repairItemSupcontact.value = ""
+    repairItemQty.value = ""
+    repairItemUnitPrice.value = ""
+    repairItemTotalPrice.value = ""
+
+}
+
 //refresh the table of grn
 const refreshGrnTable = () => {
     grnList = ajaxGetRequest('/grn/getlist')
@@ -49,49 +82,97 @@ const refreshGrnTable = () => {
 
 }
 const getGrnItemCategory = (rowObject) => {
+    console.log(rowObject);
     //object eke array ekk the nm meken for loop eken ekin eka aran pennawa
     let GrnItemCategory = '';
-    rowObject.grnHasCategory.forEach(element => {
-        GrnItemCategory = GrnItemCategory + "<p class = 'working-status'>" + element.category_id.name + "</p>"
-    })
+    if (rowObject.grnHasAccessories.length) {
+
+        rowObject.grnHasAccessories.forEach(element => {
+            GrnItemCategory = GrnItemCategory + "<p class = 'working-status'>" + element.accessories.itemtype + "</p>"
+        })
+    } else {
+        rowObject.grnHasCategory.forEach(element => {
+            GrnItemCategory = GrnItemCategory + "<p class = 'working-status'>" + element.category_id.name + "</p>"
+        })
+    }
     return GrnItemCategory
 }
 
 const getGrnsItemName = (rowObject) => {
     let GrnItemName = '';
-    rowObject.grnHasCategory.forEach(element => {
-        GrnItemName = GrnItemName + "<p class = 'working-status'>" + element.itemname + "</p>"
-    })
+    if (rowObject.grnHasAccessories.length) {
+
+        rowObject.grnHasAccessories.forEach(element => {
+            GrnItemName = GrnItemName + "<p class = 'working-status'>" + element.accessories.itemname + "</p>"
+        })
+    } else {
+        rowObject.grnHasCategory.forEach(element => {
+            GrnItemName = GrnItemName + "<p class = 'working-status'>" + element.itemname + "</p>"
+        })
+    }
+
     return GrnItemName
 }
 const getGrnsItemQty = (rowObject) => {
-    let GrnItemCategory = '';
-    rowObject.grnHasCategory.forEach(element => {
-        GrnItemCategory = GrnItemCategory + "<p class = 'working-status'>" + element.qty + "</p>"
-    })
-    return GrnItemCategory
+    let GrnItemQty = '';
+    if (rowObject.grnHasAccessories.length) {
+
+        rowObject.grnHasAccessories.forEach(element => {
+            GrnItemQty = GrnItemQty + "<p class = 'working-status'>" + element.qty + "</p>"
+        })
+    } else {
+        rowObject.grnHasCategory.forEach(element => {
+            GrnItemQty = GrnItemQty + "<p class = 'working-status'>" + element.qty + "</p>"
+        })
+    }
+
+    return GrnItemQty
+
 }
 const getGrnsItemDiscount = (rowObject) => {
     let GrnItemDiscount = '';
-    rowObject.grnHasCategory.forEach(element => {
-        GrnItemDiscount = GrnItemDiscount + "<p class = 'working-status'>" + element.discount + "</p>"
-    })
+    if (rowObject.grnHasAccessories.length) {
+        GrnItemDiscount = "-"
+    }
+    else {
+        rowObject.grnHasCategory.forEach(element => {
+            GrnItemDiscount = GrnItemDiscount + "<p class = 'working-status'>" + element.discount + "</p>"
+        })
+    }
     return GrnItemDiscount
 }
 const getGrnsItemSupplier = (rowObject) => {
-    return "<p class = 'working-status'>" + rowObject.purchase_id.supplier_id.name + "</p>"
+    if (rowObject.grnHasAccessories.length) {
+
+        return "-"
+    } else {
+        return "<p class = 'working-status'>" + rowObject.purchase_id.supplier_id.name + "</p>"
+    }
 
 }
 const getGrnsItemSupplierInvoice = (rowObject) => {
-    return "<p class = 'working-status'>" + rowObject.supplierinvoiceno + "</p>"
+    if (rowObject.grnHasAccessories.length) {
+
+        return "-"
+    } else {
+        return "<p class = 'working-status'>" + rowObject.supplierinvoiceno + "</p>" ?? "-"
+    }
 
 }
 const getGrnsItemTotal = (rowObject) => {
     let GrnItemTotal = '';
-    rowObject.grnHasCategory.forEach(element => {
+    if (rowObject.grnHasAccessories.length) {
+        rowObject.grnHasAccessories.forEach(element => {
 
-        GrnItemTotal = GrnItemTotal + "<p class = 'working-status'>" + (element.item_price) * (element.qty) + "</p>"
-    })
+            GrnItemTotal = GrnItemTotal + "<p class = 'working-status'>" + element.lineprice + "</p>"
+        })
+    } else {
+
+        rowObject.grnHasCategory.forEach(element => {
+
+            GrnItemTotal = GrnItemTotal + "<p class = 'working-status'>" + (element.item_price) * (element.qty) + "</p>"
+        })
+    }
     return GrnItemTotal
 }
 
@@ -421,11 +502,12 @@ const sendPurchBtn = (rowObject) => {
 }
 const checkBoxButton = (rowObject) => {
     console.log("clicked check box");
+    grnHasItems.category_id = rowObject.category_id
+    console.log(grnHasItems);
     inputPurchaseQuantity.value = rowObject.qty
     inputPurchaseItemPrice.value = rowObject.itemprice
     inputPurchaseLinePrice.value = rowObject.lineprice
     purchaseOId.innerHTML = rowObject.id
-    grnHasItems.category_id = rowObject.category_id
 
 }
 
@@ -444,56 +526,56 @@ const generateLinePrice = () => {
     grnHasItems.lineprice = linePrice;
     inputPurchaseLinePrice.value = linePrice;
 }
-const generateSerialNumberList2 = () =>{
-    
+const generateSerialNumberList2 = () => {
+
     if (isSerialNos.checked == true) {
         generateSerialNumberList()
-    }else{
-        inputSerialNoDiv.className = "d-none" 
+    } else {
+        inputSerialNoDiv.className = "d-none"
     }
 }
 const generateSerialNumberList = () => {
     const inputSerialNoDiv = document.querySelector("#inputSerialNoDiv");
-        
-        //inputSerialNoDiv id eka allagannwa
-    
-        inputSerialNoDiv.innerHTML = ""
-        //ita psse qty ekata dana value eka allagannwa
-        const qty = parseInt(document.querySelector(".inputPurchaseQuantity").value)
-        const serialNumbers = []; // Array to store serial number objects
-        //ita passe ekata adalwa qty eke length ekata input box tikk generate wenw
-        for (let id = 1; id <= qty; id++) {
-            const div = document.createElement("div");
-            div.className = "col-6  ";
-        
-            const label = document.createElement("label");
-            label.setAttribute("for", "floatingInput");
-            label.innerText = "Serial No " + id;
-    
-            const input = document.createElement("input");
-            input.type = "text";
-            input.className = "form-control";
-            input.id = "txtqty" + id;
-    
-            // Add event listener to each input field
-            input.addEventListener("input", () => {
-                updateSerialNo(id, input.value);
-            });
-    
-            div.appendChild(label);
-            div.appendChild(input);
-            inputSerialNoDiv.appendChild(div);
-        }
-        // ita passe e array eka push wenwa object ekk widhata serialNumbers kiyna array ekata
-        console.log("serialNo", serialNo);
-        for (let id in serialNo) {
-            serialNumbers.push({ serialno: serialNo[id] });
-        }
-        //eka return wenwa, eka allagnnwa add grn eken
-        return serialNumbers;
-        
-        
+
+    //inputSerialNoDiv id eka allagannwa
+
+    inputSerialNoDiv.innerHTML = ""
+    //ita psse qty ekata dana value eka allagannwa
+    const qty = parseInt(document.querySelector(".inputPurchaseQuantity").value)
+    const serialNumbers = []; // Array to store serial number objects
+    //ita passe ekata adalwa qty eke length ekata input box tikk generate wenw
+    for (let id = 1; id <= qty; id++) {
+        const div = document.createElement("div");
+        div.className = "col-6  ";
+
+        const label = document.createElement("label");
+        label.setAttribute("for", "floatingInput");
+        label.innerText = "Serial No " + id;
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.className = "form-control";
+        input.id = "txtqty" + id;
+
+        // Add event listener to each input field
+        input.addEventListener("input", () => {
+            updateSerialNo(id, input.value);
+        });
+
+        div.appendChild(label);
+        div.appendChild(input);
+        inputSerialNoDiv.appendChild(div);
     }
+    // ita passe e array eka push wenwa object ekk widhata serialNumbers kiyna array ekata
+    console.log("serialNo", serialNo);
+    for (let id in serialNo) {
+        serialNumbers.push({ serialno: serialNo[id] });
+    }
+    //eka return wenwa, eka allagnnwa add grn eken
+    return serialNumbers;
+
+
+}
 
 // Function to update serialNo object
 //serila no value tika me array ekata danagnnwa
@@ -504,7 +586,6 @@ const updateSerialNo = (id, value) => {
 
 const addGrn = () => {
 
-
     //add grn button eken post wenwa data tika grn table ekata grn main eken wenne ekata adala data 
     //update wena eka
     //serial no variable ekata assign wenw check box wla serial no wla output eka
@@ -512,7 +593,7 @@ const addGrn = () => {
     if (serialNumbers != "") {
         grnHasItems.serialNumbers = serialNumbers;
     }
-    else{
+    else {
         grnHasItems.serialNumbers = null
     }
 

@@ -23,17 +23,17 @@ public class GrnHasAccessories {
     @Column(name = "id", unique = true)
     private Integer id;
 
-    @Column(name = "itemname")
+    @Column(name = "unitprice")
     // @NotNull
-    private String itemname;
+    private Integer unitprice;
 
-    @Column(name = "itemcode")
+    @Column(name = "qty")
     // @NotNull
-    private String itemcode;
+    private Integer qty;
 
-    @Column(name = "availability")
+    @Column(name = "lineprice")
     // @NotNull
-    private Boolean availability;
+    private Integer lineprice;
 
     @ManyToOne(optional = true)
     @JoinColumn(name = "grn_id" , referencedColumnName = "id")
@@ -41,5 +41,5 @@ public class GrnHasAccessories {
 
     @ManyToOne(optional = true)
     @JoinColumn(name = "accessories_id" , referencedColumnName = "id")
-    private Accessories accessories_id;
+    private Accessories accessories;
 }

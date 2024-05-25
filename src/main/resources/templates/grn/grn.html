@@ -75,7 +75,7 @@
                     <!-- Modal -->
                     <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false"
                         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
+                        <div class="modal-dialog modal-lg modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5 fw-semibold" id="staticBackdropLabel">Add Items</h1>
@@ -85,43 +85,41 @@
                                 <div class="modal-body">
                                     <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                                         <div class="col form-floating p-1">
-                                            <input type="text" class="form-control" id="repairItemFault" placeholder="">
-                                            <label for="repairItemFault" class="pl-2">Item Code</label>
+                                            <input type="text" class="form-control" id="repairItemType" placeholder=""
+                                            onchange="textValidation(repairItemType,'', 'accessories', 'itemtype');">
+                                            <label for="repairItemType" class="pl-2">Item Type</label>
                                         </div>
                                     </div>
                                     <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                                         <div class="col form-floating p-1">
-                                            <input type="text" class="form-control" id="repairItemFault" placeholder="">
-                                            <label for="repairItemFault" class="pl-2">Item Name</label>
+                                            <input type="text" class="form-control" id="repairItemCode" placeholder=""
+                                            onchange="textValidation(repairItemCode,'', 'accessories', 'itemcode');">
+                                            <label for="repairItemCode" class="pl-2">Item Code</label>
                                         </div>
                                     </div>
                                     <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                                         <div class="col form-floating p-1">
-                                            <input type="text" class="form-control" id="repairItemFault" placeholder="">
-                                            <label for="repairItemFault" class="pl-2">Qty</label>
+                                            <input type="text" class="form-control" id="repairItemName" placeholder=""
+                                            onchange="textValidation(repairItemName,'', 'accessories', 'itemname');" >
+                                            <label for="repairItemName" class="pl-2">Item Name</label>
                                         </div>
                                     </div>
-                                    <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
-                                        <div class="col form-floating p-1">
-                                            <input type="text" class="form-control" id="repairItemFault" placeholder="">
-                                            <label for="repairItemFault" class="pl-2">Unit Price</label>
-                                        </div>
-                                    </div>
-                                    <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
-                                        <div class="col form-floating p-1">
-                                            <input type="text" class="form-control" id="repairItemFault" placeholder="">
-                                            <label for="repairItemFault" class="pl-2">Total Price</label>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                                         <div class="col-6 form-floating p-1">
-                                            <input type="text" class="form-control" id="repairItemFault" placeholder="">
-                                            <label for="repairItemFault" class="pl-2">Supplier Name</label>
+                                            <input type="text" class="form-control" id="repairItemSupname" placeholder=""
+                                            onchange="textValidation(repairItemSupname,'', 'accessories', 'suppliername');" >
+                                            <label for="repairItemSupname" class="pl-2">Supplier Name</label>
                                         </div>
                                         <div class="col-6 form-floating p-1">
-                                            <input type="text" class="form-control" id="repairItemFault" placeholder="">
-                                            <label for="repairItemFault" class="pl-2">Supplier Contact</label>
+                                            <input type="text" class="form-control" id="repairItemSupcontact" placeholder=""
+                                            onchange="textValidation(repairItemSupcontact,'', 'accessories', 'suppliercontact');">
+                                            <label for="repairItemSupcontact" class="pl-2">Supplier Contact</label>
                                         </div>
+                                    </div>
+                                    <div class="row p-3">
+                                        <button type="button" class="btn btn-success">Add</button>
+
                                     </div>
                                     <div class="row p-3">
                                         <table class="table" id="repairUsedItemTable">
@@ -153,10 +151,31 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                                        <div class="col form-floating p-1">
+                                            <input type="text" class="form-control" id="repairItemQty" placeholder=""
+                                            onchange="textValidation(repairItemQty,'', 'grnHasAccessories', 'qty');" >
+                                            <label for="repairItemQty" class="pl-2">Qty</label>
+                                        </div>
+                                    </div>
+                                    <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                                        <div class="col form-floating p-1">
+                                            <input type="text" class="form-control" id="repairItemUnitPrice" placeholder=""
+                                            onchange="textValidation(repairItemUnitPrice,'', 'grnHasAccessories', 'unitprice');" >
+                                            <label for="repairItemUnitPrice" class="pl-2">Unit Price</label>
+                                        </div>
+                                    </div>
+                                    <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                                        <div class="col form-floating p-1">
+                                            <input type="text" class="form-control" id="repairItemTotalPrice" placeholder=""
+                                            onchange="textValidation(repairItemTotalPrice,'', 'grnHasAccessories', 'lineprice');" >
+                                            <label for="repairItemTotalPrice" class="pl-2">Total Price</label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                  
-                                    <button type="button" class="btn btn-success">Submit</button>
+                                    <button type="button" class="btn btn-success" onclick="sendAccessories()">Submit</button>
                                 </div>
                             </div>
                         </div>

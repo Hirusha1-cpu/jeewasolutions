@@ -1,6 +1,5 @@
 package lk.example.jeewacomputers.grnanditem.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -16,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import jakarta.transaction.Transactional;
+import lk.example.jeewacomputers.grnanditem.dao.AccessoriesDao;
 import lk.example.jeewacomputers.grnanditem.dao.GrnDao;
+import lk.example.jeewacomputers.grnanditem.entity.Accessories;
 import lk.example.jeewacomputers.grnanditem.entity.Grn;
+import lk.example.jeewacomputers.grnanditem.entity.GrnHasAccessories;
 import lk.example.jeewacomputers.grnanditem.entity.GrnHasCategory;
 import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
-import lk.example.jeewacomputers.payment.entity.ExpensePayment;
 import lk.example.jeewacomputers.service.BarCodeGenerator;
 
 @RestController
@@ -29,6 +30,9 @@ public class GrnController {
     @Autowired
     // create dao object
     private GrnDao dao;
+
+    @Autowired
+    private AccessoriesDao accessoriesDao;
 
     @Autowired
     private BarCodeGenerator barcodeGenerator; // Inject the BarcodeGenerator service
@@ -67,40 +71,58 @@ public class GrnController {
     // @Transactional
     public String save(@RequestBody Grn grn) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+       
         // serila no list eka grnhascategory eka atulen awama for loop ehekin nested widta pass kranwa
         try {
-            grn.setAddeduser_id(dao.getUsersByUsername(auth.getName()));
-            //   SerialNo newSerialNo = new SerialNo();
-            for (GrnHasCategory grnHasCategory : grn.getGrnHasCategory()) {
-                grnHasCategory.setGrn_id(grn);
-                grnHasCategory.setItemcode("ITEM001");
-                // System.out.println(grn);
-                // grnHasCategory = grnHasCategoryDao.save(grnHasCategory);
-                for (SerialNo newSerials : grnHasCategory.getSerialNumbers()) {
-                    // newSerials.set
-                    newSerials.setAvailability(Boolean.TRUE);
-                    newSerials.setCategory_id(grnHasCategory.getCategory_id());
-                    newSerials.setItemcode(grnHasCategory.getItemcode());
-                    newSerials.setItemname(grnHasCategory.getItemname());
-                    newSerials.setGrn_has_category_id(grnHasCategory);// Set the reference
-                    barcodeGenerator.generateQRCodee(newSerials);
+            // if (grn.getGrnHasAccessories() != null) {
                 
-                    // serialNoDao.save(newSerials);
-                    // newSerials.setGrn_has_category_id(grnHasCategory);
-                    // serialNoDao.save(newSerials);
-             }
-                // grnHasCategory.setGrn_id(grn);
-                // newItem.setItemname(grnHasCategory.getItemname());
-                // newItem.setItem_price(grnHasCategory.getItem_price());
-                // newItem.setItemcode(grnHasCategory.getItemcode());
-                // availableitemsDao.save(newItem);
-                // newItem.setSerialno(newSerial.getSerialno());
+                for (GrnHasAccessories grnHasAccessories : grn.getGrnHasAccessories()) {
+                
+                        Accessories savAccessories = accessoriesDao.save(grnHasAccessories.getAccessories()) ;
+        
+                        grnHasAccessories.setAccessories(savAccessories);
+                        grnHasAccessories.setGrn_id(grn);
+                        // grnHasAccessories.setAccessories_id(grnHasAccessories.getAccessories_id());
+                   
+                   
+                }
+            // }else{
 
-                // newItem.setSerialno(grnHasCategory.getAvailableitems_id().getSerialno());
-                // newItem.setSerialno(grnHasCategory.getSerialno());
-                // System.out.println(grnHasCategory);
-                // return "Ok";
-            }
+                //   SerialNo newSerialNo = new SerialNo();
+                for (GrnHasCategory grnHasCategory : grn.getGrnHasCategory()) {
+                    grnHasCategory.setGrn_id(grn);
+                    grnHasCategory.setItemcode("ITEM001");
+                    // System.out.println(grn);
+                    // grnHasCategory = grnHasCategoryDao.save(grnHasCategory);
+                    for (SerialNo newSerials : grnHasCategory.getSerialNumbers()) {
+                        // newSerials.set
+                        newSerials.setAvailability(Boolean.TRUE);
+                        newSerials.setCategory_id(grnHasCategory.getCategory_id());
+                        newSerials.setItemcode(grnHasCategory.getItemcode());
+                        newSerials.setItemname(grnHasCategory.getItemname());
+                        newSerials.setGrn_has_category_id(grnHasCategory);// Set the reference
+                        barcodeGenerator.generateQRCodee(newSerials);
+                    
+                        // serialNoDao.save(newSerials);
+                        // newSerials.setGrn_has_category_id(grnHasCategory);
+                        // serialNoDao.save(newSerials);
+                 }
+                 
+                    // grnHasCategory.setGrn_id(grn);
+                    // newItem.setItemname(grnHasCategory.getItemname());
+                    // newItem.setItem_price(grnHasCategory.getItem_price());
+                    // newItem.setItemcode(grnHasCategory.getItemcode());
+                    // availableitemsDao.save(newItem);
+                    // newItem.setSerialno(newSerial.getSerialno());
+    
+                    // newItem.setSerialno(grnHasCategory.getAvailableitems_id().getSerialno());
+                    // newItem.setSerialno(grnHasCategory.getSerialno());
+                    // System.out.println(grnHasCategory);
+                    // return "Ok";
+                }
+            // }
+            grn.setAddeduser_id(dao.getUsersByUsername(auth.getName()));
+      
 
             Grn saveGrn = dao.save(grn);
             return saveGrn.getId().toString();

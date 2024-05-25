@@ -1,6 +1,5 @@
 package lk.example.jeewacomputers.privilege.controller;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import lk.example.jeewacomputers.privilege.dao.PrivilegeDao;
 import lk.example.jeewacomputers.privilege.entity.Privilege;
-import lk.example.jeewacomputers.user.entity.User;
 
 @RestController
 public class PrivilegeController {

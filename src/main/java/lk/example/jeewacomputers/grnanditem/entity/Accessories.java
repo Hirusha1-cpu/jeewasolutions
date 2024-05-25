@@ -21,15 +21,23 @@ public class Accessories {
     @Column(name = "id", unique = true)
     private Integer id;
 
-    @Column(name = "qty")
+    @Column(name = "itemcode")
     // @NotNull
-    private Integer qty;
+    private String itemcode;
 
-    @Column(name = "paidamount")
+    @Column(name = "itemname")
     // @NotNull
-    private Integer paidamount;
+    private String itemname;
+
+    @Column(name = "itemtype")
+    // @NotNull
+    private String itemtype;
 
     @Column(name = "suppliername")
     // @NotNull
     private String suppliername;
+
+    @Column(name = "suppliercontact")
+    // @NotNull
+    private String suppliercontact;
 }

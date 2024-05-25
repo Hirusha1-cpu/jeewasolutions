@@ -87,9 +87,13 @@ public class Grn {
     private List<GrnHasCategory> grnHasCategory;
 
     @JsonIgnoreProperties(value = {"grn_id"})
+    @OneToMany(mappedBy = "grn_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @JsonIgnore
+    private List<GrnHasAccessories> grnHasAccessories;
+
+    @JsonIgnoreProperties(value = {"grn_id"})
     @OneToOne(mappedBy = "grn_id", cascade = CascadeType.ALL, orphanRemoval = true)
     // @JsonIgnore
-    private ExpensePayment expensePayments;
-      
+    private ExpensePayment expensePayments;   
     
 }
