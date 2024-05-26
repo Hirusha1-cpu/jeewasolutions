@@ -36,7 +36,7 @@ public class SerialNo {
     // @NotNull
     private String serialno;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "grn_has_category_id", referencedColumnName = "id")
     @JsonIgnore
     // @NotNull

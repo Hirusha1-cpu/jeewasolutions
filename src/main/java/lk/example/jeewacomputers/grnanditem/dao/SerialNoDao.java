@@ -9,4 +9,5 @@ public interface SerialNoDao extends JpaRepository<SerialNo, Integer>{
 
     // @Query(value = "SELECT id FROM jeewacomputersproject.serialno where serialno = ?1;")
     // public Integer getIdOfSerialNo(String serialNo);
+    
 }

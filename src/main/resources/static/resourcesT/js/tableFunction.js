@@ -7,7 +7,7 @@ const fillDataIntoTable = (tableId, dataList, propertyList, editButtonFunction, 
     tableBody.innerHTML = '';
 
     dataList.forEach((item, index) => {
-        console.log('Element: ' + index + '=>' + item);
+        // console.log('Element: ' + index + '=>' + item);
         const tr = document.createElement('tr');
         tr.innerHTML = '';
         const tdIndex = document.createElement('td');

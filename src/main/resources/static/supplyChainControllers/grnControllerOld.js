@@ -40,9 +40,10 @@ const sendAccessories = () => {
     grnHasItems.serialNumbers = []
     grn.grnHasCategory.push(grnHasItems);
     console.log(grn);
-    let serverResponse2 = ajaxRequestBodyMethod("/grn", "POST", grn);
-    console.log("serverResponse", serverResponse2);
-    // grn1 = {}
+    let serverResponse = ajaxRequestBodyMethod("/grn", "POST", grn);
+    console.log("serverResponse", serverResponse);
+    grn = {}
+    refreshGrnTable(); 
     console.log(grn);
     accessories.itemtype  = ""
     accessories.itemcode = ""
@@ -52,7 +53,6 @@ const sendAccessories = () => {
     grnHasAccessories.qty = ""
     grnHasAccessories.unitprice = ""
     grnHasAccessories.lineprice = ""
-
     repairItemType.value = ""
     repairItemCode.value = ""
     repairItemName.value = ""
@@ -82,7 +82,7 @@ const refreshGrnTable = () => {
 
 }
 const getGrnItemCategory = (rowObject) => {
-    console.log(rowObject);
+    // console.log(rowObject);
     //object eke array ekk the nm meken for loop eken ekin eka aran pennawa
     let GrnItemCategory = '';
     if (rowObject.grnHasAccessories.length) {

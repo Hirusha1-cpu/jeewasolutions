@@ -30,6 +30,8 @@ public interface GrnDao extends JpaRepository<Grn, Integer> {
 
     
 
+    
+
 
 
 } 
