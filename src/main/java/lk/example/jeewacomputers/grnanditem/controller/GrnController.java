@@ -34,6 +34,7 @@ public class GrnController {
     // create dao object
     private GrnDao dao;
 
+
     @Autowired
     private AccessoriesDao accessoriesDao;
 
@@ -64,6 +65,12 @@ public class GrnController {
     public Grn findGrn(@PathVariable("id") Integer id) {
         // login user authentication and authorization
         return dao.getGrnIdByPurchaseId(id);
+    }
+
+    @GetMapping(value = "/accessories/getlist", produces = "application/json")
+    public List<Accessories> findAlls() {
+        // login user authentication and authorization
+        return accessoriesDao.findAll(Sort.by(Direction.DESC, "id"));
     }
 
     // model eka pennwa
@@ -116,23 +123,41 @@ public class GrnController {
                 // grnHasAccessories.setAccessories_id(grnHasAccessories.getAccessories_id());
             }
             for (GrnHasCategory grnHasCategory : grn.getGrnHasCategory()) {
+
                 grnHasCategory.setGrn_id(grn);
                 grnHasCategory.setItemcode("ITEM001");
-                // System.out.println(grn);
-                // grnHasCategory = grnHasCategoryDao.save(grnHasCategory);
-                for (SerialNo newSerials : grnHasCategory.getSerialNumbers()) {
-                    // newSerials.set
-                    newSerials.setAvailability(Boolean.TRUE);
-                    newSerials.setCategory_id(grnHasCategory.getCategory_id());
-                    newSerials.setItemcode(grnHasCategory.getItemcode());
-                    newSerials.setItemname(grnHasCategory.getItemname());
-                    newSerials.setGrn_has_category_id(grnHasCategory);// Set the reference
-                    barcodeGenerator.generateQRCodee(newSerials);
+                grnHasCategory.setIsserialno(grnHasCategory.getIsserialno());
+                Boolean isSerialNo = grnHasCategory.getIsserialno();
+                Integer itemCodeQty = grnHasCategory.getQty();
 
-                    // serialNoDao.save(newSerials);
-                    // newSerials.setGrn_has_category_id(grnHasCategory);
-                    // serialNoDao.save(newSerials);
-                }
+                    // System.out.println(grn);
+                    // grnHasCategory = grnHasCategoryDao.save(grnHasCategory);
+                    for (SerialNo newSerials : grnHasCategory.getSerialNumbers()) {
+                        // newSerials.set
+                        newSerials.setAvailability(Boolean.TRUE);
+                        newSerials.setCategory_id(grnHasCategory.getCategory_id());
+                        newSerials.setItemcode(grnHasCategory.getItemcode());
+                        newSerials.setItemname(grnHasCategory.getItemname());
+                        newSerials.setGrn_has_category_id(grnHasCategory);// Set the reference
+                        barcodeGenerator.generateQRCodee(newSerials);
+
+                        // serialNoDao.save(newSerials);
+                        // newSerials.setGrn_has_category_id(grnHasCategory);
+                        // serialNoDao.save(newSerials);
+                    }
+                    //............................................
+                    // for (int i = 0; i < itemCodeQty; i++) {
+                    //     SerialNo serialNo = new SerialNo();
+                    //     serialNo.setItemcode("ITEMCODE" + (i + 1));
+                    //     serialNo.setItemprice(grnHasCategory.getItem_price());
+                    //     serialNo.setAvailability(true);
+                    //     serialNo.setCategory_id(categoryDao.getReferenceById(9));
+                    //     // serialNo.setGrn_has_category_id();
+                    //     serialNoDao.save(serialNo);
+                    //     System.out.println("OK");
+
+                    // }
+                    //...........................................
 
                 // grnHasCategory.setGrn_id(grn);
                 // newItem.setItemname(grnHasCategory.getItemname());
@@ -195,7 +220,6 @@ public class GrnController {
             existingGrn.setNetamount(grn.getNetamount());
             return dao.save(existingGrn);
         } else {
-
             return null;
         }
     }

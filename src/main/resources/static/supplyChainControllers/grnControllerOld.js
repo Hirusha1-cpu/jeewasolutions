@@ -573,8 +573,6 @@ const generateSerialNumberList = () => {
     }
     //eka return wenwa, eka allagnnwa add grn eken
     return serialNumbers;
-
-
 }
 
 // Function to update serialNo object
@@ -595,6 +593,12 @@ const addGrn = () => {
     }
     else {
         grnHasItems.serialNumbers = null
+    }
+    console.log(isSerialNos.value);
+    if (isSerialNos.value == true) {
+        grnHasItems.isserialno = true
+    }else{
+        grnHasItems.isserialno = false
     }
 
     console.log("grn", grn);

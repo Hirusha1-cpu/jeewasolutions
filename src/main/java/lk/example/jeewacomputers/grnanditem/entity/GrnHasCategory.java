@@ -73,5 +73,9 @@ public class GrnHasCategory {
     // @JsonIgnore
     private List<SerialNo> serialNumbers; 
 
+    @Column(name = "isserialno")
+    // @NotNull
+    private Boolean isserialno;
+
 
 }
