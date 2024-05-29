@@ -444,7 +444,7 @@ const addItemSupp = () => {
     // purchase.purchaseHasCategory = []    
 
     let serverResponse = ajaxRequestBodyMethod("/purchase", "POST", purchase);
-    alert(serverResponse)
+    // alert(serverResponse)
     refreshPurchaseTable()
     console.log("serverResponse==>", serverResponse);
     // Get the table element by its ID

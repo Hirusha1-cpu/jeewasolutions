@@ -10,7 +10,7 @@ const refreshSupplyForm = () => {
     supplierhascategory = new Object();
     supplierhascategory = []
     supplier.categoriesBrandsWithSuppliers = []
-    
+
     //category ekata data enter krnna 
     categories = ajaxGetRequest("/category/getlist")
     fillDataIntoSelect(selectCategory, "Select Category", categories, 'name')
@@ -270,23 +270,23 @@ const deleteEmployeeBtn = (rowOb, rowIndex) => {
     const tableHtml = table1.outerHTML;
     // const printWindow = window.open();
     // printWindow.document.write(tableHtml);
-      let newWindow = window.open()
+    let newWindow = window.open()
     newWindow.document.write(
-        "<title>"+rowOb.supplier_code+"</title>"+
-        "<link rel='stylesheet' href='resourcesT/bootstrap_5.3.1/css/bootstrap.min.css'>"+"</link>"+
-        "<body>"+tableHtml+"</body>"
+        "<title>" + rowOb.supplier_code + "</title>" +
+        "<link rel='stylesheet' href='resourcesT/bootstrap_5.3.1/css/bootstrap.min.css'>" + "</link>" +
+        "<body>" + tableHtml + "</body>"
 
         //"<script>tableHtml.classList.remove('d-none');</script>"
-        )
-        setTimeout(()=>{ //data load wena eka krnne 500 kin
-            newWindow.stop();//load wena eka nwattanwa
-            newWindow.print();
-            newWindow.close();
+    )
+    setTimeout(() => { //data load wena eka krnne 500 kin
+        newWindow.stop();//load wena eka nwattanwa
+        newWindow.print();
+        newWindow.close();
 
-        }, 500)
-        
+    }, 500)
+
     // printWindow.document.close();
-   //id.outerhtml 
+    //id.outerhtml 
     // let newWindow = window.open()
     // newWindow.document.write(
     //     "<title>"+rowOb.supplier_code+"</title>"+
@@ -363,23 +363,11 @@ const sendPurchBtn = (rowObject) => {
     console.log("clicked send purchase order");
 }
 
-// add button eken post krnw data tika controller ekata
-const supplierAdd = () => {
-    // console.log();
-    //bank details tika supplier object ekata set wenawa
+const saveDetails = () => {
     bankDetails();
-    /* let serverResponse = ajaxRequestBodyMethod("/supplier", "POST", supplier);
-    let serverResponse1 = ajaxRequestBodyMethod("/supplierbankdetails", "POST", supplierbankdetails);
-    let serverResponse2 = ajaxRequestBodyMethod("/supplierhascategory", "POST", supplierhascategory);
-    // let serverResponse2 = ajaxRequestBodyMethod("/supplier", "POST", supplierbankdetails);
-    console.log(serverResponse);
-    console.log(serverResponse1);
-    console.log("serverResponse2=====>", serverResponse2);
-    alert(serverResponse)
 
-  */
     let serverResponse = ajaxRequestBodyMethod("/supplier", "POST", supplier);
-    alert(serverResponse)
+    // alert(serverResponse);
     refreshSupplyTable();
 
     console.log("serverResponse==>", serverResponse);
@@ -401,6 +389,140 @@ const supplierAdd = () => {
         table.style.transition = "opacity 1.5s ease-in";
         table.style.opacity = 1; // Gradually fade in
     }, 100); // Adjust the delay as needed
+}
+
+const addedSupplierDetails = (suppliername, suppliernumber, supplieremail, category, brand) => {
+    const supplierDetails1 = `
+    Supplier name: ${suppliername}\r
+    Supplier number: ${suppliernumber}\r
+    Supplier email: ${supplieremail}\r
+    Category: ${category}\r
+    Brand: ${brand}`;
+
+    Swal.fire({
+        title: "Do you want to save the changes?",
+        text: supplierDetails1,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Save",
+        denyButtonText: `Don't save`
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            saveDetails()
+            Swal.fire("Saved!", "", "success");
+        } else if (result.isDenied) {
+            Swal.fire("Changes are not saved", "", "info");
+        }
+    });
+}
+
+// add button eken post krnw data tika controller ekata
+const supplierAdd = () => {
+    console.log(supplier);
+    const getCategoryNameFromObject = () => {
+        let userCategory = '';
+        supplier.categoriesBrandsWithSuppliers.forEach(element => {
+            if (supplier.categoriesBrandsWithSuppliers.length > 1) {
+
+                userCategory = userCategory + element.category_id.name + ","
+            } else {
+                userCategory = userCategory + element.category_id.name
+            }
+        })
+        return userCategory
+    }
+
+    const getBrandNameFromObject = () => {
+        let userBrand = '';
+        supplier.categoriesBrandsWithSuppliers.forEach(element => {
+            if (supplier.categoriesBrandsWithSuppliers.length > 1) {
+
+                userBrand = userBrand + element.brand_id.name + ","
+            } else {
+                userBrand = userBrand + element.brand_id.name
+            }
+        })
+        return userBrand
+    }
+    addedSupplierDetails(supplier.name, supplier.contactnumber, supplier.email, getCategoryNameFromObject(), getBrandNameFromObject())
+    // console.log();
+    //bank details tika supplier object ekata set wenawa
+    // bankDetails();
+    /* let serverResponse = ajaxRequestBodyMethod("/supplier", "POST", supplier);
+    let serverResponse1 = ajaxRequestBodyMethod("/supplierbankdetails", "POST", supplierbankdetails);
+    let serverResponse2 = ajaxRequestBodyMethod("/supplierhascategory", "POST", supplierhascategory);
+    // let serverResponse2 = ajaxRequestBodyMethod("/supplier", "POST", supplierbankdetails);
+    console.log(serverResponse);
+    console.log(serverResponse1);
+    console.log("serverResponse2=====>", serverResponse2);
+    alert(serverResponse)
+
+  */
+
+    // Swal.fire({
+    //     title: "Do you want to save the changes?",
+    //     text: ""+s+"",
+    //     showDenyButton: true,
+    //     showCancelButton: true,
+    //     confirmButtonText: "Save",
+    //     denyButtonText: `Don't save`
+    // }).then((result) => {
+    //     if (result.isConfirmed) {
+    //         bankDetails();
+
+    //         let serverResponse = ajaxRequestBodyMethod("/supplier", "POST", supplier);
+    //         // alert(serverResponse);
+    //         refreshSupplyTable();
+
+    //         console.log("serverResponse==>", serverResponse);
+    //         console.log("supplier===>", supplier);
+
+    //         // close the form and table 
+    //         const table = document.getElementById("empTable");
+    //         const form = document.getElementById("empForm");
+
+    //         // Animate table disappearance
+    //         form.style.opacity = 1; // Ensure opacity is initially 1
+    //         form.style.transition = "opacity 1.5s ease-out";
+    //         form.style.display = "none"; // Trigger the animation
+
+    //         // Delay form appearance slightly
+    //         setTimeout(function () {
+    //             table.style.opacity = 0;
+    //             table.style.display = "block";
+    //             table.style.transition = "opacity 1.5s ease-in";
+    //             table.style.opacity = 1; // Gradually fade in
+    //         }, 100); // Adjust the delay as needed
+
+    //         Swal.fire("Saved!", "", "success");
+    //     } else if (result.isDenied) {
+    //         Swal.fire("Changes are not saved", "", "info");
+    //     }
+    // });
+    // let serverResponse = ajaxRequestBodyMethod("/supplier", "POST", supplier);
+    // alert(serverResponse)
+    // refreshSupplyTable();
+
+    // console.log("serverResponse==>", serverResponse);
+    // console.log("supplier===>", supplier);
+
+    // // close the form and table 
+    // const table = document.getElementById("empTable");
+    // const form = document.getElementById("empForm");
+
+    // // Animate table disappearance
+    // form.style.opacity = 1; // Ensure opacity is initially 1
+    // form.style.transition = "opacity 1.5s ease-out";
+    // form.style.display = "none"; // Trigger the animation
+
+    // // Delay form appearance slightly
+    // setTimeout(function () {
+    //     table.style.opacity = 0;
+    //     table.style.display = "block";
+    //     table.style.transition = "opacity 1.5s ease-in";
+    //     table.style.opacity = 1; // Gradually fade in
+    // }, 100); // Adjust the delay as needed
 
     // console.log("supplier bank details===>", supplierbankdetails);
     // console.log("supplier category details===>", supplierhascategory);
