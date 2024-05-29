@@ -1,4 +1,7 @@
 //create text feild validation function
+$(function () {
+    $('[data-bs-toggle="tooltip"]').tooltip();
+});
 const textValidation = (fieldId, Pattern, object, property) => {
 
     const fieldValue = fieldId.value;
@@ -7,7 +10,6 @@ const textValidation = (fieldId, Pattern, object, property) => {
     if (fieldValue !== '') {
         if (regPattern.test(fieldValue)) {
             fieldId.style.border = '2px solid green';
-            //object property value binding
             // console.log(window['employee']);
             window[object][property] = fieldValue;
         } else {
@@ -18,7 +20,79 @@ const textValidation = (fieldId, Pattern, object, property) => {
 
         }
     } else {
-         //need to bind null
+        //need to bind null
+        window[object][property] = null;
+        if (fieldId.required) {
+            fieldId.style.border = '2px solid red';
+        } else {
+            fieldId.style.border = '2px solid #ced4da';
+        }
+    }
+}
+const textValidation2 = (fieldId, errorId, Pattern, object, property) => {
+
+    const fieldValue = fieldId.value;
+    const regPattern = new RegExp(Pattern);
+
+    if (fieldValue !== '') {
+        if (regPattern.test(fieldValue)) {
+            fieldId.style.border = '2px solid green';
+
+            errorId.classList.add("is-valid");
+            errorId.style = 'display: none';
+            // console.log(window['employee']);
+            window[object][property] = fieldValue;
+        } else {
+            //need to bind null
+
+            fieldId.style.border = '2px solid red';
+            errorId.classList.add("is-invalid");
+            // errorId.innerText = ""
+            errorId.style = "color: red; display: inline-block"
+
+            window[object][property] = null;
+
+        }
+    } else {
+        //need to bind null
+        window[object][property] = null;
+        if (fieldId.required) {
+            fieldId.style.border = '2px solid red';
+             errorId.innerText = ""
+        } else {
+            fieldId.style.border = '2px solid #ced4da';
+            errorId.innerText = ""
+        }
+    }
+}
+
+const textValidation3 = (fieldId, Pattern, object, property, tooltipTitle, tooltipPlacement) => {
+    const fieldValue = fieldId.value;
+    const regPattern = new RegExp(Pattern);
+
+    if (fieldValue !== '') {
+        if (regPattern.test(fieldValue)) {
+            fieldId.style.border = '2px solid green';
+            if (tooltip) { // Check if tooltip object exists
+                tooltip.hide(); // Hide the tooltip
+                tooltip = null; // Destroy the tooltip object
+            }
+            window[object][property] = fieldValue;
+        } else {
+            fieldId.style.border = '2px solid red';
+            // Create tooltip only if it doesn't exist
+            fieldId.setAttribute("data-bs-toggle","tooltip")
+            tooltip = new bootstrap.Tooltip(fieldId, {
+                placement: tooltipPlacement,
+                title: tooltipTitle
+            });
+
+            tooltip.show();
+
+            window[object][property] = null;
+            return tooltip;
+        }
+    } else {
         window[object][property] = null;
         if (fieldId.required) {
             fieldId.style.border = '2px solid red';
@@ -47,7 +121,7 @@ const textDValidation = (fieldId, Pattern, object, property) => {
 
         }
     } else {
-         //need to bind null
+        //need to bind null
         window[object][property] = null;
         if (fieldId.required) {
             fieldId.style.border = '2px solid red';
@@ -115,7 +189,7 @@ const dateFieldValidation = (fieldId, Pattern, object, property) => {
 
         }
     } else {
-         //need to bind null
+        //need to bind null
         window[object][property] = null;
         if (fieldId.required) {
             fieldId.style.border = '2px solid red';
@@ -126,23 +200,24 @@ const dateFieldValidation = (fieldId, Pattern, object, property) => {
 }
 
 //create function for radio validator
-const radioFieldValidator = (fieldId, pattern, object, property)=>{
+const radioFieldValidator = (fieldId, pattern, object, property) => {
     const fieldValue = fieldId.value;
-    if(fieldId.checked) {
+    if (fieldId.checked) {
         window[object][property] = fieldValue;
-    }else{
+    } else {
         window[object][property] = null;
     }
 }
 
 //create function for check box validator
-const checkBoxValidator = (fieldId, pattern, object, property, trueValue,falseValue, labelId, labelTrueValue,labelFalseValue)=>{
-    if(fieldId.checked){
+const checkBoxValidator = (fieldId, pattern, object, property, trueValue, falseValue, labelId, labelTrueValue, labelFalseValue) => {
+    if (fieldId.checked) {
         window[object][property] = trueValue;
         labelId.innerText = labelTrueValue;
     }
-    else{
+    else {
         window[object][property] = falseValue;
         labelId.innerText = labelFalseValue;
     }
 }
+

@@ -71,9 +71,14 @@
                             <!-- Supplier Name start -->
                             <div class="form-floating mb-3 mt-3">
                                 <input type="text" class="form-control" id="supplierName" placeholder="Supplier Name"
-                                    value=""
-                                    onchange="textValidation(supplierName, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'supplier', 'name');">
-                                <label for="supplierName">Supplier Name</label>
+                                    value=""  required
+                                    title=""
+                                    onkeyup="textValidation2(supplierName,supplierNameError, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'supplier', 'name', 'Enter a name starting with a capital letter, followed by lowercase letters. Each word can have 2-30 characters.','top');"
+                                    >
+                                <label for="supplierName">Supplier Name <span style="color: red;">*</span>
+                                    <div class="" id="supplierNameError" style="display: none;">This name is not a valid one</div>
+                                </label>
+
                             </div>
                             <!-- Supplier Name end -->
 
@@ -81,17 +86,24 @@
                             <div class="row mt-3 p-2 d-flex justify-content-center align-items-center ">
                                 <div class="col-4 form-floating mb-3 p-1">
                                     <input type="text" class="form-control" id="supplierContact"
-                                        placeholder="Selling Price"
-                                        onchange="textValidation(supplierContact,'^[0][7][1245678][0-9]{7}$', 'supplier', 'contactnumber');">
+                                        placeholder="Selling Price" required
+                                        onkeyup="textValidation2(supplierContact,supplierContactError,'^[0][7][1245678][0-9]{7}$', 'supplier', 'contactnumber');">
 
-                                    <label for="floatingInput" class="pl-2">Supplier Number</label>
+                                    <label for="floatingInput" class="pl-2">Supplier Number <span style="color: red;">*</span> 
+                                        <div class="" id="supplierContactError" style="display: none;">This contact number is not a valid one</div>
+                                    </label>
+
                                 </div>
                                 <div class="col-4 form-floating mb-3 p-1">
                                     <input type="text" class="form-control" id="supplierEmail"
-                                        placeholder="Purchase Price"
-                                        onchange="textValidation(supplierEmail, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'supplier', 'email');">
+                                        placeholder="Purchase Price" required
+                                        onkeyup="textValidation2(supplierEmail,supplierEmailError, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'supplier', 'email');">
 
-                                    <label for="floatingInput">Supplier Email</label>
+                                    <label for="floatingInput">Supplier Email <span style="color: red;">*</span>
+                                  
+                                        <div class="" id="supplierEmailError" style="display: none;">This email is not a valid one</div>
+                                     </label>
+
                                 </div>
                                 <div class="col-4 form-floating mb-3 p-1">
                                     <input type="text" class="form-control" id="floatingInput" placeholder="supplierAddress">
@@ -200,14 +212,21 @@
                                     <form class=" ">
                                         <div class="row mt-3 d-flex justify-content-center align-items-center ">
                                             <div class="col-6 form-floating  p-1">
-                                                <input type="text" class="form-control" id="inputBankName"
-                                                    onchange="textValidation(inputBankName,'^([A-Z][a-z]{2,30})$', 'supplierbankdetails', 'bankname');">
-                                                <label for="inputBankName" class="pl-2">Bank Name</label>
+                                                <input type="text" class="form-control" id="inputBankName"    required
+                                                    onkeyup="textValidation2(inputBankName,supplierBankNameError,'^([A-Z][a-z]{2,30})$', 'supplierbankdetails', 'bankname');">
+                                                <label for="inputBankName" class="pl-2">Bank Name <span style="color: red;">*</span>
+                                                    <div class="" id="supplierBankNameError" style="display: none;">This bank name is not a valid one</div>
+                                                 </label>
+
+                                                
                                             </div>
                                             <div class="col-6 form-floating  p-1">
-                                                <input type="text" class="form-control" id="inputBankBranch"
-                                                    onchange="textValidation(inputBankBranch,'^([A-Z][a-z]{2,30})$', 'supplierbankdetails', 'branchname');">
-                                                <label for="inputBankBranch">Bank Branch Name</label>
+                                                <input type="text" class="form-control" id="inputBankBranch"   required
+                                                    onkeyup="textValidation2(inputBankBranch,supplierBankBranchError,'^([A-Z][a-z]{2,30})$', 'supplierbankdetails', 'branchname');">
+                                                <label for="inputBankBranch">Bank Branch Name <span style="color: red;">*</span>
+                                                    <div class="" id="supplierBankBranchError" style="display: none;">This branch name is not a valid one</div>
+                                                 </label>
+
                                             </div>
 
                                         </div>
@@ -215,14 +234,20 @@
 
 
                                             <div class="col-6 form-floating p-1">
-                                                <input type="text" class="form-control" id="inputAccName"
-                                                    onchange="textValidation(inputAccName,'^([0-9]{2,10})$', 'supplierbankdetails', 'accno');">
-                                                <label for="inputAccName">Account Number</label>
+                                                <input type="text" class="form-control" id="inputAccName"  required
+                                                    onkeyup="textValidation2(inputAccName,supplierBankAccountError,'^([0-9]{2,10})$', 'supplierbankdetails', 'accno');">
+                                                <label for="inputAccName">Account Number<span style="color: red;">*</span> 
+                                                    <div class="" id="supplierBankAccountError" style="display: none;">This account no is not a valid one</div>
+                                                </label>
+
                                             </div>
                                             <div class="col-6 form-floating p-1">
-                                                <input type="text" class="form-control" id="inputAccHolderName"
-                                                    onchange="textValidation(inputAccHolderName,'^([A-Z][a-z]{2,30})$', 'supplierbankdetails', 'accholdername');">
-                                                <label for="inputAccHolderName">Account Holder Name</label>
+                                                <input type="text" class="form-control" id="inputAccHolderName" required
+                                                    onkeyup="textValidation2(inputAccHolderName,supplierBankAccountHolderError,'^([A-Z][a-z]{2,30})$', 'supplierbankdetails', 'accholdername');">
+                                                <label for="inputAccHolderName">Account Holder Name <span style="color: red;">*</span>
+                                                    <div class="" id="supplierBankAccountHolderError" style="display: none;">This name is not a valid one</div>
+                                                </label>
+
                                             </div>
                                         </div>
 
@@ -248,7 +273,7 @@
                                         <h4>Add More Specs</h4>
                                     </header>
                                     <div class="w3-container">
-                                        <table class="w3-table-all w3-hoverable mt-3 mb-3">
+                                        <table class="w3-table-all w3-hoverable mt-3 mb-3" id="tableSupplier">
                                             <thead>
                                                 <tr class="w3-light-grey">
                                                     <th>Specification</th>
@@ -294,7 +319,7 @@
                             <div class="row p-2 d-flex justify-content-end align-items-center"
                                 style="display: flex; flex-direction: row; gap:10px;">
                                 <button class="col-3 btn btn-warning" onclick="supplierUpdate()">UPDATE</button>
-                                <button class="col-3 btn btn-primary suppAdd" onclick="supplierAdd()">ADD</button>
+                                <button class="col-3 btn btn-primary suppAdd" onclick="supplierAdd()" type="submit">ADD</button>
 
                             </div>
                             <!-- button gruop end -->

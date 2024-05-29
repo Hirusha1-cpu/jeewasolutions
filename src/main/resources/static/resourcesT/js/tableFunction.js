@@ -335,3 +335,8 @@ const fillDataIntoPurcahsechkTable = (tableId, dataList, propertyList, purchaseB
 
 }
 
+//print function
+// const printPorder =( rowOb, rowIndex) =>{
+//     let newWindow = window.open()
+//     newWindow.document.write("<h1>"+"hi i printed"+"</h1>")
+// }

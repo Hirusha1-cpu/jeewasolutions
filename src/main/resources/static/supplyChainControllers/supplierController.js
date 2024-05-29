@@ -262,8 +262,49 @@ const editEmployeeBtn = (item) => {
 const updateEmployeeBtn = () => {
     console.log("update");
 }
-const deleteEmployeeBtn = () => {
-    console.log("delete");
+//print
+const deleteEmployeeBtn = (rowOb, rowIndex) => {
+
+    console.log("print");
+    const table1 = document.getElementById("tableSupplier")
+    const tableHtml = table1.outerHTML;
+    // const printWindow = window.open();
+    // printWindow.document.write(tableHtml);
+      let newWindow = window.open()
+    newWindow.document.write(
+        "<title>"+rowOb.supplier_code+"</title>"+
+        "<link rel='stylesheet' href='resourcesT/bootstrap_5.3.1/css/bootstrap.min.css'>"+"</link>"+
+        "<body>"+tableHtml+"</body>"
+
+        //"<script>tableHtml.classList.remove('d-none');</script>"
+        )
+        setTimeout(()=>{ //data load wena eka krnne 500 kin
+            newWindow.stop();//load wena eka nwattanwa
+            newWindow.print();
+            newWindow.close();
+
+        }, 500)
+        
+    // printWindow.document.close();
+   //id.outerhtml 
+    // let newWindow = window.open()
+    // newWindow.document.write(
+    //     "<title>"+rowOb.supplier_code+"</title>"+
+    //     "<link rel='stylesheet' href='resourcesT/bootstrap_5.3.1/css/bootstrap.min.css'>"+"</link>"+
+    //     "<table class = table table-dark table-bordered table-striped> "+
+    //     "<tr>"+
+    //     "<td>"+"code"+"</td>"+
+    //     "<td>"+"name"+"</td>"+
+    //     "</tr>"+
+    //     "<tr>"+
+    //     "<td>"+rowOb.supplier_code+"</td>"+
+    //     "<td>"+rowOb.name+"</td>"+
+    //     "</tr>"
+
+
+    //     +"</table>"
+    //     )
+
 }
 
 // enter bank details

@@ -50,7 +50,14 @@
                                         <!-- <div class="valid-feedback">Valid.</div>
                                       <div class="invalid-feedback">Please fill out this field.</div> -->
                                     </div>
-                              
+                                    <!-- Display error message if login fails -->
+                                    <div class="alert alert-danger" th:if="${param.error}" role="alert">
+                                        Invalid username or password. Please try again.
+                                    </div>
+                                    <!-- Display logout message if logout is successful -->
+                                    <div class="alert alert-success" th:if="${param.logout}" role="alert">
+                                        You have been logged out successfully.
+                                    </div>
                                     <div>
 
                                         <button class="w3-button  w3-block w3-blue" type="submit">Login</button>

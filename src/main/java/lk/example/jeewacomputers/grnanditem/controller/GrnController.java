@@ -132,32 +132,40 @@ public class GrnController {
 
                     // System.out.println(grn);
                     // grnHasCategory = grnHasCategoryDao.save(grnHasCategory);
-                    for (SerialNo newSerials : grnHasCategory.getSerialNumbers()) {
-                        // newSerials.set
-                        newSerials.setAvailability(Boolean.TRUE);
-                        newSerials.setCategory_id(grnHasCategory.getCategory_id());
-                        newSerials.setItemcode(grnHasCategory.getItemcode());
-                        newSerials.setItemname(grnHasCategory.getItemname());
-                        newSerials.setGrn_has_category_id(grnHasCategory);// Set the reference
-                        barcodeGenerator.generateQRCodee(newSerials);
+                    System.out.println(isSerialNo);
+                    if (!isSerialNo) {
+                        System.out.println("executed");
+                        for (SerialNo newSerials : grnHasCategory.getSerialNumbers()) {
+                            // System.out.println(grnHasCategory);
+                            // newSerials.set
+                            newSerials.setAvailability(Boolean.TRUE);
+                            newSerials.setCategory_id(grnHasCategory.getCategory_id());
+                            newSerials.setItemcode(grnHasCategory.getItemcode());
+                            newSerials.setItemname(grnHasCategory.getItemname());
+                            newSerials.setGrn_has_category_id(grnHasCategory);// Set the reference
+                            barcodeGenerator.generateQRCodee(newSerials);
+    
+                            // serialNoDao.save(newSerials);
+                            // newSerials.setGrn_has_category_id(grnHasCategory);
+                            // serialNoDao.save(newSerials);
+                        }
+                    }else{
 
-                        // serialNoDao.save(newSerials);
-                        // newSerials.setGrn_has_category_id(grnHasCategory);
-                        // serialNoDao.save(newSerials);
+                        System.out.println(",mnnnnnnnn");
+                        //............................................
+                        for (int i = 0; i < itemCodeQty; i++) {
+                            SerialNo serialNo = new SerialNo();
+                            serialNo.setItemcode("ITEMCODE" + (i + 1));
+                            serialNo.setItemprice(grnHasCategory.getItem_price());
+                            serialNo.setAvailability(true);
+                            serialNo.setCategory_id(categoryDao.getReferenceById(9));
+                            // serialNo.setGrn_has_category_id();
+                            serialNoDao.save(serialNo);
+                            System.out.println("OK");
+    
+                        }
+                        //...........................................
                     }
-                    //............................................
-                    // for (int i = 0; i < itemCodeQty; i++) {
-                    //     SerialNo serialNo = new SerialNo();
-                    //     serialNo.setItemcode("ITEMCODE" + (i + 1));
-                    //     serialNo.setItemprice(grnHasCategory.getItem_price());
-                    //     serialNo.setAvailability(true);
-                    //     serialNo.setCategory_id(categoryDao.getReferenceById(9));
-                    //     // serialNo.setGrn_has_category_id();
-                    //     serialNoDao.save(serialNo);
-                    //     System.out.println("OK");
-
-                    // }
-                    //...........................................
 
                 // grnHasCategory.setGrn_id(grn);
                 // newItem.setItemname(grnHasCategory.getItemname());

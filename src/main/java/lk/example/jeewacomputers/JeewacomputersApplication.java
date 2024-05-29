@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
-
 import lk.example.jeewacomputers.employee.dao.EmployeeDao;
 import lk.example.jeewacomputers.privilege.dao.RoleDao;
 import lk.example.jeewacomputers.privilege.entity.Role;
