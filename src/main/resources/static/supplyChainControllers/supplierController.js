@@ -22,7 +22,30 @@ const refreshSupplyForm = () => {
     brandByCategory.innerHTML = ""
     // categoryByBrand.innerHTML = ""
 
+    searchInSupplyTable()
+}
 
+const searchInSupplyTable = ()=>{
+    const searchInput = document.getElementById('searchInput');
+    const table = document.getElementById('supplyTab');
+    const tbody = table.getElementsByTagName('tbody')[0];
+    const rows = tbody.getElementsByTagName('tr');
+
+    searchInput.addEventListener('keyup', function() {
+        const filter = searchInput.value.toLowerCase();
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            let rowContainsFilter = false;
+
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j].innerText.toLowerCase().includes(filter)) {
+                    rowContainsFilter = true;
+                    break;
+                }
+            }
+            rows[i].style.display = rowContainsFilter ? '' : 'none';
+        }
+    });
 }
 
 //category ekk select krama meka call wela item tika check boxes awilla eka add krnn option eka enwa
@@ -389,30 +412,36 @@ const saveDetails = () => {
         table.style.transition = "opacity 1.5s ease-in";
         table.style.opacity = 1; // Gradually fade in
     }, 100); // Adjust the delay as needed
+
 }
 
 const addedSupplierDetails = (suppliername, suppliernumber, supplieremail, category, brand) => {
-    const supplierDetails1 = `
-    Supplier name: ${suppliername}\r
-    Supplier number: ${suppliernumber}\r
-    Supplier email: ${supplieremail}\r
-    Category: ${category}\r
-    Brand: ${brand}`;
+    const supplierDetails1 = `<b>
+    Supplier name: ${suppliername}<br>
+    Supplier number: ${suppliernumber}<br>
+    Supplier email: ${supplieremail}<br>
+    Category: ${category}<br>
+    Brand: ${brand}
+    <b>`;
 
     Swal.fire({
-        title: "Do you want to save the changes?",
-        text: supplierDetails1,
+        title: "Do you want to save?",
+        html: supplierDetails1,
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: "Save",
-        denyButtonText: `Don't save`
+        denyButtonText: `Don't save`,
+        customClass: {
+            title: 'custom-title', // Apply custom CSS class to title
+            html: 'custom-html', // Apply custom CSS class to HTML container
+        },
     }).then((result) => {
         if (result.isConfirmed) {
 
             saveDetails()
             Swal.fire("Saved!", "", "success");
         } else if (result.isDenied) {
-            Swal.fire("Changes are not saved", "", "info");
+            Swal.fire("Not saved", "", "info");
         }
     });
 }
@@ -445,7 +474,22 @@ const supplierAdd = () => {
         })
         return userBrand
     }
-    addedSupplierDetails(supplier.name, supplier.contactnumber, supplier.email, getCategoryNameFromObject(), getBrandNameFromObject())
+    if (supplier.name != null &&
+        supplier.contactnumber != null &&
+        supplier.email != null &&
+        getCategoryNameFromObject() != "" &&
+        getBrandNameFromObject() != ""
+    ) {
+
+        addedSupplierDetails(supplier.name, supplier.contactnumber, supplier.email, getCategoryNameFromObject(), getBrandNameFromObject())
+    } else {
+        const alert = Swal.fire({
+            title: "Required Details Are Missing",
+            text: "Plase check the details and retry",
+            icon: "error"
+        });
+        return alert
+    }
     // console.log();
     //bank details tika supplier object ekata set wenawa
     // bankDetails();

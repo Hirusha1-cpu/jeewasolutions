@@ -129,11 +129,19 @@ public class GrnController {
                 grnHasCategory.setIsserialno(grnHasCategory.getIsserialno());
                 Boolean isSerialNo = grnHasCategory.getIsserialno();
                 Integer itemCodeQty = grnHasCategory.getQty();
-
+                Category category = grnHasCategory.getCategory_id();
+                Integer itemcount = serialNoDao.getSameNameSerialNoCount(grnHasCategory.getItemname(),category.getId());
+                System.out.println(itemcount);
+                String catname = "jeewacomputersproject." + category.getName().toLowerCase().replaceAll(" ", "");
+                System.out.println(catname);
+                
+                // Integer qty = dao.getQty(catname,grnHasCategory.getItemname());
+                // System.out.println(qty);
+                
                     // System.out.println(grn);
                     // grnHasCategory = grnHasCategoryDao.save(grnHasCategory);
                     System.out.println(isSerialNo);
-                    if (!isSerialNo) {
+                    if (isSerialNo) {
                         System.out.println("executed");
                         for (SerialNo newSerials : grnHasCategory.getSerialNumbers()) {
                             // System.out.println(grnHasCategory);

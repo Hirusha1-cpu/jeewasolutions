@@ -22,7 +22,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "graphic_card")
+@Table(name = "graphiccard")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,23 +33,31 @@ public class GraphicCard {
     @GeneratedValue(strategy =GenerationType.IDENTITY )
     private Integer id;
 
-    @Column(name = "memory")
-    @NotNull
-    private String memory;
+    @Column(name = "memorycapacity")
+    // @NotNull
+    private String memorycapacity;
 
-    @Column(name = "power_spply")
-    @NotNull
-    private String power_spply;
+    @Column(name = "memoryspeed")
+    // @NotNull
+    private String memoryspeed;
+
+    @Column(name = "memorytype")
+    // @NotNull
+    private String memorytype;
 
     @Column(name = "warrenty")
     private Integer warrenty;
 
     @Column(name = "name")
-    @NotNull
+    // @NotNull
     private String name;
 
+    @Column(name = "chipset")
+    // @NotNull
+    private String chipset;
+
     @Column(name = "added_datetime")
-    @NotNull
+    // @NotNull
     private LocalDate added_datetime;
 
     @Column(name = "deleted_datetime")
@@ -69,20 +77,23 @@ public class GraphicCard {
     private Integer updated_user;
 
     @Column(name = "max_discount_ratio")
-    @NotNull
+    // @NotNull
     private BigDecimal max_discount_price;
 
     @Column(name = "min_discount_ratio")
-    @NotNull
+    // @NotNull
     private BigDecimal min_discount_price;
 
-    @Column(name = "sales_price")
-    @NotNull
-    private BigDecimal sales_price;
+    @Column(name = "sales_rate")
+    // @NotNull
+    private BigDecimal sales_rate;
 
     @Column(name = "purchase_price")
-    @NotNull
+    // @NotNull
     private BigDecimal purchase_price;
+
+    @Column(name = "reorder_point")
+    private Integer reorder_point;
 
      @ManyToOne
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
@@ -96,7 +107,15 @@ public class GraphicCard {
     @JoinColumn(name = "pc_part_status_id", referencedColumnName = "id")
     private PcPartStatus pc_part_status_id ;
 
+    // public User(Integer id, String username){
+    //     this.id = id;
+    //     this.username = username;
+    // }
 
+    public GraphicCard(Integer id, Integer reorder_point){
+        this.id = id;
+        this.reorder_point = reorder_point;
+    }
 
   
 }

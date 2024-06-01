@@ -1,12 +1,12 @@
 window.addEventListener('load', () => {
     refreshGraphicTable();
-    // refreshGraphicForm();
+    refreshGraphicForm();
 })
 const refreshGraphicTable = () => {
     graphic_Cards = ajaxGetRequest('/graphiccard/getlist')
     const displayProperties = [
         { property: 'name', dataType: 'string' },
-        { property: 'memory', dataType: 'string' },
+        { property: 'memorycapacity', dataType: 'string' },
         { property: 'power_spply', dataType: 'string' },
         { property: 'sales_price', dataType: 'string' },
         { property: 'purchase_price', dataType: 'string' },
@@ -21,6 +21,17 @@ const refreshGraphicTable = () => {
 
 
 }
+const refreshGraphicForm = () =>{
+    graphicCard = {}
+
+    brands = ajaxGetRequest("brand/getlist")
+    fillDataIntoSelect(selectBrandInGraphicard, "Select brands", brands, 'name')
+
+    pcpart = ajaxGetRequest("pcstatus/getlist")
+    fillDataIntoSelect(graphicCardPcPartStatus, "Select pcpart", pcpart, 'status')
+
+}
+
 const getBrand = (rowObject) => {
     return "<p class = 'working-status'>" + rowObject.brand_id.name + "</p>"
 }
@@ -43,3 +54,8 @@ const deleteEmployeeBtn = () => {
     console.log("delete");
 }
 
+const addGraphicCardDetails = () =>{
+    console.log(graphicCard);
+    let serverGrphicResponse = ajaxRequestBodyMethod("/graphiccard", "POST", graphicCard);
+    console.log(serverGrphicResponse);
+}

@@ -41,7 +41,8 @@ const refreshInvoiceForm = () => {
     invoice.salesHasSerials = new Array();
     saleSerial = new Object();
     serialNumbers = new Object();
-    serialNoListCount = ajaxGetRequest("/serialno/getlist")
+    // serialNoListCount = ajaxGetRequest("/serialno/getlist")
+    serialNoListCount = ajaxGetRequest("/serialno/getlistwithoutnotnull")
 
     fillDataIntoSelect(invoiceSerialId, "Select SerialNumber List", serialNoListCount, 'serialno')
 
@@ -66,14 +67,16 @@ const getItemDetails = () => {
     // let categoryName;
     // categoryName = itemsDetails1.category_id.name
     const categoryname1 = (serialObject.category_id.name).replace(/\s/g, '').toLowerCase()
-    categoriesItems = ajaxGetRequest(`/${categoryname1}/getlist`, categoryname1)
-    console.log(categoriesItems);
+    categoriesItems1 = ajaxGetRequest(`/${categoryname1}/getlist`, categoryname1)
+    console.log(categoriesItems1);
 
-    const filteredData = filterByName(serialObject.itemname, categoriesItems);
+    const filteredData = filterByName(serialObject.itemname, categoriesItems1);
 
-    console.log("Filtered data:", filteredData);
+    console.log("Filtered data:", filteredData[0]);
+    const obj = filteredData[0]
 
-    const warrentyPeriod = filteredData.warrenty
+    const warrentyPeriod = obj.warrenty
+    
     // serialNumbers.warrentyperiod = warrentyPeriod
     saleSerial.warrentyperiod = warrentyPeriod
 
@@ -209,8 +212,8 @@ const submitInvoice = () => {
     // incomePaymentsObj.sales_id = invoice
     invoice.incomePayments = incomePaymentsObj
 
-    let serverResponse = ajaxRequestBodyMethod("/invoice", "POST", invoice);
-    console.log("serverResponse", serverResponse);
+    let serverResponse11 = ajaxRequestBodyMethod("/invoice", "POST", invoice);
+    console.log("serverResponse", serverResponse11);
 }
 
 
@@ -225,7 +228,7 @@ const refreshRepairTable = () => {
     useItem = new Object();
 
 
-    serialNoListCountForWarrenty = ajaxGetRequest("/serialno/getlist")
+    serialNoListCountForWarrenty = ajaxGetRequest("/serialno/getlistwithoutnotnull")
     fillDataIntoSelect(warrentySerialId, "Select SerialNumber List", serialNoListCountForWarrenty, 'serialno')
     repairItemIntoTable()
 

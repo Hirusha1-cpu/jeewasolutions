@@ -16,3 +16,40 @@ body{
     /* border: 2px solid black; */
 
 }
+
+.custom-title {
+    color: #007BFF;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.custom-html {
+    color: #333;
+    font-size: 1em;
+    text-align: left;
+}
+
+.custom-confirm-button {
+    background-color: #0df343;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.custom-deny-button {
+    background-color: #0f0102;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.custom-cancel-button {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}

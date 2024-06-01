@@ -28,7 +28,12 @@ public interface GrnDao extends JpaRepository<Grn, Integer> {
     @Query("select u from User u where u.username = ?1")
     public User getUsersByUsername(String username);
 
-    
+    // SELECT qty FROM %s WHERE name = ?1
+    //select u from #{#entityName} u where u.lastname = ?1
+
+
+    // @Query("select c.qty from #{#entityName} c where c.name = ?1")
+    // public Integer getQty(String catname,String itemname);
 
     
 

@@ -42,7 +42,7 @@ public class Customer {
     private Integer repairs;
 
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name="customertype_id", referencedColumnName = "id")
     private CustomerType customerType;
 }

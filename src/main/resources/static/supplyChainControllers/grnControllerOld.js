@@ -503,6 +503,7 @@ const sendPurchBtn = (rowObject) => {
 const checkBoxButton = (rowObject) => {
     console.log("clicked check box");
     grnHasItems.category_id = rowObject.category_id
+    grnHasItems.itemname = rowObject.itemname
     console.log(grnHasItems);
     inputPurchaseQuantity.value = rowObject.qty
     inputPurchaseItemPrice.value = rowObject.itemprice
@@ -595,7 +596,7 @@ const addGrn = () => {
         grnHasItems.serialNumbers = null
     }
     console.log(isSerialNos.value);
-    if (isSerialNos.value == true) {
+    if (isSerialNos.checked == true) {
         grnHasItems.isserialno = true
     }else{
         grnHasItems.isserialno = false

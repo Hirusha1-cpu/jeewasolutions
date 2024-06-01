@@ -2,6 +2,7 @@ package lk.example.jeewacomputers.grnanditem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 
@@ -18,6 +19,12 @@ public class SerialNoController {
     public List<SerialNo> findAll() {
         // login user authentication and authorization
         return serialNoDao.findAll();
+    }
+
+    @GetMapping(value = "/serialno/getlistwithoutnotnull", produces = "application/json")
+    public List<SerialNo> findSerialNoList() {
+        // login user authentication and authorization
+        return serialNoDao.getOnlySerialNo();
     }
 
 

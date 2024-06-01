@@ -38,7 +38,7 @@ public class Invoice {
      @Column(name = "invoiceno")
     private String invoiceno;
    
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name="customer_id", referencedColumnName = "id")
     private Customer customer_id;
     

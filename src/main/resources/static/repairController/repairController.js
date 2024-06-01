@@ -20,7 +20,7 @@ const refreshRepairForm = () => {
   const repairs = ajaxGetRequest("/repair/getlist")
   console.log(repairs);
   fillDataIntoSelect2(selectUrgentRepairs, "Select Uregent Repairs", repairs, 'fault')
-  serialNoListCountForRepair = ajaxGetRequest("/serialno/getlist")
+  serialNoListCountForRepair = ajaxGetRequest("/serialno/getlistwithoutnotnull")
   fillDataIntoSelect(repairUsedItemCode, "Select SerialNumber List", serialNoListCountForRepair, 'serialno')
 }
 
