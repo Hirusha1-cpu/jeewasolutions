@@ -12,5 +12,8 @@ public interface GraphicCardDao extends JpaRepository<GraphicCard, Integer>{
 
     @Query(value = "select g.reorder_point from GraphicCard g where g.name = ?1")
     public Integer getReorderPoint(String name);
+
+    @Query(value = "select g.sales_rate from GraphicCard g where g.name = ?1")
+    public Integer getSellRatio(String name);
     
 } 

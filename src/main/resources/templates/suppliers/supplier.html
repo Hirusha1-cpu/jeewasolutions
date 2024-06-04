@@ -24,7 +24,7 @@
             <!-- main component start -->
             <main class="content px-3 py-2 w3-container">
 
-                <!-- employee table start -->
+                <!-- supplier table start -->
                 <div class="w3-animate-right" id="empTable">
 
                     <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
@@ -47,7 +47,7 @@
                                     <th scope="col">Supplier Code</th>
                                     <th scope="col">Contact</th>
                                     <th scope="col">Category</th>
-                                    <th scope="col">Brands</th>                                    
+                                    <th scope="col">Brands</th>
                                     <th scope="col">Bank Details</th>
                                     <th scope="col">Button</th>
 
@@ -59,15 +59,14 @@
                         </div>
                     </div>
                 </div>
-                <!-- employee table end -->
+                <!-- supplier table end -->
 
-                <!-- employee form start -->
+                <!-- supplier form start -->
                 <div id="empForm" class="w3-animate-left" style="display: none;">
                     <div class=" " style="display: flex; justify-content: space-between; align-items: center;">
                         <button id="empFormToTable" class="btn btn-success mb-3">Table</button>
                         <h4>Supplier Form</h4>
                     </div>
-
                     <div style="border: 1px solid black; padding: 10px;">
 
                         <!-- Supplier form start -->
@@ -76,14 +75,12 @@
                             <!-- Supplier Name start -->
                             <div class="form-floating mb-3 mt-3">
                                 <input type="text" class="form-control" id="supplierName" placeholder="Supplier Name"
-                                    value=""  required
-                                    title=""
-                                    onkeyup="textValidation2(supplierName,supplierNameError, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'supplier', 'name', 'Enter a name starting with a capital letter, followed by lowercase letters. Each word can have 2-30 characters.','top');"
-                                    >
+                                    value="" required title=""
+                                    onkeyup="textValidation2(supplierName,supplierNameError, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'supplier', 'name', 'Enter a name starting with a capital letter, followed by lowercase letters. Each word can have 2-30 characters.','top');">
                                 <label for="supplierName">Supplier Name <span style="color: red;">*</span>
-                                    <div class="" id="supplierNameError" style="display: none;">This name is not a valid one</div>
+                                    <div class="" id="supplierNameError" style="display: none;">This name is not a valid
+                                        one</div>
                                 </label>
-
                             </div>
                             <!-- Supplier Name end -->
 
@@ -94,10 +91,11 @@
                                         placeholder="Selling Price" required
                                         onkeyup="textValidation2(supplierContact,supplierContactError,'^[0][7][1245678][0-9]{7}$', 'supplier', 'contactnumber');">
 
-                                    <label for="floatingInput" class="pl-2">Supplier Number <span style="color: red;">*</span> 
-                                        <div class="" id="supplierContactError" style="display: none;">This contact number is not a valid one</div>
+                                    <label for="floatingInput" class="pl-2">Supplier Number <span
+                                            style="color: red;">*</span>
+                                        <div class="" id="supplierContactError" style="display: none;">This contact
+                                            number is not a valid one</div>
                                     </label>
-
                                 </div>
                                 <div class="col-4 form-floating mb-3 p-1">
                                     <input type="text" class="form-control" id="supplierEmail"
@@ -105,13 +103,14 @@
                                         onkeyup="textValidation2(supplierEmail,supplierEmailError, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'supplier', 'email');">
 
                                     <label for="floatingInput">Supplier Email <span style="color: red;">*</span>
-                                  
-                                        <div class="" id="supplierEmailError" style="display: none;">This email is not a valid one</div>
-                                     </label>
 
+                                        <div class="" id="supplierEmailError" style="display: none;">This email is not a
+                                            valid one</div>
+                                    </label>
                                 </div>
                                 <div class="col-4 form-floating mb-3 p-1">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="supplierAddress">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                        placeholder="supplierAddress">
                                     <label for="floatingInput">Supplier Address</label>
                                 </div>
 
@@ -136,6 +135,7 @@
                                     <div class="row">
 
                                         <div class="col-5">
+                                            <!-- category -->
                                             <select class="cat form-select" id="selectCategory"
                                                 aria-label="Default select example"
                                                 onchange="selectDFieldValidation(selectCategory,'', 'supplierhascategory', 'category_id'); filterByCategory()">
@@ -154,7 +154,8 @@
                                             </div>
                                         </div>
                                         <div class="col-1">
-                                            <button class="btn btn-success mt-2" type="button"  onclick="addToCateTable()">Add</button>
+                                            <button class="btn btn-success mt-2" type="button"
+                                                onclick="addToCateTable()">Add</button>
                                         </div>
                                     </div>
                                 </div>
@@ -204,56 +205,68 @@
                             <!-- category vise brands end -->
                             <!-- Bank details start -->
                             <p class="d-inline-flex gap-1">
-
                                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseBankDetails" aria-expanded="false"
-                                    aria-controls="collapseBankDetails">
+                                    data-bs-target="#collapseBankDetails" aria-expanded="false"  aria-controls="collapseBankDetails">
                                     Bank Details
                                 </button>
-
                             </p>
                             <div class="collapse" id="collapseBankDetails">
                                 <div class="card card-body">
                                     <form class=" ">
                                         <div class="row mt-3 d-flex justify-content-center align-items-center ">
+                                             <!-- bank name start -->
                                             <div class="col-6 form-floating  p-1">
-                                                <input type="text" class="form-control" id="inputBankName"    required
+                                                <input type="text" class="form-control" id="inputBankName" required
                                                     onkeyup="textValidation2(inputBankName,supplierBankNameError,'^([A-Z][a-z]{2,30})$', 'supplierbankdetails', 'bankname');">
-                                                <label for="inputBankName" class="pl-2">Bank Name <span style="color: red;">*</span>
-                                                    <div class="" id="supplierBankNameError" style="display: none;">This bank name is not a valid one</div>
-                                                 </label>
+                                                <label for="inputBankName" class="pl-2">Bank Name <span
+                                                        style="color: red;">*</span>
+                                                    <div class="" id="supplierBankNameError" style="display: none;">This
+                                                        bank name is not a valid one</div>
+                                                </label>
 
-                                                
+
                                             </div>
+                                            <!-- bank name end -->
+
+                                            <!-- bank branch name start -->
                                             <div class="col-6 form-floating  p-1">
-                                                <input type="text" class="form-control" id="inputBankBranch"   required
+                                                <input type="text" class="form-control" id="inputBankBranch" required
                                                     onkeyup="textValidation2(inputBankBranch,supplierBankBranchError,'^([A-Z][a-z]{2,30})$', 'supplierbankdetails', 'branchname');">
-                                                <label for="inputBankBranch">Bank Branch Name <span style="color: red;">*</span>
-                                                    <div class="" id="supplierBankBranchError" style="display: none;">This branch name is not a valid one</div>
-                                                 </label>
+                                                <label for="inputBankBranch">Bank Branch Name <span
+                                                        style="color: red;">*</span>
+                                                    <div class="" id="supplierBankBranchError" style="display: none;">
+                                                        This branch name is not a valid one</div>
+                                                </label>
 
                                             </div>
+                                             <!-- bank branch name end -->
 
                                         </div>
                                         <div class="row d-flex justify-content-center align-items-center ">
-
-
+                                            <!-- bank account no start -->
                                             <div class="col-6 form-floating p-1">
-                                                <input type="text" class="form-control" id="inputAccName"  required
+                                                <input type="text" class="form-control" id="inputAccName" required
                                                     onkeyup="textValidation2(inputAccName,supplierBankAccountError,'^([0-9]{2,10})$', 'supplierbankdetails', 'accno');">
-                                                <label for="inputAccName">Account Number<span style="color: red;">*</span> 
-                                                    <div class="" id="supplierBankAccountError" style="display: none;">This account no is not a valid one</div>
+                                                <label for="inputAccName">Account Number<span
+                                                        style="color: red;">*</span>
+                                                    <div class="" id="supplierBankAccountError" style="display: none;">
+                                                        This account no is not a valid one</div>
                                                 </label>
 
                                             </div>
+                                            <!-- bank account no end -->
+                                            <!-- bank account holder name start -->
                                             <div class="col-6 form-floating p-1">
                                                 <input type="text" class="form-control" id="inputAccHolderName" required
                                                     onkeyup="textValidation2(inputAccHolderName,supplierBankAccountHolderError,'^([A-Z][a-z]{2,30})$', 'supplierbankdetails', 'accholdername');">
-                                                <label for="inputAccHolderName">Account Holder Name <span style="color: red;">*</span>
-                                                    <div class="" id="supplierBankAccountHolderError" style="display: none;">This name is not a valid one</div>
+                                                <label for="inputAccHolderName">Account Holder Name <span
+                                                        style="color: red;">*</span>
+                                                    <div class="" id="supplierBankAccountHolderError"
+                                                        style="display: none;">This name is not a valid one</div>
                                                 </label>
 
                                             </div>
+                                             <!-- bank account holder name end -->
                                         </div>
 
                                     </form>
@@ -262,9 +275,6 @@
 
                             <br>
                             <!-- Bank details end -->
-
-
-
 
                             <!-- add more details modal start-->
                             <button onclick="document.getElementById('moreSpecModal').style.display='block'"
@@ -324,7 +334,8 @@
                             <div class="row p-2 d-flex justify-content-end align-items-center"
                                 style="display: flex; flex-direction: row; gap:10px;">
                                 <button class="col-3 btn btn-warning" onclick="supplierUpdate()">UPDATE</button>
-                                <button class="col-3 btn btn-primary suppAdd" onclick="supplierAdd()" type="submit">ADD</button>
+                                <button class="col-3 btn btn-primary suppAdd" onclick="supplierAdd()"
+                                    type="submit">ADD</button>
 
                             </div>
                             <!-- button gruop end -->
@@ -346,7 +357,7 @@
     </div>
 
 
-   
+
     <script src="templates/layouts/layout1.js"></script>
     <script src="templates/layouts/layout2.js"></script>
 

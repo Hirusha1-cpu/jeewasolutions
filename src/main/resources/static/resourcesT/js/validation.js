@@ -51,7 +51,6 @@ const textValidation2 = (fieldId, errorId, Pattern, object, property) => {
             errorId.style = "color: red; display: inline-block"
 
             window[object][property] = null;
-
         }
     } else {
         //need to bind null

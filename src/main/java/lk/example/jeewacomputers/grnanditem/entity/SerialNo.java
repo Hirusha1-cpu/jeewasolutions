@@ -69,6 +69,12 @@ public class SerialNo {
     // @JsonIgnore
     // private List<SalesHasSerial> salesHasSerials;
 
+    // public SerialNo(String serialno, String itemname, Category category_id) {
+    //     this.serialno = serialno;
+    //     this.itemname = itemname;
+    //     this.category_id = category_id;
+    // }
+
 
 
  

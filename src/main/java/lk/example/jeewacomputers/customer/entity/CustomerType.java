@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor // generate default constructor
 @AllArgsConstructor // all arguments constructor
 public class CustomerType {
+    
     @Id // for pk
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id ", unique = true) // for map with column name

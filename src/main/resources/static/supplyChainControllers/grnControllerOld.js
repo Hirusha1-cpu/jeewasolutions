@@ -288,7 +288,7 @@ const refillGrnBtn = (item) => {
 
     console.log("serialNo", serialNo);
     for (let id in serialNo) {
-        serialNumbers.push({ serialno: serialNo[id] });
+        serialNumbers.push({ serialno: serialNo[id],itemprice:100 });
     }
 
     // return serialNumbers;
@@ -536,6 +536,10 @@ const generateSerialNumberList2 = () => {
     }
 }
 const generateSerialNumberList = () => {
+    const categoryname = ((grnHasItems.category_id).name).replace(/\s/g, '').toLowerCase()
+    // categoriesItems = ajaxGetRequest(`/${categoryname}/getlist`, categoryname)
+    sellingRatio = ajaxGetRequest(`/${categoryname}/getselratio/${grnHasItems.itemname}`)
+    unitpriceofitem = sellingRatio*(inputPurchaseItemPrice.value)
     const inputSerialNoDiv = document.querySelector("#inputSerialNoDiv");
 
     //inputSerialNoDiv id eka allagannwa
@@ -570,7 +574,7 @@ const generateSerialNumberList = () => {
     // ita passe e array eka push wenwa object ekk widhata serialNumbers kiyna array ekata
     console.log("serialNo", serialNo);
     for (let id in serialNo) {
-        serialNumbers.push({ serialno: serialNo[id] });
+        serialNumbers.push({ serialno: serialNo[id], itemprice :unitpriceofitem });
     }
     //eka return wenwa, eka allagnnwa add grn eken
     return serialNumbers;

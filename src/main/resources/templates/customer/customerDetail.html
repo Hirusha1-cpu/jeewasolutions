@@ -76,128 +76,153 @@
                                 <div id="date" class="fw-bolder" style="color: red;">2024-09-09</div>
                             </div>
                             <!-- date end -->
-            
+
                             <!-- customer type start -->
                             <div class="row d-flex justify-content-center align-items-center p-2 ">
                                 <!-- premium customer start -->
                                 <div class="col-4 ">
                                     <!-- <div class="row d-flex justify-content-end align-items-center"> -->
-                                    <div class="card" style="width: 18rem;">
+                                    <div class="card" style="width: 18rem;" id="customerCard">
                                         <div class="card-body">
-                                            <h5 class="card-title fw-bolder" style="color: darkorange;">Premium Customer</h5>
+                                            <h5 class="card-title fw-bolder" style="color: darkorange;">Premium Customer
+                                            </h5>
                                             <hr style="height: 2px; background-color: black;">
-                                            <h6 class="card-subtitle mb-2 mt-2 ms-2 text-body-secondary fw-semibold"><span
-                                                    style="color: red;">23 </span>Customers</h6>
+                                            <h6 class="card-subtitle mb-2 mt-2 ms-2 text-body-secondary fw-semibold">
+                                                <span class="me-1" style="color: red;" id="customerCount">23
+                                                </span>Customers
+                                            </h6>
                                             <p class="card-text fw-semibold">
-            
+
                                             <table class="table">
-            
+
                                                 <tbody>
                                                     <tr>
                                                         <td>
                                                             <span style="color: green;">Discount</span>
                                                         </td>
                                                         <td>
-                                                            <label for="">:<span style="color: black;">30%</span></label>
+                                                            <label for="" id="discountLabel">:<span
+                                                                    style="color: black;">30%</span></label>
                                                         </td>
-            
+
                                                     </tr>
                                                     <tr>
-            
+
                                                         <td>
                                                             <span style="color: green;">Buy Rounds</span>
                                                         </td>
                                                         <td>
-                                                            <label for="">:<span style="color: black;">12</span></label>
+                                                            <label for="" id="discountRounds">:<span
+                                                                    style="color: black;">12</span></label>
                                                         </td>
-            
+
                                                     </tr>
                                                     <tr>
-            
+
                                                         <td>
                                                             <span style="color: green;">Min Cash</span>
                                                         </td>
                                                         <td>
-                                                            <label for="">:<span style="color: black;">5000/=</span></label>
+                                                            <label for="" id="discountMinCash">:<span
+                                                                    style="color: black;">5000/=</span></label>
                                                         </td>
-            
+
                                                     </tr>
                                                 </tbody>
                                             </table>
                                             </p>
                                             <p class="card-text fw-semibold">
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                                <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#staticBackdrop"
                                                     class="btn btn-outline-success mb-1">Edit details</button><br>
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop.2"
-                                                    class="btn btn-outline-warning mb-1">Show Customers</button>
-            
+                                                <button type="button" data-bs-toggle="modal" id="showCustomer"
+                                                    data-bs-target="#staticBackdropToCus"
+                                                    class="btn btn-outline-warning mb-1" onclick="showCustomers()">Show
+                                                    Customers</button>
+
                                                 <!-- Modal -->
                                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                                aria-hidden="true">
+                                                data-bs-keyboard="false" tabindex="-1"
+                                                aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5 fw-bolder" id="staticBackdropLabel"
-                                                                style="color: darkorange;">Premium
+                                                            <h1 class="modal-title fs-5 fw-bolder"
+                                                                id="staticBackdropLabel" style="color: darkorange;">
+                                                                Premium
                                                                 Customer </h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="row mt-3">
                                                                 <div class="col">
                                                                     <div class="d-flex align-items-center">
-                                                                        <label for="" class="form-label me-4">Discount Rate</label>
-                                                                        <input type="text" class="form-control" id="">
+                                                                        <label for="" class="form-label me-4">Discount
+                                                                            Rate</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="customerDiscountRate"
+                                                                            onchange="textValidation(customerDiscountRate,'', 'custype', 'discount'); ">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col">
                                                                     <div class="d-flex align-items-center">
-                                                                        <label for="" class="form-label me-4">Buy Round</label>
-                                                                        <input type="text" class="form-control" id="">
+                                                                        <label for="" class="form-label me-4">Buy
+                                                                            Round</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="customerBuyRounds"
+                                                                            onchange="textValidation(customerBuyRounds,'', 'custype', 'buyrounds'); ">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-3">
                                                                 <div class="col-5">
                                                                     <div class="d-flex align-items-center">
-                                                                        <label for="" class="form-label me-5">Min Cash</label>
-                                                                        <input type="text" class="form-control" id="">
+                                                                        <label for="" class="form-label me-5">Min
+                                                                            Cash</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="customerMinCash"
+                                                                            onchange="textValidation(customerMinCash,'', 'custype', 'mincash'); ">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-            
+
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Submit</button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                onclick="submitCustype()">Submit</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="modal fade" id="staticBackdrop.2" data-bs-backdrop="static"
-                                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+
+
+                                           
+                                            <div class="modal fade" id="staticBackdropToCus" tabindex="-1"
+                                                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div
+                                                    class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5 fw-bolder" id="staticBackdropLabel"
-                                                                style="color: darkorange;">Premium
-                                                                Customer </h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                            <h1 class="modal-title fs-5 fw-bolder"
+                                                                id="staticBackdropLabel" style="color: darkorange;">
+                                                                Premium Customer </h1>
+                                                            <!-- <input type="radio" id="radioButton" name="modalTrigger"
+                                                                data-bs-toggle="modal" data-bs-target="#itemModel2"> -->
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <table class="table">
+                                                            <table class="table" id="customerDetailTable">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th scope="col">Customer Id</th>
+                                                                        <th scope="col">#</th>
                                                                         <th scope="col">Customer Name</th>
                                                                         <th scope="col">Phone</th>
                                                                         <th scope="col">Buy Rounds</th>
-                                                                        <th scope="col">Items</th>
+                                                                        <th scope="col">Buttons</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -206,9 +231,129 @@
                                                                         <td>Hirusha</td>
                                                                         <td>0776556678</td>
                                                                         <td>10</td>
-                                                                        <td><input type="radio" id="radioButton" name="modalTrigger"
+                                                                        <td>
+                                                                            <input type="radio" id="radioButton"
+                                                                                name="modalTrigger"
                                                                                 data-bs-toggle="modal"
-                                                                                data-bs-target="#itemModel"></td>
+                                                                                data-bs-target="#itemModel">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <!-- <p class="d-inline-flex gap-1">
+                                                                <button class="btn btn-primary" type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#collapseItemDetails"
+                                                                    aria-expanded="false"
+                                                                    aria-controls="collapseItemDetails">
+                                                                    Item Details
+                                                                </button>
+                                                            </p> -->
+                                                            <div class="collapse" id="collapseItemDetails">
+                                                                <div class="card card-body">
+                                                                    <table class="table" id="collapseItemDetailsTable">
+                                                                        <thead>
+                                                                            <tr>
+
+                                                                                <th scope="col">#</th>
+                                                                                <th scope="col">Serial No</th>
+                                                                                <th scope="col">Item Name</th>
+                                                                                <th scope="col">Buttons</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                           
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="button"
+                                                                class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Second Modal -->
+                                            <!-- <div class="modal fade" id="itemModel2" tabindex="-1"
+                                                aria-labelledby="itemModel1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="itemModel1">Items</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">Serial No</th>
+                                                                        <th scope="col">Item Name</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th scope="row">00001</th>
+                                                                        <td>GTX Graphic Card</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">00001</th>
+                                                                        <td>GTX Graphic Card</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-primary" data-bs-toggle="modal"
+                                                                data-bs-target="#staticBackdropToCus"
+                                                                id="backToFirstModal">Back
+                                                                to first</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- <div class="modal fade" id="staticBackdropToCus" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5 fw-bolder" id="staticBackdropLabel"
+                                                                style="color: darkorange;">Premium
+                                                                Customer </h1>
+                                                                  <input type="radio" id="radioButton" name="modalTrigger"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#itemModel">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table" id="customerDetailTable">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">Customer Name</th>
+                                                                        <th scope="col">Phone</th>
+                                                                        <th scope="col">Buy Rounds</th>
+                                                                        <th scope="col">Buttons</th>
+                                                                     
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th scope="row">00001</th>
+                                                                        <td>Hirusha</td>
+                                                                        <td>0776556678</td>
+                                                                        <td>10</td>
+                                                                        <td>
+                                                                           
+                                                                            </td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -220,9 +365,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-            
-                                            <div class="modal fade" id="itemModel" aria-hidden="true" aria-labelledby="itemModel1"
+                                            </div> -->
+
+                                            <!-- <div class="modal fade" id="itemModel" aria-hidden="true" aria-labelledby="itemModel1"
                                                 tabindex="-1">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
@@ -252,297 +397,439 @@
                                                             </table>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button class="btn btn-primary" data-bs-target="#staticBackdrop.2"
+                                                            <button class="btn btn-primary" data-bs-target="#staticBackdropToCus"
                                                                 data-bs-toggle="modal">Back to first</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-            
+                                            </div> -->
+
                                             </p>
-                                            <script>
+                                            <!-- <script>
                                                 // Add event listener to itemModel modal
                                                 document.getElementById('itemModel').addEventListener('show.bs.modal', function () {
                                                     // Uncheck the radio button
                                                     document.getElementById('radioButton').checked = false;
                                                 });
-                                            </script>
-            
-            
-            
+                                            </script> -->
+
                                         </div>
                                     </div>
                                     <!-- </div> -->
-            
+
                                 </div>
                                 <!-- premium customer end -->
-                                <!-- 2nd stage customer start -->
+                                <!-- 1st stage customer start -->
                                 <div class="col-4 ">
                                     <!-- <div class="row d-flex justify-content-end align-items-center"> -->
-                                    <div class="card" style="width: 18rem;">
+                                    <div class="card" style="width: 18rem;" id="customerCard">
                                         <div class="card-body">
-                                            <h5 class="card-title fw-bolder" style="color: rgb(0, 0, 255);">1st Stage Customer</h5>
+                                            <h5 class="card-title fw-bolder" style="color: darkorange;">1st Stage Customer
+                                            </h5>
                                             <hr style="height: 2px; background-color: black;">
-                                            <h6 class="card-subtitle mb-2 mt-2 ms-2 text-body-secondary fw-semibold"><span
-                                                    style="color: red;">30 </span>Customers</h6>
+                                            <h6 class="card-subtitle mb-2 mt-2 ms-2 text-body-secondary fw-semibold">
+                                                <span class="me-1" style="color: red;" id="customerCountfStage">23
+                                                </span>Customers
+                                            </h6>
                                             <p class="card-text fw-semibold">
-            
+
                                             <table class="table">
-            
+
                                                 <tbody>
                                                     <tr>
                                                         <td>
                                                             <span style="color: green;">Discount</span>
                                                         </td>
                                                         <td>
-                                                            <label for="">:<span style="color: black;">30%</span></label>
+                                                            <label for="" id="discountLabelfStage">:<span
+                                                                    style="color: black;">30%</span></label>
                                                         </td>
-            
+
                                                     </tr>
                                                     <tr>
-            
+
                                                         <td>
                                                             <span style="color: green;">Buy Rounds</span>
                                                         </td>
                                                         <td>
-                                                            <label for="">:<span style="color: black;">12</span></label>
+                                                            <label for="" id="discountRoundsfStage">:<span
+                                                                    style="color: black;">12</span></label>
                                                         </td>
-            
+
                                                     </tr>
                                                     <tr>
-            
+
                                                         <td>
                                                             <span style="color: green;">Min Cash</span>
                                                         </td>
                                                         <td>
-                                                            <label for="">:<span style="color: black;">5000/=</span></label>
+                                                            <label for="" id="discountMinCashfStage">:<span
+                                                                    style="color: black;">5000/=</span></label>
                                                         </td>
-            
+
                                                     </tr>
                                                 </tbody>
                                             </table>
                                             </p>
                                             <p class="card-text fw-semibold">
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
+                                                <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#staticBackdropfStage"
                                                     class="btn btn-outline-success mb-1">Edit details</button><br>
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop1.2"
-                                                    class="btn btn-outline-warning mb-1">Show Customers</button>
-            
-            
+                                                <button type="button" data-bs-toggle="modal" id="showCustomerfStage"
+                                                    data-bs-target="#staticBackdropToCusfStage"
+                                                    class="btn btn-outline-warning mb-1" onclick="showCustomersfStage()">Show
+                                                    Customers</button>
+
                                                 <!-- Modal -->
-                                            <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
-                                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                                aria-hidden="true">
+                                            <div class="modal fade" id="staticBackdropfStage" data-bs-backdrop="static"
+                                                data-bs-keyboard="false" tabindex="-1"
+                                                aria-labelledby="staticBackdropfStageLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5 fw-bolder" id="staticBackdropLabel"
-                                                                style="color: rgb(0, 13, 255);">1st Stage Customer </h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                            <h1 class="modal-title fs-5 fw-bolder"
+                                                                id="staticBackdropfStageLabel" style="color: darkorange;">
+                                                                Premium
+                                                                Customer </h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="row mt-3">
                                                                 <div class="col">
                                                                     <div class="d-flex align-items-center">
-                                                                        <label for="" class="form-label me-4">Discount Rate</label>
-                                                                        <input type="text" class="form-control" id="">
+                                                                        <label for="" class="form-label me-4">Discount
+                                                                            Rate</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="customerDiscountRatefStage"
+                                                                            onchange="textValidation(customerDiscountRatefStage,'', 'fStageCusType', 'discount'); ">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col">
                                                                     <div class="d-flex align-items-center">
-                                                                        <label for="" class="form-label me-4">Buy Round</label>
-                                                                        <input type="text" class="form-control" id="">
+                                                                        <label for="" class="form-label me-4">Buy
+                                                                            Round</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="customerBuyRoundsfStage"
+                                                                            onchange="textValidation(customerBuyRoundsfStage,'', 'fStageCusType', 'buyrounds'); ">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-3">
                                                                 <div class="col-5">
                                                                     <div class="d-flex align-items-center">
-                                                                        <label for="" class="form-label me-5">Min Cash</label>
-                                                                        <input type="text" class="form-control" id="">
+                                                                        <label for="" class="form-label me-5">Min
+                                                                            Cash</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="customerMinCashfStage"
+                                                                            onchange="textValidation(customerMinCashfStage,'', 'fStageCusType', 'mincash'); ">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-            
+
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Submit</button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                onclick="submitCustypefStage()">Submit</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="modal fade" id="staticBackdrop1.2" data-bs-backdrop="static"
-                                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+
+
+                                           
+                                            <div class="modal fade" id="staticBackdropToCusfStage" tabindex="-1"
+                                                aria-labelledby="staticBackdropfStageLabel" aria-hidden="true">
+                                                <div
+                                                    class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5 fw-bolder" id="staticBackdropLabel"
-                                                                style="color: rgb(0, 13, 255);">1st Stage Customers </h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                            <h1 class="modal-title fs-5 fw-bolder"
+                                                                id="staticBackdropfStageLabel" style="color: darkorange;">
+                                                                1st Stage Customer </h1>
+                                                            <!-- <input type="radio" id="radioButton" name="modalTrigger"
+                                                                data-bs-toggle="modal" data-bs-target="#itemModel2"> -->
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-            
+                                                            <table class="table" id="customerDetailTablefStage">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">Customer Name</th>
+                                                                        <th scope="col">Phone</th>
+                                                                        <th scope="col">Buy Rounds</th>
+                                                                        <th scope="col">Buttons</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th scope="row">00001</th>
+                                                                        <td>Hirusha</td>
+                                                                        <td>0776556678</td>
+                                                                        <td>10</td>
+                                                                        <td>
+                                                                            <input type="radio" id="radioButton"
+                                                                                name="modalTrigger"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#itemModel">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                         
+                                                            <div class="collapse" id="collapseItemDetailsfStage">
+                                                                <div class="card card-body">
+                                                                    <table class="table" id="collapseItemDetailsTablefStage">
+                                                                        <thead>
+                                                                            <tr>
+
+                                                                                <th scope="col">#</th>
+                                                                                <th scope="col">Serial No</th>
+                                                                                <th scope="col">Item Name</th>
+                                                                                <th scope="col">Buttons</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                           
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
                                                         </div>
-            
+
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Submit</button>
+                                                            <button type="button"
+                                                                class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             </p>
-            
-            
-            
+                                        
+
                                         </div>
                                     </div>
                                     <!-- </div> -->
+
                                 </div>
-                                <!-- 2nd stage customer end -->
-                                <div class="col-4">
+                                <!-- 1st stage customer end -->
+                                 <!-- 2nd stage customer start -->
+                                 <div class="col-4 ">
                                     <!-- <div class="row d-flex justify-content-end align-items-center"> -->
-                                    <div class="card" style="width: 18rem;">
+                                    <div class="card" style="width: 18rem;" id="customerCard">
                                         <div class="card-body">
-                                            <h5 class="card-title fw-bolder" style="color: rgb(30, 86, 16);">2nd Stage Customer</h5>
+                                            <h5 class="card-title fw-bolder" style="color: darkorange;">2nd Stage Customer
+                                            </h5>
                                             <hr style="height: 2px; background-color: black;">
-                                            <h6 class="card-subtitle mb-2 mt-2 ms-2 text-body-secondary fw-semibold"><span
-                                                    style="color: red;">40 </span>Customers</h6>
+                                            <h6 class="card-subtitle mb-2 mt-2 ms-2 text-body-secondary fw-semibold">
+                                                <span class="me-1" style="color: red;" id="customerCountsStage">23
+                                                </span>Customers
+                                            </h6>
                                             <p class="card-text fw-semibold">
-            
+
                                             <table class="table">
-            
+
                                                 <tbody>
                                                     <tr>
                                                         <td>
                                                             <span style="color: green;">Discount</span>
                                                         </td>
                                                         <td>
-                                                            <label for="">:<span style="color: black;">30%</span></label>
+                                                            <label for="" id="discountLabelsStage">:<span
+                                                                    style="color: black;">30%</span></label>
                                                         </td>
-            
+
                                                     </tr>
                                                     <tr>
-            
+
                                                         <td>
                                                             <span style="color: green;">Buy Rounds</span>
                                                         </td>
                                                         <td>
-                                                            <label for="">:<span style="color: black;">12</span></label>
+                                                            <label for="" id="discountRoundssStage">:<span
+                                                                    style="color: black;">12</span></label>
                                                         </td>
-            
+
                                                     </tr>
                                                     <tr>
-            
+
                                                         <td>
                                                             <span style="color: green;">Min Cash</span>
                                                         </td>
                                                         <td>
-                                                            <label for="">:<span style="color: black;">5000/=</span></label>
+                                                            <label for="" id="discountMinCashsStage">:<span
+                                                                    style="color: black;">5000/=</span></label>
                                                         </td>
-            
+
                                                     </tr>
                                                 </tbody>
                                             </table>
                                             </p>
                                             <p class="card-text fw-semibold">
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
+                                                <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#staticBackdropsStage"
                                                     class="btn btn-outline-success mb-1">Edit details</button><br>
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2.2"
-                                                    class="btn btn-outline-warning mb-1">Show Customers</button>
-            
-            
+                                                <button type="button" data-bs-toggle="modal" id="showCustomersStage"
+                                                    data-bs-target="#staticBackdropToCussStage"
+                                                    class="btn btn-outline-warning mb-1" onclick="showCustomerssStage()">Show
+                                                    Customers</button>
+
                                                 <!-- Modal -->
-                                            <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static"
-                                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                                aria-hidden="true">
+                                            <div class="modal fade" id="staticBackdropsStage" data-bs-backdrop="static"
+                                                data-bs-keyboard="false" tabindex="-1"
+                                                aria-labelledby="staticBackdropsStageLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5 fw-bolder" id="staticBackdropLabel"
-                                                                style="color: rgb(14, 62, 6);">2nd Stage Customer</h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                            <h1 class="modal-title fs-5 fw-bolder"
+                                                                id="staticBackdropsStageLabel" style="color: darkorange;">
+                                                                Premium
+                                                                Customer </h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="row mt-3">
                                                                 <div class="col">
                                                                     <div class="d-flex align-items-center">
-                                                                        <label for="" class="form-label me-4">Discount Rate</label>
-                                                                        <input type="text" class="form-control" id="">
+                                                                        <label for="" class="form-label me-4">Discount
+                                                                            Rate</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="customerDiscountRatesStage"
+                                                                            onchange="textValidation(customerDiscountRatesStage,'', 'sStageCusType', 'discount'); ">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col">
                                                                     <div class="d-flex align-items-center">
-                                                                        <label for="" class="form-label me-4">Buy Round</label>
-                                                                        <input type="text" class="form-control" id="">
+                                                                        <label for="" class="form-label me-4">Buy
+                                                                            Round</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="customerBuyRoundssStage"
+                                                                            onchange="textValidation(customerBuyRoundssStage,'', 'sStageCusType', 'buyrounds'); ">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-3">
                                                                 <div class="col-5">
                                                                     <div class="d-flex align-items-center">
-                                                                        <label for="" class="form-label me-5">Min Cash</label>
-                                                                        <input type="text" class="form-control" id="">
+                                                                        <label for="" class="form-label me-5">Min
+                                                                            Cash</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="customerMinCashsStage"
+                                                                            onchange="textValidation(customerMinCashsStage,'', 'sStageCusType', 'mincash'); ">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-            
+
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Submit</button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                onclick="submitCustypesStage()">Submit</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="modal fade" id="staticBackdrop2.2" data-bs-backdrop="static"
-                                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+
+
+                                           
+                                            <div class="modal fade" id="staticBackdropToCussStage" tabindex="-1"
+                                                aria-labelledby="staticBackdropsStageLabel" aria-hidden="true">
+                                                <div
+                                                    class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5 fw-bolder" id="staticBackdropLabel"
-                                                                style="color: rgb(14, 62, 6);">2nd Stage Customer</h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                            <h1 class="modal-title fs-5 fw-bolder"
+                                                                id="staticBackdropsStageLabel" style="color: darkorange;">
+                                                                1st Stage Customer </h1>
+                                                            <!-- <input type="radio" id="radioButton" name="modalTrigger"
+                                                                data-bs-toggle="modal" data-bs-target="#itemModel2"> -->
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-            
+                                                            <table class="table" id="customerDetailTablesStage">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">Customer Name</th>
+                                                                        <th scope="col">Phone</th>
+                                                                        <th scope="col">Buy Rounds</th>
+                                                                        <th scope="col">Buttons</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th scope="row">00001</th>
+                                                                        <td>Hirusha</td>
+                                                                        <td>0776556678</td>
+                                                                        <td>10</td>
+                                                                        <td>
+                                                                            <input type="radio" id="radioButton"
+                                                                                name="modalTrigger"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#itemModel">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                         
+                                                            <div class="collapse" id="collapseItemDetailssStage">
+                                                                <div class="card card-body">
+                                                                    <table class="table" id="collapseItemDetailsTablesStage">
+                                                                        <thead>
+                                                                            <tr>
+
+                                                                                <th scope="col">#</th>
+                                                                                <th scope="col">Serial No</th>
+                                                                                <th scope="col">Item Name</th>
+                                                                                <th scope="col">Buttons</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                           
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
                                                         </div>
-            
+
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Submit</button>
+                                                            <button type="button"
+                                                                class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             </p>
-            
-            
-            
+                                        
+
                                         </div>
                                     </div>
                                     <!-- </div> -->
+
                                 </div>
+                                 <!-- 2nd stage customer end -->
                             </div>
                             <!-- customer type end -->
-            
+
                             <div class="row p-3 fw-semibold" style="color: green;">
                                 Customer Details
                             </div>
-            
+
                             <!-- purchase order start -->
-                            <table class="table">
+                            <table class="table" id="customerDetailsId">
                                 <thead>
                                     <tr>
                                         <th scope="col">Customer Id</th>
@@ -550,6 +837,7 @@
                                         <th scope="col">Phone</th>
                                         <th scope="col">Customer Type</th>
                                         <th scope="col">Cash On Delivery/Cash</th>
+                                        <th scope="col">Button</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -559,13 +847,13 @@
                                         <td>0775645567</td>
                                         <td>Premium</td>
                                         <td>Online</td>
-                                       
-            
-            
+
+
+
                                 </tbody>
                             </table>
                             <!-- purchase order end -->
-            
+
                             <!-- add more details modal start-->
                             <button onclick="document.getElementById('moreSpecModal').style.display='block'"
                                 class="w3-button w3-green">
@@ -600,7 +888,8 @@
                                             </tr>
                                             <tr>
                                                 <td>Security</td>
-                                                <td>AES 256-bit Full Disk Encryption, TCG/Opal V2.0, Encrypted Drive (IEEE1667)
+                                                <td>AES 256-bit Full Disk Encryption, TCG/Opal V2.0, Encrypted Drive
+                                                    (IEEE1667)
                                                 </td>
                                                 <td>No</td>
                                             </tr>
@@ -611,26 +900,26 @@
                                             style="display: flex; flex-direction: row; gap:10px;">
                                             <button class="col-3 btn btn-warning">UPDATE</button>
                                             <button class="col-3 btn btn-primary">ADD</button>
-            
+
                                         </div>
                                     </footer>
                                 </div>
                             </div>
                             <!-- add more details modal end-->
-            
-            
+
+
                             <!-- button gruop start -->
                             <div class="row p-2 d-flex justify-content-end align-items-center"
                                 style="display: flex; flex-direction: row; gap:10px;">
                                 <button class="col-3 btn btn-warning" disabled>UPDATE</button>
                                 <button class="col-3 btn btn-primary" disabled>ADD</button>
-            
+
                             </div>
                             <!-- button gruop end -->
-            
-            
+
+
                         </form>
-                        
+
                         <!-- Supplier form end -->
                     </div>
 

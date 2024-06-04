@@ -134,7 +134,8 @@ public class GrnController {
                 System.out.println(itemcount);
                 String catname = "jeewacomputersproject." + category.getName().toLowerCase().replaceAll(" ", "");
                 System.out.println(catname);
-                
+
+
                 // Integer qty = dao.getQty(catname,grnHasCategory.getItemname());
                 // System.out.println(qty);
                 
@@ -150,6 +151,7 @@ public class GrnController {
                             newSerials.setCategory_id(grnHasCategory.getCategory_id());
                             newSerials.setItemcode(grnHasCategory.getItemcode());
                             newSerials.setItemname(grnHasCategory.getItemname());
+                            
                             newSerials.setGrn_has_category_id(grnHasCategory);// Set the reference
                             barcodeGenerator.generateQRCodee(newSerials);
     

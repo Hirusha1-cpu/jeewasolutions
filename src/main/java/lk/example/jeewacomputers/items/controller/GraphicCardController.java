@@ -48,6 +48,12 @@ public class GraphicCardController {
         return dao.getReorderPoint(name);
     }
 
+    @GetMapping(value = "/graphiccard/getselratio/{name}", produces = "application/json")
+    public Integer findSellRatio(@PathVariable("name") String name) {
+        // login user authentication and authorization
+        return dao.getSellRatio(name);
+    }
+
     @RequestMapping(value = "/graphiccard")
     public ModelAndView employeeUI() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

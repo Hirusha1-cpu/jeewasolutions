@@ -10,7 +10,60 @@ document.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener('load', () => {
   refreshRepairForm();
+  refreshRepairTable()
 })
+const refreshRepairTable = () =>{
+  const repairDetails = ajaxGetRequest("/repair/getlist")
+  // <th scope="col">#</th>
+  // <th scope="col">Repair No</th>
+  // <th scope="col">Itemname</th>
+  // <th scope="col">Repair Status</th>
+  // <th scope="col">Customer</th>
+  // <th scope="col">Complete Status</th>
+  // <th scope="col">Paid Status</th>
+  // <th scope="col">Button</th>
+
+  // console.log(customerDetailsbytypefStage);
+  const displayProperties = [
+      { property: 'repairno', dataType: 'string' },
+      { property: getItemRepairName, dataType: 'function' },
+      { property: getItemRepairStatus, dataType: 'function' },
+      { property: getItemRepairCustomer, dataType: 'function' },
+      { property: 'repairstatus', dataType: 'string' },
+      { property: getItemRepairPaidStatus, dataType: 'function' }
+  ]
+  fillDataIntoTable(repairTab, repairDetails, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn,  true)
+
+}
+
+const getItemRepairName = (rowObject) =>{
+  return rowObject?.duetoRepair?.itemname ? rowObject.duetoRepair.itemname : "-";
+}
+const getItemRepairStatus = (rowObject) =>{
+  return rowObject?.duetoRepair?.statusofrepair ? rowObject.duetoRepair.statusofrepair : "-";
+}
+const getItemRepairCustomer = (rowObject) =>{
+  return rowObject?.customer_id?.name ? rowObject.customer_id.name : "-";
+}
+const getItemRepairPaidStatus = (rowObject) =>{
+  if (rowObject?.incomePayments?.payment) {
+    return  "Paid";
+    
+  }else{
+    return  "No Paid";
+  }
+}
+
+const editEmployeeBtn = (rowObject) => {
+  console.log("clicked purchase order");
+}
+const updateEmployeeBtn = (rowObject) => {
+  console.log("clicked delete purchase order");
+}
+const deleteEmployeeBtn = (rowObject) => {
+  console.log("clicked send purchase order");
+}
+
 
 const refreshRepairForm = () => {
   repairUpdate = new Object();

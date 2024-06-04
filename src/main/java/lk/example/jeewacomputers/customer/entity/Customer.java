@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,4 +46,6 @@ public class Customer {
     @ManyToOne(optional = true)
     @JoinColumn(name="customertype_id", referencedColumnName = "id")
     private CustomerType customerType;
+
+   
 }

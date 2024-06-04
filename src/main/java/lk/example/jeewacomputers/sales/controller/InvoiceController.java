@@ -101,6 +101,7 @@ public class InvoiceController {
                 Customer existingcs1 = customerdao.getCustomerByPhone(invoice.getCustomer_id().getPhone());
 
                 existingcs1.setBuyrounds(1);
+                existingcs1.setCustomerType(customerdao.getNormalBuyRounds());
                 invoice.setCustomer_id(existingcs1);
 
             } else {
@@ -108,6 +109,15 @@ public class InvoiceController {
                 // customerdao.getCustomerByPhone(invoice.getCustomer_id().getPhone());
 
                 existingcs.setBuyrounds(existingcs.getBuyrounds() + 1);
+                if ((existingcs.getBuyrounds()+1)> customerdao.getPremiumBuyRounds().getBuyrounds()) {
+                    existingcs.setCustomerType(customerdao.getPremiumBuyRounds());
+                }else if((existingcs.getBuyrounds()+1)> customerdao.getFirstStageBuyRounds().getBuyrounds()){
+                    existingcs.setCustomerType(customerdao.getPremiumBuyRounds());
+                }else if((existingcs.getBuyrounds()+1)> customerdao.getSecondStageBuyRounds().getBuyrounds()){
+                    existingcs.setCustomerType(customerdao.getPremiumBuyRounds());
+                }else{
+                    existingcs.setCustomerType(customerdao.getNormalBuyRounds());
+                }
                 customerdao.save(existingcs);
                 invoice.setCustomer_id(existingcs);
 

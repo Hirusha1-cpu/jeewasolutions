@@ -85,14 +85,13 @@
                                             </div>
                                         </div>
 
-         
+
                                         <div class="row mt-3">
                                             <div class="col-2">Status Of repair</div>
                                             <div class="col-3">
                                                 <select class="form-select" id="warrentyStatus"
                                                     aria-label="Default select example"
-                                                    onchange="selectFieldValidation(warrentyStatus,'', 'warrentyItem', 'statusofrepair');"
-                                                    >
+                                                    onchange="selectFieldValidation(warrentyStatus,'', 'warrentyItem', 'statusofrepair');">
                                                     <option value="shop item">Shop Item</option>
                                                     <option value="non shop item">Non Shop Item</option>
                                                     <option value="urgent repair">Urgent Repair</option>
@@ -123,75 +122,75 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        </div>
 
-                                        <div class="row mt-3">
-                                            <div class="mr-1">
-                                                <button class="btn btn-warning" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseItemsWarrenty" aria-expanded="false"
-                                                    aria-controls="collapseItemsWarrenty">
-                                                    Warrenty
-                                                </button>
-                                                <div class="collapse mt-3" id="collapseItemsWarrenty">
-                                                    <div class="card card-body">
-                                                        <form class=" ">
+                                    </div>
 
-                                                            <div
-                                                                class="row  d-flex justify-content-center align-items-center ">
-                                                                <div class="col-6 form-floating  p-1">
-                                                                    <input type="text" class="form-control"
-                                                                        id="inputItemRepName">
-                                                                    <label for="inputItemRepName" class="pl-2">Item
-                                                                        Name</label>
-                                                                </div>
-                                                                <div class="col-6 form-floating  p-1">
-                                                                    <input type="date" class="form-control"
-                                                                        id="inputWarrentyItemStart">
-                                                                    <label for="inputWarrentyItemStart">Warrenty Start
-                                                                        Date</label>
-                                                                </div>
+                                    <div class="row mt-3">
+                                        <div class="mr-1">
+                                            <button class="btn btn-warning" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseItemsWarrenty" aria-expanded="false"
+                                                aria-controls="collapseItemsWarrenty">
+                                                Warrenty
+                                            </button>
+                                            <div class="collapse mt-3" id="collapseItemsWarrenty">
+                                                <div class="card card-body">
+                                                    <form class=" ">
 
+                                                        <div
+                                                            class="row  d-flex justify-content-center align-items-center ">
+                                                            <div class="col-6 form-floating  p-1">
+                                                                <input type="text" class="form-control"
+                                                                    id="inputItemRepName">
+                                                                <label for="inputItemRepName" class="pl-2">Item
+                                                                    Name</label>
                                                             </div>
-                                                            <div
-                                                                class="row d-flex justify-content-center align-items-center ">
-
-
-                                                                <div class="col-6 form-floating p-1">
-                                                                    <input type="text" class="form-control"
-                                                                        id="inputWarrentyItemPeriod">
-                                                                    <label for="inputWarrentyItemPeriod">Warrenty
-                                                                        Period</label>
-                                                                </div>
-                                                                <div class="col-6 form-floating p-1">
-                                                                    <input type="text" class="form-control"
-                                                                        id="inputWarrentyItemEnd">
-                                                                    <label for="inputWarrentyItemEnd">Warrenty Ending
-                                                                        Date</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-
-                                                                <label for="" class="fw-bolder">To Be Expire On <span
-                                                                        style="color: red;">2023-09-08</span></label>
-
+                                                            <div class="col-6 form-floating  p-1">
+                                                                <input type="date" class="form-control"
+                                                                    id="inputWarrentyItemStart">
+                                                                <label for="inputWarrentyItemStart">Warrenty Start
+                                                                    Date</label>
                                                             </div>
 
+                                                        </div>
+                                                        <div
+                                                            class="row d-flex justify-content-center align-items-center ">
 
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class=" form-floating p-1">
-                                                        <button class="btn btn-success">Return Company</button>
-                                                        <button class="btn btn-danger" style="color: white;"
-                                                            onclick="readyRepair()">Ready Repair</button>
-                                                    </div>
 
+                                                            <div class="col-6 form-floating p-1">
+                                                                <input type="text" class="form-control"
+                                                                    id="inputWarrentyItemPeriod">
+                                                                <label for="inputWarrentyItemPeriod">Warrenty
+                                                                    Period</label>
+                                                            </div>
+                                                            <div class="col-6 form-floating p-1">
+                                                                <input type="text" class="form-control"
+                                                                    id="inputWarrentyItemEnd">
+                                                                <label for="inputWarrentyItemEnd">Warrenty Ending
+                                                                    Date</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+
+                                                            <label for="" class="fw-bolder">To Be Expire On <span
+                                                                    style="color: red;">2023-09-08</span></label>
+
+                                                        </div>
+
+
+                                                    </form>
                                                 </div>
                                             </div>
+                                            <div class="row mt-2">
+                                                <div class=" form-floating p-1">
+                                                    <button class="btn btn-success">Return Company</button>
+                                                    <button class="btn btn-danger" style="color: white;"
+                                                        onclick="readyRepair()">Ready Repair</button>
+                                                </div>
 
+                                            </div>
                                         </div>
+
+                                    </div>
                                 </form>
                             </div>
                             <div class="col-6">
@@ -340,6 +339,20 @@
                                                     onchange="textValidation(invoiceUnitPrice,'', 'itemTableDetail', 'unitprice'); ">
                                             </div>
                                         </div>
+
+                                        <div class="row py-1 p-2 mt-1 d-flex justify-content-start align-items-center ">
+                                            <div class="col-4 form-floating p-1">
+                                                <input type="text" class="form-control" id="inputCustomerName"
+                                                    placeholder=""  oninput="textValidation(inputCustomerName,'', 'customer_id', 'name'); checkdiscount(this.value);"
+                                                   >
+                                                <label for="inputCustomerName" class="pl-2">Customer Name</label>
+                                            </div>
+                                            <div class="col-4 form-floating p-1">
+                                                <input type="text" class="form-control" id="inputCustomerContact"
+                                                    placeholder="" oninput="textValidation(inputCustomerContact,'', 'customer_id', 'phone'); ">
+                                                <label for="inputCustomerContact">Phone</label>
+                                            </div>
+                                        </div>
                                         <div class="row mt-3">
                                             <div class="mr-1">
                                                 <button class="btn btn-warning" type="button" data-bs-toggle="collapse"
@@ -350,23 +363,6 @@
                                                 <div class="collapse mt-3" id="collapseItemWarrenty">
                                                     <div class="card card-body">
                                                         <form class=" ">
-                                                            <div
-                                                                class="row mt-3 d-flex justify-content-center align-items-center ">
-                                                                <div class="col-6 form-floating  p-1">
-                                                                    <input type="text" class="form-control"
-                                                                        id="inputCustomerName"
-                                                                        oninput="textValidation(inputCustomerName,'', 'customer_id', 'name'); ">
-                                                                    <label for="inputCustomerName" class="pl-2">Customer
-                                                                        Name</label>
-                                                                </div>
-                                                                <div class="col-6 form-floating  p-1">
-                                                                    <input type="text" class="form-control"
-                                                                        id="inputCustomerContact"
-                                                                        oninput="textValidation(inputCustomerContact,'', 'customer_id', 'phone'); ">
-                                                                    <label for="inputCustomerContact">Customer Contact
-                                                                        No:</label>
-                                                                </div>
-                                                            </div>
                                                             <div
                                                                 class="row  d-flex justify-content-center align-items-center ">
                                                                 <div class="col-6 form-floating  p-1">
@@ -479,11 +475,9 @@
                                                 </div>
                                             </div>
                                             <div class="col-4">
-                                                <select class="form-select" id="customer" disabled
-                                                    aria-label="Default select example">
-                                                    <option selected>Select Customer</option>
-                                                    <option value="1">Ravina</option>
-                                                    <option value="2">Ravina</option>
+                                                <select class="form-select" id="customerDiscount" disabled
+                                                    aria-label="Default select example" onchange="checkdiscount(JSON.parse(this.value))">
+    
                                                 </select>
                                             </div>
 
@@ -583,14 +577,21 @@
                                             </div>
                                         </div> -->
                                         <div class="row mt-2">
+                                            <div class="col-2 mt-1">Discounted Price</div>
+                                            <div class="col-3">
+                                                <input type="text" class="form-control" id="invoiceDiscountedPrice"
+                                                    placeholder="Rs." >
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
                                             <div class="col-2 mt-1">Payment Method</div>
                                             <div class="col-3">
                                                 <select class="form-select" id="paymentMethod"
                                                     aria-label="Default select example"
                                                     onchange="selectDFieldValidation(paymentMethod,'', 'invoice', 'paymentmethod'); ">
                                                     <option selected>Payment Method</option>
-                                                    <option value="1">Card</option>
-                                                    <option value="2">Cash</option>
+                                                    <option value="Card">Card</option>
+                                                    <option value="Cash">Cash</option>
                                                 </select>
                                             </div>
                                             <div class="col-4">

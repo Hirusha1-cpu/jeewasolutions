@@ -27,5 +27,10 @@ public class SerialNoController {
         return serialNoDao.getOnlySerialNo();
     }
 
+    @GetMapping(value = "/serialno/getitemsbycusname/{name}",produces = "application/json")
+    public SerialNo getItemsByCusName(@PathVariable("name") String name) {
+        return serialNoDao.getItemsByCusName(name);
+    }
+
 
 }

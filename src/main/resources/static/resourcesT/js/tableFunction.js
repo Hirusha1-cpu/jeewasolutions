@@ -54,8 +54,6 @@ const fillDataIntoTable = (tableId, dataList, propertyList, editButtonFunction, 
         btnEdit.onclick = () => {
             console.log('edit', item.id, index);
             editButtonFunction(item, index)
-
-
         }
 
         const btnDelete = document.createElement('button');

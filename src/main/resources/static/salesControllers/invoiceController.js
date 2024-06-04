@@ -55,6 +55,54 @@ const refreshInvoiceForm = () => {
     collapseInvoiceElement.setAttribute("aria-expanded", "true");
 
 }
+const checkdiscount = async (discountname) => {
+    // const discountname = inputCustomerName.value;
+    console.log(discountname);
+    // Initially disable the input field
+    discountCusRate.disabled = true;
+
+    try {
+        // Make an asynchronous GET request
+        const serverresponseof_discount = await ajaxGetRequest(`/customer/getdiscount/${discountname.name}`);
+
+        console.log(serverresponseof_discount);
+
+        // If the response is null or undefined, keep the input field disabled and set its value to "-"
+        if (!serverresponseof_discount) {
+            discountCusRate.disabled = true;
+            discountCusRate.value = "-";
+            invoiceDiscountedPrice.disabled = false
+        } else {
+            // Enable the input field and set its value
+            discountCusRate.disabled = false;
+            discountCusRate.value = serverresponseof_discount.discount || "-";
+            discountCusPhone.disabled = false
+            discountCusPhone.value = discountname.phone
+            invoiceDiscountedPrice.value = invoiceTotalPrice.value * discountCusRate.value
+        }
+    } catch (error) {
+        console.error("Error fetching discount:", error);
+        // In case of an error, keep the input field disabled and set its value to "-"
+        discountCusRate.disabled = true;
+        discountCusRate.value = "-";
+    }
+};
+
+// const checkdiscount = () =>{
+//     discountname = inputCustomerName.value
+//     discountCusRate.disabled = true
+//     const serverresponseof_discount = ajaxGetRequest(`/customer/getdiscount/${discountname}`)
+//     console.log(serverresponseof_discount);
+//     console.log(serverresponseof_discount);
+//     if (serverresponseof_discount === null) {
+//         discountCusRate.disabled = true
+//         discountCusRate.value = "-"
+//     }else{
+        
+//         discountCusRate.disabled = false
+//         discountCusRate.value = serverresponseof_discount.discount
+//     }
+// }
 const getItemDetails = () => {
     serialObject = JSON.parse(invoiceSerialId.value)
     console.log(serialObject);
@@ -132,16 +180,21 @@ const addToTable = () => {
 const selectCustomerType = () => {
 
     const selectedValue = discountCategorySelect.value;
-    // Do something with the selectedValue variable here
-    console.log("Selected discount type:", selectedValue);
-    if (selectedValue == 2) {
+    if (selectedValue == 1) {
+        customerDiscount.disabled = false
+        const customers = ajaxGetRequest("/customer/getlist")
+        fillDataIntoSelect(customerDiscount,"Select Customer",customers,"name")
+        
+    }else if(selectedValue == 2){
         discountCusRate.disabled = false;
         discountCusPhone.disabled = true;
-        // invoice.discountrate = discountCusRate.value
     }
+    
+    
 }
 const calculateBalance = () => {
-    invoice.total = invoiceTotalPrice.value
+    // invoice.total = invoiceTotalPrice.value
+    invoice.total = invoiceDiscountedPrice.value
     invoice.customerpaidamount = invoiceCustomerPayment.value
     invoice.balance = invoice.customerpaidamount - invoice.total
     invoiceBalance.value = invoice.balance

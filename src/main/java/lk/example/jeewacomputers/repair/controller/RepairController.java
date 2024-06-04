@@ -63,20 +63,46 @@ public class RepairController {
     public String save(@RequestBody Repair repair) {
 
         try {
+  
             Customer newCustomer = new Customer();
             newCustomer.setName(repair.getCustomer_id().getName());
             newCustomer.setPhone(repair.getCustomer_id().getPhone());
-            customerdao.save(newCustomer);
-            Customer existingcs = customerdao.getCustomerByPhone(repair.getCustomer_id().getPhone());
-            repair.setCustomer_id(existingcs);
-       
-            for (UsedItems usedItems : repair.getUsedItems()) {
-                // purchaseHasCategory.setPurchase_id(purchase);
-                usedItems.setRepair_id(repair);
+            Customer existingc = customerdao.getCustomerByPhone(repair.getCustomer_id().getPhone());
+            if (existingc == null) {
+                customerdao.save(newCustomer);
+                Customer existingcs = customerdao.getCustomerByPhone(repair.getCustomer_id().getPhone());
+                existingcs.setRepairs(1);
+                existingcs.setCustomerType(customerdao.getNormalBuyRounds());
+                repair.setCustomer_id(existingcs);           
             }
+            else{
+                System.out.println(repair.getCustomer_id().getPhone());
+                if (existingc.getRepairs() == null) {
+                    existingc.setRepairs(1);
+                    existingc.setCustomerType(customerdao.getNormalBuyRounds());
+                }else{
+                    existingc.setRepairs(existingc.getRepairs()+1);
+                    if ((existingc.getRepairs()+1)> customerdao.getPremiumBuyRounds().getBuyrounds()) {
+                        existingc.setCustomerType(customerdao.getPremiumBuyRounds());
+                    }else if((existingc.getRepairs()+1)> customerdao.getFirstStageBuyRounds().getBuyrounds()){
+                        existingc.setCustomerType(customerdao.getPremiumBuyRounds());
+                    }else if((existingc.getRepairs()+1)> customerdao.getSecondStageBuyRounds().getBuyrounds()){
+                        existingc.setCustomerType(customerdao.getPremiumBuyRounds());
+                    }else{
+                        existingc.setCustomerType(customerdao.getNormalBuyRounds());
+                    }
+                }
+                customerdao.save(existingc);
+                repair.setCustomer_id(existingc);
+            }
+
             for (DuetoRepair duetoRepair : repair.getDuetoRepair()) {
                 // purchaseHasCategory.setPurchase_id(purchase);
                 duetoRepair.setRepair_id(repair);
+            }
+            for (UsedItems usedItems : repair.getUsedItems()) {
+                // purchaseHasCategory.setPurchase_id(purchase);
+                usedItems.setRepair_id(repair);
             }
             IncomePayment existingIncomePayment = repair.getIncomePayments();
             if (existingIncomePayment != null) {
