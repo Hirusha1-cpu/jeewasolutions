@@ -95,6 +95,9 @@ public class GraphicCard {
     @Column(name = "reorder_point")
     private Integer reorder_point;
 
+    @Column(name = "qty")
+    private Integer qty;
+
      @ManyToOne
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
     private Brand brand_id ;

@@ -39,7 +39,20 @@ public class GraphicCardController {
     @GetMapping(value = "/graphiccard/getlist", produces = "application/json")
     public List<GraphicCard> findAll() {
         // login user authentication and authorization
+        // findQtyByName();
         return dao.findAll(Sort.by(Direction.DESC, "id"));
+    }
+
+    @GetMapping(value = "/graphiccard/getqty", produces = "application/json")
+    public String findQtyByName() {
+        List<GraphicCard> graphicCards =  findAll();
+        for (GraphicCard graphicCard : graphicCards) {
+           Integer qty = dao.getQtyFromName(graphicCard.getName());
+           System.out.println(qty);
+           graphicCard.setQty(qty);
+           dao.save(graphicCard);
+        }
+        return "OK";
     }
 
     @GetMapping(value = "/graphiccard/getreorderppoint/{name}", produces = "application/json")
@@ -84,6 +97,7 @@ public class GraphicCardController {
         }
 
     }
+
 
 
 }

@@ -4,6 +4,10 @@
 <head th:replace="~{ layouts/head :: headFragment}">
 
 </head>
+<head th:replace="~{ layouts/head :: headDashboardFragment}">
+
+</head>
+
 
 <body>
     <div class="wrapper">
@@ -20,6 +24,13 @@
             <main class="content px-3 py-2 w3-container">
                 <div class="d-flex mb-3 justify-content-center align-items-center" style="background-color: aqua;">
                     <h3>DashBoard</h3>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <canvas id="myChart"></canvas>
+
+                    </div>
+
                 </div>
             </main>
             <!-- main component end -->

@@ -58,6 +58,7 @@ const refreshInvoiceForm = () => {
 const checkdiscount = async (discountname) => {
     // const discountname = inputCustomerName.value;
     console.log(discountname);
+    invoice.customer_id = discountname
     // Initially disable the input field
     discountCusRate.disabled = true;
 
@@ -116,6 +117,7 @@ const getItemDetails = () => {
     // categoryName = itemsDetails1.category_id.name
     const categoryname1 = (serialObject.category_id.name).replace(/\s/g, '').toLowerCase()
     categoriesItems1 = ajaxGetRequest(`/${categoryname1}/getlist`, categoryname1)
+    // ajaxGetRequest(`/${categoryname1}/getqty`, categoryname1)
     console.log(categoriesItems1);
 
     const filteredData = filterByName(serialObject.itemname, categoriesItems1);
@@ -184,6 +186,7 @@ const selectCustomerType = () => {
         customerDiscount.disabled = false
         const customers = ajaxGetRequest("/customer/getlist")
         fillDataIntoSelect(customerDiscount,"Select Customer",customers,"name")
+
         
     }else if(selectedValue == 2){
         discountCusRate.disabled = false;
@@ -266,6 +269,8 @@ const submitInvoice = () => {
     invoice.incomePayments = incomePaymentsObj
 
     let serverResponse11 = ajaxRequestBodyMethod("/invoice", "POST", invoice);
+    // const categoryname1 = (serialObject.category_id.name).replace(/\s/g, '').toLowerCase()
+    // ajaxGetRequest(`/${categoryname1}/getqty`, categoryname1)
     console.log("serverResponse", serverResponse11);
 }
 

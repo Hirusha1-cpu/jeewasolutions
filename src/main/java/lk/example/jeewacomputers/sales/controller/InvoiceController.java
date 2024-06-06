@@ -50,8 +50,7 @@ public class InvoiceController {
     // @Autowired
     // private SalesHasSerial salesHasSerial;
 
-    // @Autowired
-    // private SerialNo serialNo;
+    private SerialNo serialNo;
 
     @RequestMapping(value = "/invoice")
     public ModelAndView invoiceUI() {
@@ -69,11 +68,17 @@ public class InvoiceController {
         // login user authentication and authorization
         return invoiceDao.findAll(Sort.by(Direction.DESC, "id"));
     }
+  
 
     @GetMapping(value = "/invoice/getlist/{serialno}", produces = "application/json")
     public SerialNo findItemAll(@PathVariable("serialno") String serialno) {
         // login user authentication and authorization
         return invoiceDao.getItemBySerialNo(serialno);
+    }
+    @GetMapping(value = "/invoice/getlisted/{id}", produces = "application/json")
+    public Invoice findItemAlls(@PathVariable("id") Integer id) {
+        // login user authentication and authorization
+        return invoiceDao.getReferenceById(id);
     }
 
     @GetMapping(value = "/invoice/getcustomer/{serialno}", produces = "application/json")
@@ -87,28 +92,30 @@ public class InvoiceController {
     public String save(@RequestBody Invoice invoice) {
 
         try {
-            System.out.println(invoice);
             invoice.setInvoiceno("11111");
-
+            
             Customer newCustomer = new Customer();
             newCustomer.setName(invoice.getCustomer_id().getName());
             newCustomer.setPhone(invoice.getCustomer_id().getPhone());
             // customerdao.save(newCustomer);
             Customer existingcs = customerdao.getCustomerByPhone(invoice.getCustomer_id().getPhone());
+            System.out.println(invoice);
             
             if (existingcs == null) {
+                System.out.println("executed");
                 customerdao.save(newCustomer);
                 Customer existingcs1 = customerdao.getCustomerByPhone(invoice.getCustomer_id().getPhone());
 
                 existingcs1.setBuyrounds(1);
                 existingcs1.setCustomerType(customerdao.getNormalBuyRounds());
                 invoice.setCustomer_id(existingcs1);
-
+                System.out.println("executed-1");
             } else {
                 // Customer existingcs1 =
                 // customerdao.getCustomerByPhone(invoice.getCustomer_id().getPhone());
-
+                System.out.println("executed-2");
                 existingcs.setBuyrounds(existingcs.getBuyrounds() + 1);
+                existingcs.setCustomerType(null);
                 if ((existingcs.getBuyrounds()+1)> customerdao.getPremiumBuyRounds().getBuyrounds()) {
                     existingcs.setCustomerType(customerdao.getPremiumBuyRounds());
                 }else if((existingcs.getBuyrounds()+1)> customerdao.getFirstStageBuyRounds().getBuyrounds()){
@@ -120,6 +127,7 @@ public class InvoiceController {
                 }
                 customerdao.save(existingcs);
                 invoice.setCustomer_id(existingcs);
+                System.out.println("executed-3");
 
             }
 
@@ -133,10 +141,14 @@ public class InvoiceController {
             // incomePaymentDao.getInvoicenoByIncomePayment(invoice.getInvoiceno());
 
             if (invoice.getSalesHasSerials() != null) {
+                System.out.println("executed-4");
                 for (SalesHasSerial salesHasSerial : invoice.getSalesHasSerials()) {
                     salesHasSerial.setSales_id(invoice);
+                    salesHasSerial.getSerialno_id().setAvailability(false);
+                    // return "ok-1";
 
                 }
+                System.out.println("executed-5");
 
             } else {
                 System.out.println("No SalesHasSerial entries found for this invoice.");
@@ -144,7 +156,7 @@ public class InvoiceController {
             }
             IncomePayment existingIncomePayment = invoice.getIncomePayments();
             existingIncomePayment.setSales_id(invoice);
-            
+          
             invoiceDao.save(invoice);
 
             return "OK";

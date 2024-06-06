@@ -649,6 +649,10 @@ const addGrnMain = () => {
 
     const id = grnItems.id
     //metana kalin post krpu grn ekata update ekk wadinwa
+    // grnHasItems.category_id.name
+    const categoryname = (grnHasItems.category_id.name).replace(/\s/g, '').toLowerCase()
+    ajaxGetRequest(`/${categoryname}/getqty`, categoryname)
+
     let serverResponse1 = ajaxRequestBodyMethod(`/grn/${id}`, "PUT", grn); // meken put ekak call karnna
     console.log(serverResponse1);
 
