@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDate;
 
 import lk.example.jeewacomputers.customer.dao.CustomerDao;
 import lk.example.jeewacomputers.customer.entity.Customer;
 import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
-import lk.example.jeewacomputers.payment.dao.IncomePaymentDao;
 import lk.example.jeewacomputers.payment.entity.IncomePayment;
 import lk.example.jeewacomputers.sales.dao.InvoiceDao;
 import lk.example.jeewacomputers.sales.entity.Invoice;
@@ -33,24 +31,8 @@ public class InvoiceController {
     @Autowired
     private InvoiceDao invoiceDao;
 
-    // @Autowired
-    private Customer customer;
-
     @Autowired
     private CustomerDao customerdao;
-
-    // @Autowired
-    private IncomePayment incomePayment;
-
-    // @Autowired
-    private IncomePaymentDao incomePaymentDao;
-
-    // @Autowired
-    // private SerialNoDao serialNoDao;
-    // @Autowired
-    // private SalesHasSerial salesHasSerial;
-
-    private SerialNo serialNo;
 
     @RequestMapping(value = "/invoice")
     public ModelAndView invoiceUI() {
@@ -113,9 +95,10 @@ public class InvoiceController {
             } else {
                 // Customer existingcs1 =
                 // customerdao.getCustomerByPhone(invoice.getCustomer_id().getPhone());
+
                 System.out.println("executed-2");
                 existingcs.setBuyrounds(existingcs.getBuyrounds() + 1);
-                existingcs.setCustomerType(null);
+                    existingcs.setCustomerType(null);
                 if ((existingcs.getBuyrounds()+1)> customerdao.getPremiumBuyRounds().getBuyrounds()) {
                     existingcs.setCustomerType(customerdao.getPremiumBuyRounds());
                 }else if((existingcs.getBuyrounds()+1)> customerdao.getFirstStageBuyRounds().getBuyrounds()){
@@ -145,7 +128,6 @@ public class InvoiceController {
                 for (SalesHasSerial salesHasSerial : invoice.getSalesHasSerials()) {
                     salesHasSerial.setSales_id(invoice);
                     salesHasSerial.getSerialno_id().setAvailability(false);
-                    // return "ok-1";
 
                 }
                 System.out.println("executed-5");

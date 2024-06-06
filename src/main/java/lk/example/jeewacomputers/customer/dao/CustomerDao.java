@@ -16,20 +16,21 @@ public interface CustomerDao extends JpaRepository<Customer, Integer>{
     @Query(value = "SELECT * FROM jeewacomputersproject.customer where repairs > ?1", nativeQuery = true)
     public Customer getCustomerRepairs(Integer repairs);
 
-    @Query(value = "SELECT * FROM jeewacomputersproject.customertype where customertypes = 'premium'", nativeQuery = true)
+    @Query(value = "select ct FROM CustomerType ct where ct.customertypes = 'premium'")
     public CustomerType getPremiumBuyRounds();
 
-    @Query(value = "SELECT * FROM jeewacomputersproject.customertype where customertypes = '1st stage'", nativeQuery = true)
+    @Query(value = "select ct FROM CustomerType ct where ct.customertypes = '1st stage'")
     public CustomerType getFirstStageBuyRounds();
 
-    @Query(value = "SELECT * FROM jeewacomputersproject.customertype where customertypes = '2nd stage'", nativeQuery = true)
+    @Query(value = "select ct FROM CustomerType ct where ct.customertypes = '2nd stage'")
     public CustomerType getSecondStageBuyRounds();
 
-    @Query(value = "SELECT * FROM jeewacomputersproject.customertype where customertypes = 'Normal'", nativeQuery = true)
+    // @Query(value = "SELECT * FROM jeewacomputersproject.customertype where customertypes = 'Normal'", nativeQuery = true)
+    // public CustomerType getNormalBuyRounds();
+
+    @Query(value = "select ct FROM CustomerType ct where ct.customertypes = 'Normal'")
     public CustomerType getNormalBuyRounds();
 
-    @Query(value = "SELECT * FROM jeewacomputersproject.customertype where customertypes = 'Normal'", nativeQuery = true)
-    public CustomerType getNormalBuyRounds1();
 
     // @Query(value = "SELECT ct.* FROM jeewacomputersproject.customertype ct INNER JOIN jeewacomputersproject.customer c ON ct.id = c.customertype_id WHERE c.name = ?1", nativeQuery = true)
     // @Query(value = "SELECT * FROM jeewacomputersproject.customertype where id in (SELECT customertype_id FROM jeewacomputersproject.customer where name =?1)", nativeQuery = true)
