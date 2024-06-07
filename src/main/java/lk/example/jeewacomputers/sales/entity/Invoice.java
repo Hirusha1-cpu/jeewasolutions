@@ -57,9 +57,9 @@ public class Invoice {
     @Column(name = "customerpaidamount")
     private Integer customerpaidamount;
     
-    @JsonIgnoreProperties(value = {"sales_id"})
+    // @JsonIgnoreProperties(value = {"sales_id"})
     @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    // @JsonIgnore
+//  @JsonIgnore
     private List<SalesHasSerial> salesHasSerials;
 
     @JsonIgnoreProperties(value = {"sales_id"})

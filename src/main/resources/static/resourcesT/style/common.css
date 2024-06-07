@@ -10,11 +10,15 @@ body{
 }
 
 .main{
-    background-color: rgba(133, 130, 130, 0.39);
+    /* background-color: rgba(133, 130, 130, 0.39); */
     color: black;
     border-radius: 15px;
     /* border: 2px solid black; */
 
+}
+/* newly added */
+form {
+    /* background-color: rgba(0, 0, 0, 0.209); */
 }
 
 .custom-title {

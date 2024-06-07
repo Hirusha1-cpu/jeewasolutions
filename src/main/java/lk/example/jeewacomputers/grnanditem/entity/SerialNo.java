@@ -2,6 +2,7 @@ package lk.example.jeewacomputers.grnanditem.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -38,6 +39,7 @@ public class SerialNo {
 
     @ManyToOne(optional = true)
     @JoinColumn(name = "grn_has_category_id", referencedColumnName = "id")
+    // @JsonIgnoreProperties(value = {"grn_id"})
     @JsonIgnore
     // @NotNull
     private GrnHasCategory grn_has_category_id ;

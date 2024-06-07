@@ -38,20 +38,24 @@ public class SalesHasSerial {
     @ManyToOne
     @JoinColumn(name = "sales_id", referencedColumnName = "id")
     // @JsonIgnoreProperties(value = {"sales_id"})
+    @JsonIgnore
     private Invoice sales_id ;
 
     @ManyToOne
     @JoinColumn(name = "serialno_id", referencedColumnName = "id")
-    // @JsonIgnoreProperties(value = {"serialno_id"})
+    @JsonIgnoreProperties(value = {"grn_has_category_id"})
     private SerialNo serialno_id ;
 
     @Column(name = "warrentystartdate")
+    @JsonIgnore
     private LocalDateTime warrentystartdate;
 
     @Column(name = "warrentyperiod")
+    @JsonIgnore
     private Integer warrentyperiod;
 
     @Column(name = "warrentyexpire")
+    @JsonIgnore
     private LocalDateTime warrentyexpire;
 
 

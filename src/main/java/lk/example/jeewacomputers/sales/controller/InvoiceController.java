@@ -127,6 +127,7 @@ public class InvoiceController {
                 System.out.println("executed-4");
                 for (SalesHasSerial salesHasSerial : invoice.getSalesHasSerials()) {
                     salesHasSerial.setSales_id(invoice);
+                    salesHasSerial.getSerialno_id().setAvailability(null);
                     salesHasSerial.getSerialno_id().setAvailability(false);
 
                 }
