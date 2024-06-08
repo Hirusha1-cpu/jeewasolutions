@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,14 +46,23 @@ public class PrivilegeController {
         return viewEmp;
     }
 
+      //create get mapping for get privilege by logged user module
+    @GetMapping(value = "/privilege/bylogedusermodule/{modulename}", produces = "application/json")
+    public HashMap<String, Boolean> getPrivilegeByLoggedUserModule(@PathVariable("modulename") String modulename){
+    // public Privilege getPrivilegeByLoggedUserModule(@PathVariable("modulename") String modulename){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return getPrivilegeByUserModule(auth.getName(), modulename);
+    }
+
+
     @PostMapping(value = "/privilege")
     public String save(@RequestBody Privilege privilege) {
 
         // duplicate
-        Privilege extPrivilege = dao.getByRoleModule(privilege.getRole_id().getId(), privilege.getModule_id().getId());
-        if (extPrivilege != null) {
-            return "Save not completed : Privilege alredy exist by given role and module";
-        }
+        // Privilege extPrivilege = dao.getByRoleModule(privilege.getRole_id().getId(), privilege.getModule_id().getId());
+        // if (extPrivilege != null) {
+        //     return "Save not completed : Privilege alredy exist by given role and module";
+        // }
 
         try {
             // set auto generated value

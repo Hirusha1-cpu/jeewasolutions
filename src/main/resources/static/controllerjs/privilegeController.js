@@ -195,35 +195,38 @@ const getStatus = (rowOb) => {
 
 const getModule = (rowOb) => {
     // console.log(rowOb.employee_id.designation_id.name);
-    if (rowOb.module_id.name == 'purchase') {
-        return '<p class="working-status">' + rowOb.module_id.name + '</p>';
-    }
-    if (rowOb.module_id.name == 'item') {
-        return '<p class="resign-status">' + rowOb.module_id.name + '</p>';
-    }
-    if (rowOb.module_id.name == 'employee') {
-        return '<p class="deleted-status">' + rowOb.module_id.name + '</p>';
-    }
-    if (rowOb.module_id.name == 'purchase') {
-        return '<p class="resign-status">' + rowOb.module_id.name + '</p>';
-    }
+    // if (rowOb.module_id.name == 'purchase') {
+        return '<p class="yellow-status">' + rowOb.module_id.name + '</p>';
+    // }
+    // if (rowOb.module_id.name == 'item') {
+    //     return '<p class="resign-status">' + rowOb.module_id.name + '</p>';
+    // }
+    // if (rowOb.module_id.name == 'employee') {
+    //     return '<p class="deleted-status">' + rowOb.module_id.name + '</p>';
+    // }
+    // if (rowOb.module_id.name == 'purchase') {
+    //     return '<p class="resign-status">' + rowOb.module_id.name + '</p>';
+    // }
 
 }
 
 const getEmpRole = (rowOb) => {
     // console.log(rowOb.employee_id.designation_id.name);
-    if (rowOb.role_id.name == 'Store-Manager') {
-        return '<p class="working-status">' + rowOb.role_id.name + '</p>';
-    }
-    if (rowOb.role_id.name == 'Technician') {
-        return '<p class="resign-status">' + rowOb.role_id.name + '</p>';
-    }
-    if (rowOb.role_id.name == 'Cashier') {
-        return '<p class="resign-status">' + rowOb.role_id.name + '</p>';
-    }
-    if (rowOb.role_id.name == 'Manager') {
-        return '<p class="deleted-status">' + rowOb.role_id.name + '</p>';
-    }
+    // if (rowOb.role_id.name == 'Store-Manager') {
+        return '<p class="blue-status">' + rowOb.role_id.name + '</p>';
+    // }
+    // if (rowOb.role_id.name == 'Technician') {
+    //     return '<p class="resign-status">' + rowOb.role_id.name + '</p>';
+    // }
+    // if (rowOb.role_id.name == 'Cashier') {
+    //     return '<p class="resign-status">' + rowOb.role_id.name + '</p>';
+    // }
+    // if (rowOb.role_id.name == 'Manager') {
+    //     return '<p class="deleted-status">' + rowOb.role_id.name + '</p>';
+    // }
+    // if (rowOb.role_id.name == 'Admin') {
+    //     return '<p class="working-status">' + rowOb.role_id.name + '</p>';
+    // }
     // let userRoles = '';
     // rowOb.roles.forEach(element => {
     //     userRoles = userRoles + element.name + ","

@@ -61,6 +61,17 @@ const refreshEmployeeForm = () => {
     inputDob.classList.remove("is-valid");
     inputDob.style.border = '1px solid #ced4da'
 
+    let userPrivilege = ajaxGetRequest("/privilege/bylogedusermodule/employee")
+    console.log(userPrivilege);
+    console.log(userPrivilege.insert);
+    if (userPrivilege.insert) {
+        inputFullName1.classList.add("d-none");
+        inputFullName1lbl.classList.add("d-none");
+    } else{
+        inputFullName1.classList.remove("d-none");
+        inputFullName1lbl.classList.remove("d-none");
+    }
+
 }
 
 const checkError = () => {
