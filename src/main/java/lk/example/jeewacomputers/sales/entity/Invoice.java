@@ -21,56 +21,55 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @Entity // apply as an entity class
 @Table(name = "sales") // for map with given table
 @Data // generate getters and setters
 @NoArgsConstructor // generate default constructor
 @AllArgsConstructor // all arguments constructor
 public class Invoice {
-    
+
     @Id // for pk
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id ", unique = true) // for map with column name
-    // @NotNull 
+    // @NotNull
     private Integer id;
 
-     @Column(name = "invoiceno")
+    @Column(name = "invoiceno")
     private String invoiceno;
-   
+
     @ManyToOne(optional = true)
-    @JoinColumn(name="customer_id", referencedColumnName = "id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer_id;
-    
+
     @Column(name = "paymentmethod")
     private String paymentmethod;
-    
+
     @Column(name = "referenceno")
     private String referenceno;
-    
+
     @Column(name = "total")
     private Integer total;
-    
+
     @Column(name = "balance")
     private Integer balance;
-    
+
     @Column(name = "customerpaidamount")
     private Integer customerpaidamount;
-    
-    // @JsonIgnoreProperties(value = {"sales_id"})
-    @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
-//  @JsonIgnore
-    private List<SalesHasSerial> salesHasSerials;
 
     @JsonIgnoreProperties(value = {"sales_id"})
-    @OneToOne(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true, optional = true)
+    @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
     // @JsonIgnore
+    private List<SalesHasSerial> salesHasSerials;
+
+    @JsonIgnoreProperties(value = { "sales_id" })
+    @OneToOne(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true, optional = true)
     private IncomePayment incomePayments;
-    
+
     // @JsonIgnoreProperties(value = {"sales_id"})
-    // @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval =
+    // true)
     // // @JoinColumn(name="serialnolist_id", referencedColumnName = "id")
     // // @JsonIgnore
     // private List<SerialNoList> serialnolist_id;
-    
+
 }

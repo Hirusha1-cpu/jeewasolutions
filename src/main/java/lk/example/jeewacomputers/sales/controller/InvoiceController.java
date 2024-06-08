@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import lk.example.jeewacomputers.customer.dao.CustomerDao;
 import lk.example.jeewacomputers.customer.entity.Customer;
+import lk.example.jeewacomputers.grnanditem.dao.SerialNoDao;
 import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
 import lk.example.jeewacomputers.payment.entity.IncomePayment;
 import lk.example.jeewacomputers.sales.dao.InvoiceDao;
@@ -27,6 +28,8 @@ import java.util.*;
 
 @RestController
 public class InvoiceController {
+    @Autowired
+    private SerialNoDao serialNoDao;
 
     @Autowired
     private InvoiceDao invoiceDao;
@@ -127,8 +130,9 @@ public class InvoiceController {
                 System.out.println("executed-4");
                 for (SalesHasSerial salesHasSerial : invoice.getSalesHasSerials()) {
                     salesHasSerial.setSales_id(invoice);
-                    salesHasSerial.getSerialno_id().setAvailability(null);
-                    salesHasSerial.getSerialno_id().setAvailability(false);
+                  SerialNo serialNo = salesHasSerial.getSerialno_id();
+                  serialNo.setAvailability(Boolean.FALSE);
+                  serialNoDao.save(serialNo);
 
                 }
                 System.out.println("executed-5");

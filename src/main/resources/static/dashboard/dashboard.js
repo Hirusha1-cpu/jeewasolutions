@@ -4,25 +4,48 @@ window.addEventListener('load', () => {
 
 })
 
-const refreshDashboard = () =>{
-    const ctx = document.getElementById('myChart');
+const refreshDashboard = () => {
+  const ctx = document.getElementById('myChart');
 
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
+  // Fetch invoices (assuming you have a working `ajaxGetRequest`)
+  const invoices = ajaxGetRequest("/invoice/getlist");
+
+  // Prepare data for the chart
+  const customerNames = [];
+  const itemCounts = [];
+
+  for (const invoice of invoices) {
+    customerNames.push(invoice.customer_id.name); // Extract customer name
+    itemCounts.push(invoice.salesHasSerials.length); // Count serial numbers
+  }
+
+  // Create the chart with the prepared data
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: customerNames,
+      datasets: [{
+        label: 'Item Count',
+        data: itemCounts,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Number of Items'
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Customer'
           }
         }
       }
-    });
-}
+    }
+  });
+};
