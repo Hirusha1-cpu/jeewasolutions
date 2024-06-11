@@ -348,7 +348,7 @@
                         <form class="p-2 m-2" onsubmit="return false">
                             <div class="row">
                                 <!-- form start  -->
-                                <div class="col-9">
+                                <div class="col-6">
 
                                     <!-- date start -->
                                     <div class="row p-2">
@@ -356,7 +356,7 @@
                                     </div>
                                     <!-- date end -->
                                     <!-- choose category start -->
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-2 mt-1">
                                             <label for="category">Select the category</label>
                                         </div>
@@ -375,10 +375,10 @@
                                                 <option value="3">Accessories</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- choose category end -->
                                     <!-- select item name start -->
-                                    <div class="row mt-2">
+                                    <!-- <div class="row mt-2">
                                         <div class="col-2 mt-1">
                                             <label for="category">Select item name</label>
                                         </div>
@@ -396,9 +396,9 @@
                                                 <option value="3">Processor</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- select item name end -->
-                                    <div class="row p-2">
+                                    <div class="row p-1">
                                         <div id="itemDtails" class="fw-bolder" style="color: rgb(0, 0, 255);">Item
                                             Details
                                         </div>
@@ -406,13 +406,12 @@
                                     <!-- item details start -->
                                     <div class="row mt-3">
                                         <div class="row">
-
-                                            <div class="col-2 mt-1">Barcode</div>
-                                            <div class="col-6">
-                                                <input type="text" class="form-control mb-1" id="barcodeNo"
-                                                    placeholder="978-0307408427">
+                                            <div class="col-6 form-floating p-1 ms-2">
+                                                <input type="text" class="form-control " id="barcodeNo" placeholder="">
+                                                <label for="barcodeNo" class="pl-2">Barcode</label>
                                             </div>
-                                            <div class="row">
+
+                                            <!-- <div class="row">
                                                 <div class="col-4 p-2 form-floating p-1">
                                                     <form id="uploadForm" enctype="multipart/form-data">
                                                         <input type="file" id="qrCodeImage" name="qrCodeImage"
@@ -421,51 +420,47 @@
                                                     </form>
 
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                         </div>
                                         <div class="row mt-2">
-
-                                            <div class="col-2">Item name</div>
-                                            <div class="col-6" style="font-weight: bold;">
-                                                <input type="text" class="form-control" id="lblItemName1"
-                                                    placeholder="NVIDIA GeForce RTX 4090"
+                                            <div class="col-6 form-floating p-1 ms-2">
+                                                <input type="text" class="form-control " id="lblItemName1"
+                                                    placeholder=""
                                                     onchange="textValidation(lblItemName1,'', 'itemTableDetail', 'itemname');">
-
+                                                <label for="lblItemName1" class="pl-2">Item Name</label>
                                             </div>
+
                                         </div>
                                         <div class="row mt-2">
+                                            <div class="col-6 form-floating p-1 ms-2">
 
-                                            <div class="col-2 mt-1">Item Serial No</div>
-                                            <div class="col-6">
-                                                <!-- 
-                                                <input type="text" class="form-control" id="invoiceSerialId"
-                                                    placeholder="AB12CDEFG34H56JK"
-                                                    oninput="textValidation(invoiceSerialId,'', 'serialNumbers', 'serialno'); getItemDetails()"> -->
                                                 <select class="form-select" id="invoiceSerialId"
                                                     aria-label="Default select example" onchange="getItemDetails()">
 
                                                 </select>
+                                                <label for="invoiceSerialId" class="pl-2">Item Serial No</label>
                                             </div>
                                         </div>
 
                                         <div class="row mt-3">
-                                            <div class="col-2 mt-1">Item UnitPrice</div>
-                                            <div class="col-3">
-                                                <input type="text" class="form-control" id="invoiceUnitPrice"
-                                                    placeholder="Rs."
-                                                    onchange="textValidation(invoiceUnitPrice,'', 'itemTableDetail', 'unitprice'); ">
+                                            <div class="col-6 form-floating p-1 ms-2">
+                                                <input type="text" class="form-control " id="invoiceUnitPrice"
+                                                    placeholder=""
+                                                    onchange="textValidation(invoiceUnitPrice,'', 'itemTableDetail', 'unitprice');">
+                                                <label for="invoiceUnitPrice" class="pl-2">Item UnitPrice</label>
                                             </div>
+
                                         </div>
 
-                                        <div class="row py-1 p-2 mt-1 d-flex justify-content-start align-items-center ">
-                                            <div class="col-4 form-floating p-1">
+                                        <div class="row mt-3">
+                                            <div class="col-3 form-floating p-1 ms-2">
                                                 <input type="text" class="form-control" id="inputCustomerName"
                                                     placeholder=""
                                                     oninput="textValidation(inputCustomerName,'', 'customer_id', 'name'); checkdiscount(this.value);">
                                                 <label for="inputCustomerName" class="pl-2">Customer Name</label>
                                             </div>
-                                            <div class="col-4 form-floating p-1">
+                                            <div class="col-3 form-floating p-1">
                                                 <input type="text" class="form-control" id="inputCustomerContact"
                                                     placeholder=""
                                                     oninput="textValidation(inputCustomerContact,'', 'customer_id', 'phone'); ">
@@ -474,61 +469,12 @@
                                         </div>
                                         <div class="row mt-3">
                                             <div class="mr-1">
-                                                <button class="btn btn-warning" type="button" data-bs-toggle="collapse"
+                                                <!-- <button class="btn btn-warning" type="button" data-bs-toggle="collapse"
                                                     data-bs-target="#collapseItemWarrenty" aria-expanded="false"
                                                     aria-controls="collapseItemWarrenty">
                                                     Warrenty
-                                                </button>
-                                                <div class="collapse mt-3" id="collapseItemWarrenty">
-                                                    <div class="card card-body">
-                                                        <form class=" ">
-                                                            <div
-                                                                class="row  d-flex justify-content-center align-items-center ">
-                                                                <div class="col-6 form-floating  p-1">
-                                                                    <input type="text" class="form-control"
-                                                                        id="inputWarrentyItemName"
-                                                                        oninput="textValidation(inputWarrentyItemName,'', 'itemTableDetail', 'warrentyitemname'); ">
-                                                                    <label for="inputWarrentyItemName" class="pl-2">Item
-                                                                        Name</label>
-                                                                </div>
-                                                                <div class="col-6 form-floating  p-1">
-                                                                    <input type="date" class="form-control"
-                                                                        id="inputWarStartDate"
-                                                                        oninput="textValidation(inputWarStartDate,'', 'itemTableDetail', 'warrentystartdate'); ">
-                                                                    <label for="inputWarStartDate">Warrenty Start
-                                                                        Date</label>
-                                                                </div>
+                                                </button> -->
 
-                                                            </div>
-                                                            <div
-                                                                class="row d-flex justify-content-center align-items-center ">
-
-
-                                                                <div class="col-6 form-floating p-1">
-                                                                    <input type="text" class="form-control"
-                                                                        id="inputWarPeriod"
-                                                                        oninput="textValidation(inputWarPeriod,'', 'serialNumbers', 'warrentyperiod'); ">
-                                                                    <label for="inputWarPeriod">Warrenty Period</label>
-                                                                </div>
-                                                                <div class="col-6 form-floating p-1">
-                                                                    <input type="text" class="form-control"
-                                                                        id="inputWarrentyEnd"
-                                                                        oninput="textValidation(inputWarrentyEnd,'', 'itemTableDetail', 'warrentyendate'); ">
-                                                                    <label for="inputWarrentyEnd">Warrenty Ending
-                                                                        Date</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-3 form-floating p-1">
-
-                                                                    <!-- <button class="btn btn-success" type="button"
-                                                                        onclick="addToTable()">Add</button> -->
-                                                                </div>
-                                                            </div>
-
-                                                        </form>
-                                                    </div>
-                                                </div>
                                             </div>
 
                                         </div>
@@ -540,7 +486,7 @@
                                                     onclick="addToSerialiedTable()">
                                                     Add Item
                                                 </button>
-                                                <div class="collapse mt-3" id="collapseItemDetails">
+                                                <!-- <div class="collapse mt-3" id="collapseItemDetails">
                                                     <div class="card card-body">
                                                         <table class="table " id="itemSerializedTable">
                                                             <thead>
@@ -559,21 +505,48 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <div class="row mt-3">
-                                            <div class="col-2 mt-1">Item TotalPrice</div>
-                                            <div class="col-3">
-                                                <input type="text" class="form-control" id="invoiceTotalPrice"
-                                                    placeholder="Rs."
+                                            <div class="col-6 form-floating p-1 ms-2">
+                                                <input type="text" class="form-control " id="invoiceTotalPrice"
+                                                    placeholder=""
                                                     oninput="textValidation(invoiceTotalPrice,'', 'invoice', 'total'); ">
+                                                <label for="invoiceTotalPrice" class="pl-2">Item TotalPrice</label>
                                             </div>
 
 
                                         </div>
                                         <div class="row mt-3">
-                                            <div class="col-2 mt-1">Discount</div>
+                                            <!-- <div class="col-6 form-floating p-1 ms-2"> -->
+                                            <div class="col-4 form-floating mt-1 p-1">
+
+                                                <select class="form-select" id="discountCategorySelect"
+                                                    aria-label="Default select example"
+                                                    onchange="selectDFieldValidation(discountCategorySelect,'', 'invoice', 'discounttype'); selectCustomerType()">
+                                                    <option selected>Select Discount Type</option>
+                                                    <option value="1">Customer Vise</option>
+                                                    <option value="2">Manually</option>
+                                                </select>
+                                                <label for="discountCategorySelect" class="pl-2">Discount</label>
+                                            </div>
+                                            <div class="col-4 form-floating mt-1">
+                                                <select class="form-select" id="customerDiscount" disabled
+                                                    aria-label="Default select example"
+                                                    onchange="checkdiscount(JSON.parse(this.value))">
+
+                                                </select>
+                                            </div>
+
+                                            <div class="col-3 form-floating p-1 mt-1 mb-1">
+                                                <input type="text" class="form-control" disabled id="discountCusPhone"
+                                                    placeholder="0775656567">
+                                                <label for="discountCusPhone">Phone Number</label>
+                                            </div>
+                                          
+                                            <!-- </div> -->
+                                            <!-- <div class="col-2 mt-1">Discount</div>
                                             <div class="col-3">
                                                 <select class="form-select" id="discountCategorySelect"
                                                     aria-label="Default select example"
@@ -592,15 +565,8 @@
                                                         id="discountCusRate" placeholder="%">
                                                     <label for="discountCusRate">Discount Rate</label>
                                                 </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <select class="form-select" id="customerDiscount" disabled
-                                                    aria-label="Default select example"
-                                                    onchange="checkdiscount(JSON.parse(this.value))">
-
-                                                </select>
-                                            </div>
-
+                                            </div> -->
+                                          
 
                                         </div>
 
@@ -697,15 +663,20 @@
                                             </div>
                                         </div> -->
                                         <div class="row mt-2">
-                                            <div class="col-2 mt-1">Discounted Price</div>
-                                            <div class="col-3">
-                                                <input type="text" class="form-control" id="invoiceDiscountedPrice"
-                                                    placeholder="Rs.">
+                                            <div class="col-3 form-floating p-1 ms-2 mt-1 mb-2">
+                                                <input type="text" class="form-control" disabled id="discountCusRate"
+                                                    placeholder="%">
+                                                <label for="discountCusRate">Discount Rate</label>
                                             </div>
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-2 mt-1">Payment Method</div>
-                                            <div class="col-3">
+                                            <div class="col-4 form-floating p-1 ms-2">
+                                                <input type="text" class="form-control " id="invoiceDiscountedPrice"
+                                                    placeholder="">
+                                                <label for="invoiceDiscountedPrice" class="pl-2">Discounted
+                                                    Price</label>
+                                            </div>
+                                            <div class="col-4 form-floating p-1 ms-2">
                                                 <select class="form-select" id="paymentMethod"
                                                     aria-label="Default select example"
                                                     onchange="selectDFieldValidation(paymentMethod,'', 'invoice', 'paymentmethod'); ">
@@ -713,28 +684,35 @@
                                                     <option value="Card">Card</option>
                                                     <option value="Cash">Cash</option>
                                                 </select>
+                                                <label for="paymentMethod" class="pl-2">Payment Method</label>
+
                                             </div>
-                                            <div class="col-4">
-                                                <input type="text" class="form-control"
+                                            <div class="col-3 form-floating p-1 ms-2">
+                                                <input type="text" class="form-control "
                                                     id="invoiceCustomerPaymentRefference" placeholder="Referrance No:"
-                                                    oninput="textValidation(invoiceCustomerPaymentRefference,'', 'invoice', 'referenceno'); calculateBalance()">
+                                                    oninput="textValidation(invoiceCustomerPaymentRefference,'', 'invoice', 'referenceno');">
+                                                <label for="invoiceCustomerPaymentRefference"
+                                                    class="pl-2">Referrance</label>
                                             </div>
+
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-2 mt-1">Cutomer payment</div>
-                                            <div class="col-3">
-                                                <input type="text" class="form-control" id="invoiceCustomerPayment"
-                                                    placeholder="Rs."
+                                            <div class="col-6 form-floating p-1 ms-2">
+                                                <input type="text" class="form-control " id="invoiceCustomerPayment"
+                                                    placeholder=""
                                                     oninput="textValidation(invoiceCustomerPayment,'', 'invoice', 'customerpaidamount'); calculateBalance()">
+                                                <label for="invoiceCustomerPayment" class="pl-2">Cutomer payment</label>
                                             </div>
+
+                                            <div class="col-6 form-floating p-1 ms-2">
+                                                <input type="text" class="form-control " id="invoiceBalance"
+                                                    placeholder=""
+                                                    oninput="textValidation(invoiceBalance,'', 'invoice', 'balance'); ">
+                                                <label for="invoiceBalance" class="pl-2">Balance</label>
+                                            </div>
+
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-2 mt-1">Balance</div>
-                                            <div class="col-3">
-                                                <input type="text" class="form-control" id="invoiceBalance"
-                                                    placeholder="Rs."
-                                                    oninput="textValidation(invoiceBalance,'', 'invoice', 'balance'); ">
-                                            </div>
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-3">
@@ -758,28 +736,103 @@
                                     </p><br>
                                     <!-- customer details end -->
                                 </div>
+                                <div class="col-6 mt-5">
+                                    <div class="row p-2">
+                                        <div id="date" class="fw-bolder" style="color: red;">Warrenty Details</div>
+                                    </div>
+                                    <div class="collapse mt-3" id="collapseItemWarrenty">
+                                        <div class="card card-body">
+                                            <form class=" ">
+                                                <div class="row  d-flex justify-content-center align-items-center ">
+                                                    <div class="col-6 form-floating  p-1">
+                                                        <input type="text" class="form-control"
+                                                            id="inputWarrentyItemName"
+                                                            oninput="textValidation(inputWarrentyItemName,'', 'itemTableDetail', 'warrentyitemname'); ">
+                                                        <label for="inputWarrentyItemName" class="pl-2">Item
+                                                            Name</label>
+                                                    </div>
+                                                    <div class="col-6 form-floating  p-1">
+                                                        <input type="date" class="form-control" id="inputWarStartDate"
+                                                            oninput="textValidation(inputWarStartDate,'', 'itemTableDetail', 'warrentystartdate'); ">
+                                                        <label for="inputWarStartDate">Warrenty Start
+                                                            Date</label>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row d-flex justify-content-center align-items-center ">
+
+
+                                                    <div class="col-6 form-floating p-1">
+                                                        <input type="text" class="form-control" id="inputWarPeriod"
+                                                            oninput="textValidation(inputWarPeriod,'', 'serialNumbers', 'warrentyperiod'); ">
+                                                        <label for="inputWarPeriod">Warrenty Period</label>
+                                                    </div>
+                                                    <div class="col-6 form-floating p-1">
+                                                        <input type="text" class="form-control" id="inputWarrentyEnd"
+                                                            oninput="textValidation(inputWarrentyEnd,'', 'itemTableDetail', 'warrentyendate'); ">
+                                                        <label for="inputWarrentyEnd">Warrenty Ending
+                                                            Date</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-3 form-floating p-1">
+
+                                                        <!-- <button class="btn btn-success" type="button"
+                                                            onclick="addToTable()">Add</button> -->
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="row p-2">
+                                        <div id="date" class="fw-bolder" style="color: red;">Item Details</div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="mr-1">
+
+                                            <div class="collapse mt-3" id="collapseItemDetails">
+                                                <div class="card card-body">
+                                                    <table class="table " id="itemSerializedTable">
+                                                        <thead>
+                                                            <tr>
+
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">Item Code</th>
+                                                                <th scope="col">Item Name</th>
+                                                                <th scope="col">Item Price</th>
+                                                                <th scope="col">Item warrenty</th>
+                                                                <th scope="col">Buttons</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- form end -->
                                 <!-- update start -->
-                                <div class="col-3">
-                                    <!-- invoice no -->
+                                <!-- <div class="col-3">
                                     <div class="row mt-3">
                                         <div class="col-6 mt-1">Item Invoice No</div>
                                         <div class="col-6">
                                             <input type="text" class="form-control" id="floatingInput" placeholder="">
                                         </div>
                                     </div>
-                                    <!-- serial no -->
                                     <div class="row mt-3">
                                         <div class="col-6 mt-1">Item Serial No</div>
                                         <div class="col-6">
                                             <input type="text" class="form-control" id="floatingInput" placeholder="">
                                         </div>
                                     </div>
-                                    <!-- button -->
                                     <div class="row mt-3">
                                         <button class="btn btn-warning" type="button">Update</button>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- update end -->
                             </div>
 

@@ -1,4 +1,5 @@
 <!-- Sidebar -->
+
 <aside id="sidebar" th:fragment="sidebarfragment">
     <div class="h-100 ">
         <div class="sidebar-logo" style="display: flex; justify-content: center; align-items: center; ">
@@ -31,13 +32,13 @@
                     System User
                 </a>
                 <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <li class="sidebar-item">
+                    <li class="sidebar-item" id="systemEmpId">
                         <a href="/employee" class="sidebar-link sidebar-sublink">Employee Management</a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item " id="systemUserId">
                         <a href="/user" class="sidebar-link sidebar-sublink">User Management</a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item" id="systemPriviId">
                         <a href="/privilege" class="sidebar-link sidebar-sublink">Privilege Management</a>
                     </li>
                 </ul>

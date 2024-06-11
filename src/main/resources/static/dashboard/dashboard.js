@@ -5,6 +5,9 @@ window.addEventListener('load', () => {
 })
 
 const refreshDashboard = () => {
+  // $('#empAttendence').DataTable({
+  //   responsive: true
+  // });
   const ctx = document.getElementById('myChart');
 
   // Fetch invoices (assuming you have a working `ajaxGetRequest`)
@@ -49,3 +52,4 @@ const refreshDashboard = () => {
     }
   });
 };
+

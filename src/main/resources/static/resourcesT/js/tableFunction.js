@@ -332,6 +332,68 @@ const fillDataIntoPurcahsechkTable = (tableId, dataList, propertyList, purchaseB
     })
 
 }
+const fillDataIntoDashBoardTable = (tableId, dataList, propertyList, purchaseButtonFunction, buttonVisibility = true, privilegeOb = null) => {
+    //create variable for store body
+    const tableBody = tableId.children[1];
+    tableBody.innerHTML = '';
+
+    dataList.forEach((item, index) => {
+        console.log('Element: ' + index + '=>' + item);
+        const tr = document.createElement('tr');
+        tr.innerHTML = '';
+        const tdIndex = document.createElement('td');
+        tdIndex.innerText = parseInt(index) + 1;
+        tr.appendChild(tdIndex);
+
+        for (const itemOb of propertyList) {
+            const td = document.createElement('td');
+            //  td.innerText = item.number;
+            if (itemOb.dataType == 'string') {
+                if (dataList[index][itemOb.property] == null) {
+                    td.innerText = "-"
+                } else {
+                    td.innerHTML = dataList[index][itemOb.property]
+
+                }
+            }
+            if (itemOb.dataType == 'function') {
+                td.innerHTML = itemOb.property(dataList[index]);
+            }
+            if (itemOb.dataType == 'boolean') {
+                td.innerHTML = dataList[index][itemOb.property]
+                if (td.innerHTML == 'true') {
+                    td.innerHTML = 'grant'
+                } else {
+                    td.innerHTML = 'not-grant'
+                }
+            }
+            tr.appendChild(td);
+        }
+
+
+        const tdButton = document.createElement('td')
+
+        const btnEdit = document.createElement('button');
+        btnEdit.className = 'btn btn-warning'
+        // btnEdit.innerHTML = '<i class="fa-solid fa-edit "></i>'
+        btnEdit.innerHTML = 'View Privileges'
+        btnEdit.onclick = () => {
+            console.log('edit', item.id, index);
+            purchaseButtonFunction(item, index)
+        }
+
+        if (buttonVisibility) {
+
+          
+            tdButton.appendChild(btnEdit);
+            
+            tr.appendChild(tdButton);
+
+        }
+        tableBody.appendChild(tr);
+    })
+
+}
 
 //print function
 // const printPorder =( rowOb, rowIndex) =>{

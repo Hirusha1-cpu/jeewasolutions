@@ -9,6 +9,7 @@ const refreshUserTable = () => {
         { property: getEmployeeFullName, dataType: 'function' },
         { property: "username", dataType: 'string' },
         { property: "email", dataType: 'string' },
+        { property: getRole, dataType: 'function' },
         { property: getStatus, dataType: 'function' },
     ]
     fillDataIntoTable(userTab, users, displayUserProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, true)
@@ -32,6 +33,15 @@ const getStatus = (rowOb) => {
     } else {
         return "<p class='deleted-status'>" + "false" + "</p>"
     }
+
+}
+const getRole = (rowOb) => {
+    let role = '';
+    rowOb.roles.forEach(element => {
+        role = role + "<p class = 'working-status'>" + element.name + "</p>"
+    })
+    return role
+ 
 
 }
 

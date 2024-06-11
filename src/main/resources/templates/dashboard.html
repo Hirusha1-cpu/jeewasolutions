@@ -22,16 +22,164 @@
             <nav th:replace="~{ layouts/navbar :: topnavbarfragment}"></nav>
             <!-- main component start -->
             <main class="content px-3 py-2 w3-container">
-                <div class="d-flex mb-3 justify-content-center align-items-center" style="background-color: aqua;">
-                    <h3>DashBoard</h3>
+                <div class="d-flex mb-3 justify-content-center align-items-center" style="background-color: rgb(0, 140, 255); color: aliceblue; font-weight: bolder;">
+                    <h3>DASHBOARD</h3>
                 </div>
-                <div class="row">
+                <div class="row ms-2 ps-4 me-2 pe-4 d-flex justify-content-center align-items-center">
+                    <!-- customer start -->
+                    <div class="col-3">
+                        <div class="card card-hover cuscard cuscard-hover" style="width: 18rem;">
+                            <div class="card-body">
+                              <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(8, 118, 24)">
+                                <h5 class="card-title" style="color: white; font-weight: bolder;">Customers</h5>
+                              </div>
+                              <table class="table " id="empAttendence">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Count</th>
+                                    <th scope="col">Button</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>Permium</td>
+                                    <td>23</td>
+                                    <td><button class="btn btn-outline-success">View</button></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">2</th>
+                                    <td>1stStage</td>
+                                    <td>34</td>
+                                    <td><button class="btn btn-outline-success">View</button></td>
+                                  </tr>
+                                 
+                                </tbody>
+                              </table>
+                            </div>
+                            <button class="btn btn-success" style="color: white; border-radius: 5px;">View Customers</button>
+                          </div>
+                    </div>
+                    <!-- customer end -->
+
+                    <!-- for employee segment start-->
+                    <div class="col-3">
+                        <!-- <canvas id="myChart"></canvas> -->
+                        <div class="card card-hover empcard empcard-hover" style="width: 18rem;">
+                            <div class="card-body">
+                              <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(12, 168, 246);">
+                                <h5 class="card-title" style="color: white; font-weight: bolder;">Due Repairs</h5>
+                              </div>
+                              <table class="table " id="empAttendence">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Repair</th>
+                                    <th scope="col">Button</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td><button class="btn btn-outline-success">View</button></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td><button class="btn btn-outline-success">View</button></td>
+                                  </tr>
+                                 
+                                </tbody>
+                              </table>
+                            </div>
+                            <button class="btn btn-info" style="color: white; border-radius: 5px;">View Repairs</button>
+                          </div>
+                          
+                    </div>
+                    <!-- for employee segment end -->
+
+                    <!-- for Reorder items segment start -->
+                    <div class="col-3">
+                        <div class="card card-hover itemcard itemcard-hover" style="width: 18rem;">
+                            <div class="card-body">
+                              <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(234, 177, 71);">
+                                <h5 class="card-title" style="color: white; font-weight: bolder;">Reorder Items</h5>
+                              </div>
+                              <table class="table ">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Qty</th>
+                                    <th scope="col">Button</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td>12</td>
+                                    <td><button class="btn btn-outline-success">Purchase</button></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>12</td>
+                                    <td><button class="btn btn-outline-success">Purchase</button></td>
+                                  </tr>
+                                 
+                                </tbody>
+                              </table>
+                            </div>
+                            <button class="btn btn-warning" style="color: white;border-radius: 5px;">View Items</button>
+                          </div>
+                    </div>
+                    <!-- for Reorder items segment end -->
+
+                    <!-- for company return items segment start -->
+                    <div class="col-3">
+                        <div class="card card-hover returncard returncard-hover" style="width: 18rem;">
+                            <div class="card-body">
+                              <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(239, 122, 171);">
+                                <h5 class="card-title" style="color: white; font-weight: bolder;">Return Items</h5>
+                              </div>
+                              <table class="table ">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Button</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td><button class="btn btn-outline-success">View Item</button></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td><button class="btn btn-outline-success">View Item</button></td>
+                                  </tr>
+                                 
+                                </tbody>
+                              </table>
+                            </div>
+                            <button class="btn btn-danger" style="color: white;border-radius: 5px;">View Return Items</button>
+                          </div>
+                    </div>
+                    <!-- for company return items segment end -->
+                </div>
+                <div class="row mt-3 d-flex justify-content-center align-items-center">
                     <div class="col-6">
                         <canvas id="myChart"></canvas>
-
                     </div>
-
                 </div>
+
             </main>
             <!-- main component end -->
 
@@ -115,9 +263,6 @@
         })
 
     </script>
-
-
-
 
 </body>
 

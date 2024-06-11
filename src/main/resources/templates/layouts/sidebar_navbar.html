@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="../resourcesT/fontawesome_web/css/all.css">
     <!-- jquery -->
     <script src="../resourcesT/js/jquery.js"></script>
+    <script src="../../static/sidebarcontrollers/sidebarController.js"></script>
     <link rel="stylesheet" href="../resourcesT/w3css/w3.css">
-
 
 </head>
 
@@ -49,20 +49,20 @@
                     </li>
 
                     
-                    <li class="sidebar-item">
+                    <li class="sidebar-item" id="systemUserId">
                         <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#pages"
                             aria-expanded="false" aria-controls="pages">
                             <i class="fa-solid fa-users pe-2"></i>
                             System User
                         </a>
                         <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
+                            <li class="sidebar-item" id="systemEmpId">
                                 <a href="/employee" class="sidebar-link sidebar-sublink">Employee Management</a>
                             </li>
-                            <li class="sidebar-item">
+                            <li class="sidebar-item " id="systemUserId">
                                 <a href="/user" class="sidebar-link sidebar-sublink">User Management</a>
                             </li>
-                            <li class="sidebar-item">
+                            <li class="sidebar-item" id="systemPriviId">
                                 <a href="/privilege" class="sidebar-link sidebar-sublink">Privilege Management</a>
                             </li>
                         </ul>
