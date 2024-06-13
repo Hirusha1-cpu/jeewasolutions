@@ -34,9 +34,9 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-6">
-                                <form class="" onsubmit="return false">
+                                <form class=" ps-4" onsubmit="return false">
                                     <div class="row">
-                                        <div class="row">
+                                        <!-- <div class="row">
 
                                             <div class="col-2 mt-1">Barcode</div>
                                             <div class="col-6">
@@ -54,41 +54,41 @@
                                             </div>
 
 
-                                        </div>
+                                        </div> -->
                                         <div class="row mt-2">
 
-                                            <div class="col-2">Item name</div>
-                                            <div class="col-6">
+                                            <div class="col-6 form-floating  p-1">
                                                 <input type="text" class="form-control" id="lblItemWarrentyName"
                                                     placeholder="NVIDIA GeForce RTX 4090">
+                                                <label for="lblItemWarrentyName">Item name</label>
 
                                             </div>
                                         </div>
                                         <div class="row mt-2">
 
-                                            <div class="col-2">Item Category</div>
-                                            <div class="col-6">
+                                            <div class="col-6 form-floating  p-1">
                                                 <input type="text" class="form-control" id="lblItemWarrentyCategory"
                                                     placeholder="">
+                                                <label for="lblItemWarrentyCategory">Item Category</label>
 
                                             </div>
                                         </div>
                                         <div class="row mt-2">
 
-                                            <div class="col-2  ">Serial No</div>
-                                            <div class="col-6">
+                                            <div class="col-6 form-floating  p-1">
                                                 <select class="form-select" id="warrentySerialId"
                                                     aria-label="Default select example"
                                                     onchange="getWarrentyItemDetails()">
 
                                                 </select>
+                                                <label for="warrentySerialId" class="pl-2">Serial No</label>
+
                                             </div>
                                         </div>
 
 
                                         <div class="row mt-3">
-                                            <div class="col-2">Status Of repair</div>
-                                            <div class="col-3">
+                                            <div class="col-6 form-floating  p-1">
                                                 <select class="form-select" id="warrentyStatus"
                                                     aria-label="Default select example"
                                                     onchange="selectFieldValidation(warrentyStatus,'', 'warrentyItem', 'statusofrepair');">
@@ -96,34 +96,33 @@
                                                     <option value="non shop item">Non Shop Item</option>
                                                     <option value="urgent repair">Urgent Repair</option>
                                                 </select>
+                                                <label for="warrentyStatus" class="pl-2">Status Of repair</label>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
-                                            <div class="col-2 mt-1">Fault</div>
-                                            <div class="col">
+                                            <div class="col-6 form-floating  p-1">
                                                 <textarea class="form-control" placeholder="Leave a comment here"
                                                     id="warrentyFault"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="">
-
-                                            <div class="row mt-3 ">
-                                                <div class="col-2 ">Customer Name</div>
-                                                <div class="col-6">
-                                                    <input type="text" class="form-control "
-                                                        id="inputWarrentyCustomerName" placeholder="">
-                                                </div>
-                                            </div>
-                                            <div class="row mt-3">
-                                                <div class="col-2 ">Customer Phone</div>
-                                                <div class="col-6">
-                                                    <input type="text" class="form-control"
-                                                        id="inputWarrentyCustomerContact" placeholder="">
-                                                </div>
+                                                <label for="warrentyFault" class="pl-2">Fault</label>
                                             </div>
                                         </div>
 
+                                        <div class="row mt-3 ">
+                                            <div class="col-6 form-floating  p-1">
+                                                <input type="text" class="form-control " id="inputWarrentyCustomerName"
+                                                    placeholder="">
+                                                <label for="inputWarrentyCustomerName">Customer Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-6 form-floating  p-1">
+                                                <input type="text" class="form-control"
+                                                    id="inputWarrentyCustomerContact" placeholder="">
+                                                <label for="inputWarrentyCustomerContact">Customer Phone</label>
+                                            </div>
+                                        </div>
                                     </div>
+
 
                                     <div class="row mt-3">
                                         <div class="mr-1">
@@ -346,7 +345,7 @@
 
                         <!-- Invoice form start -->
                         <form class="p-2 m-2" onsubmit="return false">
-                            <div class="row">
+                            <div class="row ms-3 me-5">
                                 <!-- form start  -->
                                 <div class="col-6">
 
@@ -520,7 +519,7 @@
                                         </div>
                                         <div class="row mt-3">
                                             <!-- <div class="col-6 form-floating p-1 ms-2"> -->
-                                            <div class="col-4 form-floating mt-1 p-1">
+                                            <div class="col-4 form-floating mt-1 p-1 ms-2">
 
                                                 <select class="form-select" id="discountCategorySelect"
                                                     aria-label="Default select example"
@@ -544,7 +543,7 @@
                                                     placeholder="0775656567">
                                                 <label for="discountCusPhone">Phone Number</label>
                                             </div>
-                                          
+
                                             <!-- </div> -->
                                             <!-- <div class="col-2 mt-1">Discount</div>
                                             <div class="col-3">
@@ -566,7 +565,7 @@
                                                     <label for="discountCusRate">Discount Rate</label>
                                                 </div>
                                             </div> -->
-                                          
+
 
                                         </div>
 
@@ -715,7 +714,7 @@
                                         <div class="row mt-2">
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-3">
+                                            <div class="col-6">
 
                                                 <button class="btn btn-danger" type="button" onclick="submitInvoice()">
                                                     Submit payment
@@ -793,7 +792,7 @@
 
                                             <div class="collapse mt-3" id="collapseItemDetails">
                                                 <div class="card card-body">
-                                                    <table class="table " id="itemSerializedTable">
+                                                    <table class="table table-dark" id="itemSerializedTable">
                                                         <thead>
                                                             <tr>
 

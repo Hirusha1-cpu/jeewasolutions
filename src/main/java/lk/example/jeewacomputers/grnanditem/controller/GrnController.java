@@ -153,7 +153,7 @@ public class GrnController {
                             newSerials.setItemname(grnHasCategory.getItemname());
                             
                             //newSerials.setGrn_has_category_id(grnHasCategory);// Set the reference
-                            barcodeGenerator.generateQRCodee(newSerials);
+                            // barcodeGenerator.generateQRCodee(newSerials);
     
                             // serialNoDao.save(newSerials);
                             // newSerials.setGrn_has_category_id(grnHasCategory);

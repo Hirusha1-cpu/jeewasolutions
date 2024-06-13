@@ -18,29 +18,45 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
+import lk.example.jeewacomputers.privilege.controller.PrivilegeController;
 import lk.example.jeewacomputers.user.dao.UserDao;
 import lk.example.jeewacomputers.user.entity.User;
 
 @RestController
 public class UserController {
-     @Autowired
+    @Autowired
     // create dao object
     private UserDao dao;
 
-     @Autowired
+    @Autowired
+    private PrivilegeController privilegeController;
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-      @RequestMapping(value = "/user")
+    @RequestMapping(value = "/user")
     public ModelAndView employeeUI() {
         // get user authentication object
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "user");
         ModelAndView viewEmp = new ModelAndView();
         viewEmp.addObject("logusername", auth.getName());
         viewEmp.addObject("modulename", "User");
-        viewEmp.addObject("title", "User Management - BIT Project 2024");
 
-        viewEmp.setViewName("systemuser_components/user.html");
-        return viewEmp;
+        if (logUserPrivi.get("select")) {
+
+            viewEmp.addObject("title", "User Management - BIT Project 2024");
+
+            viewEmp.setViewName("systemuser_components/user.html");
+            return viewEmp;
+            // return "User Save Not Completed: You Haven't Permission";
+        } else {
+
+            viewEmp.addObject("title", "Error Permission - BIT Project");
+
+            viewEmp.setViewName("error/error.html");
+            return viewEmp;
+        }
     }
 
     // create get mapping for get user all data --- [/user/findall]
@@ -50,67 +66,79 @@ public class UserController {
         return dao.findAll(Sort.by(Direction.DESC, "id"));
     }
 
-     //post the employee object to the database
+    // post the employee object to the database
     @PostMapping(value = "/user")
     public String save(@RequestBody User user) {
-        //  user object eke username eka use krala user details gennagnnw
-        //ita passe ehem user kenekge username ekak thyenwada balanwa
-        //ita passe ehem username ekak danna den na mokada eka already exist hinda
-         User extUserName = dao.getUserByUsername(user.getUsername());
-         if (extUserName != null) {
-             return "User Save not completed yet: given username already exists";
-         }
-         
-         //Mekdi employee id eka use karala user wa gnnwa
-         User extUserEmployee = dao.getUserByEmployeeId(user.getEmployee().getId());
-         if (extUserEmployee != null) {
-             return "User Save not completed yet: given employee already exists";
- 
-         }
-        try {
-           user.setAdded_datetime(LocalDateTime.now());
-           user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            dao.save(user);
-            return "OK";
-        } catch (Exception e) {
-            return "save Not Completed" + e.getMessage();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "user");
+        if (logUserPrivi.get("insert")) {
+            // user object eke username eka use krala user details gennagnnw
+            // ita passe ehem user kenekge username ekak thyenwada balanwa
+            // ita passe ehem username ekak danna den na mokada eka already exist hinda
+            User extUserName = dao.getUserByUsername(user.getUsername());
+            if (extUserName != null) {
+                return "User Save not completed yet: given username already exists";
+            }
+
+            // Mekdi employee id eka use karala user wa gnnwa
+            User extUserEmployee = dao.getUserByEmployeeId(user.getEmployee().getId());
+            if (extUserEmployee != null) {
+                return "User Save not completed yet: given employee already exists";
+
+            }
+            try {
+                user.setAdded_datetime(LocalDateTime.now());
+                user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+                dao.save(user);
+                return "OK";
+            } catch (Exception e) {
+                return "save Not Completed" + e.getMessage();
+            }
+        } else {
+            return "You have not permissions to insert a new user";
         }
     }
 
     @PutMapping(value = "/user")
     public String updateUser(@RequestBody User user) {
-           // get user authentication object
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "user");
+        if (logUserPrivi.get("update")) {
 
-   
-        // check auth person
-        User extUser = dao.getReferenceById(user.getId());
-        if (extUser == null) {
-            return "Update not completed : User Not Exist";
-        }
-        // check duplicate
-        User extUsername = dao.getUserByUsername(user.getUsername());
+            // get user authentication object
 
-        if (extUsername != null && !user.getId().equals(extUsername.getId())) {
-            return "Update not completed : User name already exist..!";
-        }
-        try {
-            // if(!user.getPassword().equals("")){
+            // check auth person
+            User extUser = dao.getReferenceById(user.getId());
+            if (extUser == null) {
+                return "Update not completed : User Not Exist";
+            }
+            // check duplicate
+            User extUsername = dao.getUserByUsername(user.getUsername());
 
-            // if(extUser.getPassword().equals(user.getPassword())){
-            // return "Update Failed : Given password already exist";
-            // }else{
-            // //encrypt password
+            if (extUsername != null && !user.getId().equals(extUsername.getId())) {
+                return "Update not completed : User name already exist..!";
+            }
+            try {
+                // if(!user.getPassword().equals("")){
 
-            // }
-            // }else{
-            // user.setPassword(extUser.getPassword());
-            // }
-            user.setPassword(extUser.getPassword());
-            dao.save(user);
-            return "OK";
-        } catch (Exception e) {
+                // if(extUser.getPassword().equals(user.getPassword())){
+                // return "Update Failed : Given password already exist";
+                // }else{
+                // //encrypt password
 
-            return "Update not completed" + e.getMessage();
+                // }
+                // }else{
+                // user.setPassword(extUser.getPassword());
+                // }
+                user.setPassword(extUser.getPassword());
+                dao.save(user);
+                return "OK";
+            } catch (Exception e) {
+
+                return "Update not completed" + e.getMessage();
+            }
+        } else {
+            return "You have not permissions to update a new user";
         }
     }
 

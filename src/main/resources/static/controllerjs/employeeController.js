@@ -17,6 +17,14 @@ const refreshEmployeeTable = () => {
 
     fillDataIntoTable(empTab, employees, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, true)
 
+    let userPrivilegeforemployee = ajaxGetRequest("/privilege/bylogedusermodule/employee")
+    if (!userPrivilegeforemployee.insert) {
+        empaddbtn.classList.add("d-none");
+    } else{
+        empaddbtn.classList.remove("d-none");
+    }
+
+
 }
 const getEmployeeStatus = (rowObject) => {
     if (rowObject.employeestatus_id.name == "Resign") {
@@ -38,6 +46,9 @@ const getEmployeeDesignation = (rowObject) => {
     }
     if (rowObject.designation_id.name == "Cashier") {
         return "<p class = 'deleted-status'>" + rowObject.employeestatus_id.name + "</p>"
+    }else{
+        return "<p class = 'deleted-status'>" + rowObject.employeestatus_id.name + "</p>"
+
     }
 }
 
@@ -65,11 +76,11 @@ const refreshEmployeeForm = () => {
     console.log(userPrivilege);
     console.log(userPrivilege.insert);
     if (userPrivilege.insert) {
-        inputFullName1.classList.add("d-none");
-        inputFullName1lbl.classList.add("d-none");
-    } else{
         inputFullName1.classList.remove("d-none");
         inputFullName1lbl.classList.remove("d-none");
+    } else{
+        inputFullName1.classList.add("d-none");
+        inputFullName1lbl.classList.add("d-none");
     }
 
 }

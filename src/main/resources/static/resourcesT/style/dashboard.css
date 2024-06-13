@@ -18,14 +18,24 @@ body {
   background-position: center bottom;
   background-size: cover;
 }
+/* aside {
+  color: #fbfcfe;
+  background-color: #0c48a2;
+} */
+nav {
+  position: fixed;
+  top: 0; /* Adjust top position as needed */
+  background-color: #f0f0f0; /* Optional background color */
+}
+
 aside {
+
   color: #fbfcfe;
   background-color: #0c48a2;
 }
-
 h3 {
   font-size: 1.2375rem;
-  color: #100101;
+  /* color: #100101; */
 }
 
 a {
@@ -174,5 +184,21 @@ a.sidebar-link {
   background-color: #8af389; /* Light gray background on hover */
   box-shadow: 0px 2px 5px rgba(72, 159, 136); /* Optional subtle shadow */
   cursor: pointer; /* Optional cursor change to indicate interactivity */
+}
+.cardbody {
+  max-height: 150px; /* Set the desired fixed height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.table thead {
+  position: sticky;
+  top: 0;
+  z-index: 1; /* Ensure the header stays on top */
+}
+
+
+
+.table tbody td, .table tbody th {
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
