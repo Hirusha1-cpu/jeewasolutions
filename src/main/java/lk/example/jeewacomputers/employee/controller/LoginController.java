@@ -24,16 +24,27 @@ public class LoginController {
         loginErrorView.setViewName("error/error.html");
         return loginErrorView;
     }
+    @GetMapping(value = "/dashboard/getauth")
+    public String getAuth() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getAuthorities().toString();
+    }
+
 
     @GetMapping(value = "/dashboard")
     public ModelAndView indexUI(HttpServletRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(auth.getAuthorities());
         ModelAndView dashView = new ModelAndView();
         dashView.addObject("logusername", auth.getName());
         dashView.addObject("modulename", "Dashboard");
         dashView.addObject("title", "Dashboard - BIT Project 2024");
-
-        dashView.setViewName("dashboard.html");
+        // if (auth.getAuthorities().toString() == "Manager") {
+            
+            dashView.setViewName("dashboard.html");
+        // }else{
+        //     dashView.setViewName("error/error.html");
+        // }
 
         // HttpSession session = request.getSession();
         // session.removeAttribute("loginError"); // Clear the attribute
