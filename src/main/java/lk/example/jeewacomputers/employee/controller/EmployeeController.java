@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import lk.example.jeewacomputers.employee.dao.EmployeeDao;
@@ -45,13 +46,30 @@ public class EmployeeController {
     @GetMapping(value = "/employee/getlist", produces = "application/json")
     public List<Employee> findAll() {
         // login user authentication and authorization
-        return dao.findAll(Sort.by(Direction.DESC, "id"));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),"employee");
+        if (logUserPrivi.get("select")) {
+            return dao.findAll(Sort.by(Direction.DESC, "id"));
+        } else {
+            List<Employee> emptyError = new ArrayList<Employee>();
+            return emptyError;
+
+        }
     }
 
     // create get mapping for get employee list withot user accounts
     @GetMapping(value = "/employee/listwithoutuseraccount", produces = "application/json")
     public List<Employee> getEmployeeListWithoutUserAccount() {
-        return dao.getEmployeeListWithoutUserAccount();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),"employee");
+        if (logUserPrivi.get("select")) {
+            return dao.getEmployeeListWithoutUserAccount();
+
+        }else {
+            List<Employee> emptyError = new ArrayList<Employee>();
+            return emptyError;
+
+        }
     }
 
     // load the employee ui file using requesting this url (/employee)
@@ -189,7 +207,7 @@ public class EmployeeController {
             if (extEmployee == null) {
                 return "Update Not Completed : Employee not available..!";
             }
-    
+
             // employee lage unique dewal tika not null da balanwa e wagema
             // e update eka karapu employee , kalinm e record eka aithi employee ta samanada
             // balanwa
@@ -201,7 +219,7 @@ public class EmployeeController {
             if (extEmployeeNic != null && extEmployeeNic.getId() != employee.getId()) {
                 return "Update not completed : NIC no already existing..!";
             }
-    
+
             // dan modify date eka up karanawa e wgema employee wa save krnawa
             try {
                 employee.setLastmodifydatetime(LocalDateTime.now().toLocalDate());
@@ -219,7 +237,7 @@ public class EmployeeController {
                         userDao.save(extUser);
                     }
                 }
-    
+
                 return "OK";
             } catch (Exception e) {
                 return "Update not completed" + e.getMessage();

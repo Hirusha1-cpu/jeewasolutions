@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,8 +63,16 @@ public class UserController {
     // create get mapping for get user all data --- [/user/findall]
     @GetMapping(value = "/user/getlist", produces = "application/json")
     public List<User> findAll() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
+                "user");
+        if (logUserPrivi.get("select")) {
+            return dao.findAll(Sort.by(Direction.DESC, "id"));
+        } else {
+            List<User> emptyError = new ArrayList<User>();
+            return emptyError;
 
-        return dao.findAll(Sort.by(Direction.DESC, "id"));
+        }
     }
 
     // post the employee object to the database
