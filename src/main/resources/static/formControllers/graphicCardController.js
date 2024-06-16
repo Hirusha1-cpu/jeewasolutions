@@ -15,6 +15,7 @@ const refreshGraphicTable = () => {
         { property: getBrand, dataType: 'function' },
         { property: getCategory, dataType: 'function' },
         { property: getPcpartstatus, dataType: 'function' },
+        { property: "graphic_photo", dataType: 'photoarray' },
     ]
 
     fillDataIntoTable(graphicTab, graphic_Cards, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, true)
@@ -23,6 +24,11 @@ const refreshGraphicTable = () => {
 }
 const refreshGraphicForm = () =>{
     graphicCard = {}
+
+    graphicCard.graphic_photo= null;
+    graphicCardPhoto.files = null
+    imageGraphic.src = "resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png"
+    textGraphicPhoto.value = ""
 
     brands = ajaxGetRequest("brand/getlist")
     fillDataIntoSelect(selectBrandInGraphicard, "Select brands", brands, 'name')
@@ -44,8 +50,16 @@ const getPcpartstatus = (rowObject) => {
     return "<p class = 'working-status'>" + rowObject.pc_part_status_id.status + "</p>"
 }
 
-const editEmployeeBtn = () => {
+const editEmployeeBtn = (rowOb) => {
+    console.log(rowOb);
     console.log("edit");
+    //refill image
+    if (rowOb.graphic_photo == null) {
+        imageGraphic.src = "resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png"
+    } else {
+        imageGraphic.src = atob(rowOb.graphic_photo)
+        console.log("executed");
+    }
 }
 const updateEmployeeBtn = () => {
     console.log("update");
@@ -54,8 +68,31 @@ const deleteEmployeeBtn = () => {
     console.log("delete");
 }
 
+const objectshow = () =>{
+    console.log(graphicCard);
+}
+
 const addGraphicCardDetails = () =>{
     console.log(graphicCard);
     let serverGrphicResponse = ajaxRequestBodyMethod("/graphiccard", "POST", graphicCard);
     console.log(serverGrphicResponse);
 }
+
+const clearImageBtn = () =>{
+    console.log(graphicCard);
+    if (graphicCard.graphic_photo != null) {
+        const userConfirm = confirm("Are you sure you want to delete image")
+        if (userConfirm) {
+            graphicCard.graphic_photo= null;
+            graphicCardPhoto.files = null
+            imageGraphic.src = "resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png"
+            textGraphicPhoto.value = ""
+            console.log(graphicCard);
+        }
+    } else {
+        graphicCard.graphic_photo= null;
+        imageGraphic.src = "resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png"
+
+    }
+}
+

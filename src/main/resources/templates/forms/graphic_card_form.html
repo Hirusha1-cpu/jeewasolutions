@@ -47,6 +47,7 @@
                                     <th scope="col">Brand</th>
                                     <th scope="col">Category</th>
                                     <th scope="col">Pc Part Status</th>
+                                    <th scope="col">Photo</th>
                                     <th scope="col">Button</th>
 
                                 </thead>
@@ -252,8 +253,26 @@
                             <div class="row">
                                 <div class="col-3">
                                     <label for="graphicCardPhoto">Photo</label>
-                                    <input type="file" class="form-control" id="graphicCardPhoto" onchange="validateFileield(this,'graphicCard','graphic_photo','graphic_photoname','oldgraphiccard')">
+                                    <input type="file" class="d-none form-control mt-3 mb-3" id="graphicCardPhoto" 
+                                    onchange="validateFileield(this,'graphicCard','graphic_photo','graphic_photoname',imageGraphic,textGraphicPhoto)"
+                                    >
+
                                 </div>
+                                <div class="col-3">
+                                    <button type="button" class="btn btn-primary" onclick="graphicCardPhoto.click(); objectshow()" id="btnSelectImage"
+                                    >
+                                        select image
+                                    </button>
+                                    <button type="button" class="btn btn-primary" onclick="clearImageBtn();" id="btnClearImage">
+                                        clear image
+                                    </button>
+                                </div>
+                                <div class="col-3">
+                                    <img src="resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png" 
+                                    style="height: 75px; width: 75px;" alt="jeewa image" id="imageGraphic">
+                                    <input type="text" disabled name="" class="form-control" id="textGraphicPhoto">
+                                </div>
+
                             </div>
                             <!-- pc part status/ warrenty period/ reorder point end -->
                             <!-- add more details modal start-->

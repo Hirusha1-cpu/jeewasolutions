@@ -220,6 +220,26 @@ const checkBoxValidator = (fieldId, pattern, object, property, trueValue, falseV
     }
 }
 
+const validateFileield = (fileElement, object, imageProperty, imageNameProperty,  priviewObject, priviewText) =>{
+    if (fileElement.files != null) {
+        console.log(fileElement.files);
+        let file = fileElement.files[0]
+        window[object][imageNameProperty] = file.name;
+
+        let fileReader = new FileReader()
+        fileReader.onload = (e) =>{
+            priviewObject.src = e.target.result
+            window[object][imageProperty] = btoa(e.target.result);
+        }
+
+
+        fileReader.readAsDataURL(file);
+
+
+
+    }
+}
+
 const sweetalert = () => {
     Swal.fire({
     title: "Do you want to save the changes?",

@@ -28,6 +28,18 @@ const fillDataIntoTable = (tableId, dataList, propertyList, editButtonFunction, 
             if (itemOb.dataType == 'function') {
                 td.innerHTML = itemOb.property(dataList[index]);
             }
+            if (itemOb.dataType == 'photoarray') {
+                let img = document.createElement('img');
+                img.style.width = "75px"
+                img.style.height = "75px"
+                if (dataList[index][itemOb.property] == null) {
+                    img.src = "resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png"
+                }else{
+                    img.src =atob(dataList[index][itemOb.property])
+
+                }
+                td.appendChild(img);
+            }
             if (itemOb.dataType == 'boolean') {
                 td.innerHTML = dataList[index][itemOb.property]
                 if (td.innerHTML == 'true') {
