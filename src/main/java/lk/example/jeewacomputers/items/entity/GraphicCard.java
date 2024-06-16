@@ -3,6 +3,7 @@ package lk.example.jeewacomputers.items.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -97,6 +98,12 @@ public class GraphicCard {
 
     @Column(name = "qty")
     private Integer qty;
+
+    @Column(name = "graphic_photo")
+    private byte[] graphic_photo;
+
+    @Column(name = "graphic_photoname")
+    private String graphic_photoname;
 
      @ManyToOne
     @JoinColumn(name = "brand_id", referencedColumnName = "id")

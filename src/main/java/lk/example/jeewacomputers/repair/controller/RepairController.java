@@ -46,6 +46,11 @@ public class RepairController {
         // login user authentication and authorization
         return repairDao.getRepairById(id);
     }
+    @GetMapping(value = "/repair/getrepairbycustomer/{name}", produces = "application/json")
+    public List<Repair> findRepairByName(@PathVariable("name") String name) {
+        // login user authentication and authorization
+        return repairDao.getRepairByCustomerName(name);
+    }
 
     @RequestMapping(value = "/repair")
     public ModelAndView repairUI() {

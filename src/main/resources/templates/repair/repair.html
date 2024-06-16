@@ -227,7 +227,7 @@
                         <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                             <div class="col-4 form-floating p-1">
                                 <input type="text" class="form-control" id="repairItemName1" placeholder="">
-                                <label for="repairItemName" class="pl-2">Item</label>
+                                <label for="repairItemName1" class="pl-2">Item</label>
                             </div>
                             <div class="col-4 form-floating p-1">
                                 <input type="text" class="form-control" id="repairItemCategory" placeholder="">
@@ -249,7 +249,7 @@
                             </div>
                         </div>
                         <div class="col-4 form-floating p-1">
-                            <input type="text" class="form-control" id="repairCustomerName" placeholder="">
+                            <input type="text" class="form-control" id="repairCustomerName" placeholder="" >
                             <label for="repairCustomerName" class="pl-2">Customer Name</label>
                         </div>
                         <div class="col-4 form-floating p-1">
@@ -499,17 +499,17 @@
                     
                     <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                         <div class="col-4 form-floating p-1">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="">
-                            <label for="floatingInput">Item Name</label>
+                            <input type="text" class="form-control" id="repairItemName" placeholder="">
+                            <label for="repairItemName">Item Name</label>
 
                         </div>
                         <div class="col-4 form-floating p-1">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="">
-                            <label for="floatingInput">Category</label>
+                            <input type="text" class="form-control" id="repairCategoryName" placeholder="">
+                            <label for="repairCategoryName">Category</label>
                         </div>
                         <div class="col-4 form-floating p-1">
                             <select class="form-select col-5 p-3" aria-label="Default select example"
-                                id="selectPurchaseOrder1">
+                                id="selectRepairStatus">
                                 <option selected>Select Repair Status</option>
                                 <option value="1">Processing</option>
                                 <option value="2">Complete</option>
@@ -520,8 +520,8 @@
                     <div class="row col-8 py-2 p-2 ps-2 d-flex justify-content-start align-items-center ">
                         <div class="form-floating p-1">
                             <textarea class="form-control" placeholder="Leave a comment here"
-                                id="floatingTextarea"></textarea>
-                            <label for="floatingTextarea">Repair Description</label>
+                                id="repairTechnicalNote"></textarea>
+                            <label for="repairTechnicalNote">Repair Description</label>
                         </div>
 
                     </div>
@@ -538,7 +538,7 @@
                     <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                         <div class="col-4 form-floating p-1">
                             <select class="form-select col-5 p-3" aria-label="Default select example"
-                                id="selectPurchaseOrder1" aria-placeholder="ss">
+                                id="selectRepairsByCustomer" aria-placeholder="ss" onchange="nextRepair(JSON.parse(this.value))">
                                 <option selected>Select Customer Other Repairs</option>
                                 <option value="1">Processing</option>
                                 <option value="2">Complete</option>
