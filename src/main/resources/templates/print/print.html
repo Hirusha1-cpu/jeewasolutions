@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{ layouts/head :: headFragment}">
+
+</head>
+
+<head th:replace="~{ layouts/head :: headPurchaseFragment}">
+
+</head>
+
+
+<body>
+    <div class="wrapper">
+
+        <!-- side bar -->
+        <aside th:replace="~{ layouts/sidebar :: sidebarfragment}"></aside>
+
+
+        <!-- ui content area start -->
+        <div class="main">
+            <div class="row m-5">
+                <div class="col-1"></div>
+                <div class="col-10 p-2">
+        
+        
+                    <!-- invoice start -->
+                    <div class="background-color" id="printingModal" style="border: 2px solid rgb(155, 153, 153);">
+                        <!-- logo , invoice, address start -->
+                        <div class="row" style="display: flex; justify-content: space-evenly; align-items: center; ">
+                            <div class="col-3 " style="background-color: #0c48a2;">
+                                <div class="" style="display: flex; justify-content: center; align-items: center; ">
+        
+                                    <img src="../resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png" alt=""
+                                        style="width: 150px; height: 200px;"><br>
+                                </div>
+                            </div>
+                            <div class="col-4 ps-4 ms-5"
+                                style=" font-size: 80px; display: flex; justify-content: center; align-items: center; ">
+                                <p class="fw-lighter font-monospace">INVOICE</p>
+                            </div>
+                            <div class="col-3 fw-bold " style="margin-left: 51px; color: white; background-color: #5d5d5d;">
+                                <p class="mb-1">Address:</p>
+                                <Address class="">No:41/c/1, Kospitiana, Pugoda</Address>
+        
+                                <p class="mb-1">Contact:</p>
+                                <p>0775371591</p>
+        
+                                <p class="mb-1">Email:</p>
+                                <p>hirushafernando121@gmail.com</p>
+                            </div>
+                        </div>
+                        <!-- logo , invoice, address end -->
+                        <!-- bill to start -->
+                        <div class="row  mt-4" style="display: flex; justify-content: space-evenly; align-items: center; ">
+                            <div class="col-6 me-4 fw-bold" style="background-color: #565858; color: white;">
+                                <div class="row">
+        
+                                    <div class="col-3 fs-5   pt-4  border-end border-5 rounded-end-circle border-white">BILL
+                                        TO:</div>
+        
+                                    <div class="col-8" style="margin-top: 15px;">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Customer Name:</p>
+                                            </div>
+                                            <div class="col-6 pe-4">
+                                                <p>Hirusha</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Customer Phone:</p>
+                                            </div>
+                                            <div class="col-6 pe-4">
+                                                <p>0775371591</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-5 fw-bold" style="background-color: #0c48a2; color: azure;">
+                                <div class="row">
+        
+                                    <div class="col-3 fs-6 p-4 border-end border-5 rounded-end-circle border-white">INVOICE NO:
+                                    </div>
+        
+                                    <div class="col-8">
+                                        <div class="col">
+        
+                                            <div class="row">
+                                                <div class="col-6 pt-4  mt-1 border-end border-5 rounded-end-circle border-white">
+                                                    <p>100APCS5</p>
+                                                </div>
+                                                <div class="col-6 p-3 fw-bold" style="color: crimson;">
+                                                    DATE: <p>2024-05-04</p>
+                                                </div>
+                                            </div>
+                                        </div>
+        
+        
+                                    </div>
+        
+                                </div>
+                            </div>
+                        </div>
+                        <!-- bill to end -->
+                        <!-- date and invoice start -->
+                        <div class="row"></div>
+                        <!-- date and invoice end -->
+                        <!-- table start -->
+                        <div class="row p-4">
+                            <table class="table table-secondary table-lg">
+                                <thead class="table   table-striped-columns">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Qty</th>
+                                        <th scope="col">Serial no</th>
+                                        <th scope="col">Item Description</th>
+                                        <th scope="col">Warrenty</th>
+                                        <th scope="col">Unit Price</th>
+                                        <th scope="col">Total Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>@fat</td>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>@twitter</td>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- table end -->
+                        <!-- payment method, total start -->
+                        <div class="row mt-3 fw-bold fs-6" style="display: flex; justify-content: space-evenly; ">
+                            <div class="col-4 me-4 pe-5 ">
+                                <div class="row">
+                                    <div class="col-5">
+        
+                                        <p>Payment method:</p>
+                                    </div>
+                                    <div class="col-5">
+                                        <p>Card</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5">
+        
+                                        <p>Referrance No:</p>
+                                    </div>
+                                    <div class="col-5">
+                                        <p>00AAAWE1234</p>
+                                    </div>
+                                </div>
+        
+                            </div>
+                            <div class="col-3"></div>
+                            <div class="col-4">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <p>Sub Total:</p>
+                                    </div>
+                                    <div class="col-5">
+                                        <p>Rs.2000</p>
+                                    </div>
+                                </div>
+        
+                                <div class="row">
+                                    <div class="col-5">
+                                        <p>Discount:</p>
+                                    </div>
+                                    <div class="col-5">
+                                        <p>Rs.2000</p>
+                                    </div>
+                                </div>
+        
+                                <div class="row pt-1" style="background-color: #5d5d5d; color: white;">
+                                    <div class="col-5">
+                                        <p>Grand Total:</p>
+                                    </div>
+                                    <div class="col-5">
+                                        <p>Rs.2000</p>
+                                    </div>
+                                </div>
+        
+                            </div>
+                        </div>
+                        <!-- payment method, total end -->
+                        <div class="row mt-3">
+                            <div class="col-12 pr-0 pl-0 d-flex justify-content-center align-items-center">
+                                <img src="../resourcesT/assets/invoicelogo/hp.png" alt="" class="icon-size">
+                                <img src="../resourcesT/assets/invoicelogo/asus.png" alt="" class="icon-size">
+                                <img src="../resourcesT/assets/invoicelogo/dell.png" alt="" class="icon-size">
+                                <img src="../resourcesT/assets/invoicelogo/msi.png" alt="" class="icon-size">
+                                <img src="../resourcesT/assets/invoicelogo/intel.png" alt="" class="icon-size">
+                                <img src="../resourcesT/assets/invoicelogo/amd.png" alt="" class="icon-size">
+                                <img src="../resourcesT/assets/invoicelogo/lenovo.png" alt="" class="icon-size">
+                                <img src="../resourcesT/assets/invoicelogo/nvidia.png" alt="" class="icon-size">
+                                <img src="../resourcesT/assets/invoicelogo/trandcend.png" alt=""
+                                     class="icon-size">
+                                <img src="../resourcesT/assets/invoicelogo/gigabyte.png" alt=""
+                                     class="icon-size">
+                                <img src="../resourcesT/assets/invoicelogo/king.png" alt="" class="icon-size">
+                                <img src="../resourcesT/assets/invoicelogo/samsung.png" alt="" class="icon-size">
+                                <img src="../resourcesT/assets/invoicelogo/master.png" alt="" class="icon-size">
+                            </div>
+                        </div>
+                        <!-- terms and sign start -->
+                        <div class="row p-4">
+                            <p class="fw-bold">Term & Conditions</p>
+                            Thank you for your purchase. Defect part will be repaired within 14 days time period. No warranty
+                            for chip burnt, physical damage, corroded, misuse, negligence or improper operations.No replacement
+                            warranty for laptop, only repair warranty. No warranty or return for software. Goods sold once not
+                            returnable. No cash refund or return after transactions.
+        
+                            Submit this invoice for Warranty Claim.
+        
+                            Technical Support: 011-4582457
+                        </div>
+                        <!-- terms and sign end -->
+                        <!-- footer start -->
+                        <div class="row mb-4 pb-5 ps-3">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-11 input-group">
+                                        <label class="mr-2 mb-2 ml-2 pl-1 inv-cus-info-lable"
+                                               for="txtAssignByView">Assign By :</label>
+                                        <input type="text" id="txtAssignByView" disabled
+                                               class="form-control inv-cus-info p-0" value="">
+                                    </div>
+                                    <div class="col-1"></div>
+                                </div>
+                            </div>
+                            <div class="col-6"></div>
+                        </div>
+                        <div class="row mt-4 p-2">
+                            <div class="col-3 pl-5 signature-info">
+                                <p>Jeewa Compuers</p>
+                            </div>
+                            <div class="col-3 pl-2 signature-info">
+                                <p>Customer Signature</p>
+                            </div>
+                            <div class="col-6" style="text-align: center; font-size: 13px">
+                                <p>-----Thank You-----</p>
+                            </div>
+                        </div>
+                        <!-- footer end -->
+                    </div>
+                    <!-- invoice start -->
+        
+        
+                </div>
+                <div class="col-1"></div>
+        
+            </div>
+
+        </div>
+        <!-- ui content area end -->
+    </div>
+
+
+    <script src="templates/layouts/layout1.js"></script>
+    <script src="templates/layouts/layout2.js"></script>
+
+</body>
+
+</html>

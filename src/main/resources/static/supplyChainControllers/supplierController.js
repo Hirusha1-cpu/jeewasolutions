@@ -196,7 +196,7 @@ const refreshSupplyTable = () => {
         { property: getBankDetails, dataType: 'function' },
     ]
     //main supply table eka
-    fillDataIntoTable(supplyTab, suppliers, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, true)
+    fillDataIntoTable(supplyTab, suppliers, displayProperties, editEmployeeBtn, updateEmployeeBtn, printEmployeeBtn, true)
 }
 
 const getCategoryName = (rowObject) => {
@@ -286,16 +286,19 @@ const updateEmployeeBtn = () => {
     console.log("update");
 }
 //print
-const deleteEmployeeBtn = (rowOb, rowIndex) => {
+const printEmployeeBtn1 = (rowOb, rowIndex) => {
 
     console.log("print");
-    const table1 = document.getElementById("tableSupplier")
+    // const table1 = document.getElementById("tableSupplier")
+    const table1 = document.getElementById("printingModal")
+    // table1.classList.remove("d-none")
     const tableHtml = table1.outerHTML;
     // const printWindow = window.open();
     // printWindow.document.write(tableHtml);
     let newWindow = window.open()
     newWindow.document.write(
-        "<title>" + rowOb.supplier_code + "</title>" +
+        // "<title>" + rowOb.supplier_code + "</title>" +
+        "<title>" + 1000 + "</title>" +
         "<link rel='stylesheet' href='resourcesT/bootstrap_5.3.1/css/bootstrap.min.css'>" + "</link>" +
         "<body>" + tableHtml + "</body>"
 

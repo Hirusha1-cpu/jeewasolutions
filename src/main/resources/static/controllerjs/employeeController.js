@@ -20,7 +20,7 @@ const refreshEmployeeTable = () => {
     let userPrivilegeforemployee = ajaxGetRequest("/privilege/bylogedusermodule/employee")
     if (!userPrivilegeforemployee.insert) {
         empaddbtn.classList.add("d-none");
-    } else{
+    } else {
         empaddbtn.classList.remove("d-none");
     }
 
@@ -46,7 +46,7 @@ const getEmployeeDesignation = (rowObject) => {
     }
     if (rowObject.designation_id.name == "Cashier") {
         return "<p class = 'deleted-status'>" + rowObject.employeestatus_id.name + "</p>"
-    }else{
+    } else {
         return "<p class = 'deleted-status'>" + rowObject.employeestatus_id.name + "</p>"
 
     }
@@ -75,13 +75,13 @@ const refreshEmployeeForm = () => {
     let userPrivilege = ajaxGetRequest("/privilege/bylogedusermodule/employee")
     console.log(userPrivilege);
     console.log(userPrivilege.insert);
-    if (userPrivilege.insert) {
-        inputFullName1.classList.remove("d-none");
-        inputFullName1lbl.classList.remove("d-none");
-    } else{
-        inputFullName1.classList.add("d-none");
-        inputFullName1lbl.classList.add("d-none");
-    }
+    // if (userPrivilege.insert) {
+    //     inputFullName1.classList.remove("d-none");
+    //     inputFullName1lbl.classList.remove("d-none");
+    // } else{
+    //     inputFullName1.classList.add("d-none");
+    //     inputFullName1lbl.classList.add("d-none");
+    // }
 
 }
 
@@ -276,16 +276,23 @@ const txtCallingNameValidator = (fieldId) => {
         employee.callingname = "null"
     }
 }
+const saveDetails = () => {
 
-const buttonEmpAdd = () => {
-    let serverResponse = ajaxRequestBodyMethod("/employee", "POST", employee);
+    // let serverResponse = ajaxRequestBodyMethod("/employee", "POST", employee);
 
-    if (new RegExp('^[0-9]{8}$').test(serverResponse)) {
-        alert("Save successfully...!" + serverResponse)
-    } else {
-        alert("Save not successfully...!" + serverResponse)
+    // if (new RegExp('^[0-9]{8}$').test(serverResponse)) {
+    //     alert("Save successfully...!" + serverResponse)
+    // } else {
+    //     alert("Save not successfully...!" + serverResponse)
 
-    }
+    // }
+    inputFullName1.value = ""
+    inputCallingName.value = ""
+    inputLand.value = ""
+    inputEmail.value = ""
+    inputAddress.value = ""
+    selectEStatus.value = ""
+
     refreshEmployeeTable()
     refreshEmployeeForm()
 
@@ -305,4 +312,51 @@ const buttonEmpAdd = () => {
         table.style.opacity = 1; // Gradually fade in
     }, 100); // Adjust the delay as needed
 
+}
+const addedEmployeeDetails = (employeename, nic, mobile, email, designation, civilstatus, employeestatus) => {
+    const emplyoeeDetails1 = `<b>
+    Employee name: ${employeename}<br>
+    Employee nic: ${nic}<br>
+    Employee mobile: ${mobile}<br>
+    Employee email: ${email}<br>
+    Designation: ${designation}<br>
+    Employeestatus: ${employeestatus}<br>
+    civilstatus: ${civilstatus}
+    <b>`;
+
+    Swal.fire({
+        title: "Do you want to save?",
+        html: emplyoeeDetails1,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Save",
+        denyButtonText: `Don't save`,
+        customClass: {
+            title: 'custom-title', // Apply custom CSS class to title
+            html: 'custom-html', // Apply custom CSS class to HTML container
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let serverResponse = ajaxRequestBodyMethod("/employee", "POST", employee);
+            console.log(serverResponse);
+            if (new RegExp('^[0-9]{8}$').test(serverResponse)) {
+                // alert("Save successfully...!" + serverResponse)
+                Swal.fire("Saved!", "", "success");
+                saveDetails();
+            } else {
+                Swal.fire("Not saved" + serverResponse, "", "info");
+                // alert("Save not successfully...!" + serverResponse)
+
+            }
+
+        } else if (result.isDenied) {
+            Swal.fire("Not saved", "", "info");
+        }
+    });
+}
+
+
+const buttonEmpAdd = () => {
+    console.log(employee);
+    addedEmployeeDetails(employee.fullname, employee.nic, employee.mobile, employee.email, employee.designation_id.name, employee.civilstatus, employee.employeestatus_id.name)
 }

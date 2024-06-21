@@ -206,7 +206,8 @@
                             <!-- Bank details start -->
                             <p class="d-inline-flex gap-1">
                                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseBankDetails" aria-expanded="false"  aria-controls="collapseBankDetails">
+                                    data-bs-target="#collapseBankDetails" aria-expanded="false"
+                                    aria-controls="collapseBankDetails">
                                     Bank Details
                                 </button>
                             </p>
@@ -214,7 +215,7 @@
                                 <div class="card card-body">
                                     <form class=" ">
                                         <div class="row mt-3 d-flex justify-content-center align-items-center ">
-                                             <!-- bank name start -->
+                                            <!-- bank name start -->
                                             <div class="col-6 form-floating  p-1">
                                                 <input type="text" class="form-control" id="inputBankName" required
                                                     onkeyup="textValidation2(inputBankName,supplierBankNameError,'^([A-Z][a-z]{2,30})$', 'supplierbankdetails', 'bankname');">
@@ -239,7 +240,7 @@
                                                 </label>
 
                                             </div>
-                                             <!-- bank branch name end -->
+                                            <!-- bank branch name end -->
 
                                         </div>
                                         <div class="row d-flex justify-content-center align-items-center ">
@@ -266,7 +267,7 @@
                                                 </label>
 
                                             </div>
-                                             <!-- bank account holder name end -->
+                                            <!-- bank account holder name end -->
                                         </div>
 
                                     </form>
@@ -330,15 +331,24 @@
                             <!-- add more details modal end-->
 
 
+
                             <!-- button gruop start -->
                             <div class="row p-2 d-flex justify-content-end align-items-center"
                                 style="display: flex; flex-direction: row; gap:10px;">
                                 <button class="col-3 btn btn-warning" onclick="supplierUpdate()">UPDATE</button>
                                 <button class="col-3 btn btn-primary suppAdd" onclick="supplierAdd()"
                                     type="submit">ADD</button>
+                                <button type="button" class="col-3 btn btn-success " data-bs-toggle="modal"
+                                    data-bs-target="#printingModal">
+                                    print
+                                </button>
 
                             </div>
                             <!-- button gruop end -->
+
+                           
+
+
 
 
                         </form>
