@@ -37,10 +37,19 @@ const refreshRepairTable = () => {
 }
 
 const getItemRepairName = (rowObject) => {
-  return rowObject?.duetoRepair?.itemname ? rowObject.duetoRepair.itemname : "-";
+  console.log(rowObject);
+  let DueRepairItemName = '';
+  rowObject.duetoRepair.forEach(element => {
+    DueRepairItemName = DueRepairItemName + "<p class = 'working-status'>" + element?.itemname ? element?.itemname  : "-" + "</p>"
+  })
+  return DueRepairItemName
 }
 const getItemRepairStatus = (rowObject) => {
-  return rowObject?.duetoRepair?.statusofrepair ? rowObject.duetoRepair.statusofrepair : "-";
+  let DueRepairItemStatus = '';
+  rowObject.duetoRepair.forEach(element => {
+    DueRepairItemStatus = DueRepairItemStatus + "<p class = 'working-status'>" + element?.statusofrepair ? element?.statusofrepair  : "-" + "</p>"
+  })
+  return DueRepairItemStatus
 }
 const getItemRepairCustomer = (rowObject) => {
   return rowObject?.customer_id?.name ? rowObject.customer_id.name : "-";

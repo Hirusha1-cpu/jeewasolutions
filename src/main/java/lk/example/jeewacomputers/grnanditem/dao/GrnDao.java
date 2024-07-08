@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import lk.example.jeewacomputers.grnanditem.entity.Grn;
 import lk.example.jeewacomputers.grnanditem.entity.GrnHasCategory;
+import lk.example.jeewacomputers.grnanditem.entity.GrnItemStatus;
+import lk.example.jeewacomputers.purchase.entity.PurchaseStatus;
 import lk.example.jeewacomputers.user.entity.User;
 
 
@@ -26,6 +28,9 @@ public interface GrnDao extends JpaRepository<Grn, Integer> {
 
     @Query("select u from User u where u.username = ?1")
     public User getUsersByUsername(String username);
+
+     @Query("select gs from GrnItemStatus gs where gs.grnstatus = ?1")
+    public GrnItemStatus getgrnStatus(String status);
 
     // SELECT qty FROM %s WHERE name = ?1
     //select u from #{#entityName} u where u.lastname = ?1

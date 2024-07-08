@@ -57,7 +57,7 @@ const textValidation2 = (fieldId, errorId, Pattern, object, property) => {
         window[object][property] = null;
         if (fieldId.required) {
             fieldId.style.border = '2px solid red';
-             errorId.innerText = ""
+            errorId.innerText = ""
         } else {
             fieldId.style.border = '2px solid #ced4da';
             errorId.innerText = ""
@@ -80,7 +80,7 @@ const textValidation3 = (fieldId, Pattern, object, property, tooltipTitle, toolt
         } else {
             fieldId.style.border = '2px solid red';
             // Create tooltip only if it doesn't exist
-            fieldId.setAttribute("data-bs-toggle","tooltip")
+            fieldId.setAttribute("data-bs-toggle", "tooltip")
             tooltip = new bootstrap.Tooltip(fieldId, {
                 placement: tooltipPlacement,
                 title: tooltipTitle
@@ -218,16 +218,34 @@ const checkBoxValidator = (fieldId, pattern, object, property, trueValue, falseV
         window[object][property] = falseValue;
         labelId.innerText = labelFalseValue;
     }
+
+    // let initialCheckedState = fieldId.checked; // Store initial checkbox state
+
+    // fieldId.addEventListener('change', function () {
+    //     if (fieldId.checked) {
+    //         window[object][property] = trueValue;
+    //         labelId.innerText = labelTrueValue;
+    //     } else {
+    //         window[object][property] = falseValue;
+    //         labelId.innerText = labelFalseValue;
+    //     }
+    // });
+
+    // // Set default values based on initial state (optional)
+    // if (!initialCheckedState) {
+    //     window[object][property] = someDefaultValue;
+    //     labelId.innerText = someDefaultLabel;
+    // }
 }
 
-const validateFileield = (fileElement, object, imageProperty, imageNameProperty,  priviewObject, priviewText) =>{
+const validateFileield = (fileElement, object, imageProperty, imageNameProperty, priviewObject, priviewText) => {
     if (fileElement.files != null) {
         console.log(fileElement.files);
         let file = fileElement.files[0]
         window[object][imageNameProperty] = file.name;
 
         let fileReader = new FileReader()
-        fileReader.onload = (e) =>{
+        fileReader.onload = (e) => {
             priviewObject.src = e.target.result
             window[object][imageProperty] = btoa(e.target.result);
         }
@@ -242,17 +260,17 @@ const validateFileield = (fileElement, object, imageProperty, imageNameProperty,
 
 const sweetalert = () => {
     Swal.fire({
-    title: "Do you want to save the changes?",
-    showDenyButton: true,
-    showCancelButton: true,
-    confirmButtonText: "Save",
-    denyButtonText: `Don't save`
-  }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
-    if (result.isConfirmed) {
-      Swal.fire("Saved!", "", "success");
-    } else if (result.isDenied) {
-      Swal.fire("Changes are not saved", "", "info");
-    }
-  });
+        title: "Do you want to save the changes?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Save",
+        denyButtonText: `Don't save`
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            Swal.fire("Saved!", "", "success");
+        } else if (result.isDenied) {
+            Swal.fire("Changes are not saved", "", "info");
+        }
+    });
 }

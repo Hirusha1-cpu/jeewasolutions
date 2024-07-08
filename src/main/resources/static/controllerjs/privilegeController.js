@@ -249,9 +249,15 @@ const refreshPrivilegeForm = () => {
     inputSelect.checked = false;
     inputInsert.checked = false;
     inputUpdate.checked = false;
+
+    privilege.sel = false
+    privilege.inst = false
+    privilege.del = false
+    privilege.upd = false
 }
 
 const buttonPrivilegeAdd = () => {
+
 
     console.log(privilege);
     let errorsprivilege = checkErrors();

@@ -76,7 +76,7 @@ public class SupplierController {
         try {
             String nextEmpNo = dao.getSupplierCode();
             supplier.setSupplier_code(nextEmpNo);
-            supplier.setSupplierstatus_id(dao.getSuppStatus("Active"));
+            supplier.setSupplierstatus_id(dao.getSuppStatus("active"));
             supplier.setUser_id(dao.getUsersByUsername(auth.getName()));
             //metanadi supplier has category ekatai bank details walatai supplier object eken data save wenwa for loop eka haraha
             for (SupplierHasCategory supplierHasCategory : supplier.getCategoriesBrandsWithSuppliers()) {

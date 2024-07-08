@@ -199,6 +199,10 @@ const refreshSupplyTable = () => {
     fillDataIntoTable(supplyTab, suppliers, displayProperties, editEmployeeBtn, updateEmployeeBtn, printEmployeeBtn, true)
 }
 
+const printEmployeeBtn = () =>{
+    console.log("ss");
+}
+
 const getCategoryName = (rowObject) => {
     let userCategory = '';
     rowObject.categoriesBrandsWithSuppliers.forEach(element => {

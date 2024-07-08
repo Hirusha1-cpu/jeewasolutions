@@ -191,7 +191,7 @@ public class GrnController {
             }
             // }
             grn.setAddeduser_id(dao.getUsersByUsername(auth.getName()));
-
+            grn.setGrnItemStatus(dao.getgrnStatus("active"));
             Grn saveGrn = dao.save(grn);
             return saveGrn.getId().toString();
         } catch (Exception e) {
