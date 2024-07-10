@@ -1,4 +1,5 @@
 package lk.example.jeewacomputers.repair.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -9,11 +10,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.*;
 
 @Entity // apply as an entity class
 @Table(name = "due_to_repairitem") // for map with given table
@@ -42,10 +45,25 @@ public class DuetoRepair {
      @Column(name = "fault")
     private String fault;
 
+    @Column(name = "technicalnote")
+    private String technicalnote;
+
+    @Column(name = "repairid")
+    private Integer repairid;
+
     @ManyToOne
     @JoinColumn(name = "repair_id", referencedColumnName = "id")
-    // @JsonIgnoreProperties(value = {"serialno_id"})
+   @JsonIgnore
     private Repair repair_id ;
+
+    // @OneToMany(mappedBy = "due_to_repairitem_id", cascade = CascadeType.ALL,orphanRemoval = true)
+    // // @JsonIgnore
+    // private List<UsedItems> usedItems;
+
+    @JsonIgnoreProperties(value = {"due_to_repairitem_id"})
+    @OneToMany(mappedBy = "due_to_repairitem_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @JsonIgnore
+    private List<UsedItems> usedItems;
 
 
 }

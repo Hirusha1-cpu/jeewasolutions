@@ -32,10 +32,13 @@ window.addEventListener('load', () => {
 
 const refreshInvoiceForm = () => {
     invoice = new Object();
+    duetoRepair = new Object();
     itable = []
     serialno_id = new Object();
     customer_id = new Object();
     customer_id1 = new Object();
+    usedItemsObj = new Object();
+    duetoRepair.usedItems = new Array();
     incomePaymentsObj = new Object();
     invoice.serialnolist_id = new Array();
     invoice.salesHasSerials = new Array();
@@ -99,7 +102,7 @@ const checkdiscount = async (discountname) => {
 //         discountCusRate.disabled = true
 //         discountCusRate.value = "-"
 //     }else{
-        
+
 //         discountCusRate.disabled = false
 //         discountCusRate.value = serverresponseof_discount.discount
 //     }
@@ -126,7 +129,7 @@ const getItemDetails = () => {
     const obj = filteredData[0]
 
     const warrentyPeriod = obj.warrenty
-    
+
     // serialNumbers.warrentyperiod = warrentyPeriod
     saleSerial.warrentyperiod = warrentyPeriod
 
@@ -185,15 +188,15 @@ const selectCustomerType = () => {
     if (selectedValue == 1) {
         customerDiscount.disabled = false
         const customers = ajaxGetRequest("/customer/getlist")
-        fillDataIntoSelect(customerDiscount,"Select Customer",customers,"name")
+        fillDataIntoSelect(customerDiscount, "Select Customer", customers, "name")
 
-        
-    }else if(selectedValue == 2){
+
+    } else if (selectedValue == 2) {
         discountCusRate.disabled = false;
         discountCusPhone.disabled = true;
     }
-    
-    
+
+
 }
 const calculateBalance = () => {
     // invoice.total = invoiceTotalPrice.value
@@ -282,7 +285,9 @@ const refreshRepairTable = () => {
     customer_id = new Object();
     customerObj = new Object();
     repair.duetoRepair = new Array();
-    repair.usedItems = new Array();
+    warrentyItem.usedItems = new Array();
+    // repair.usedItems = new Array();
+    duetoRepair.usedItems = new Array();
     useItem = new Object();
 
 
@@ -303,7 +308,7 @@ const getWarrentyItemDetails = () => {
     console.log(customer3);
     const parts = customer3.split(",");
     console.log(parts);
- 
+
     inputWarrentyCustomerName.value = parts[0]
     inputWarrentyCustomerContact.value = parts[1];
 
@@ -338,7 +343,7 @@ const getWarrentyItemDetails = () => {
         // Optionally, you can also set aria-expanded attribute to 'true' for accessibility
         collapseWarrentyItemElement.setAttribute("aria-expanded", "true");
     }
-    inputItemRepName.value=serialwarrentyObject.itemname
+    inputItemRepName.value = serialwarrentyObject.itemname
 
     // itemsDetails1 = null
 }
@@ -349,7 +354,7 @@ function filterByWarrentyName(itemname, data) {
     );
 }
 
-const repairItemIntoTable = () =>{
+const repairItemIntoTable = () => {
     const repairtable = ajaxGetRequest("/repair/getlist")
     console.log(repairtable);
 
@@ -364,28 +369,59 @@ const repairItemIntoTable = () =>{
 
 }
 
-const getSerialNo = (rowOb) =>{
+const getSerialNo = (rowOb) => {
     let ItemRepair = '';
     rowOb.duetoRepair.forEach(element => {
         ItemRepair = ItemRepair + "<p class = 'working-status'>" + element.serialno + "</p>"
     })
     return ItemRepair
 }
-const getSerialNoItemName = (rowOb) =>{
+const getSerialNoItemName = (rowOb) => {
     let ItemSerialNo = '';
     rowOb.duetoRepair.forEach(element => {
         ItemSerialNo = ItemSerialNo + "<p class = 'working-status'>" + element.itemname + "</p>"
     })
     return ItemSerialNo
 }
-const getRepairItemStatus = (rowOb) =>{
-    let ItemStatus = '';
+// const getRepairItemStatus = (rowOb) => {
+//     let ItemStatus = '';
+//     rowOb.duetoRepair.forEach(element => {
+//         if (element.statusofrepair === "pending diagnosis") {
+//             ItemStatus = ItemStatus + "<p class = 'working-status'>" + element.statusofrepair + "</p>"
+//         } else if (element.statusofrepair === "Diagnoesed") {
+//             ItemStatus = ItemStatus + `<button  type="button" class="working-status btn btn-secondary mb-3" data-bs-toggle="modal"
+//             data-bs-target="#staticBackdrop00" onclick='handleClick("${element.statusofrepair}")'>` + element.statusofrepair + "</button>"
+//         }
+//     })
+//     return ItemStatus
+// }
+// const handleClick = (elem) =>{
+//     console.log(elem);
+
+// }
+const getRepairItemStatus = (rowOb) => {
+    let itemStatus = ''; // Use a more descriptive variable name
+  
     rowOb.duetoRepair.forEach(element => {
-        ItemStatus = ItemStatus + "<p class = 'working-status'>" + element.statusofrepair + "</p>"
-    })
-    return ItemStatus
-}
-const getRepairItemCustomer = (rowOb) =>{
+      const statusText = element.statusofrepair; // Store status for readability
+  
+      if (statusText === "pending diagnosis") {
+        itemStatus += `<p class="working-status">${statusText}</p>`;
+      } else if (statusText === "Diagnoesed") {
+        // Use template literal for clarity and to avoid string concatenation
+        itemStatus += `<button type="button" class="working-status btn btn-secondary mb-3" data-bs-toggle="modal"
+        //             data-bs-target="#staticBackdrop00" onclick="handleClick('${statusText}')">${statusText}</button>`;
+      }
+    });
+  
+    return itemStatus;
+  };
+  
+  const handleClick = (elem) => {
+    console.log(elem); // Log the clicked status or perform other actions
+    
+  };
+const getRepairItemCustomer = (rowOb) => {
     return rowOb.customer_id.name
 }
 
@@ -395,6 +431,8 @@ const readyRepair = () => {
     warrentyItem.category = serialwarrentyObject.category_id.name
     // warrentyItem.statusofrepair = warrentyItemStatus.value
     warrentyItem.fault = warrentyFault.value
+
+    warrentyItem.usedItems.push(usedItemsObj)
     customerObj.name = inputWarrentyCustomerName.value
     customerObj.phone = inputWarrentyCustomerContact.value
     repair.customer_id = customerObj
@@ -407,5 +445,5 @@ const readyRepair = () => {
     let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
     console.log("serverResponse", serverResponse1);
     repairItemIntoTable()
- 
+
 }

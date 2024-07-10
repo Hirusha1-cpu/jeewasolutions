@@ -39,7 +39,7 @@ public class UsedItems {
     private String unitprice;
 
     @ManyToOne(optional = true)
-    @JoinColumn(name = "repair_id", referencedColumnName = "id")
+    @JoinColumn(name = "due_to_repairitem_id", referencedColumnName = "id")
     // @JsonIgnoreProperties(value = {"serialno_id"})
-    private Repair repair_id ;
+    private DuetoRepair due_to_repairitem_id;
 }

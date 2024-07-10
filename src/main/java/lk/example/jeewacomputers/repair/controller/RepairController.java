@@ -16,7 +16,9 @@ import java.util.*;
 import lk.example.jeewacomputers.customer.dao.CustomerDao;
 import lk.example.jeewacomputers.customer.entity.Customer;
 import lk.example.jeewacomputers.payment.entity.IncomePayment;
+import lk.example.jeewacomputers.repair.dao.DuetoRepairDao;
 import lk.example.jeewacomputers.repair.dao.RepairDao;
+import lk.example.jeewacomputers.repair.dao.UsedItemDao;
 import lk.example.jeewacomputers.repair.entity.DuetoRepair;
 import lk.example.jeewacomputers.repair.entity.Repair;
 import lk.example.jeewacomputers.repair.entity.UsedItems;
@@ -32,6 +34,9 @@ public class RepairController {
 
     @Autowired
     private RepairDao repairDao;
+
+    @Autowired
+    private DuetoRepairDao duetoRepairDao;
 
     @Autowired
     private CustomerDao customerdao;
@@ -102,19 +107,22 @@ public class RepairController {
             }
 
             for (DuetoRepair duetoRepair : repair.getDuetoRepair()) {
+                for (UsedItems usedItems : duetoRepair.getUsedItems()) {
+                    // purchaseHasCategory.setPurchase_id(purchase);
+                    usedItems.setDue_to_repairitem_id(duetoRepair);
+
+                }
                 // purchaseHasCategory.setPurchase_id(purchase);
+                duetoRepair.setRepairid(repair.getId());
                 duetoRepair.setRepair_id(repair);
-            }
-            for (UsedItems usedItems : repair.getUsedItems()) {
-                // purchaseHasCategory.setPurchase_id(purchase);
-                usedItems.setRepair_id(repair);
+                // duetoRepair.setStatusofrepair("pending diagnosis");
             }
             IncomePayment existingIncomePayment = repair.getIncomePayments();
             if (existingIncomePayment != null) {
                 existingIncomePayment.setRepair_id(repair);
                 
             }
-
+            repair.setRepairstatus("pending diagnosis");
             repairDao.save(repair);
             return "OK";
 
@@ -129,17 +137,27 @@ public class RepairController {
     // @Transactional
     public Repair saveUpdate(@PathVariable Integer id,@RequestBody Repair repair) {
         Repair exRepair = repairDao.getRepairById(id);
-        exRepair.setTechnicalnote(repair.getTechnicalnote());
+        // exRepair.setTechnicalnote(repair.getTechnicalnote());
         exRepair.setRepairstatus(repair.getRepairstatus());
 
-        List<UsedItems> usedItemsInRepair = repair.getUsedItems();  
-        exRepair.setUsedItems(usedItemsInRepair);
+        List<DuetoRepair> dueToRepairInRepair = repair.getDuetoRepair();  
+        exRepair.setDuetoRepair(dueToRepairInRepair);
+        
+        for (DuetoRepair duetoRepair : repair.getDuetoRepair()) {
+            DuetoRepair duetoRepairnew = new DuetoRepair();
+            duetoRepairnew.setStatusofrepair(duetoRepair.getStatusofrepair());
+            duetoRepair.setRepair_id(exRepair);
+            duetoRepairDao.save(duetoRepairnew);
 
-        for (UsedItems usedItems2 : repair.getUsedItems()) {
-            // purchaseHasCategory.setPurchase_id(purchase);
-            usedItems2.setRepair_id(exRepair);
+            List<UsedItems> usedItems = duetoRepair.getUsedItems();  
+            duetoRepair.setUsedItems(usedItems);
+          
+            for (UsedItems usedItems2 : duetoRepair.getUsedItems()) {
+                // purchaseHasCategory.setPurchase_id(purchase);
+                usedItems2.setDue_to_repairitem_id(duetoRepair);                
+            }           
+            // duetoRepair.setStatusofrepair("Diagnosed");
         }
-
         IncomePayment incomePayment = repair.getIncomePayments();
         incomePayment.setRepair_id(exRepair);
         exRepair.setIncomePayments(repair.getIncomePayments());

@@ -209,7 +209,6 @@ const filterCategoryItems = () => {
 
     // itemnames = new Object();
 
-
     supplierlistByCategory.innerHTML = " "
     categoryItemCheckBoxes.innerHTML = " "
 

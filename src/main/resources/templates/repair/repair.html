@@ -266,8 +266,15 @@
                         data-bs-target="#exampleModal">
                         Add Item Details
                     </button>
+                    <!-- diagnosis -->
+                    <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal"
+                        data-bs-target="#diagnosisModal">
+                        Diagnosis
+                    </button>
+                    <!-- diagnosis -->
 
-                    <!-- Modal -->
+
+                    <!-- Item details add model start  -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -399,6 +406,73 @@
                         </div>
                     </div>
                     <!-- Item details add model end -->
+                    <!-- diagnosis start  -->
+                    <div class="modal fade" id="diagnosisModal" tabindex="-1" aria-labelledby="exampleModalLabel11"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel11">Add Repaired Items</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row mt-2">
+
+                                        <div class="col-5">
+                                            <!-- category -->
+                                            <select class="cat form-select" id="selectRepairCategory"
+                                                aria-label="Default select example"
+                                                onchange="selectFieldValidation(selectRepairCategory,'', 'diagnosisUpdate', 'category'); filterByCategoryInDiagnosis()">
+
+                                            </select>
+                                        </div>
+
+                                        <div class="col-6 checkboxes-container"
+                                            style="display: flex; flex-wrap: wrap; gap: 10px;" id="brandByCategory">
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                    id="flexCheckChecked1">
+                                                <label class="form-check-label" for="flexCheckChecked1">
+                                                    <!-- Azuz -->
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-1">
+                                            <button class="btn btn-success " type="button"
+                                                onclick="addToRepairCateTable()">Add</button>
+                                        </div>
+                                    </div>
+                                    <hr style="border:2px solid black;">
+                                    <div class="row">
+                                        <table class="table" id="repairDiagnosTable">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Item Code</th>
+                                                    <th scope="col">Item Category</th>
+                                                    <th scope="col">Item Name</th>
+                                                    <!-- <th scope="col">Total Price</th> -->
+                                                    <th scope="col">Buttons</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="d-flex justify-content-end gap-3">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" onclick="submitDiagnosis()">Submit</button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- diagnosis end -->
 
                     <div class="row p-3 fw-semibold" style="color: green;">
                         Repair Item Details

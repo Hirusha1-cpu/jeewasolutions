@@ -38,16 +38,8 @@ public class Repair {
      @Column(name = "repairstatus")
     private String repairstatus;
 
-     @Column(name = "technicalnote")
-    private String technicalnote;
-
     @JsonIgnoreProperties(value = {"repair_id"})
     @OneToMany(mappedBy = "repair_id", cascade = CascadeType.ALL)
-    // @JsonIgnore
-    private List<UsedItems> usedItems;
-
-    @JsonIgnoreProperties(value = {"repair_id"})
-    @OneToMany(mappedBy = "repair_id", cascade = CascadeType.ALL, orphanRemoval = true)
     // @JsonIgnore
     private List<DuetoRepair> duetoRepair;
 
