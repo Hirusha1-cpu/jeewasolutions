@@ -401,26 +401,66 @@ const getSerialNoItemName = (rowOb) => {
 // }
 const getRepairItemStatus = (rowOb) => {
     let itemStatus = ''; // Use a more descriptive variable name
-  
+
     rowOb.duetoRepair.forEach(element => {
-      const statusText = element.statusofrepair; // Store status for readability
-  
-      if (statusText === "pending diagnosis") {
-        itemStatus += `<p class="working-status">${statusText}</p>`;
-      } else if (statusText === "Diagnoesed") {
-        // Use template literal for clarity and to avoid string concatenation
-        itemStatus += `<button type="button" class="working-status btn btn-secondary mb-3" data-bs-toggle="modal"
-        //             data-bs-target="#staticBackdrop00" onclick="handleClick('${statusText}')">${statusText}</button>`;
-      }
+        const statusText = element.statusofrepair; // Store status for readability
+
+        if (statusText === "pending diagnosis") {
+            itemStatus += `<p class="working-status">${statusText}</p>`;
+        } else if (statusText === "Diagnoesed") {
+            // Use template literal for clarity and to avoid string concatenation
+            itemStatus += `<button type="button" class="working-status btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop00" onclick="handleClick('${statusText}')">${statusText}</button>`;
+        }
     });
-  
+
     return itemStatus;
-  };
-  
-  const handleClick = (elem) => {
+};
+
+const handleClick = (elem) => {
     console.log(elem); // Log the clicked status or perform other actions
-    
-  };
+    const diagnosistable = ajaxGetRequest("/duerepair/getlist")
+    console.log(diagnosistable);
+
+    displayProperties = [
+        { property: getDiagItemCategory, dataType: 'function' },
+        { property: getDiagItemName, dataType: 'function' },
+        { property: getDiagItemPrice, dataType: 'function' },
+    ]
+    fillDataIntoPurcahseTable(repairItemTableDig, diagnosistable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
+
+    repairItemTotalPriceDig.value = "1000.00"
+};
+const getDiagItemCategory = (rowOb)=>{
+
+    let ItemDiagCategory = '';
+    rowOb.usedItems.forEach(element => {
+        ItemDiagCategory = ItemDiagCategory + "<p class = 'working-status'>" + element.category ? element.category: "-"  + "</p>"
+    })
+    return ItemDiagCategory
+}
+const getDiagItemName = (rowOb)=>{
+    let ItemDiagName = '';
+    let getprice = '';
+    rowOb.usedItems.forEach(element => {
+        ItemDiagName = ItemDiagName + "<p class = 'working-status'>" + element.itemname ? element.itemname: "-"  + "</p>"
+     
+    })
+    return ItemDiagName
+}
+const getDiagItemPrice = (rowOb)=>{
+    let getprice = '';
+    rowOb.usedItems.forEach(element => {
+        if (element.itemname) {            
+            const get = ajaxGetRequest("serialno/getitemprice/"+element.itemname)
+            getprice = getprice + get
+        }else{
+            getprice = getprice + "-"
+        }
+    })
+
+    return (getDiagItemCategory(rowOb) ==="-" && getDiagItemName(rowOb) ==="-") ? "-"  : getprice
+}
+
 const getRepairItemCustomer = (rowOb) => {
     return rowOb.customer_id.name
 }

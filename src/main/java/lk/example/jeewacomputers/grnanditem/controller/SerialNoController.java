@@ -32,5 +32,10 @@ public class SerialNoController {
         return serialNoDao.getItemsByCusName(name);
     }
 
+    @GetMapping(value = "/serialno/getitemprice/{name}",produces = "application/json")
+    public Integer getItemPriceFromDiag(@PathVariable("name") String name) {
+        return serialNoDao.getItemPriceForDiagnose(name);
+    }
+
 
 }

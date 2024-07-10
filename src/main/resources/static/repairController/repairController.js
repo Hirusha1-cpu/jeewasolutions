@@ -353,7 +353,7 @@ const getBrandSupplier = (rowOb) => { return rowOb.brand_id.name ?? "-"; }
     // paymentOb.repair_id = repairUpdate
     repairUpdate.incomePayments = paymentOb
     diagnosisDueUpdate.statusofrepair = "Diagnoesed"
-    
+    diagnosisUpdate.category = JSON.parse(selectRepairCategory.value).name
     diagnosisDueUpdate.usedItems.push(diagnosisUpdate) 
 
     repairUpdate.duetoRepair.push(diagnosisDueUpdate)

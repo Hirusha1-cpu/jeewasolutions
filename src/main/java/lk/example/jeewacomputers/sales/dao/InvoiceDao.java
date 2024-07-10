@@ -16,6 +16,7 @@ public interface InvoiceDao extends JpaRepository<Invoice, Integer>{
     @Query(value ="SELECT name,phone FROM jeewacomputersproject.customer where id in (SELECT customer_id FROM jeewacomputersproject.sales where id in(SELECT sales_id FROM jeewacomputersproject.sales_has_serialno where serialno_id in (SELECT id from jeewacomputersproject.serialno where serialno = ?1)))",nativeQuery = true)
     public String getCustomerNameBySerialNo(String serialno);
 
+   
     // SELECT * FROM jeewacomputersproject.customer where id in (SELECT customer_id FROM jeewacomputersproject.sales where id in(SELECT sales_id FROM jeewacomputersproject.sales_has_serialno where serialno_id = (SELECT id from jeewacomputersproject.serialno where serialno = "1111")));
     // @Query(value ="select warrenty from ?1")
     // public Integer getWarrenty(String category);

@@ -61,6 +61,7 @@ const refreshDashboard = () => {
       }
     }
   });
-
+  const notificationElement = document.getElementById("notificationId");
+notificationElement.innerText = "12";
 };
 
