@@ -53,6 +53,10 @@ public class SerialNo {
     // @NotNull
     private String itemcode;
 
+    @Column(name = "barcode")
+    // @NotNull
+    private String barcode;
+
     @Column(name = "itemprice")
     // @NotNull
     private Integer itemprice;

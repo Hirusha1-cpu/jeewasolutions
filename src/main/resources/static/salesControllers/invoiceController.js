@@ -58,31 +58,39 @@ const refreshInvoiceForm = () => {
     collapseInvoiceElement.setAttribute("aria-expanded", "true");
 
 }
-const checkdiscount = async (discountname) => {
+const checkdiscount = () => {
     // const discountname = inputCustomerName.value;
-    console.log(discountname);
-    invoice.customer_id = discountname
+    console.log(inputCustomerName.value);
+    invoice.customer_id = inputCustomerName.value
     // Initially disable the input field
     discountCusRate.disabled = true;
-
+    let discountname = inputCustomerName.value
     try {
         // Make an asynchronous GET request
-        const serverresponseof_discount = await ajaxGetRequest(`/customer/getdiscount/${discountname.name}`);
+        try {
+            serverresponseof_discount = ajaxGetRequest(`/customer/getdiscount/${inputCustomerName.value}`);
+            boolDis = true
+        } catch (error) {
+            boolDis = false
+        }
 
         console.log(serverresponseof_discount);
 
         // If the response is null or undefined, keep the input field disabled and set its value to "-"
-        if (!serverresponseof_discount) {
+        if (boolDis) {
             discountCusRate.disabled = true;
-            discountCusRate.value = "-";
+            discountCusRate.value = serverresponseof_discount?.discount ? serverresponseof_discount?.discount : 1;
             invoiceDiscountedPrice.disabled = false
+            invoiceDiscountedPrice.value = parseInt(invoiceTotalPrice.value) * parseInt(discountCusRate.value)
+            console.log(invoiceDiscountedPrice.value);
         } else {
             // Enable the input field and set its value
             discountCusRate.disabled = false;
-            discountCusRate.value = serverresponseof_discount.discount || "-";
+            discountCusRate.value = serverresponseof_discount?.discount ? serverresponseof_discount?.discount : 1;
             discountCusPhone.disabled = false
             discountCusPhone.value = discountname.phone
-            invoiceDiscountedPrice.value = invoiceTotalPrice.value * discountCusRate.value
+            invoiceDiscountedPrice.value = parseInt(invoiceTotalPrice.value) * parseInt(discountCusRate.value)
+            console.log(invoiceDiscountedPrice.value);
         }
     } catch (error) {
         console.error("Error fetching discount:", error);
@@ -172,6 +180,7 @@ const addToTable = () => {
     // itemTableDetail.serialno = invoiceSerialId.value
     itemTableDetail.unitprice = invoiceUnitPrice.value
 
+
     //me tikath item table ekata wadagath namuth penann na
     // itemTableDetail.warrentyitemname = inputWarrentyItemName.value
     // itemTableDetail.warrentystartdate = inputWarStartDate.value
@@ -207,16 +216,42 @@ const calculateBalance = () => {
 }
 const addToSerialiedTable = () => {
 
+    invoiceDiscountedPrice.value = parseInt(invoiceTotalPrice.value) +((parseInt(invoiceTotalPrice.value) * parseInt(discountCusRate.value))/100)
 
     addToTable()
     // invoice.serialnolist_id.push(serialNumbers)
     saleSerial.serialno_id = serialObject
     invoice.salesHasSerials.push(saleSerial)
 
+
     console.log(invoice);
     console.log(itemTableDetail);
     itable.push(itemTableDetail)
+
     console.log(itable);
+    let totalPrice = 0; // Initialize total price
+    for (let index = 0; index < itable.length; index++) {
+        let element = itable[index];
+        console.log(element);
+        // Check if 'itemprice' is a string and convert to a number if necessary
+        // let price = typeof element.itemprice === 'string' ? parseFloat(element.itemprice) : element.itemprice;
+        let price = parseInt(element.unitprice);
+        console.log(price);
+        console.log(typeof price);
+    
+        // Ensure 'price' is a number before adding
+        if (typeof price === 'number' && !isNaN(price)) {
+            totalPrice += price;
+            invoiceTotalPrice.value = totalPrice; // Update invoice total (optional)
+        } else {
+            console.error("Invalid price format for item:", element.itemname); // Handle invalid price format
+        }
+    }
+    
+    console.log("Total price:", totalPrice);
+
+
+
 
     lblItemName1.value = ""
     invoiceSerialId.value = ""
@@ -409,7 +444,9 @@ const getRepairItemStatus = (rowOb) => {
             itemStatus += `<p class="working-status">${statusText}</p>`;
         } else if (statusText === "Diagnoesed") {
             // Use template literal for clarity and to avoid string concatenation
-            itemStatus += `<button type="button" class="working-status btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop00" onclick="handleClick('${statusText}')">${statusText}</button>`;
+            itemStatus += `<button type="button" class="working-status btn btn-secondary mb-3" 
+            data-bs-toggle="modal" data-bs-target="#staticBackdrop00" 
+            onclick="handleClick('${statusText}')">${statusText}</button>`;
         }
     });
 

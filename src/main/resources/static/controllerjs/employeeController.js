@@ -241,6 +241,7 @@ const updateEmployeeBtn = () => {
 }
 const deleteEmployeeBtn = () => {
     console.log("delete");
+    
 }
 
 const generateCallingNameValues = () => {

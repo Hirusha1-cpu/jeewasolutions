@@ -113,9 +113,9 @@ public class RepairController {
 
                 }
                 // purchaseHasCategory.setPurchase_id(purchase);
-                duetoRepair.setRepairid(repair.getId());
+                duetoRepair.setRepairid(repairDao.getMaxRepairId());
                 duetoRepair.setRepair_id(repair);
-                // duetoRepair.setStatusofrepair("pending diagnosis");
+                duetoRepair.setStatusofrepair("pending diagnosis");
             }
             IncomePayment existingIncomePayment = repair.getIncomePayments();
             if (existingIncomePayment != null) {

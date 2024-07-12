@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lk.example.jeewacomputers.repair.dao.DuetoRepairDao;
 import lk.example.jeewacomputers.repair.dao.RepairDao;
+import lk.example.jeewacomputers.repair.dao.UsedItemDao;
 import lk.example.jeewacomputers.repair.entity.DuetoRepair;
 import lk.example.jeewacomputers.repair.entity.Repair;
 import lk.example.jeewacomputers.repair.entity.UsedItems;
@@ -23,6 +24,8 @@ public class DuetoRepairController {
     private DuetoRepairDao duetoRepairDao;
     @Autowired
     private RepairDao repairDao;
+    @Autowired
+    private UsedItemDao usedItemDao;
 
     @GetMapping(value = "/duerepair/getlist", produces = "application/json")
     public List<DuetoRepair> findAlls() {
@@ -42,15 +45,20 @@ public class DuetoRepairController {
         return duetoRepairDao.getRepairByDue(id);
     }
 
-    @PutMapping(value = "/duerepair")
-    public String update(@RequestBody DuetoRepair duetoRepair) {
-
+    @PutMapping(value = "/duerepair/{id}")
+    public String update(@PathVariable Integer id,@RequestBody DuetoRepair duetoRepair) {
+        // DuetoRepair extduetoRepair = duetoRepairDao.getReferenceById(id);
         System.out.println("ss");
         System.out.println(duetoRepair);
         try {
             for (UsedItems usedItems2 : duetoRepair.getUsedItems()) {
-                // purchaseHasCategory.setPurchase_id(purchase);
-                usedItems2.setDue_to_repairitem_id(duetoRepair);
+                 usedItems2.setDue_to_repairitem_id(duetoRepair);
+                // UsedItems used = new UsedItems();
+                // used.setDue_to_repairitem_id(duetoRepair);
+                // used.setCategory(usedItems2.getCategory());
+                // used.setItemname(usedItems2.getItemname());
+                // usedItemDao.save(used);
+                
             }
          duetoRepair.setRepair_id(repairDao.getReferenceById(duetoRepair.getRepairid()));
      

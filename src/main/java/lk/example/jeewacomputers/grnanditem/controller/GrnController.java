@@ -34,7 +34,6 @@ public class GrnController {
     // create dao object
     private GrnDao dao;
 
-
     @Autowired
     private AccessoriesDao accessoriesDao;
 
@@ -43,11 +42,6 @@ public class GrnController {
 
     @Autowired
     private SerialNoDao serialNoDao;
-
-    private Category category;
-
-    @Autowired
-    private BarCodeGenerator barcodeGenerator; // Inject the BarcodeGenerator service
 
     @GetMapping(value = "/grn/getlist", produces = "application/json")
     public List<Grn> findAll() {
@@ -95,10 +89,9 @@ public class GrnController {
         // widta pass kranwa
         try {
             // if (grn.getGrnHasAccessories() != null) {
-
             // }else{
-
             // SerialNo newSerialNo = new SerialNo();
+            
             for (GrnHasAccessories grnHasAccessories : grn.getGrnHasAccessories()) {
 
                 Accessories savAccessories = accessoriesDao.save(grnHasAccessories.getAccessories());
@@ -108,74 +101,97 @@ public class GrnController {
                 Integer qty = grnHasAccessories.getQty();
                 System.out.println(qty);
                 String icode = savAccessories.getItemcode();
+                int k=1;
                 for (int i = 0; i < qty; i++) {
                     SerialNo serialNo = new SerialNo();
                     serialNo.setItemcode(icode + "-" + (i + 1));
                     serialNo.setItemprice(grnHasAccessories.getUnitprice());
                     serialNo.setAvailability(true);
+                    serialNo.setBarcode(serialNoDao.getItemBarcode(k));
                     serialNo.setCategory_id(categoryDao.getReferenceById(9));
                     // serialNo.setGrn_has_category_id();
                     serialNoDao.save(serialNo);
                     System.out.println("OK");
-
+                    k++;
                 }
-
                 // grnHasAccessories.setAccessories_id(grnHasAccessories.getAccessories_id());
             }
             for (GrnHasCategory grnHasCategory : grn.getGrnHasCategory()) {
 
                 grnHasCategory.setGrn_id(grn);
+
                 grnHasCategory.setItemcode("ITEM001");
                 grnHasCategory.setIsserialno(grnHasCategory.getIsserialno());
                 Boolean isSerialNo = grnHasCategory.getIsserialno();
                 Integer itemCodeQty = grnHasCategory.getQty();
                 Category category = grnHasCategory.getCategory_id();
-                Integer itemcount = serialNoDao.getSameNameSerialNoCount(grnHasCategory.getItemname(),category.getId());
+                Integer itemcount = serialNoDao.getSameNameSerialNoCount(grnHasCategory.getItemname(),
+                        category.getId());
                 System.out.println(itemcount);
                 String catname = "jeewacomputersproject." + category.getName().toLowerCase().replaceAll(" ", "");
                 System.out.println(catname);
 
+                // for (int i = 0; i < itemCodeQty; i++) {
+                //     for (SerialNo newSerials1 : grnHasCategory.getSerialNumbers()) {
+                //         newSerials1.setBarcode(serialNoDao.getItemBarcode());
+
+                //     }
+                // }
 
                 // Integer qty = dao.getQty(catname,grnHasCategory.getItemname());
                 // System.out.println(qty);
-                
-                    // System.out.println(grn);
-                    // grnHasCategory = grnHasCategoryDao.save(grnHasCategory);
-                    System.out.println(isSerialNo);
-                    if (isSerialNo) {
-                        System.out.println("executed");
-                        for (SerialNo newSerials : grnHasCategory.getSerialNumbers()) {
-                            // System.out.println(grnHasCategory);
-                            // newSerials.set
-                            newSerials.setAvailability(Boolean.TRUE);
-                            newSerials.setCategory_id(grnHasCategory.getCategory_id());
-                            newSerials.setItemcode(grnHasCategory.getItemcode());
-                            newSerials.setItemname(grnHasCategory.getItemname());
-                            
-                            //newSerials.setGrn_has_category_id(grnHasCategory);// Set the reference
-                            // barcodeGenerator.generateQRCodee(newSerials);
-    
-                            // serialNoDao.save(newSerials);
-                            // newSerials.setGrn_has_category_id(grnHasCategory);
-                            // serialNoDao.save(newSerials);
+                // System.out.println(grn);
+                // grnHasCategory = grnHasCategoryDao.save(grnHasCategory);
+                System.out.println(isSerialNo);
+                if (isSerialNo) {
+                    System.out.println("executed");
+                    int k=1;
+                    for (SerialNo newSerials : grnHasCategory.getSerialNumbers()) {
+                        // System.out.println(grnHasCategory);
+                        // newSerials.set
+                        newSerials.setAvailability(Boolean.TRUE);
+                        newSerials.setCategory_id(grnHasCategory.getCategory_id());
+                        newSerials.setItemcode(grnHasCategory.getItemcode());
+                        newSerials.setItemname(grnHasCategory.getItemname());
+                        String s = serialNoDao.getExistItemBarcode(serialNoDao.getItemBarcode(serialNoDao.getMaxId()));
+                        System.out.println(s);
+                        if (s == null) {
+                            newSerials.setBarcode("bcode00001"+ 01);
                         }
-                    }else{
-
-                        System.out.println(",mnnnnnnnn");
-                        //............................................
-                        for (int i = 0; i < itemCodeQty; i++) {
-                            SerialNo serialNo = new SerialNo();
-                            serialNo.setItemcode("ITEMCODE" + (i + 1));
-                            serialNo.setItemprice(grnHasCategory.getItem_price());
-                            serialNo.setAvailability(true);
-                            serialNo.setCategory_id(categoryDao.getReferenceById(9));
-                            // serialNo.setGrn_has_category_id();
-                            serialNoDao.save(serialNo);
-                            System.out.println("OK");
-    
-                        }
-                        //...........................................
+                        String newBarcode = serialNoDao.getItemBarcode(k);
+                        newSerials.setBarcode(newBarcode);
+                        k++;
+                        // if ( s == null) {
+                        // newSerials.setBarcode(serialNoDao.getItemBarcode());
+                        // }else{
+                        // newSerials.setBarcode(serialNoDao.getItemNextBarcode(s));
+                        // }
+                        // newSerials.setGrn_has_category_id(grnHasCategory);// Set the reference
+                        // barcodeGenerator.generateQRCodee(newSerials);
+                        // serialNoDao.save(newSerials);
+                        // newSerials.setGrn_has_category_id(grnHasCategory);
+                        // serialNoDao.save(newSerials);
                     }
+                } else {
+
+                    System.out.println(",mnnnnnnnn");
+                    // ............................................
+                    int k=1;
+                    for (int i = 0; i < itemCodeQty; i++) {
+                        SerialNo serialNo = new SerialNo();
+                        serialNo.setItemcode("ITEMCODE" + (i + 1));
+                        serialNo.setItemprice(grnHasCategory.getItem_price());
+                        serialNo.setAvailability(true);
+                        serialNo.setCategory_id(categoryDao.getReferenceById(1));
+                        serialNo.setBarcode(serialNoDao.getItemBarcode(k));
+                        // serialNo.setGrn_has_category_id();
+                        serialNoDao.save(serialNo);
+                        System.out.println("OK");
+                        k++;
+
+                    }
+                    // ...........................................
+                }
 
                 // grnHasCategory.setGrn_id(grn);
                 // newItem.setItemname(grnHasCategory.getItemname());

@@ -61,8 +61,63 @@
                 <!-- employee form start -->
                 <div id="empForm" class="w3-animate-left" style="display: none;">
                     <div class=" " style="display: flex; justify-content: space-between; align-items: center;">
-                        <button id="empFormToTable" class="btn btn-success mb-3">Table</button>
+                        <div>
+                            <button id="empFormToTable" class="btn btn-success mb-3">Table</button>
+                            <button type="button" class="btn btn-secondary mb-3" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop8">
+                                Purchase Order Requests
+                            </button>
+                        </div>
                         <h4>Purchase Form</h4>
+                    </div>
+                    <div class="modal fade" id="staticBackdrop8" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 fw-semibold" id="staticBackdropLabel">Requests</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                   
+                                    <div class="row p-3">
+                                        <table class="table" id="repairUsedItemTable">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Item Code</th>
+                                                    <th scope="col">Item Category</th>
+                                                    <th scope="col">Item Name</th>
+                                                    <th scope="col">Qty</th>
+                                                    <th scope="col">Buttons</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">00001</th>
+                                                    <td>Ram</td>
+                                                    <td>vangurd</td>
+                                                    <td>10</td>
+                                                    <td>
+                                                        <!-- <button class="btn btn-success">send</button> -->
+                                                        <button class="btn btn-success"><i
+                                                                class="fa-solid fa-money-check-dollar"></i></button>
+                                                        <button class="btn btn-danger"><i
+                                                                class="fa-solid fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                 
+                                </div>
+                                <div class="modal-footer">
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div style="border: 1px solid black; padding: 10px;">
@@ -165,7 +220,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                        
+
                                 </tbody>
                             </table>
                             <!-- table of descriptions end -->
@@ -186,7 +241,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                      
+
                                 </tbody>
                             </table>
                             <form action=""></form>

@@ -17,4 +17,7 @@ const refreshSideBar = () =>{
         systemPriviId.classList.remove("d-none");
     }
 
+    const notificationElement = document.getElementById("notificationId");
+    notificationElement.innerText = "12";
+
 }

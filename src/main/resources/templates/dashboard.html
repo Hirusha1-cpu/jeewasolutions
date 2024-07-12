@@ -4,288 +4,378 @@
 <head th:replace="~{ layouts/head :: headFragment}">
 
 </head>
+
 <head th:replace="~{ layouts/head :: headDashboardFragment}">
 
 </head>
 
 
 <body>
-    <div class="wrapper">
+  <div class="wrapper">
 
-        <!-- side bar -->
-        <aside th:replace="~{ layouts/sidebar :: sidebarfragment}"></aside>
+    <!-- side bar -->
+    <aside th:replace="~{ layouts/sidebar :: sidebarfragment}"></aside>
 
 
-        <!-- ui content area start -->
-        <div class="main">
-            <!-- top navbar -->
-            <nav th:replace="~{ layouts/navbar :: topnavbarfragment}"></nav>
-            <!-- main component start -->
-            <main class="content px-3 py-2 w3-container">
-                <div class="d-flex mb-3 justify-content-center align-items-center" style="background: radial-gradient(circle, rgb(4, 55, 241), #95b9f5, #95b9f5, rgb(4, 55, 241)); font-weight: bolder; color: white;">
-                    <h3>DASHBOARD</h3>
-                </div>
-                <div class="row ms-2 ps-4 me-2 pe-4 d-flex justify-content-center align-items-center">
-                    <!-- customer start -->
-                    <div class="col-3"  id="dddd">
-                        <div class="card card-hover border-success cuscard cuscard-hover" style="width: 18rem;">
-                            <div class="card-body">
-                              <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(8, 118, 24)">
-                                <h5 class="card-title" style="color: white; font-weight: bolder;">Customers</h5>
-                              </div>
-                              <div class="cardbody">
-
-                                <table class="table " id="empAttendence">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">#</th>
-                                      <th scope="col">Type</th>
-                                      <th scope="col">Count</th>
-                                      <th scope="col">Button</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <th scope="row">1</th>
-                                      <td>Permium</td>
-                                      <td>23</td>
-                                      <td><button class="btn btn-outline-success">View</button></td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">2</th>
-                                      <td>1stStage</td>
-                                      <td>34</td>
-                                      <td><button class="btn btn-outline-success">View</button></td>
-                                    </tr>
-                                   
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                            <button class="btn btn-success" style="color: white; border-radius: 5px;">View Customers</button>
-                          </div>
-                    </div>
-                    <!-- customer end -->
-
-                    <!-- for employee segment start-->
-                    <div class="col-3">
-                        <!-- <canvas id="myChart"></canvas> -->
-                        <div class="card card-hover border-info empcard empcard-hover" style="width: 18rem;">
-                            <div class="card-body ">
-                              <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(12, 168, 246);">
-                                <h5 class="card-title" style="color: white; font-weight: bolder;">Due Repairs</h5>
-                              </div>
-                              <div class="cardbody">
-
-                                <table class="table " id="empAttendence">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">#</th>
-                                      <th scope="col">Repair</th>
-                                      <th scope="col">Button</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <th scope="row">1</th>
-                                      <td>Mark</td>
-                                      <td><button class="btn btn-outline-success">View</button></td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">2</th>
-                                      <td>Jacob</td>
-                                      <td><button class="btn btn-outline-success">View</button></td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">2</th>
-                                      <td>Jacob</td>
-                                      <td><button class="btn btn-outline-success">View</button></td>
-                                    </tr>
-                                   
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                            <button class="btn btn-info" style="color: white; border-radius: 5px;">View Repairs</button>
-                          </div>
-                          
-                    </div>
-                    <!-- for employee segment end -->
-
-                    <!-- for Reorder items segment start -->
-                    <div class="col-3">
-                        <div class="card card-hover border-warning itemcard itemcard-hover" style="width: 18rem;">
-                            <div class="card-body">
-                              <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(234, 177, 71);">
-                                <h5 class="card-title" style="color: white; font-weight: bolder;">Reorder Items</h5>
-                              </div>
-                              <div class="cardbody">
-
-                                <table class="table ">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">#</th>
-                                      <th scope="col">Item</th>
-                                      <th scope="col">Qty</th>
-                                      <th scope="col">Button</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <th scope="row">1</th>
-                                      <td>Mark</td>
-                                      <td>12</td>
-                                      <td><button class="btn btn-outline-success">Purchase</button></td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">2</th>
-                                      <td>Jacob</td>
-                                      <td>12</td>
-                                      <td><button class="btn btn-outline-success">Purchase</button></td>
-                                    </tr>
-                                   
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                            <button class="btn btn-warning" style="color: white;border-radius: 5px;">View Items</button>
-                          </div>
-                    </div>
-                    <!-- for Reorder items segment end -->
-
-                    <!-- for company return items segment start -->
-                    <div class="col-3">
-                      <div class="card card-hover border-danger returncard returncard-hover" style="width: 18rem;">
-                          <div class="card-body">
-                              <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(239, 122, 171);">
-                                  <h5 class="card-title" style="color: white; font-weight: bolder;">Return Items</h5>
-                              </div>
-                              <div class="cardbody">
-                                      <table class="table">
-                                          <thead>
-                                              <tr>
-                                                  <th scope="col">#</th>
-                                                  <th scope="col">Item</th>
-                                                  <th scope="col">Button</th>
-                                              </tr>
-                                          </thead>
-                                          <tbody>
-                                              <tr>
-                                                  <th scope="row">1</th>
-                                                  <td>Mark</td>
-                                                  <td><button class="btn btn-outline-success btn-sm">View Item</button></td>
-                                              </tr>
-                                              <tr>
-                                                  <th scope="row">2</th>
-                                                  <td>Jacob</td>
-                                                  <td><button class="btn btn-outline-success btn-sm">View Item</button></td>
-                                              </tr>
-                                          </tbody>
-                                      </table>
-                              </div>
-                          </div>
-                          <button class="btn btn-danger" style="color: white; border-radius: 5px;">View Return Items</button>
-                      </div>
-                  </div>
-                  
-                    <!-- for company return items segment end -->
-                </div>
-                <div class="row mb-2 mt-5 d-flex justify-content-center align-items-center">
-                  <div class="row d-flex mb-3 justify-content-center align-items-center">
-
-                    <div class="col-3 d-flex mb-3 justify-content-center align-items-center " style=" background: linear-gradient(to right, #ea4a21, #feb47b); font-weight: bolder; color: white;">
-                    
-                      <h5>Sales Statistics</h5>
-                    </div>
-                  </div>
-                    <div class="col-6 mt-2">
-                        <canvas id="myChart"></canvas>
-                    </div>
-                </div>
-
-            </main>
-            <!-- main component end -->
-
+    <!-- ui content area start -->
+    <div class="main">
+      <!-- top navbar -->
+      <nav th:replace="~{ layouts/navbar :: topnavbarfragment}"></nav>
+      <!-- main component start -->
+      <main class="content px-3 py-2 w3-container">
+        <div class="d-flex mb-3 justify-content-center align-items-center"
+          style="background: radial-gradient(circle, rgb(4, 55, 241), #95b9f5, #95b9f5, rgb(4, 55, 241)); font-weight: bolder; color: white;">
+          <h3>DASHBOARD</h3>
         </div>
-        <!-- ui content area end -->
+        <div class="row ms-2 ps-4 me-2 pe-4 d-flex justify-content-center align-items-center">
+          <!-- Purchase order request start -->
+          <div class="col-3 d-none" id="prequsetDashboard">
+            <div class="card card-hover border-success cuscard cuscard-hover" style="width: 18rem;">
+              <div class="card-body">
+                <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(8, 118, 24)">
+                  <h5 class="card-title" style="color: white; font-weight: bolder;">Purchase Order Request</h5>
+                </div>
+                <div class="cardbody">
+
+                  <table class="table " id="empAttendence">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Order</th>
+                        <th scope="col">Count</th>
+                        <th scope="col">Button</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Rtx</td>
+                        <td>23</td>
+                        <td><button class="btn btn-outline-success">View</button></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Vtx</td>
+                        <td>34</td>
+                        <td><button class="btn btn-outline-success">View</button></td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="btn btn-success" style="color: white; border-radius: 5px;">View Customers</button>
+            </div>
+          </div>
+          <!-- Purchase order request end -->
+          <!-- customer start -->
+          <div class="col-3" id="customerDashboard">
+            <div class="card card-hover border-success cuscard cuscard-hover" style="width: 18rem;">
+              <div class="card-body">
+                <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(8, 118, 24)">
+                  <h5 class="card-title" style="color: white; font-weight: bolder;">Customers</h5>
+                </div>
+                <div class="cardbody">
+
+                  <table class="table " id="empAttendence">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Count</th>
+                        <th scope="col">Button</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Permium</td>
+                        <td>23</td>
+                        <td><button class="btn btn-outline-success">View</button></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>1stStage</td>
+                        <td>34</td>
+                        <td><button class="btn btn-outline-success">View</button></td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="btn btn-success" style="color: white; border-radius: 5px;">View Customers</button>
+            </div>
+          </div>
+          <!-- customer end -->
+
+
+          <!-- for employee segment start-->
+          <div class="col-3" id="repairDashboard">
+            <!-- <canvas id="myChart"></canvas> -->
+            <div class="card card-hover border-info empcard empcard-hover" style="width: 18rem;">
+              <div class="card-body ">
+                <div class="d-flex justify-content-center align-items-center"
+                  style="background-color: rgb(12, 168, 246);">
+                  <h5 class="card-title" style="color: white; font-weight: bolder;">Due Repairs</h5>
+                </div>
+                <div class="cardbody">
+
+                  <table class="table " id="empAttendence">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Repair</th>
+                        <th scope="col">Button</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td><button class="btn btn-outline-success">View</button></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td><button class="btn btn-outline-success">View</button></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td><button class="btn btn-outline-success">View</button></td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="btn btn-info" style="color: white; border-radius: 5px;">View Repairs</button>
+            </div>
+
+          </div>
+          <!-- for employee segment end -->
+
+          <!-- for Reorder items segment start -->
+          <div class="col-3" id="reorderDashboard">
+            <div class="card card-hover border-warning itemcard itemcard-hover" style="width: 18rem;">
+              <div class="card-body">
+                <div class="d-flex justify-content-center align-items-center"
+                  style="background-color: rgb(234, 177, 71);">
+                  <h5 class="card-title" style="color: white; font-weight: bolder;">Reorder Items</h5>
+                </div>
+                <div class="cardbody">
+
+                  <table class="table ">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Button</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>12</td>
+                        <td><button class="btn btn-outline-success">Purchase</button></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>12</td>
+                        <td><button class="btn btn-outline-success">Purchase</button></td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="btn btn-warning" style="color: white;border-radius: 5px;">View Items</button>
+            </div>
+          </div>
+          <!-- for Reorder items segment end -->
+
+
+          <!-- for company return items segment start -->
+          <div class="col-3" id="returnDashboard">
+            <div class="card card-hover border-danger returncard returncard-hover" style="width: 18rem;">
+              <div class="card-body">
+                <div class="d-flex justify-content-center align-items-center"
+                  style="background-color: rgb(239, 122, 171);">
+                  <h5 class="card-title" style="color: white; font-weight: bolder;">Return Items</h5>
+                </div>
+                <div class="cardbody">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Button</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td><button class="btn btn-outline-success btn-sm">View Item</button></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td><button class="btn btn-outline-success btn-sm">View Item</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="btn btn-danger" style="color: white; border-radius: 5px;">View Return Items</button>
+            </div>
+          </div>
+
+          <!-- for company return items segment end -->
+        </div>
+        <div id="grnDashboard" class="row d-none mb-2 mt-5 d-flex justify-content-center align-items-center">
+         
+          <div class="col-4 mt-2" >
+            <div class="card card-hover border-success cuscard cuscard-hover" >
+              <div class="card-body">
+                <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(8, 118, 24)">
+                  <h5 class="card-title" style="color: white; font-weight: bolder;">Not Added to GRN</h5>
+                </div>
+                <div class="cardbody">
+
+                  <table class="table " id="">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Order</th>
+                        <th scope="col">Count</th>
+                        <th scope="col">Button</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Rtx</td>
+                        <td>23</td>
+                        <td><button class="btn btn-outline-success">View</button></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Vtx</td>
+                        <td>34</td>
+                        <td><button class="btn btn-outline-success">View</button></td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="btn btn-success" style="color: white; border-radius: 5px;">View GRNS</button>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <div id="saleDashboard" class="row d-none mb-2 mt-5 d-flex justify-content-center align-items-center">
+          <div class="row d-flex mb-3 justify-content-center align-items-center">
+
+            <div class="col-3 d-flex mb-3 justify-content-center align-items-center "
+              style=" background: linear-gradient(to right, #ea4a21, #feb47b); font-weight: bolder; color: white;">
+
+              <h5>Sales Statistics</h5>
+            </div>
+          </div>
+          <div class="col-6 mt-2">
+            <canvas id="myChart"></canvas>
+          </div>
+        </div>
+
+      </main>
+      <!-- main component end -->
+
     </div>
+    <!-- ui content area end -->
+  </div>
 
 
 
-    <script>
-        const toggler = document.querySelector(".btn");
+  <script>
+    const toggler = document.querySelector(".btn");
 
-        toggler.addEventListener("click", function () {
-            document.querySelector("#sidebar").classList.toggle("collapsed");
+    toggler.addEventListener("click", function () {
+      document.querySelector("#sidebar").classList.toggle("collapsed");
+    });
+
+    const sidebarItems = document.querySelectorAll(".sidebar-sublink");
+
+    sidebarItems.forEach(function (item) {
+      item.addEventListener("click", function () {
+        document.querySelector("#sidebar").classList.toggle("collapsed");
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+      document.querySelector("#sidebar").classList.toggle("collapsed");
+
+    })
+
+    const sidebarItems1 = document.querySelectorAll(".sidebar-item");
+
+    sidebarItems1.forEach(function (item) {
+      const link = item.querySelector(".sidebar-link");
+
+      link.addEventListener("click", function () {
+        sidebarItems1.forEach(function (otherItem) {
+          otherItem.classList.remove("active"); // Remove "active" from other items
         });
-
-        const sidebarItems = document.querySelectorAll(".sidebar-sublink");
-
-        sidebarItems.forEach(function (item) {
-            item.addEventListener("click", function () {
-                document.querySelector("#sidebar").classList.toggle("collapsed");
-            });
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-
-            document.querySelector("#sidebar").classList.toggle("collapsed");
-
-        })
-
-        const sidebarItems1 = document.querySelectorAll(".sidebar-item");
-
-        sidebarItems1.forEach(function (item) {
-            const link = item.querySelector(".sidebar-link");
-
-            link.addEventListener("click", function () {
-                sidebarItems1.forEach(function (otherItem) {
-                    otherItem.classList.remove("active"); // Remove "active" from other items
-                });
-                item.classList.add("active"); // Add "active" to the clicked item
-            });
-        });
+        item.classList.add("active"); // Add "active" to the clicked item
+      });
+    });
 
 
 
 
-    </script>
-    <script>
-        const btn = document.getElementById("empaddbtn");
-        btn.addEventListener("click", function () {
-            const table = document.getElementById("empTable");
-            const form = document.getElementById("empForm");
+  </script>
+  <script>
+    const btn = document.getElementById("empaddbtn");
+    btn.addEventListener("click", function () {
+      const table = document.getElementById("empTable");
+      const form = document.getElementById("empForm");
 
-            // Animate table disappearance
-            table.style.opacity = 1; // Ensure opacity is initially 1
-            table.style.transition = "opacity 1.5s ease-out";
-            table.style.display = "none"; // Trigger the animation
+      // Animate table disappearance
+      table.style.opacity = 1; // Ensure opacity is initially 1
+      table.style.transition = "opacity 1.5s ease-out";
+      table.style.display = "none"; // Trigger the animation
 
-            // Delay form appearance slightly
-            setTimeout(function () {
-                form.style.opacity = 0;
-                form.style.display = "block";
-                form.style.transition = "opacity 1.5s ease-in";
-                form.style.opacity = 1; // Gradually fade in
-            }, 100); // Adjust the delay as needed
-        });
+      // Delay form appearance slightly
+      setTimeout(function () {
+        form.style.opacity = 0;
+        form.style.display = "block";
+        form.style.transition = "opacity 1.5s ease-in";
+        form.style.opacity = 1; // Gradually fade in
+      }, 100); // Adjust the delay as needed
+    });
 
-        const Formbtn = document.getElementById("empFormToTable")
-        Formbtn.addEventListener("click", function () {
-            const table = document.getElementById("empTable")
-            table.style.display = "block";
-            const form = document.getElementById("empForm")
-            form.style.display = "none"
-        })
-        const tableBtn = document.getElementById("empTable1")
-        tableBtn.addEventListener("click", function () {
-            const table = document.getElementById("empTable")
-            table.style.display = "block";
-            const form = document.getElementById("empForm")
-            form.style.display = "none"
-        })
+    const Formbtn = document.getElementById("empFormToTable")
+    Formbtn.addEventListener("click", function () {
+      const table = document.getElementById("empTable")
+      table.style.display = "block";
+      const form = document.getElementById("empForm")
+      form.style.display = "none"
+    })
+    const tableBtn = document.getElementById("empTable1")
+    tableBtn.addEventListener("click", function () {
+      const table = document.getElementById("empTable")
+      table.style.display = "block";
+      const form = document.getElementById("empForm")
+      form.style.display = "none"
+    })
 
-    </script>
+  </script>
 
 </body>
 

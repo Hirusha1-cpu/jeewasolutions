@@ -126,6 +126,7 @@ const filterByCategoryInDiagnosis = () => {
         selectedCategoryBrand.category_id = JSON.parse(selectRepairCategory.value);
         selectedCategoryBrand.brand_id = element
         diagnosisUpdate.itemname = element.name
+        diagnosisUpdate.category = categorynamefordiagnos
         // categoryBrand.brand_id = element;
         // supplier.categoriesBrandsWithSuppliers.push(categoryBrand)
         repairitems.categoriesBrandsWithSuppliers.push(selectedCategoryBrand)
@@ -346,6 +347,8 @@ const getBrandSupplier = (rowOb) => { return rowOb.brand_id.name ?? "-"; }
 
   const submitDiagnosis = () =>{
     diagnosisDueUpdate = JSON.parse(selectUrgentRepairs.value)
+    // console.log(JSON.parse(selectRepairCategory.value).name);
+    console.log(selectRepairCategory.value);
     console.log(repair);
     let id3 = repair.id
     console.log(id3);
@@ -353,15 +356,15 @@ const getBrandSupplier = (rowOb) => { return rowOb.brand_id.name ?? "-"; }
     // paymentOb.repair_id = repairUpdate
     repairUpdate.incomePayments = paymentOb
     diagnosisDueUpdate.statusofrepair = "Diagnoesed"
-    diagnosisUpdate.category = JSON.parse(selectRepairCategory.value).name
+    // diagnosisUpdate.category = JSON.parse(selectRepairCategory.value).name
     diagnosisDueUpdate.usedItems.push(diagnosisUpdate) 
 
     repairUpdate.duetoRepair.push(diagnosisDueUpdate)
     // repairUpdate.usedItems.push(diagnosisUpdate) 
     console.log(diagnosisDueUpdate);
     console.log("created");
-  
-    let serverResponse3 = ajaxRequestBodyMethod('/duerepair', "PUT", diagnosisDueUpdate);
+    let id7 = diagnosisDueUpdate.id
+    let serverResponse3 = ajaxRequestBodyMethod(`/duerepair/${id7}`, "PUT", diagnosisDueUpdate);
     console.log(serverResponse3);
 
   }

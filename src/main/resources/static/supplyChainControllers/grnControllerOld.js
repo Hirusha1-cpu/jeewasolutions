@@ -593,17 +593,21 @@ const addGrn = () => {
     //update wena eka
     //serial no variable ekata assign wenw check box wla serial no wla output eka
     const serialNumbers = generateSerialNumberList();
-    if (serialNumbers != "") {
-        grnHasItems.serialNumbers = serialNumbers;
-    }
-    else {
-        grnHasItems.serialNumbers = null
-    }
+    // if (serialNumbers != "") {
+    //     grnHasItems.serialNumbers = serialNumbers;
+    // }
+    // else {
+    //     grnHasItems.serialNumbers = null
+    // }
     console.log(isSerialNos.value);
     if (isSerialNos.checked == true) {
         grnHasItems.isserialno = true
+        grnHasItems.serialNumbers = serialNumbers;
     }else{
         grnHasItems.isserialno = false
+        serialNumbers.push({ serialno: null, itemprice :unitpriceofitem });
+
+        grnHasItems.serialNumbers = null
     }
 
     console.log("grn", grn);

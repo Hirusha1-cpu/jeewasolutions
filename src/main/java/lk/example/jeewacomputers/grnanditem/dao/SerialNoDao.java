@@ -20,6 +20,20 @@ public interface SerialNoDao extends JpaRepository<SerialNo, Integer>{
     @Query(value ="SELECT itemprice FROM jeewacomputersproject.serialno where itemname in (SELECT itemname FROM jeewacomputersproject.useditems where itemname = ?1 ) ORDER BY RAND() LIMIT 1 ;",nativeQuery = true)
     public Integer getItemPriceForDiagnose(String itemname);
 
+    @Query(value ="SELECT CONCAT('bcode',lpad(max(SUBSTRING(barcode, 6, 5))+1,5,0),?1) as empno FROM jeewacomputersproject.serialno as s;",nativeQuery = true)
+    // @Query(value ="SELECT CONCAT('bcode',lpad(max(SUBSTRING(s.barcode, 6, 5))+1,5,0)) as empno FROM SerialNo s")
+    public String getItemBarcode(Integer id);
+
+    @Query(value ="SELECT max(id) FROM jeewacomputersproject.serialno;",nativeQuery = true)
+    // @Query(value ="SELECT CONCAT('bcode',lpad(max(SUBSTRING(s.barcode, 6, 5))+1,5,0)) as empno FROM SerialNo s")
+    public Integer getMaxId();
+
+    @Query(value ="SELECT CONCAT('bcode',lpad((SUBSTRING(barcode, 6, 5))+1,5,0)) as barcode FROM jeewacomputersproject.serialno as s where barcode = ?1;",nativeQuery = true)
+    // @Query(value ="select CONCAT('bcode',lpad((SUBSTRING(s.barcode, 6, 5))+1,5,0)) as empno from SerialNo s where s.barcode = ?1")
+    public String getItemNextBarcode(String barcode);
+
+    @Query(value ="SELECT s.barcode FROM SerialNo s where s.barcode = ?1")
+    public String getExistItemBarcode(String barcode );
 
     // @Query(value = "SELECT new SerialNo(s.serialno, s.itemname, s.category_id) FROM jeewacomputersproject.serialno s INNER JOIN jeewacomputersproject.sales_has_serialno ss ON s.id = ss.serialno_id INNER JOIN jeewacomputersproject.sales sa ON sa.id = ss.sales_id WHERE sa.customer_id = (SELECT id FROM jeewacomputersproject.customer WHERE name = ?1);", nativeQuery = true)
     // public SerialNo getItemsByCusName(String name);

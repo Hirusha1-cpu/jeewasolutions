@@ -489,7 +489,7 @@
 
                                         <div class="row mt-3">
                                             <div class="col-6 form-floating p-1 ms-2">
-                                                <input type="text" class="form-control " id="invoiceUnitPrice"
+                                                <input type="number" class="form-control " id="invoiceUnitPrice"
                                                     placeholder=""
                                                     onchange="textValidation(invoiceUnitPrice,'', 'itemTableDetail', 'unitprice');">
                                                 <label for="invoiceUnitPrice" class="pl-2">Item UnitPrice</label>
@@ -501,13 +501,13 @@
                                             <div class="col-3 form-floating p-1 ms-2">
                                                 <input type="text" class="form-control" id="inputCustomerName"
                                                     placeholder=""
-                                                    oninput="textValidation(inputCustomerName,'', 'customer_id', 'name'); checkdiscount(this.value);">
+                                                    oninput="textValidation(inputCustomerName,'', 'customer_id', 'name'); ">
                                                 <label for="inputCustomerName" class="pl-2">Customer Name</label>
                                             </div>
                                             <div class="col-3 form-floating p-1">
                                                 <input type="text" class="form-control" id="inputCustomerContact"
                                                     placeholder=""
-                                                    oninput="textValidation(inputCustomerContact,'', 'customer_id', 'phone'); ">
+                                                    oninput="textValidation(inputCustomerContact,'', 'customer_id', 'phone'); checkdiscount(); ">
                                                 <label for="inputCustomerContact">Phone</label>
                                             </div>
                                         </div>
@@ -554,7 +554,7 @@
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-6 form-floating p-1 ms-2">
-                                                <input type="text" class="form-control " id="invoiceTotalPrice"
+                                                <input type="number" class="form-control " id="invoiceTotalPrice"
                                                     placeholder=""
                                                     oninput="textValidation(invoiceTotalPrice,'', 'invoice', 'total'); ">
                                                 <label for="invoiceTotalPrice" class="pl-2">Item TotalPrice</label>
@@ -708,14 +708,14 @@
                                         </div> -->
                                         <div class="row mt-2">
                                             <div class="col-3 form-floating p-1 ms-2 mt-1 mb-2">
-                                                <input type="text" class="form-control" disabled id="discountCusRate"
+                                                <input type="number" class="form-control" disabled id="discountCusRate"
                                                     placeholder="%">
                                                 <label for="discountCusRate">Discount Rate</label>
                                             </div>
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-4 form-floating p-1 ms-2">
-                                                <input type="text" class="form-control " id="invoiceDiscountedPrice"
+                                                <input type="number" class="form-control " id="invoiceDiscountedPrice"
                                                     placeholder="">
                                                 <label for="invoiceDiscountedPrice" class="pl-2">Discounted
                                                     Price</label>
