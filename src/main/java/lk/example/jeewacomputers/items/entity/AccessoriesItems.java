@@ -21,13 +21,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "harddisk")
+@Table(name = "accessoriesitems")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class HardDisk {
-
+public class AccessoriesItems {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -93,5 +91,4 @@ public class HardDisk {
     
    @Column(name = "qty")
     private Integer qty;
-
 }

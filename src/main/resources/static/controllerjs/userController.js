@@ -20,8 +20,31 @@ const refreshUserTable = () => {
 const updateEmployeeBtn = () => {
     console.log("update");
 }
-const deleteEmployeeBtn = () => {
+const deleteEmployeeBtn = (rowOb) => {
     console.log("delete");
+    setTimeout(function () {
+
+        const userConfirm = confirm('Are you sure you want to delete' + rowOb.employee.fullname);
+        if (userConfirm) {
+            // employees[rowindex].employeeStatus_id = {id:3, name:'Delete'};
+
+            let serverResponse = ajaxRequestBodyMethod("/user", "DELETE", rowOb)
+            if (serverResponse == "OK") {
+                alert("Delete successfully...!")
+                refreshUserTable();
+                formUser.reset();
+                refreshUserForm();
+
+
+            } else {
+                alert("Delete not succefully  .." + serverResponse)
+            }
+
+            // alert('Employee delete succefully');
+            // refreshEmployeeTable()
+
+        }
+    }, 500)
 }
 
 const getEmployeeFullName = (rowOb) => {

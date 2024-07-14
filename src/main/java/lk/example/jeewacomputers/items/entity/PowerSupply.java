@@ -54,7 +54,7 @@ public class PowerSupply {
 
       @Column(name = "warrenty")
     @NotNull
-    private LocalDate warrenty;
+    private Integer warrenty;
 
     @Column(name = "added_datetime")
     @NotNull
@@ -84,9 +84,9 @@ public class PowerSupply {
     // @NotNull
     private BigDecimal min_discounted_ratio;
 
-    @Column(name = "sales_price")
-    @NotNull
-    private BigDecimal sales_price;
+    @Column(name = "sales_rate")
+    // @NotNull
+    private BigDecimal sales_rate;
 
     @Column(name = "purchase_price")
     @NotNull
@@ -103,4 +103,7 @@ public class PowerSupply {
      @ManyToOne
     @JoinColumn(name = "pc_part_status_id", referencedColumnName = "id")
     private PcPartStatus pc_part_status_id ;
+
+    @Column(name = "qty")
+    private Integer qty;
 }

@@ -35,9 +35,15 @@ public class Ram {
     @NotNull
     private String name;
 
+    @Column(name = "ddr")
+    private String ddr;
+
+    @Column(name = "capacity")
+    private String capacity;
+
       @Column(name = "warrenty")
     @NotNull
-    private LocalDate warrenty;
+    private Integer warrenty;
 
     @Column(name = "added_datetime")
     @NotNull
@@ -60,20 +66,21 @@ public class Ram {
     private Integer updated_user;
 
     @Column(name = "max_discount_ratio")
-    @NotNull
     private BigDecimal max_discount_ratio;
 
     @Column(name = "min_discount_ratio")
-    @NotNull
     private BigDecimal min_discount_ratio;
 
-    @Column(name = "sales_price")
+    @Column(name = "sales_rate")
     @NotNull
-    private BigDecimal sales_price;
+    private BigDecimal sales_rate;
 
     @Column(name = "purchase_price")
     @NotNull
     private BigDecimal purchase_price;
+
+    @Column(name = "reorder_point")
+    private Integer reorder_point;
 
      @ManyToOne
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
@@ -86,5 +93,11 @@ public class Ram {
      @ManyToOne
     @JoinColumn(name = "pc_part_status_id", referencedColumnName = "id")
     private PcPartStatus pc_part_status_id ;
+
+    @Column(name = "speed")
+    private String speed;
+
+    @Column(name = "qty")
+    private Integer qty;
 
 }

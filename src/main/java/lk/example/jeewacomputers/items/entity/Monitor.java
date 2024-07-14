@@ -31,8 +31,6 @@ public class Monitor {
     @GeneratedValue(strategy =GenerationType.IDENTITY )
     private Integer id;
 
-    @Column(name = "monitortype")
-    private String monitortype;
 
     @Column(name = "resolution")
     private String resolution;
@@ -46,17 +44,12 @@ public class Monitor {
     @Column(name = "refreshrate")
     private String refreshrate;
 
-    @Column(name = "weight")
-    private String weight;
-
     @Column(name = "ioports")
     private String ioports;
 
-    @Column(name = "powerconsumptions")
-    private String powerconsumptions;
 
     @Column(name = "warrenty")
-    private LocalDate warrenty;
+    private Integer warrenty;
 
     @Column(name = "name")
     @NotNull
@@ -90,9 +83,9 @@ public class Monitor {
     @NotNull
     private BigDecimal min_discounted_price;
 
-    @Column(name = "sales_price")
+    @Column(name = "sales_rate")
     @NotNull
-    private BigDecimal sales_price;
+    private BigDecimal sales_rate;
 
     @Column(name = "purchase_price")
     @NotNull
@@ -110,5 +103,11 @@ public class Monitor {
     @JoinColumn(name = "pc_part_status_id", referencedColumnName = "id")
     private PcPartStatus pc_part_status_id ;
 
+    @Column(name = "qty")
+    private Integer qty;
+
+
+    @Column(name = "reorder_point")
+    private Integer reorder_point;
 
 }

@@ -37,7 +37,7 @@ public class Processor {
 
       @Column(name = "warrenty")
     @NotNull
-    private LocalDate warrenty;
+    private Integer warrenty;
 
     @Column(name = "added_datetime")
     @NotNull
@@ -67,9 +67,9 @@ public class Processor {
     @NotNull
     private BigDecimal min_discount_ratio;
 
-    @Column(name = "sales_price")
+    @Column(name = "sales_rate")
     @NotNull
-    private BigDecimal sales_price;
+    private BigDecimal sales_rate;
 
     @Column(name = "purchase_price")
     @NotNull
@@ -79,6 +79,9 @@ public class Processor {
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
     private Brand brand_id ;
 
+    @Column(name = "reorder_point")
+    private Integer reorder_point;
+
      @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category_id ;
@@ -87,8 +90,22 @@ public class Processor {
     @JoinColumn(name = "pc_part_status_id", referencedColumnName = "id")
     private PcPartStatus pc_part_status_id ;
 
-     @ManyToOne
-    @JoinColumn(name = "frequency_id", referencedColumnName = "id")
-    private Frequency frequency_id ;
+    @Column(name = "frequency")
+    private String frequency ;
+
+    @Column(name = "thermaldesignpower")
+    private String thermaldesignpower ;
+
+    @Column(name = "cores")
+    private String cores ;
+
+    @Column(name = "cache")
+    private String cache ;
+
+    @Column(name = "gpu")
+    private String gpu ;
+
+    @Column(name = "qty")
+    private Integer qty;
 
 }

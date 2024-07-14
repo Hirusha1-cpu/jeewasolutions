@@ -105,9 +105,9 @@ public class InvoiceController {
                 if ((existingcs.getBuyrounds()+1)> customerdao.getPremiumBuyRounds().getBuyrounds()) {
                     existingcs.setCustomerType(customerdao.getPremiumBuyRounds());
                 }else if((existingcs.getBuyrounds()+1)> customerdao.getFirstStageBuyRounds().getBuyrounds()){
-                    existingcs.setCustomerType(customerdao.getPremiumBuyRounds());
+                    existingcs.setCustomerType(customerdao.getFirstStageBuyRounds());
                 }else if((existingcs.getBuyrounds()+1)> customerdao.getSecondStageBuyRounds().getBuyrounds()){
-                    existingcs.setCustomerType(customerdao.getPremiumBuyRounds());
+                    existingcs.setCustomerType(customerdao.getSecondStageBuyRounds());
                 }else{
                     existingcs.setCustomerType(customerdao.getNormalBuyRounds());
                 }

@@ -1,4 +1,6 @@
 package lk.example.jeewacomputers.customer.entity;
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,6 @@ public class CustomerType {
     private Integer buyrounds;
 
     @Column(name = "discount")
-    private Integer discount;
+    private BigDecimal discount;
 
 }

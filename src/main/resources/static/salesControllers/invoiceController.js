@@ -35,6 +35,7 @@ const refreshInvoiceForm = () => {
     duetoRepair = new Object();
     itable = []
     serialno_id = new Object();
+    cusObject = new Object();
     customer_id = new Object();
     customer_id1 = new Object();
     usedItemsObj = new Object();
@@ -58,13 +59,14 @@ const refreshInvoiceForm = () => {
     collapseInvoiceElement.setAttribute("aria-expanded", "true");
 
 }
-const checkdiscount = () => {
+const checkdiscount = (cusname) => {
     // const discountname = inputCustomerName.value;
     console.log(inputCustomerName.value);
-    invoice.customer_id = inputCustomerName.value
+    invoice.customer_id = cusObject
     // Initially disable the input field
     discountCusRate.disabled = true;
     let discountname = inputCustomerName.value
+    console.log(inputCustomerName.value);
     try {
         // Make an asynchronous GET request
         try {
@@ -216,7 +218,7 @@ const calculateBalance = () => {
 }
 const addToSerialiedTable = () => {
 
-    invoiceDiscountedPrice.value = parseInt(invoiceTotalPrice.value) +((parseInt(invoiceTotalPrice.value) * parseInt(discountCusRate.value))/100)
+    invoiceDiscountedPrice.value = parseFloat(invoiceTotalPrice.value) - ((parseFloat(invoiceTotalPrice.value) * parseFloat(discountCusRate.value)));
 
     addToTable()
     // invoice.serialnolist_id.push(serialNumbers)
@@ -249,9 +251,6 @@ const addToSerialiedTable = () => {
     }
     
     console.log("Total price:", totalPrice);
-
-
-
 
     lblItemName1.value = ""
     invoiceSerialId.value = ""
@@ -305,6 +304,7 @@ const submitInvoice = () => {
     incomePaymentsObj.payment = invoiceTotalPrice.value
     // incomePaymentsObj.sales_id = invoice
     invoice.incomePayments = incomePaymentsObj
+
 
     let serverResponse11 = ajaxRequestBodyMethod("/invoice", "POST", invoice);
     // const categoryname1 = (serialObject.category_id.name).replace(/\s/g, '').toLowerCase()

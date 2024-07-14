@@ -48,8 +48,8 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
 
                                 <i class="fa-solid fa-bell fa-shake"></i>
-                                <span
-                                   id="notificationId" class="position-absolute top-0 start-90 mt-2 pr-2 translate-middle badge rounded-pill badge-danger text-danger">
+                                <span id="notificationId"
+                                    class="position-absolute top-0 start-90 mt-2 pr-2 translate-middle badge rounded-pill badge-danger text-danger">
                                     10
                                 </span>
 
@@ -70,8 +70,9 @@
                         <li class="nav-item dropdown ">
                             <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
-                                    height="25" alt="Black and White Portrait of a Man" loading="lazy" />
+                                <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" id="imgUserImage"
+                                    class="rounded-circle" height="25" alt="Black and White Portrait of a Man"
+                                    loading="lazy" />
                             </a>
                             <!-- <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="#">Action</a></li>
@@ -83,9 +84,10 @@
                             </ul> -->
 
                         <li class="nav-item dropdown">
-                            <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal56">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal56">
                                 <i class="fa-solid fa-screwdriver-wrench" id="dropdownIcon"></i>
-                              </button>
+                            </button>
                             <!-- <button class="nav-link btn btn-secondary dropdown-toggle" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false"
                                 style="color: #0c48a2; font-weight: bolder;">
@@ -98,9 +100,9 @@
                             </ul>
 
                         </li>
-                        <div class="modal fade" id="exampleModal56"  tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true" data-bs-backdrop="false" 
-                            >
+                        <!-- user setting modal start -->
+                        <div class="modal fade" id="exampleModal56" th:fragment="settingmodal" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -111,8 +113,9 @@
                                     <div class="modal-body">
                                         <div class="row ms-4">
                                             <div class="col-3">
-                                                <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle mb-4 ms-3"
-                                                height="75" alt="Black and White Portrait of a Man" loading="lazy" />
+                                                <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                                                    class="rounded-circle mb-4 ms-3" height="75"
+                                                    alt="Black and White Portrait of a Man" loading="lazy" />
                                             </div>
                                             <div class="col-9 mt-3">
                                                 <button class="btn btn-primary" type="button">Add +</button>
@@ -142,7 +145,7 @@
                                             <input type="password" class="form-control " placeholder="Enter Password"
                                                 id="inputPassword" required
                                                 onkeyup="textValidation(inputPassword, '^[A-Z][a-z]{2,30}$', 'user', 'password')">
-                                                <label for="inputPassword" class="">Password</label>
+                                            <label for="inputPassword" class="">Password</label>
 
                                         </div>
 
@@ -166,7 +169,7 @@
                                                 onkeyup="textValidation(inputEmail, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'user', 'email')">
                                             <label for="inputEmail" class="">Email</label>
 
-                                          
+
                                         </div>
 
                                         <!-- email end -->
@@ -179,9 +182,15 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- user setting modal end -->
+
                         <li class="nav-item ">
                             <a class="nav-link " style="color: #0c48a2; font-weight: bolder; " aria-disabled="true"
                                 th:text="${logusername}">Admin</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " style="color: #a20c68; font-weight: bolder; " aria-disabled="true"
+                                th:text="${loguserrole}"></a>
                         </li>
                         </li>
                         <!-- profile end -->

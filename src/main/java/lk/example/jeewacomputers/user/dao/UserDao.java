@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import lk.example.jeewacomputers.employee.entity.Employee;
 import lk.example.jeewacomputers.user.entity.User;
 
 public interface UserDao extends JpaRepository<User, Integer> {
@@ -25,6 +26,10 @@ public interface UserDao extends JpaRepository<User, Integer> {
 
     @Query("SELECT u FROM User u JOIN u.employee e WHERE e.id = :id")   
      public User getUserByEmployeeId(@Param("id") Integer id);
+
+    // @Query(value ="SELECT * FROM jeewacomputersproject.employee where id in (SELECT employee_id FROM jeewacomputersproject.user where username = ?1);",nativeQuery = true)
+    @Query("select e from Employee e where e.id in (select u.employee.id from User u where u.username = ?1)")
+    public Employee getEmpByUsername(String username);
 
 
 }

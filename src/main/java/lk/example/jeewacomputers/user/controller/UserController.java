@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,6 +20,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import lk.example.jeewacomputers.employee.dao.EmployeeDao;
+import lk.example.jeewacomputers.employee.dao.EmployeeStatusDao;
+import lk.example.jeewacomputers.employee.entity.Employee;
 import lk.example.jeewacomputers.privilege.controller.PrivilegeController;
 import lk.example.jeewacomputers.user.dao.UserDao;
 import lk.example.jeewacomputers.user.entity.User;
@@ -28,6 +32,13 @@ public class UserController {
     @Autowired
     // create dao object
     private UserDao dao;
+
+    @Autowired
+    // create dao object
+    private EmployeeDao empDao;
+
+    @Autowired
+    private EmployeeStatusDao statusDao;
 
     @Autowired
     private PrivilegeController privilegeController;
@@ -151,4 +162,32 @@ public class UserController {
         }
     }
 
+    @DeleteMapping(value = "/user")
+    public String deleteUser(@RequestBody User user) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "user");
+        if (logUserPrivi.get("delete")) {
+            User extUser = dao.getReferenceById(user.getId());
+
+
+            try {
+                user.setDeleted_datetime(LocalDateTime.now());
+                user.setStatus(false);
+                dao.save(user);
+
+                Employee empUser = dao.getEmpByUsername(user.getUsername());
+                if (empUser != null) {
+                    empUser.setEmployeestatus_id(statusDao.getReferenceById(3));
+                    empDao.save(empUser);
+
+                }
+                return "OK";
+            } catch (Exception e) {
+
+                return "Delete not completed" + e.getMessage();
+            }
+        } else {
+            return "You have not permissions to delete a new user";
+        }
+    }
 }

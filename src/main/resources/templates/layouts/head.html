@@ -49,7 +49,15 @@
     <!-- link common js file -->
     <script src="resourcesT/js/commonFunction.js"></script>
     <script src="sidebarcontrollers/sidebarController.js"></script>
-
+    <script th:inline="javascript">
+        window.addEventListener("load",()=>{
+            var userphoto= /*[[${loguserphoto}]]*/ 'loguserphoto';
+            console.log(userphoto);
+            if (userphoto != null) {
+                imgUserImage.src = atob(userphoto)
+            }
+        })
+    </script>
 
 
 

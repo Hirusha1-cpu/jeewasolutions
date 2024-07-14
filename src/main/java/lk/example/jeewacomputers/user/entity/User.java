@@ -57,6 +57,9 @@ public class User {
     @NotNull
     private LocalDateTime added_datetime;
 
+    @Column(name ="deleted_datetime")
+    private LocalDateTime deleted_datetime;
+
     @Column(name ="note")
     // @NotNull
     private String note;

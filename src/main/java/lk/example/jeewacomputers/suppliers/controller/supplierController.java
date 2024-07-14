@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.transaction.Transactional;
+import lk.example.jeewacomputers.employee.dao.EmployeeDao;
 import lk.example.jeewacomputers.privilege.controller.PrivilegeController;
 
 import lk.example.jeewacomputers.suppliers.dao.SupplierDao;
@@ -27,6 +28,9 @@ import lk.example.jeewacomputers.suppliers.entity.SupplierHasCategory;
 
 @RestController
 public class SupplierController {
+    @Autowired
+    // create dao object
+    private EmployeeDao empDao;
     @Autowired
     // create dao object
     private SupplierDao dao;
@@ -39,12 +43,17 @@ public class SupplierController {
     public List<Supplier> findAllData() {
         // login user authentication and authorization
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, Boolean> logSupplierPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "Supplier");
+
         System.out.println(auth.getName());
         return dao.findAll(Sort.by(Direction.DESC, "id"));
     }
 
     @GetMapping(value = "/supplier/namebycategory/{category_id}", produces = "application/json")
     public List<Supplier> getSupplierNameByCategory(@PathVariable("category_id") Integer category_id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, Boolean> logSupplierPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "Supplier");
+
         return dao.getSupplierNameFromCategory(category_id);
     }
 
@@ -52,13 +61,23 @@ public class SupplierController {
     public ModelAndView employeeUI() {
         // get user authentication object
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, Boolean> logSupplierPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "Supplier");
+
         ModelAndView viewEmp = new ModelAndView();
         viewEmp.addObject("logusername", auth.getName());
         viewEmp.addObject("modulename", "Supplier");
-        viewEmp.addObject("title", "Supplier Management - BIT Project 2024");
+        if (logSupplierPrivi.get("select") && (empDao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
+            
+            viewEmp.addObject("title", "Supplier Management - BIT Project 2024");
+    
+            viewEmp.setViewName("suppliers/supplier.html");
+            return viewEmp;
+        }else {
+            viewEmp.addObject("title", "Error - BIT Project 2024");
+            viewEmp.setViewName("error/error.html");
+            return viewEmp;
+        }
 
-        viewEmp.setViewName("suppliers/supplier.html");
-        return viewEmp;
     }
 
     // save user
@@ -67,29 +86,35 @@ public class SupplierController {
     public String saveUser(@RequestBody Supplier supplier) {
         // get user authentication object
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
-                "supplier");
+        HashMap<String, Boolean> logSupplierPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
+                "Supplier");
                 
         // if (!logUserPrivi.get("delete")) {
         //     return "Delete not completed you have not privilege";
         // }
-        try {
-            String nextEmpNo = dao.getSupplierCode();
-            supplier.setSupplier_code(nextEmpNo);
-            supplier.setSupplierstatus_id(dao.getSuppStatus("active"));
-            supplier.setUser_id(dao.getUsersByUsername(auth.getName()));
-            //metanadi supplier has category ekatai bank details walatai supplier object eken data save wenwa for loop eka haraha
-            for (SupplierHasCategory supplierHasCategory : supplier.getCategoriesBrandsWithSuppliers()) {
-                supplierHasCategory.setSupplier_id(supplier);
-            }
-            for (SupplierBankDetails supplierHasBakDetails : supplier.getBankDetailsOfSuppliers()) {
-                supplierHasBakDetails.setSupplier_id(supplier);
-            }
+       
+        if ((logSupplierPrivi.get("insert")) && (empDao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
 
-            dao.save(supplier);
-            return "OK";
-        } catch (Exception e) {
-            return "Save Not completed" + e.getMessage();
+            try {
+                String nextEmpNo = dao.getSupplierCode();
+                supplier.setSupplier_code(nextEmpNo);
+                supplier.setSupplierstatus_id(dao.getSuppStatus("active"));
+                supplier.setUser_id(dao.getUsersByUsername(auth.getName()));
+                //metanadi supplier has category ekatai bank details walatai supplier object eken data save wenwa for loop eka haraha
+                for (SupplierHasCategory supplierHasCategory : supplier.getCategoriesBrandsWithSuppliers()) {
+                    supplierHasCategory.setSupplier_id(supplier);
+                }
+                for (SupplierBankDetails supplierHasBakDetails : supplier.getBankDetailsOfSuppliers()) {
+                    supplierHasBakDetails.setSupplier_id(supplier);
+                }
+    
+                dao.save(supplier);
+                return "OK";
+            } catch (Exception e) {
+                return "Save Not completed" + e.getMessage();
+            }
+        }else {
+            return "You have not permissions to insert a new user";
         }
     }
     @PutMapping(value = "/supplier")
@@ -98,30 +123,36 @@ public class SupplierController {
           // get user authentication object
           //supplier module ekata thyena permissions privilege check krla balanwa
           Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-          HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
-                  "supplier");
+          HashMap<String, Boolean> logSupplierPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
+                  "Supplier");
           // if (!logUserPrivi.get("delete")) {
           //     return "Delete not completed you have not privilege";
           // }
-          try {
-              String nextEmpNo = dao.getSupplierCode();
-              supplier.setSupplier_code(nextEmpNo);
-  
-              // supplier.setUser_id(logedUser);
-              // supplier.setSupplierstatus_id(1);
-              //metanadi supplier has category ekatai bank details walatai supplier object eken data save wenwa for loop eka haraha
-              for (SupplierHasCategory supplierHasCategory : supplier.getCategoriesBrandsWithSuppliers()) {
-                  supplierHasCategory.setSupplier_id(supplier);
-              }
-              for (SupplierBankDetails supplierHasBakDetails : supplier.getBankDetailsOfSuppliers()) {
-                  supplierHasBakDetails.setSupplier_id(supplier);
-              }
-  
-              dao.save(supplier);
-              return "OK";
-          } catch (Exception e) {
-              return "Save Not completed" + e.getMessage();
+          if ((logSupplierPrivi.get("insert")) && (empDao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
+            try {
+                String nextEmpNo = dao.getSupplierCode();
+                supplier.setSupplier_code(nextEmpNo);
+    
+                // supplier.setUser_id(logedUser);
+                // supplier.setSupplierstatus_id(1);
+                //metanadi supplier has category ekatai bank details walatai supplier object eken data save wenwa for loop eka haraha
+                for (SupplierHasCategory supplierHasCategory : supplier.getCategoriesBrandsWithSuppliers()) {
+                    supplierHasCategory.setSupplier_id(supplier);
+                }
+                for (SupplierBankDetails supplierHasBakDetails : supplier.getBankDetailsOfSuppliers()) {
+                    supplierHasBakDetails.setSupplier_id(supplier);
+                }
+    
+                dao.save(supplier);
+                return "OK";
+            } catch (Exception e) {
+                return "Save Not completed" + e.getMessage();
+            }
           }
+          else {
+                     return "You have not permissions to insert a new user";
+                 }
+       
     }
 
 }

@@ -111,4 +111,15 @@ public class Casing {
     @JoinColumn(name = "pc_part_status_id", referencedColumnName = "id")
     private PcPartStatus pc_part_status_id;
 
+    @Column(name = "qty")
+    private Integer qty;
+
+    @Column(name = "reorder_point")
+    private Integer reorder_point;
+
+    @Column(name = "warrenty")
+    private Integer warrenty;
+
+
+
 }

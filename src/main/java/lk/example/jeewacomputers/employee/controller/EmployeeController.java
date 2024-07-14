@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
 import jakarta.transaction.Transactional;
-
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.Authentication;
@@ -48,7 +46,7 @@ public class EmployeeController {
         // login user authentication and authorization
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),"employee");
-        if (logUserPrivi.get("select")) {
+        if (logUserPrivi.get("select") && (dao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
             return dao.findAll(Sort.by(Direction.DESC, "id"));
         } else {
             List<Employee> emptyError = new ArrayList<Employee>();
@@ -62,7 +60,7 @@ public class EmployeeController {
     public List<Employee> getEmployeeListWithoutUserAccount() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),"employee");
-        if (logUserPrivi.get("select")) {
+        if (logUserPrivi.get("select") && (dao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
             return dao.getEmployeeListWithoutUserAccount();
 
         }else {
@@ -84,7 +82,7 @@ public class EmployeeController {
         ModelAndView viewEmp = new ModelAndView();
         viewEmp.addObject("logusername", auth.getName());
         viewEmp.addObject("modulename", "Employee");
-        if (logUserPrivi.get("select")) {
+        if ((logUserPrivi.get("select")) && (dao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
             viewEmp.addObject("title", "Employee Management - BIT Project 2024");
             viewEmp.setViewName("systemuser_components/employee.html");
             return viewEmp;
@@ -102,7 +100,7 @@ public class EmployeeController {
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
                 "employee");
 
-        if (logUserPrivi.get("insert")) {
+        if ((logUserPrivi.get("insert")) && (dao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
             try {
                 Employee extEmployeeMobileNo = dao.getEmployeeByMobile(employee.getMobile());
                 if (extEmployeeMobileNo != null) {
@@ -148,7 +146,7 @@ public class EmployeeController {
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
                 "employee");
 
-        if (logUserPrivi.get("delete")) {
+        if (logUserPrivi.get("delete") && (dao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
 
             try {
                 // request eka ewwa employee ge id eka gennagannwa, id eka pass karanwa adala
@@ -171,6 +169,7 @@ public class EmployeeController {
                 extemp.setDeletedatetime(LocalDateTime.now().toLocalDate());
                 // save karanwa ape status change karapu employeewa dao wala thyena save
                 // function eka use karala
+                System.out.println(dao.getStatusOfEmployee("Deleted",auth.getName()));
                 dao.save(extemp);
 
                 // ita passe user ge user table eke status eka deleted hri false kiyala hari
@@ -201,7 +200,7 @@ public class EmployeeController {
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
                 "employee");
 
-        if (logUserPrivi.get("update")) {
+        if (logUserPrivi.get("update") && (dao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
             // mehem employee kenek innwda kiyala balanwa
             Employee extEmployee = dao.getReferenceById(employee.getId());
             if (extEmployee == null) {

@@ -45,7 +45,7 @@ public class MotherBoard {
 
       @Column(name = "warrenty")
     @NotNull
-    private LocalDate warrenty;
+    private Integer warrenty;
 
     @Column(name = "added_datetime")
     @NotNull
@@ -75,9 +75,9 @@ public class MotherBoard {
     @NotNull
     private BigDecimal min_discount_ratio;
 
-    @Column(name = "sales_price")
+    @Column(name = "sales_rate")
     @NotNull
-    private BigDecimal sales_price;
+    private BigDecimal sales_rate;
 
     @Column(name = "purchase_price")
     @NotNull
@@ -95,5 +95,11 @@ public class MotherBoard {
     @JoinColumn(name = "pc_part_status_id", referencedColumnName = "id")
     private PcPartStatus pc_part_status_id ;
 
+
+    @Column(name = "qty")
+    private Integer qty;
+
+    @Column(name = "reorder_point")
+    private Integer reorder_point;
 
 }

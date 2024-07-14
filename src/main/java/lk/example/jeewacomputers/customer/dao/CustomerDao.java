@@ -7,7 +7,7 @@ import lk.example.jeewacomputers.customer.entity.Customer;
 import lk.example.jeewacomputers.customer.entity.CustomerType;
 
 public interface CustomerDao extends JpaRepository<Customer, Integer>{
-    @Query(value = "SELECT * FROM jeewacomputersproject.customer where phone = ?1", nativeQuery = true)
+    @Query(value = "SELECT c FROM Customer c where c.phone = ?1")
     public Customer getCustomerByPhone(String phone);
 
     @Query(value = "SELECT * FROM jeewacomputersproject.customer where buyrounds > ?1", nativeQuery = true)
@@ -19,10 +19,10 @@ public interface CustomerDao extends JpaRepository<Customer, Integer>{
     @Query(value = "select ct FROM CustomerType ct where ct.customertypes = 'premium'")
     public CustomerType getPremiumBuyRounds();
 
-    @Query(value = "select ct FROM CustomerType ct where ct.customertypes = '1st stage'")
+    @Query(value = "select ct FROM CustomerType ct where ct.customertypes = '1st Stage'")
     public CustomerType getFirstStageBuyRounds();
 
-    @Query(value = "select ct FROM CustomerType ct where ct.customertypes = '2nd stage'")
+    @Query(value = "select ct FROM CustomerType ct where ct.customertypes = '2nd Stage'")
     public CustomerType getSecondStageBuyRounds();
 
     // @Query(value = "SELECT * FROM jeewacomputersproject.customertype where customertypes = 'Normal'", nativeQuery = true)

@@ -239,9 +239,31 @@ const buttonEmpUpdate = () => {
 const updateEmployeeBtn = () => {
     console.log("update");
 }
-const deleteEmployeeBtn = () => {
+const deleteEmployeeBtn = (rowOb) => {
     console.log("delete");
-    
+    setTimeout(function () {
+
+        const userConfirm = confirm('Are you sure you want to delete' + rowOb.fullname);
+        if (userConfirm) {
+            // employees[rowindex].employeeStatus_id = {id:3, name:'Delete'};
+
+            let serverResponse = ajaxRequestBodyMethod("/employee", "DELETE", rowOb)
+            if (serverResponse == "OK") {
+                alert("Delete successfully...!")
+                refreshEmployeeTable();
+                formEmployee.reset();
+                refreshEmployeeForm();
+
+
+            } else {
+                alert("Delete not succefully  .." + serverResponse)
+            }
+
+            // alert('Employee delete succefully');
+            // refreshEmployeeTable()
+
+        }
+    }, 500)
 }
 
 const generateCallingNameValues = () => {

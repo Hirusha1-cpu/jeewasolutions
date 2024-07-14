@@ -16,6 +16,8 @@ import lk.example.jeewacomputers.payment.entity.IncomePayment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -48,13 +50,13 @@ public class Invoice {
     private String referenceno;
 
     @Column(name = "total")
-    private Integer total;
+    private BigDecimal total;
 
     @Column(name = "balance")
-    private Integer balance;
+    private BigDecimal balance;
 
     @Column(name = "customerpaidamount")
-    private Integer customerpaidamount;
+    private BigDecimal customerpaidamount;
 
     @JsonIgnoreProperties(value = {"sales_id"})
     @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
