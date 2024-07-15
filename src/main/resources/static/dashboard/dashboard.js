@@ -112,3 +112,50 @@ const refreshDashboard = () => {
 
 };
 
+const refreshProfileEdit = () => {
+  loggedUser = ajaxGetRequest("/loggeduser")
+  console.log(loggedUser);
+  // inputUsernameSet.value = "www"
+  console.log("kkkkk");
+  inputUsernameSet.value = loggedUser.username;
+  inputEmailSet.value = loggedUser.email
+  
+  // if (loggedUser.graphic_photo == null) {
+  //   imageGraphic.src = "resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png"
+  // } else {
+  //   imageGraphic.src = atob(loggedUser.graphic_photo)
+  //   console.log("executed");
+  // }
+
+}
+
+const submitUserSettings = () => {
+  let serverResponse = ajaxRequestBodyMethod("/changeuser", "PUT", loggedUser)
+  if (serverResponse == "OK") {
+    alert("User profile change successfully...!")
+    window.location.assign("/logout")
+  } else {
+    alert("Delete not succefully  .." + serverResponse)
+  }
+
+}
+
+const passwordValidation = () => {
+  if (inputPasswordSet.value != "") {
+      if (inputPasswordSet.value == inputRePasswordSet.value) {
+          inputPasswordSet.style.border = "2px solid green";
+          inputRePasswordSet.style.border = "2px solid green";
+          loggedUser.password = inputPasswordSet.value;
+      } else {
+          inputPasswordSet.style.border = "2px solid red";
+          inputRePasswordSet.style.border = "2px solid red";
+          loggedUser.password = null;
+      }
+
+  } else {
+      alert("Please fill password")
+      inputPasswordSet.style.border = "2px solid red";
+      inputRePasswordSet.style.border = "2px solid red";
+      loggedUser.password = null;
+  }
+}

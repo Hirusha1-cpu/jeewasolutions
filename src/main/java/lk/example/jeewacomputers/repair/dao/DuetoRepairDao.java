@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import lk.example.jeewacomputers.repair.entity.DuetoRepair;
 import lk.example.jeewacomputers.repair.entity.Repair;
+import lk.example.jeewacomputers.repair.entity.UsedItems;
+import java.util.*;
 
 public interface DuetoRepairDao extends JpaRepository<DuetoRepair, Integer>{
 
@@ -17,6 +19,11 @@ public interface DuetoRepairDao extends JpaRepository<DuetoRepair, Integer>{
 
     @Query(value = "select r from Repair r where r.id in (select d.repair_id.id from DuetoRepair d where d.repairid = ?1)")
     public Repair getRepairByDue(Integer repairid);
+
+    @Query(value = "select ui from UsedItems ui where ui.due_to_repairitem_id.id in (select d.id from DuetoRepair d where d.repairid = ?1)")
+    public List<UsedItems> getUsedItemsByDue(Integer repairid);
+
+
 
 
     

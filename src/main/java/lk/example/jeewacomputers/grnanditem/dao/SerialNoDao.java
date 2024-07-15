@@ -2,6 +2,8 @@ package lk.example.jeewacomputers.grnanditem.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import java.math.BigDecimal;
 import java.util.*;
 import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
 
@@ -18,7 +20,7 @@ public interface SerialNoDao extends JpaRepository<SerialNo, Integer>{
     public SerialNo getItemsByCusName(String name);
 
     @Query(value ="SELECT itemprice FROM jeewacomputersproject.serialno where itemname in (SELECT itemname FROM jeewacomputersproject.useditems where itemname = ?1 ) ORDER BY RAND() LIMIT 1 ;",nativeQuery = true)
-    public Integer getItemPriceForDiagnose(String itemname);
+    public BigDecimal getItemPriceForDiagnose(String itemname);
 
     @Query(value ="SELECT CONCAT('bcode',lpad(max(SUBSTRING(barcode, 6, 5))+1,5,0),?1) as empno FROM jeewacomputersproject.serialno as s;",nativeQuery = true)
     // @Query(value ="SELECT CONCAT('bcode',lpad(max(SUBSTRING(s.barcode, 6, 5))+1,5,0)) as empno FROM SerialNo s")

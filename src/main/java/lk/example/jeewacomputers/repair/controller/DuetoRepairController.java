@@ -45,6 +45,12 @@ public class DuetoRepairController {
         return duetoRepairDao.getRepairByDue(id);
     }
 
+     @GetMapping(value = "/duerepair/getusedItemsbyDueRepairs/{id}", produces = "application/json")
+    public List<UsedItems> findUsedItems(@PathVariable("id") Integer id) {
+        // login user authentication and authorization
+        return duetoRepairDao.getUsedItemsByDue(id);
+    }
+
     @PutMapping(value = "/duerepair/{id}")
     public String update(@PathVariable Integer id,@RequestBody DuetoRepair duetoRepair) {
         // DuetoRepair extduetoRepair = duetoRepairDao.getReferenceById(id);

@@ -240,7 +240,7 @@ const addToSerialiedTable = () => {
         let price = parseInt(element.unitprice);
         console.log(price);
         console.log(typeof price);
-    
+
         // Ensure 'price' is a number before adding
         if (typeof price === 'number' && !isNaN(price)) {
             totalPrice += price;
@@ -249,7 +249,7 @@ const addToSerialiedTable = () => {
             console.error("Invalid price format for item:", element.itemname); // Handle invalid price format
         }
     }
-    
+
     console.log("Total price:", totalPrice);
 
     lblItemName1.value = ""
@@ -405,6 +405,7 @@ const repairItemIntoTable = () => {
 }
 
 const getSerialNo = (rowOb) => {
+    console.log(rowOb);
     let ItemRepair = '';
     rowOb.duetoRepair.forEach(element => {
         ItemRepair = ItemRepair + "<p class = 'working-status'>" + element.serialno + "</p>"
@@ -446,7 +447,7 @@ const getRepairItemStatus = (rowOb) => {
             // Use template literal for clarity and to avoid string concatenation
             itemStatus += `<button type="button" class="working-status btn btn-secondary mb-3" 
             data-bs-toggle="modal" data-bs-target="#staticBackdrop00" 
-            onclick="handleClick('${statusText}')">${statusText}</button>`;
+            onclick="handleClick(${rowOb.id})">${statusText}</button>`;
         }
     });
 
@@ -455,7 +456,9 @@ const getRepairItemStatus = (rowOb) => {
 
 const handleClick = (elem) => {
     console.log(elem); // Log the clicked status or perform other actions
-    const diagnosistable = ajaxGetRequest("/duerepair/getlist")
+    let iddue = elem
+    console.log(iddue);
+    const diagnosistable = ajaxGetRequest(`/duerepair/getusedItemsbyDueRepairs/${iddue}`)
     console.log(diagnosistable);
 
     displayProperties = [
@@ -467,35 +470,36 @@ const handleClick = (elem) => {
 
     repairItemTotalPriceDig.value = "1000.00"
 };
-const getDiagItemCategory = (rowOb)=>{
+const getDiagItemCategory = (rowObject) => {
 
     let ItemDiagCategory = '';
-    rowOb.usedItems.forEach(element => {
-        ItemDiagCategory = ItemDiagCategory + "<p class = 'working-status'>" + element.category ? element.category: "-"  + "</p>"
-    })
+    // rowObject.usedItems.forEach(element => {
+    ItemDiagCategory ="<p class = 'working-status'>" + rowObject?.category ? rowObject?.category : "-" + "</p>"
+    // })
     return ItemDiagCategory
 }
-const getDiagItemName = (rowOb)=>{
+const getDiagItemName = (rowObject) => {
     let ItemDiagName = '';
-    let getprice = '';
-    rowOb.usedItems.forEach(element => {
-        ItemDiagName = ItemDiagName + "<p class = 'working-status'>" + element.itemname ? element.itemname: "-"  + "</p>"
-     
-    })
+    // let getprice = '';
+    // rowObject.usedItems.forEach(element => {
+    ItemDiagName =  "<p class = 'working-status'>" + rowObject.itemname ? rowObject.itemname : "-" + "</p>"
+
+    // })
     return ItemDiagName
 }
-const getDiagItemPrice = (rowOb)=>{
+const getDiagItemPrice = (rowObject) => {
     let getprice = '';
-    rowOb.usedItems.forEach(element => {
-        if (element.itemname) {            
-            const get = ajaxGetRequest("serialno/getitemprice/"+element.itemname)
-            getprice = getprice + get
-        }else{
-            getprice = getprice + "-"
-        }
-    })
+    // rowObject.usedItems.forEach(element => {
+    const get = ajaxGetRequest("serialno/getitemprice/" + rowObject.itemname)
+    if (get) {
+        // getprice = parseFloat(getprice) + parseFloat(get)
+        getprice = parseFloat(get)
+    } else {
+        getprice = "-"
+    }
+    // })
 
-    return (getDiagItemCategory(rowOb) ==="-" && getDiagItemName(rowOb) ==="-") ? "-"  : getprice
+    return (getDiagItemCategory(rowObject) === "-" && getDiagItemName(rowObject) === "-") ? "-" : getprice
 }
 
 const getRepairItemCustomer = (rowOb) => {

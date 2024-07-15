@@ -85,7 +85,7 @@
 
                         <li class="nav-item dropdown">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal56">
+                                data-bs-target="#exampleModal56" onclick="refreshProfileEdit()">
                                 <i class="fa-solid fa-screwdriver-wrench" id="dropdownIcon"></i>
                             </button>
                             <!-- <button class="nav-link btn btn-secondary dropdown-toggle" type="button"
@@ -111,6 +111,8 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
+                                        <form onsubmit="return false" id="formSettings">
+                                        
                                         <div class="row ms-4">
                                             <div class="col-3">
                                                 <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
@@ -118,7 +120,7 @@
                                                     alt="Black and White Portrait of a Man" loading="lazy" />
                                             </div>
                                             <div class="col-9 mt-3">
-                                                <button class="btn btn-primary" type="button">Add +</button>
+                                                <button class="btn btn-primary" type="button" >Add +</button>
                                                 <button class="btn btn-danger " type="button">Remove</button>
                                             </div>
                                         </div>
@@ -126,10 +128,10 @@
                                         <div class="mb-3  ms-3 me-3 row form-floating">
 
                                             <input type="text" class="form-control " placeholder="Enter Username"
-                                                id="inputUsername" required
-                                                onkeyup="textValidation(inputUsername, '^[A-Z][a-z]{2,30}$', 'user', 'username')">
+                                                id="inputUsernameSet" required
+                                                onkeyup="textValidation(inputUsernameSet, '^[A-Z][a-z]{2,30}$', 'loggedUser', 'username')">
 
-                                            <label for="inputUsername" class="">
+                                            <label for="inputUsernameSet" class="">
 
                                                 Username
                                                 <i class="fa-solid fa-question" data-bs-toggle="tooltip"
@@ -143,9 +145,9 @@
 
 
                                             <input type="password" class="form-control " placeholder="Enter Password"
-                                                id="inputPassword" required
-                                                onkeyup="textValidation(inputPassword, '^[A-Z][a-z]{2,30}$', 'user', 'password')">
-                                            <label for="inputPassword" class="">Password</label>
+                                                id="inputPasswordSet" required
+                                                onkeyup="textValidation(inputPasswordSet, '^[A-Z][a-z]{2,30}$', 'loggedUser', 'password')">
+                                            <label for="inputPasswordSet" class="">Password</label>
 
                                         </div>
 
@@ -154,9 +156,9 @@
                                         <div class="mb-3  ms-3 me-3 row form-floating">
 
                                             <input type="password" class="form-control " placeholder="Enter Re-Password"
-                                                id="inputRePassword" required onkeyup="passwordValidation()">
+                                                id="inputRePasswordSet" required onkeyup="passwordValidation()">
 
-                                            <label for="inputRePassword" class="">Re-Password</label>
+                                            <label for="inputRePasswordSet" class="">Re-Password</label>
 
                                         </div>
 
@@ -165,19 +167,20 @@
                                         <div class="mb-3  ms-3 me-3 row form-floating">
 
                                             <input type="email" class="form-control" placeholder="Enter Email"
-                                                id="inputEmail" required
-                                                onkeyup="textValidation(inputEmail, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'user', 'email')">
-                                            <label for="inputEmail" class="">Email</label>
+                                                id="inputEmailSet" required
+                                                onkeyup="textValidation(inputEmailSet, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'loggedUser', 'email')">
+                                            <label for="inputEmailSet" class="">Email</label>
 
 
                                         </div>
 
                                         <!-- email end -->
-                                    </div>
-                                    <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="submit" class="btn btn-primary" onclick="submitUserSettings()">Save changes</button>
+                                    </form>
+                                    </div>
+                                    <div class="modal-footer">
                                     </div>
                                 </div>
                             </div>

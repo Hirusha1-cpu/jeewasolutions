@@ -21,6 +21,8 @@ import java.util.List;
 import lk.example.jeewacomputers.employee.dao.EmployeeDao;
 import lk.example.jeewacomputers.employee.dao.EmployeeStatusDao;
 import lk.example.jeewacomputers.employee.entity.Employee;
+import lk.example.jeewacomputers.items.dao.GraphicCardDao;
+import lk.example.jeewacomputers.items.entity.GraphicCard;
 import lk.example.jeewacomputers.privilege.controller.PrivilegeController;
 import lk.example.jeewacomputers.user.dao.UserDao;
 import lk.example.jeewacomputers.user.entity.User;
@@ -40,13 +42,17 @@ public class EmployeeController {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private GraphicCardDao graphicCardDao;
+
     // create get mapping for get empllyee all data --- [/employee/findall]
     @GetMapping(value = "/employee/getlist", produces = "application/json")
     public List<Employee> findAll() {
         // login user authentication and authorization
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),"employee");
-        if (logUserPrivi.get("select") && (dao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
+        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
+                "employee");
+        if (logUserPrivi.get("select") && (dao.getStatusOfEmployee("Deleted", auth.getName()) == null)) {
             return dao.findAll(Sort.by(Direction.DESC, "id"));
         } else {
             List<Employee> emptyError = new ArrayList<Employee>();
@@ -59,11 +65,12 @@ public class EmployeeController {
     @GetMapping(value = "/employee/listwithoutuseraccount", produces = "application/json")
     public List<Employee> getEmployeeListWithoutUserAccount() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),"employee");
-        if (logUserPrivi.get("select") && (dao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
+        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
+                "employee");
+        if (logUserPrivi.get("select") && (dao.getStatusOfEmployee("Deleted", auth.getName()) == null)) {
             return dao.getEmployeeListWithoutUserAccount();
 
-        }else {
+        } else {
             List<Employee> emptyError = new ArrayList<Employee>();
             return emptyError;
 
@@ -74,15 +81,18 @@ public class EmployeeController {
     @RequestMapping(value = "/employee")
     public ModelAndView employeeUI() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userDao.getUserByUsername(auth.getName());
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
                 "employee");
-
+        GraphicCard graphicCard = graphicCardDao.getGraphicByName("ASUS DUAL TTX");
         System.out.println(auth);
-
+        
         ModelAndView viewEmp = new ModelAndView();
         viewEmp.addObject("logusername", auth.getName());
         viewEmp.addObject("modulename", "Employee");
-        if ((logUserPrivi.get("select")) && (dao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
+        viewEmp.addObject("loguserrole", user.getRoles().iterator().next().getName());
+        viewEmp.addObject("loguserphoto", graphicCard.getGraphic_photo());
+        if ((logUserPrivi.get("select")) && (dao.getStatusOfEmployee("Deleted", auth.getName()) == null)) {
             viewEmp.addObject("title", "Employee Management - BIT Project 2024");
             viewEmp.setViewName("systemuser_components/employee.html");
             return viewEmp;
@@ -100,7 +110,7 @@ public class EmployeeController {
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
                 "employee");
 
-        if ((logUserPrivi.get("insert")) && (dao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
+        if ((logUserPrivi.get("insert")) && (dao.getStatusOfEmployee("Deleted", auth.getName()) == null)) {
             try {
                 Employee extEmployeeMobileNo = dao.getEmployeeByMobile(employee.getMobile());
                 if (extEmployeeMobileNo != null) {
@@ -146,7 +156,7 @@ public class EmployeeController {
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
                 "employee");
 
-        if (logUserPrivi.get("delete") && (dao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
+        if (logUserPrivi.get("delete") && (dao.getStatusOfEmployee("Deleted", auth.getName()) == null)) {
 
             try {
                 // request eka ewwa employee ge id eka gennagannwa, id eka pass karanwa adala
@@ -169,7 +179,7 @@ public class EmployeeController {
                 extemp.setDeletedatetime(LocalDateTime.now().toLocalDate());
                 // save karanwa ape status change karapu employeewa dao wala thyena save
                 // function eka use karala
-                System.out.println(dao.getStatusOfEmployee("Deleted",auth.getName()));
+                System.out.println(dao.getStatusOfEmployee("Deleted", auth.getName()));
                 dao.save(extemp);
 
                 // ita passe user ge user table eke status eka deleted hri false kiyala hari
@@ -200,7 +210,7 @@ public class EmployeeController {
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
                 "employee");
 
-        if (logUserPrivi.get("update") && (dao.getStatusOfEmployee("Deleted",auth.getName()) == null)) {
+        if (logUserPrivi.get("update") && (dao.getStatusOfEmployee("Deleted", auth.getName()) == null)) {
             // mehem employee kenek innwda kiyala balanwa
             Employee extEmployee = dao.getReferenceById(employee.getId());
             if (extEmployee == null) {

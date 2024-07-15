@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.math.BigDecimal;
 import java.util.*;
 
 import lk.example.jeewacomputers.grnanditem.dao.SerialNoDao;
@@ -33,7 +35,7 @@ public class SerialNoController {
     }
 
     @GetMapping(value = "/serialno/getitemprice/{name}",produces = "application/json")
-    public Integer getItemPriceFromDiag(@PathVariable("name") String name) {
+    public BigDecimal getItemPriceFromDiag(@PathVariable("name") String name) {
         return serialNoDao.getItemPriceForDiagnose(name);
     }
 

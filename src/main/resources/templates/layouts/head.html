@@ -11,7 +11,7 @@
     <script src="resourcesT/dataTables-1.13.6/js/dataTables.min.js"></script>
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.min.css"> -->
     <link rel="stylesheet" type="text/css" href="resourcesT/dataTables-1.13.6/css/css/dataTables.min.css">
-
+    <script src="dashboard/dashboard.js"></script>
     <!-- sweet alert2 -->
     <script src="resourcesT/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <!-- link bs js file -->
@@ -52,7 +52,7 @@
     <script th:inline="javascript">
         window.addEventListener("load",()=>{
             var userphoto= /*[[${loguserphoto}]]*/ 'loguserphoto';
-            console.log(userphoto);
+            // console.log(userphoto);
             if (userphoto != null) {
                 imgUserImage.src = atob(userphoto)
             }
@@ -187,7 +187,7 @@
 <!-- repair head start -->
 
 <head th:fragment="headDashboardFragment">
-    <script src="dashboard/dashboard.js"></script>
+    <!-- <script src="dashboard/dashboard.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="dashboard/assistantDashboard.js"></script>
 

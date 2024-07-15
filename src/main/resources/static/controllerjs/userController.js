@@ -48,7 +48,8 @@ const deleteEmployeeBtn = (rowOb) => {
 }
 
 const getEmployeeFullName = (rowOb) => {
-    return rowOb.employee.fullname;
+    console.log(rowOb);
+    return rowOb.employee?.fullname ? rowOb.employee?.fullname : "-";
 }
 const getStatus = (rowOb) => {
     if (rowOb.status) {
@@ -61,7 +62,7 @@ const getStatus = (rowOb) => {
 const getRole = (rowOb) => {
     let role = '';
     rowOb.roles.forEach(element => {
-        role = role + "<p class = 'working-status'>" + element.name + "</p>"
+        role = role + "<p class = 'working-status'>" + element?.name ? element?.name : "-" + "</p>"
     })
     return role
  
@@ -69,6 +70,7 @@ const getRole = (rowOb) => {
 }
 
 const refreshUserForm = () => {
+    console.log("hiiii");
     //create empty object
     user = new Object();
     user.roles = new Array();
