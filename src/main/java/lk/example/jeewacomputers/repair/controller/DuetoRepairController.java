@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import lk.example.jeewacomputers.repair.dao.DuetoRepairDao;
 import lk.example.jeewacomputers.repair.dao.RepairDao;
 import lk.example.jeewacomputers.repair.dao.UsedItemDao;
@@ -43,6 +44,17 @@ public class DuetoRepairController {
     public Repair findRepair(@PathVariable("id") Integer id) {
         // login user authentication and authorization
         return duetoRepairDao.getRepairByDue(id);
+    }
+
+     @GetMapping(value = "/duerepair/getduebystatus/{type}", produces = "application/json")
+    public List<DuetoRepair> findRepairBytype(@PathVariable("type") String repairtype) {
+        // login user authentication and authorization
+        return duetoRepairDao.getDueRepairByStatus(repairtype);
+    }
+     @GetMapping(value = "/duerepair/getduebystatusforprocess", produces = "application/json")
+    public List<DuetoRepair> findRepairBytypeForProcess() {
+        // login user authentication and authorization
+        return duetoRepairDao.getDueRepairByStatusForProcessing();
     }
 
      @GetMapping(value = "/duerepair/getusedItemsbyDueRepairs/{id}", produces = "application/json")

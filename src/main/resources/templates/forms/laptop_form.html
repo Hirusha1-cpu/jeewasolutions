@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{ layouts/head :: headFragment}">
+
+</head>
+
+<head th:replace="~{ layouts/head :: headLaptopFragment}">
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <!-- side bar -->
+        <aside th:replace="~{ layouts/sidebar :: sidebarfragment}"></aside>
+
+
+        <!-- ui content area start -->
+        <div class="main">
+            <!-- top navbar -->
+            <nav th:replace="~{ layouts/navbar :: topnavbarfragment}"></nav>
+            <!-- main component start -->
+            <main class="content px-3 py-2 w3-container">
+
+                <!-- employee table start -->
+                <div class="w3-animate-right" id="empTable">
+
+                    <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
+
+                        <h4>Laptop Table</h4>
+                        <button id="empaddbtn" class="btn btn-success mb-2">Add Laptop</button>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="mb-3 table-responsive">
+                            <table class="table table-dark table-bordered border-primary" id="graphicTab">
+                                <thead>
+
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Memory</th>
+                                    <th scope="col">Power Supply</th>
+                                    <th scope="col">Sales Price</th>
+                                    <th scope="col">Purchase Price</th>
+                                    <th scope="col">Min Discount</th>
+                                    <th scope="col">Max Discount</th>
+                                    <th scope="col">Brand</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Pc Part Status</th>
+                                    <th scope="col">Photo</th>
+                                    <th scope="col">Button</th>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- employee table end -->
+
+                <!-- employee form start -->
+                <div id="empForm" class="w3-animate-left" style="display: none;">
+                    <div class=" " style="display: flex; justify-content: space-between; align-items: center;">
+                        <button id="empFormToTable" class="btn btn-success mb-3">Table</button>
+                        <h4>Laptop Form</h4>
+                    </div>
+
+                    <div style="border: 1px solid black; padding: 10px;">
+
+                        <!-- Item form start -->
+                        <form onsubmit="return false;" class="p-2 m-2" >
+
+                            <!-- item code/ brand start -->
+                            <div class="row col-10 d-flex mt-1 ">
+
+                                <!-- Graphic code start -->
+                                <div class="form-floating col-4 p-1 ">
+                                    <form class="form-floating ">
+                                        <input type="text" class="form-control" id="floatingInputValue"
+                                            placeholder="name@example.com" value="RAM00001">
+                                        <label for="floatingInputValue">Laptop Code</label>
+                                    </form>
+                                </div>
+
+                                <!-- Graphic code end -->
+                                <!-- brand and button start  -->
+
+                                <div class="col-7 mt-1" style="display: flex; flex-direction: row; gap: 38px;">
+                                    <div class="input-group mb-3 col-10">
+
+                                        <div class="form-floating select-form col-10">
+                                            <select class="form-select" id="selectBrandInGraphicard"
+                                                aria-label="Floating label select example"
+                                                onchange="selectDFieldValidation(selectBrandInGraphicard,'', 'graphicCard', 'brand_id')"
+                                                >
+                                            </select>
+                                            <label for="selectBrandInGraphicard">Laptop Brand</label>
+                                        </div>
+                                        <button class="btn btn-outline-primary">Add Brand</button>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select select-form" id="floatingSelect"
+                                                aria-label="Floating label select example">
+                                                <option selected>PC/Desktop status</option>
+                                                <option value="1">PC</option>
+                                                <option value="2">Desktop</option>
+
+                                            </select>
+                                            <label for="floatingSelect">PC/Desktop status</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- brand and button end  -->
+
+
+                            </div>
+                            <!-- item code/ brand end -->
+
+                            <!-- capacity/ memory type/ speed start -->
+                            <div class="row mt-2 ">
+                                <div class="row d-flex justify-content-center align-items-center "
+                                    style="display: flex; flex-direction: row;">
+                                    <div class="col-3">
+
+                                        <div class=" form-floating mt-1 d-flex">
+                                            <input type="text" class="form-control" placeholder="Enter Ram Capacity"
+                                                aria-label="Ram's capacity" id="graphicRamCapacity"
+                                                aria-describedby="basic-addon2"
+                                                onkeyup="textValidation(graphicRamCapacity, '', 'graphicCard', 'memorycapacity');"
+                                                >
+                                            <label for="graphicRamCapacity">VRAM</label>
+                                            <span class="input-group-text" id="basic-addon2">GB</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+
+
+                                        <div class="form-floating mt-1 d-flex">
+                                            <input type="text" id="graphicMemType" class="form-control"
+                                                placeholder="Ram's memory type" aria-label="Recipient's username"
+                                                aria-describedby="basic-addon2"
+                                                onkeyup="textValidation(graphicMemType, '', 'graphicCard', 'memorytype');">
+                                            <label for="graphicMemType">Memory Type</label>
+                                            <span class="input-group-text" id="basic-addon2">DDR</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+
+
+                                        <div class="form-floating mt-1 d-flex">
+                                            <input type="text" class="form-control" placeholder="Ram's speed"
+                                                id="graphicMemSpeed"
+                                                aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                                onkeyup="textValidation(graphicMemSpeed, '', 'graphicCard', 'memoryspeed');">
+                                            <label for="graphicMemSpeed">Memory Speed</label>
+
+                                            <span class="input-group-text" id="basic-addon2">GHz</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- capacity/ memory type/ speed end -->
+
+                            <!-- Ram Name Auto generated start -->
+                            <div class="row">
+
+                                <div class="form-floating mb-3 mt-3 col-6 p-1">
+                                    <input type="text" class="form-control" id="graphicCardName" placeholder="Item Name"
+                                        value=""
+                                        onkeyup="textValidation(graphicCardName, '', 'graphicCard', 'name');" >
+                                    <label for="graphicCardName" class="pl-2">Graphic Name</label>
+                                </div>
+                                <div class="form-floating mb-3 mt-3 col-6 p-1">
+                                    <input type="text" class="form-control" id="graphicCardChip" placeholder=""
+                                        value=""
+                                        onkeyup="textValidation(graphicCardChip, '', 'graphicCard', 'chipset');">
+                                    <label for="graphicCardChip" class="pl-2">Chipset</label>
+                                </div>
+                            </div>
+                            <!-- Ram Name Auto generated end -->
+
+                            <!-- selling price/ purchase price / qty start -->
+                            <div class="row mt-3 p-2 d-flex justify-content-center align-items-center ">
+                                <div class="col-6 form-floating mb-3 p-1">
+                                    <input type="number" class="form-control" id="graphicCardPurchasePrice"
+                                        placeholder="Purchase Price"
+                                        onkeyup="textValidation(graphicCardPurchasePrice, '^[1-9][0-9]{0,7}[.][0-9]{2}$', 'graphicCard', 'purchase_price');">
+                                    <label for="graphicCardPurchasePrice">Purchase Price</label>
+                                </div>
+                                <div class="col-3 form-floating mb-3 p-1">
+                                    <input type="number" class="form-control" id="graphicCardSellRatio"
+                                        placeholder="Selling Price"
+                                        onkeyup="textValidation(graphicCardSellRatio, '', 'graphicCard', 'sales_rate'); handleSalePrice(this.value)">
+                                    <label for="graphicCardSellRatio" class="pl-2">Selling Ratio</label>
+                                </div>
+                                <div class="col-3 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="graphicCardSellPrice"
+                                        placeholder="Selling Price"
+                                        onkeyup="textValidation(graphicCardSellPrice, '', 'graphicCard1', 'sales_rate1');">
+                                    <label for="graphicCardSellPrice" class="pl-2">Selling Price</label>
+                                </div>
+                                
+                                <!-- <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="QTY">
+                                    <label for="floatingInput">Quantity</label>
+                                </div> -->
+
+                            </div>
+                            <!-- selling price/ purchase price / qty end -->
+
+                            <!-- max discount ratio / min discount ratio strat -->
+                            <div class="row  d-flex justify-content-center align-items-center ">
+                                <div class="col-2 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="graphicCardMaxDiscount"
+                                        placeholder="Max discount ratio"
+                                        onkeyup="textValidation(graphicCardMaxDiscount, '', 'graphicCard', 'max_discount_price');handleMaxPrice(this.value)">
+                                    <label for="graphicCardMaxDiscount" class="pl-2">Max discount ratio</label>
+                                </div>
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="graphicCardMaxDiscount1"
+                                        placeholder="Max discount ratio"
+                                        onkeyup="textValidation(graphicCardMaxDiscount1, '', 'graphicCard1', 'max_discount_price'); ">
+                                    <label for="graphicCardMaxDiscount1" class="pl-2">Max discount price</label>
+                                </div>
+                                <div class="col-2 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="graphicCardMinDiscount"
+                                        placeholder="Min discount ratio"
+                                        onkeyup="textValidation(graphicCardMinDiscount, '', 'graphicCard', 'min_discount_price'); handleMinPrice(this.value)">
+                                    <label for="graphicCardMinDiscount">Min discount ratio</label>
+                                </div>
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="graphicCardMinDiscount1"
+                                        placeholder="Min discount ratio"
+                                        onkeyup="textValidation(graphicCardMinDiscount1, '', 'graphicCard1', 'min_discount_price');">
+                                    <label for="graphicCardMinDiscount1">Min discount ratio</label>
+                                </div>
+                            </div>
+
+                            <!-- max discount ratio / min discount ratio end -->
+
+                            <!-- pc part status/ warrenty period/ reorder point start -->
+                            <div class="row p-2 d-flex justify-content-center align-items-center ">
+                                <div class="col-4 form-floating  p-1">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select select-form" id="graphicCardPcPartStatus"
+                                            aria-label="Floating label select example"
+                                           onchange="selectDFieldValidation(graphicCardPcPartStatus,'', 'graphicCard', 'pc_part_status_id')"
+                                            >
+                                        </select>
+                                        <label for="graphicCardPcPartStatus">PC part status</label>
+                                    </div>
+                                </div>
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="number" class="form-control" id="graphicCardWarrenty"
+                                        placeholder="Warrenty Period"
+                                        onkeyup="textValidation(graphicCardWarrenty, '', 'graphicCard', 'warrenty');">
+                                    <label for="graphicCardWarrenty">Warrenty Period</label>
+                                </div>
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="graphicCardReorder"
+                                        placeholder="Reorder point"
+                                        onkeyup="textValidation(graphicCardReorder, '', 'graphicCard', 'reorder_point'); showObject()">
+                                    <label for="graphicCardReorder">Reorder point</label>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label for="graphicCardPhoto">Photo</label>
+                                    <input type="file" class="d-none form-control mt-3 mb-3" id="graphicCardPhoto" 
+                                    onchange="validateFileield(this,'graphicCard','graphic_photo','graphic_photoname',imageGraphic,textGraphicPhoto)"
+                                    >
+
+                                </div>
+                                <div class="col-3">
+                                    <button type="button" class="btn btn-primary" onclick="graphicCardPhoto.click(); objectshow()" id="btnSelectImage"
+                                    >
+                                        select image
+                                    </button>
+                                    <button type="button" class="btn btn-primary" onclick="clearImageBtn();" id="btnClearImage">
+                                        clear image
+                                    </button>
+                                </div>
+                                <div class="col-3">
+                                    <img src="resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png" 
+                                    style="height: 75px; width: 75px;" alt="jeewa image" id="imageGraphic">
+                                    <input type="text" disabled name="" class="form-control" id="textGraphicPhoto">
+                                </div>
+
+                            </div>
+                            <!-- pc part status/ warrenty period/ reorder point end -->
+                            <!-- add more details modal start-->
+                            <button onclick="document.getElementById('moreSpecModal').style.display='block'"
+                                class="w3-button w3-green">
+                                Add More Specifications</button>
+
+
+
+                            <div id="moreSpecModal" class="w3-modal">
+                                <div class="w3-modal-content w3-animate-top w3-animate-fade w3-card-4">
+                                    <header class="w3-container w3-blue">
+                                        <span onclick="document.getElementById('moreSpecModal').style.display='none'"
+                                            class="w3-button w3-display-topright">&times;</span>
+                                        <h4>Add More Specs</h4>
+                                    </header>
+                                    <div class="w3-container">
+                                        <table class="w3-table-all w3-hoverable mt-3 mb-3">
+                                            <thead>
+                                                <tr class="w3-light-grey">
+                                                    <th>Specification</th>
+                                                    <th>Details</th>
+                                                    <th>Delete Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tr>
+                                                <td>Read/Write Speeds</td>
+                                                <td>7,000/5,100 MB/s</td>
+                                                <td>No</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cache Memory
+                                                </td>
+                                                <td>Samsung 2GB Low Power DDR4 SDRAM
+                                                </td>
+                                                <td>No</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Security</td>
+                                                <td>AES 256-bit Full Disk Encryption, TCG/Opal V2.0, Encrypted Drive
+                                                    (IEEE1667)
+                                                </td>
+                                                <td>No</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <footer class="w3-container ">
+                                        <div class="row p-2 d-flex justify-content-end align-items-center"
+                                            style="display: flex; flex-direction: row; gap:10px;">
+                                            <button class="col-3 btn btn-warning">UPDATE</button>
+                                            <button class="col-3 btn btn-primary">ADD</button>
+
+                                        </div>
+                                    </footer>
+                                </div>
+                            </div>
+
+                            <!-- add more details modal end-->
+
+                            <!-- button gruop start -->
+                            <div class="row p-2 d-flex justify-content-end align-items-center"
+                                style="display: flex; flex-direction: row; gap:10px;">
+                                <button class="col-3 btn btn-warning">UPDATE</button>
+                                <button class="col-3 btn btn-primary" onclick="addGraphicCardDetails()">ADD</button>
+
+                            </div>
+                            <!-- button gruop end -->
+
+
+                        </form>
+                        <!-- Item form end -->
+                    </div>
+
+
+                </div>
+                <!-- employee form end -->
+
+            </main>
+            <!-- main component end -->
+
+        </div>
+        <!-- ui content area end -->
+    </div>
+
+
+    <script src="templates/layouts/layout1.js"></script>
+    <script src="templates/layouts/layout2.js"></script>
+
+</body>
+
+</html>

@@ -34,6 +34,7 @@ const refreshInvoiceForm = () => {
     invoice = new Object();
     duetoRepair = new Object();
     itable = []
+    irepairtable = []
     serialno_id = new Object();
     cusObject = new Object();
     customer_id = new Object();
@@ -179,6 +180,14 @@ function filterByName(itemname, data) {
         (item) => (item.name).includes(itemname)
     );
 }
+const addToRepairTable = () => {
+    itemRepairTableDetail = new Object();
+    itemRepairTableDetail.repairCode = repaircodeNoRepair.value
+    itemRepairTableDetail.itemCategory = lblItemCate1Repair.value
+    itemRepairTableDetail.itemName = lblItemName1Repair.value
+    itemRepairTableDetail.total = lblItemName1Repair.value
+
+}
 const addToTable = () => {
     //customer table ekata save wenna one data tika e object eke piliwelata
     customer_id1.name = inputCustomerName.value
@@ -224,6 +233,42 @@ const calculateBalance = () => {
     invoice.customerpaidamount = invoiceCustomerPayment.value
     invoice.balance = invoice.customerpaidamount - invoice.total
     invoiceBalance.value = invoice.balance
+}
+const addRepairToSerialiedTable = () => {
+    // Repair Code
+    // Item Category
+    // Item Name
+    // Total
+    addToRepairTable()
+    console.log(itemRepairTableDetail);
+    irepairtable.push(itemRepairTableDetail)
+
+    barcodeNoRepair.value = ""
+    repaircodeNoRepair.value = ""
+    lblItemCate1Repair.value = ""
+    lblItemName1Repair.value = ""
+    invoiceRepairFor.value = ""
+
+    displayProperties = [
+        { property: getRepairCode, dataType: 'function' },
+        { property: getRepairItemCategory, dataType: 'function' },
+        { property: getRepairItemName, dataType: 'function' },
+        { property: getRepairTotal, dataType: 'function' },
+    ]
+    fillDataIntoPurcahseTable(itemSerializedRepairTable, irepairtable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
+
+}
+const getRepairCode = (rowOb) => {
+    return rowOb.repairCode
+}
+const getRepairItemCategory = (rowOb) => {
+    return rowOb.itemCategory
+}
+const getRepairItemName = (rowOb) => {
+    return rowOb.itemName
+}
+const getRepairTotal = (rowOb) => {
+    return rowOb.total
 }
 const addToSerialiedTable = () => {
 

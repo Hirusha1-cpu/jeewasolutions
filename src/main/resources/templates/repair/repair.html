@@ -82,7 +82,7 @@
                                             <h5 class="card-title fw-bolder" style="color: red;">Urgent Repairs</h5>
                                             <p class="card-text"><span class="fw-bolder me-2">23</span>Repairs</p>
                                             <select class="form-select col-5" aria-label="Default select example"
-                                                id="selectUrgentRepairs" onchange="getSelectedRepair()">
+                                                id="selectUrgentRepairs" onchange="getSelectedRepair(this.value)">
                                             </select>
                                         </div>
                                     </div>
@@ -94,10 +94,7 @@
                                             <h5 class="card-title fw-bolder" style="color: red;">Shop Repairs</h5>
                                             <p class="card-text"><span class="fw-bolder me-2">23</span>Repairs</p>
                                             <select class="form-select col-5" aria-label="Default select example"
-                                                id="selectPurchaseOrderShop">
-                                                <option selected>Select Repair</option>
-                                                <option value="1">Graphic Card | rtx </option>
-                                                <option value="2">Ram | Azuz</option>
+                                                id="selectShopRepairs" onchange="getSelectedRepair(this.value)">
                                             </select>
                                         </div>
                                     </div>
@@ -110,10 +107,7 @@
                                             </h5>
                                             <p class="card-text"><span class="fw-bolder me-2">23</span>Repairs</p>
                                             <select class="form-select col-5" aria-label="Default select example"
-                                                id="selectPurchaseOrderOut">
-                                                <option selected>Select Repair</option>
-                                                <option value="1">Graphic Card | rtx </option>
-                                                <option value="2">Ram | Azuz</option>
+                                                id="selectOutShopRepairs" onchange="getSelectedRepair(this.value)">
                                             </select>
                                         </div>
                                     </div>
@@ -125,10 +119,7 @@
                                             <h5 class="card-title fw-bolder" style="color: red;">Processing Repairs</h5>
                                             <p class="card-text"><span class="fw-bolder me-2">23</span>Repairs</p>
                                             <select class="form-select col-5" aria-label="Default select example"
-                                                id="selectPurchaseOrderProcess">
-                                                <option selected>Select Repair</option>
-                                                <option value="1">Graphic Card | rtx </option>
-                                                <option value="2">Ram | Azuz</option>
+                                                id="selectPurchaseOrderProcess" onchange="getSelectedRepair(this.value)">
                                             </select>
                                         </div>
                                     </div>

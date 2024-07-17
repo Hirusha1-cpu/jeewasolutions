@@ -54,6 +54,7 @@ public class WebConfiguration {
                     .requestMatchers("/processor/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
                     .requestMatchers("/motherboard/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
                     .requestMatchers("/powersupply/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
+                    .requestMatchers("/laptop/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
                     .requestMatchers("/monitor/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
                     .requestMatchers("/casing/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
                     .requestMatchers("/harddisk/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")

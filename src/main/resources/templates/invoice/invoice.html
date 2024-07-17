@@ -92,7 +92,7 @@
                                             <div class="col-6 form-floating  p-1">
                                                 <select class="form-select" id="warrentyStatus"
                                                     aria-label="Default select example"
-                                                    onchange="selectFieldValidation(warrentyStatus,'', 'warrentyItem', 'statusofrepair');">
+                                                    onchange="selectFieldValidation(warrentyStatus,'', 'warrentyItem', 'repairtype');">
                                                     <option value="shop item">Shop Item</option>
                                                     <option value="non shop item">Non Shop Item</option>
                                                     <option value="urgent repair">Urgent Repair</option>
@@ -269,16 +269,16 @@
                 <div id="empForm" class="w3-animate-left" style="display: none;">
                     <div class="" style="display: flex; justify-content: space-between; align-items: center;">
                         <button id="empFormToTable" class="btn btn-success mb-3">Warrenty Form</button>
-                        <button type="button" class="btn btn-secondary mb-3" data-bs-toggle="modal"
+                        <!-- <button type="button" class="btn btn-secondary mb-3" data-bs-toggle="modal"
                             data-bs-target="#staticBackdrop3">
                             Repair Item Payment
-                        </button>
+                        </button> -->
 
                         <h4>Invoice Form</h4>
                     </div>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false"
+                    <!-- <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false"
                         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg modal-dialog-scrollable">
                             <div class="modal-content">
@@ -346,7 +346,6 @@
                                                     <td>23</td>
                                                     <td>100</td>
                                                     <td>
-                                                        <!-- <button class="btn btn-success">send</button> -->
                                                         <button class="btn btn-success"><i
                                                                 class="fa-solid fa-money-check-dollar"></i></button>
                                                         <button class="btn btn-danger"><i
@@ -389,7 +388,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <div style="border: 1px solid black; padding: 10px;">
@@ -415,7 +414,7 @@
                                                     <p class="nav-link fw-bolder" onclick="handleItem()" style="color: rgb(0, 0, 255);">Item Payment</p>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <p class="nav-link fw-bolder" onclick="handleRepair()" style="color: rgb(255, 0, 4);">Repair Payment</p>
+                                                    <p class="nav-link fw-bolder" onclick="handleRepair()" style="color: rgb(32, 69, 3);">Repair Payment</p>
                                                 </li>
                                             </ul>
                                         </div>
@@ -495,7 +494,7 @@
                                         <div class="row d-none" id="displayPayforRepair">
 
                                             <div class="row p-1">
-                                                <div id="itemDtails" class="fw-bolder" style="color: rgb(0, 0, 255);">
+                                                <div id="itemDtails" class="fw-bolder" style="color: rgb(32, 69, 3);">
                                                     Repair
                                                     Details
                                                 </div>
@@ -504,15 +503,23 @@
                                                 <div class="col-6 form-floating p-1 ms-2">
                                                     <input type="text" class="form-control " id="barcodeNoRepair"
                                                         placeholder="">
-                                                    <label for="barcodeNo" class="pl-2">Barcode</label>
+                                                    <label for="barcodeNoRepair" class="pl-2">Barcode</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 form-floating p-1 ms-2">
+                                                    <input type="text" class="form-control " id="repaircodeNoRepair"
+                                                        placeholder="">
+                                                    <label for="repaircodeNoRepair" class="pl-2">Repair Code</label>
                                                 </div>
 
                                             </div>
                                             <div class="row mt-2">
                                                 <div class="col-6 form-floating p-1 ms-2">
-                                                    <input type="text" class="form-control " id="lblItemName1Repair"
+                                                    <input type="text" class="form-control " id="lblItemCate1Repair"
                                                         placeholder="">
-                                                    <label for="lblItemName1Repair" class="pl-2">Item Category</label>
+                                                    <label for="lblItemCate1Repair" class="pl-2">Item Category</label>
                                                 </div>
 
                                             </div>
@@ -528,7 +535,7 @@
                                             <div class="row mt-3">
                                                 <div class="col-6 form-floating p-1 ms-2">
                                                     
-                                                    <select class="form-select" id="invoiceSerialId"
+                                                    <select class="form-select" id="invoiceRepairFor"
                                                         aria-label="Default select example" onchange="getItemDetails()">
 
                                                     </select>
@@ -540,10 +547,8 @@
 
                                             <div class="row mt-3">
                                                 <div class="mr-1">
-                                                    <button class="btn btn-info" type="button" data-bs-toggle="collapse"
-                                                        data-bs-target="#collapseItemDetails1" aria-expanded="false"
-                                                        aria-controls="collapseItemDetails1" style="color: white;"
-                                                        onclick="addToSerialiedTable()">
+                                                    <button class="btn btn-info" type="button" style="color: white;"
+                                                        onclick="addRepairToSerialiedTable()">
                                                         Add Repair
                                                     </button>
                                                     <!-- <div class="collapse mt-3" id="collapseItemDetails">
@@ -1547,7 +1552,7 @@
 
                                             <div class="collapse mt-3" id="collapseItemDetails">
                                                 <div class="card card-body">
-                                                    <table class="table table-dark" id="itemSerializedTable">
+                                                    <table class="table table-dark" id="itemSerializedRepairTable">
                                                         <thead>
                                                             <tr>
 
@@ -1555,8 +1560,7 @@
                                                                 <th scope="col">Repair Code</th>
                                                                 <th scope="col">Item Category</th>
                                                                 <th scope="col">Item Name</th>
-                                                                <th scope="col">Item warrenty</th>
-                                                                <th scope="col">Buttons</th>
+                                                                <th scope="col">Total</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>

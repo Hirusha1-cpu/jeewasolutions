@@ -28,9 +28,16 @@ const refreshRepairForm = () => {
   usedItemsForRepair = new Object();
   const repairs = ajaxGetRequest("/repair/getlist")
   const duerepair1 = ajaxGetRequest("/duerepair/getlist")
+  const duerepairShop = ajaxGetRequest("/duerepair/getduebystatus/Shop Item")
+  const duerepairNonShop = ajaxGetRequest("/duerepair/getduebystatus/Non Shop Item")
+  const duerepairUrgent = ajaxGetRequest("/duerepair/getduebystatus/Urgent Repair")
+  const duerepairProcessing = ajaxGetRequest("duerepair/getduebystatusforprocess")
   const categories = ajaxGetRequest("/category/getlist")
   console.log(repairs);
-  fillDataIntoSelect(selectUrgentRepairs, "Select Uregent Repairs", duerepair1, 'fault')
+  fillDataIntoSelect(selectUrgentRepairs, "Select Uregent Repairs", duerepairUrgent, 'fault')
+  fillDataIntoSelect(selectShopRepairs, "Select Shop Repairs", duerepairShop, 'fault')
+  fillDataIntoSelect(selectOutShopRepairs, "Select Non Shop Repairs", duerepairNonShop, 'fault')
+  fillDataIntoSelect(selectPurchaseOrderProcess, "Select Processing", duerepairProcessing, 'fault')
   serialNoListCountForRepair = ajaxGetRequest("/serialno/getlistwithoutnotnull")
   fillDataIntoSelect(selectRepairCategory, "Select Category", categories, 'name')
 }
@@ -194,9 +201,9 @@ const getBrandSupplier = (rowOb) => { return rowOb.brand_id.name ?? "-"; }
     console.log("clicked send purchase order");
   }
 
-  const getSelectedRepair = () => {
+  const getSelectedRepair = (value) => {
 
-    duetoRepair = JSON.parse(selectUrgentRepairs.value)
+    duetoRepair = JSON.parse(value)
     const repairforDueRepair = ajaxGetRequest("/duerepair/getrepairbydue/"+ JSON.parse(duetoRepair.repairid))
     console.log(repairforDueRepair);
     // diagnosisDueUpdate.repair_id = repairforDueRepair

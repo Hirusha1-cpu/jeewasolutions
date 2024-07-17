@@ -42,6 +42,9 @@ public class DuetoRepair {
      @Column(name = "statusofrepair")
     private String statusofrepair;
 
+     @Column(name = "repairtype")
+    private String repairtype;
+
      @Column(name = "fault")
     private String fault;
 
