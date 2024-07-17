@@ -1,10 +1,11 @@
 window.addEventListener('load', () => {
-    refreshUserTable();
-    refreshUserForm();
+    refreshUsersTable();
+    refreshUsersForm();
 })
 
-const refreshUserTable = () => {
+const refreshUsersTable = () => {
     users = ajaxGetRequest('/user/getlist')
+    console.log(users);
     const displayUserProperties = [
         { property: getEmployeeFullName, dataType: 'function' },
         { property: "username", dataType: 'string' },
@@ -69,7 +70,7 @@ const getRole = (rowOb) => {
 
 }
 
-const refreshUserForm = () => {
+const refreshUsersForm = () => {
     console.log("hiiii");
     //create empty object
     user = new Object();

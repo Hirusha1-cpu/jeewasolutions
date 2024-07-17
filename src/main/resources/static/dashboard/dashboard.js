@@ -140,7 +140,7 @@ const submitUserSettings = () => {
 
 }
 
-const passwordValidation = () => {
+const passwordsValidation = () => {
   if (inputPasswordSet.value != "") {
       if (inputPasswordSet.value == inputRePasswordSet.value) {
           inputPasswordSet.style.border = "2px solid green";

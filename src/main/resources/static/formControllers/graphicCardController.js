@@ -22,10 +22,10 @@ const refreshGraphicTable = () => {
 
 
 }
-const refreshGraphicForm = () =>{
+const refreshGraphicForm = () => {
     graphicCard = {}
-
-    graphicCard.graphic_photo= null;
+    graphicCard1 = {}
+    graphicCard.graphic_photo = null;
     graphicCardPhoto.files = null
     imageGraphic.src = "resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png"
     textGraphicPhoto.value = ""
@@ -68,29 +68,53 @@ const deleteEmployeeBtn = () => {
     console.log("delete");
 }
 
-const objectshow = () =>{
+const objectshow = () => {
+    console.log(graphicCard);
+}
+const handleSalePrice = (value) =>{
+    graphicCardSellPrice.value = parseFloat(value) * parseFloat(graphicCardPurchasePrice.value)
+}
+const handleMaxPrice = (value) =>{
+    graphicCardMaxDiscount1.value = parseFloat(value) * parseFloat(graphicCardPurchasePrice.value)
+}
+const handleMinPrice = (value) =>{
+    graphicCardMinDiscount1.value = parseFloat(value) * parseFloat(graphicCardPurchasePrice.value)
+}
+
+const addGraphicCardDetails = () => {
+
+    console.log(graphicCard);
+    // graphicCard.sales_rate = parseFloat(graphicCardSellRatio.value)
+    if (graphicCard1.sales_rate != "") {
+        console.log(graphicCard1);
+        // let sellPrice = parseFloat(graphicCard1.sales_rate1)
+        // let purchasePrice = parseFloat(graphicCard.purchase_price)
+        // graphicCard.sales_rate = parseFloat(sellPrice / purchasePrice)
+        let serverGrphicResponse = ajaxRequestBodyMethod("/graphiccard", "POST", graphicCard);
+        console.log(serverGrphicResponse);
+    }else{
+        let serverGrphicResponse = ajaxRequestBodyMethod("/graphiccard", "POST", graphicCard);
+        console.log(serverGrphicResponse);
+    }
+}
+
+const showObject = () =>{
     console.log(graphicCard);
 }
 
-const addGraphicCardDetails = () =>{
-    console.log(graphicCard);
-    let serverGrphicResponse = ajaxRequestBodyMethod("/graphiccard", "POST", graphicCard);
-    console.log(serverGrphicResponse);
-}
-
-const clearImageBtn = () =>{
+const clearImageBtn = () => {
     console.log(graphicCard);
     if (graphicCard.graphic_photo != null) {
         const userConfirm = confirm("Are you sure you want to delete image")
         if (userConfirm) {
-            graphicCard.graphic_photo= null;
+            graphicCard.graphic_photo = null;
             graphicCardPhoto.files = null
             imageGraphic.src = "resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png"
             textGraphicPhoto.value = ""
             console.log(graphicCard);
         }
     } else {
-        graphicCard.graphic_photo= null;
+        graphicCard.graphic_photo = null;
         imageGraphic.src = "resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png"
 
     }

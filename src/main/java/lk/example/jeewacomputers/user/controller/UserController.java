@@ -23,12 +23,15 @@ import java.util.List;
 import lk.example.jeewacomputers.employee.dao.EmployeeDao;
 import lk.example.jeewacomputers.employee.dao.EmployeeStatusDao;
 import lk.example.jeewacomputers.employee.entity.Employee;
+import lk.example.jeewacomputers.items.dao.GraphicCardDao;
+import lk.example.jeewacomputers.items.entity.GraphicCard;
 import lk.example.jeewacomputers.privilege.controller.PrivilegeController;
 import lk.example.jeewacomputers.user.dao.UserDao;
 import lk.example.jeewacomputers.user.entity.User;
 
 @RestController
 public class UserController {
+    
     @Autowired
     // create dao object
     private UserDao dao;
@@ -46,16 +49,23 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private GraphicCardDao graphicCardDao;
+
     @RequestMapping(value = "/user")
     public ModelAndView employeeUI() {
         // get user authentication object
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "user");
+        User user = dao.getUserByUsername(auth.getName());
+        GraphicCard graphicCard = graphicCardDao.getGraphicByName("ASUS DUAL TTX");
         ModelAndView viewEmp = new ModelAndView();
+        viewEmp.addObject("loguserrole", user.getRoles().iterator().next().getName());
+        viewEmp.addObject("loguserphoto", graphicCard.getGraphic_photo());
         viewEmp.addObject("logusername", auth.getName());
         viewEmp.addObject("modulename", "User");
 
-        if (logUserPrivi.get("select")) {
+        if ((logUserPrivi.get("select")) && (empDao.getStatusOfEmployee("Deleted", auth.getName()) == null)) {
 
             viewEmp.addObject("title", "User Management - BIT Project 2024");
 
@@ -168,7 +178,6 @@ public class UserController {
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "user");
         if (logUserPrivi.get("delete")) {
             User extUser = dao.getReferenceById(user.getId());
-
 
             try {
                 user.setDeleted_datetime(LocalDateTime.now());

@@ -19,9 +19,6 @@ const refreshGrnForm = () => {
     grnHasItems = new Object();
     serialNo = new Object();
     grn.grnHasCategory = new Array();
-    // grn.grnHasCategory.serialNumbers = new Array();
-    // grn.grnHasCategory.availableitems_id = new Array();
-    // myArray = []
 
     //fill the select of the categories
     categories = ajaxGetRequest("/category/getlist")

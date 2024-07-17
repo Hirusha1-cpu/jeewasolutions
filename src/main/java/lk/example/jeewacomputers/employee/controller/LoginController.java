@@ -54,7 +54,7 @@ public class LoginController {
         dashView.addObject("loguserrole", user.getRoles().iterator().next().getName());
         // user.getRoles().iterator().next() user ta adala palaweni role eka
         // dashView.addObject("loguserphoto", user.getUserPhoto());
-        dashView.addObject("loguserphoto", graphicCard.getGraphic_photo());
+        // dashView.addObject("loguserphoto", graphicCard.getGraphic_photo());
         dashView.addObject("modulename", "Dashboard");
         dashView.addObject("title", "Dashboard - BIT Project 2024");
         // if (auth.getAuthorities().toString() == "Manager") {

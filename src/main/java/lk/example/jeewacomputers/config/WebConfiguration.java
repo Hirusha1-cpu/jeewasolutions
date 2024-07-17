@@ -69,6 +69,11 @@ public class WebConfiguration {
                     .requestMatchers("/duerepair/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
                     .requestMatchers("/loggeduser/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
                     .requestMatchers("/changeuser/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
+                    .requestMatchers("/reportpedingemployee/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
+                    .requestMatchers("/reportpedingorder/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
+                    .requestMatchers("/reportdataworkingemployee/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
+                    .requestMatchers("/reportdataemployee/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
+                    .requestMatchers("/inventory/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
 
                     .anyRequest().authenticated();
         })
