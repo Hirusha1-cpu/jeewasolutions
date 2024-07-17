@@ -60,11 +60,9 @@ public class Casing {
     private String color;
 
     @Column(name = "name")
-    @NotNull
     private String name;
 
     @Column(name = "added_datetime")
-    @NotNull
     private LocalDate added_datetime;
 
     @Column(name = "deleted_datetime")
@@ -84,19 +82,16 @@ public class Casing {
     private Integer updated_user;
 
     @Column(name = "max_discounted_ratio")
-    @NotNull
     private BigDecimal max_discounted_ratio;
 
     @Column(name = "min_discounted_ratio")
     @NotNull
     private BigDecimal min_discounted_ratio;
 
-    @Column(name = "sales_price")
-    @NotNull
-    private BigDecimal sales_price;
+    @Column(name = "sales_rate")
+    private BigDecimal sales_rate;
 
     @Column(name = "purchase_price")
-    @NotNull
     private BigDecimal purchase_price;
 
     @ManyToOne

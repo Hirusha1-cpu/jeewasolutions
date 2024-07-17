@@ -49,6 +49,9 @@ public class Invoice {
     @Column(name = "referenceno")
     private String referenceno;
 
+    @Column(name = "itemorservicestatus")
+    private String itemorservicestatus;
+
     @Column(name = "total")
     private BigDecimal total;
 

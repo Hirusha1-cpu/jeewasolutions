@@ -18,6 +18,12 @@ public class AccessoriesController {
        @Autowired
     private AccessoriesItemsDao dao;
 
+    @GetMapping(value = "/accessoriesitems/getlist", produces = "application/json")
+    public List<AccessoriesItems> findAll() {
+        // login user authentication and authorization
+        return dao.findAll(Sort.by(Direction.DESC, "id"));
+    }
+
 
 
 }

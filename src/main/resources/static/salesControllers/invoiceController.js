@@ -59,6 +59,15 @@ const refreshInvoiceForm = () => {
     collapseInvoiceElement.setAttribute("aria-expanded", "true");
 
 }
+const handleItem = () => {
+    displayPayforRepair.classList.add('d-none')
+    displayPayforItem.classList.remove('d-none')
+}
+const handleRepair = () => {
+    displayPayforItem.classList.add('d-none')
+    displayPayforRepair.classList.remove('d-none')
+
+}
 const checkdiscount = (cusname) => {
     // const discountname = inputCustomerName.value;
     console.log(inputCustomerName.value);
@@ -310,8 +319,225 @@ const submitInvoice = () => {
     // const categoryname1 = (serialObject.category_id.name).replace(/\s/g, '').toLowerCase()
     // ajaxGetRequest(`/${categoryname1}/getqty`, categoryname1)
     console.log("serverResponse", serverResponse11);
+    printInvoice(serverResponse11)
+}
+const printInvoice = (response) => {
+    setDataIntInvoicePrint(response)
+
+    console.log("print");
+    const table2 = document.getElementById("printingModalPrint1");
+
+    // Remove the d-none class before copying the HTML
+    table2.classList.remove("d-none");
+
+    const tableHtmlInvoice = table2.outerHTML;
+
+    // Add the d-none class back
+    table2.classList.add("d-none");
+
+    // let newWindow = window.open('', '_blank');
+    let newWindow = window.open();
+    newWindow.document.write(`
+        <html>
+        <head>
+            <title>${1000}</title>
+            <link rel='stylesheet' href='resourcesT/bootstrap_5.3.1/css/bootstrap.min.css'>
+        </head>
+        <body>
+            ${tableHtmlInvoice}
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close(); // Necessary for IE >= 10
+
+    newWindow.onload = function () {
+        setTimeout(() => {
+            newWindow.print();
+            newWindow.close();
+        }, 250);
+    };
 }
 
+const printInvoice1 = () => {
+
+    console.log("print");
+    // const table1 = document.getElementById("tableSupplier")
+    const table2 = document.getElementById("printingModalPrint1")
+    table2.classList.remove('d-none');
+
+    const tableHtmlInvoice = table2.outerHTML;
+    table2.classList.add('d-none');
+
+    // const printWindow = window.open();
+    // printWindow.document.write(tableHtml);
+    let newWindow = window.open()
+    newWindow.document.write(
+        // "<title>" + rowOb.supplier_code + "</title>" +
+        "<title>" + 1000 + "</title>" +
+        "<link rel='stylesheet' href='resourcesT/bootstrap_5.3.1/css/bootstrap.min.css'>" + "</link>" +
+        "<body>" + tableHtmlInvoice + "</body>"
+
+    )
+    setTimeout(() => { //data load wena eka krnne 500 kin
+        newWindow.stop();//load wena eka nwattanwa
+        newWindow.print();
+        newWindow.close();
+        // table2.classList.add("d-none")
+
+    }, 500)
+
+
+}
+
+const setDataIntInvoicePrint = (invoiceP) => {
+    console.log(invoiceP);
+    cusNamePrint.innerHTML = invoiceP.customer_id.name
+    cusPhonePrint.innerHTML = invoiceP.customer_id.phone
+
+    const date = new Date();
+
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    // This arrangement can be altered based on how we want the date's format to appear.
+    let currentDate = `${day}-${month}-${year}`;
+    console.log(currentDate); // "17-6-2022"
+    cusDatePrint.innerHTML = currentDate
+
+    createTable(invoiceP)
+    if (invoiceP.itemorservicestatus == "Repair") {
+        createRepairTable()
+    }
+    cusPayMethodPrint.innerHTML = invoiceP.total
+    cusReferrancePrint.innerHTML = invoiceP.referenceno
+    cusSubTotalPrint.innerHTML = invoiceP.total
+    cusPaidPrint.innerHTML = invoiceP.customerpaidamount
+    cusBalancePrint.innerHTML = invoiceP.balance
+    cusGrandPrint.innerHTML = invoiceP.total
+
+
+
+}
+
+const createRepairTable = () => {
+    let invoiceCR = ajaxGetRequest("/duerepair/getrepairbydue/{id}")
+
+    displayProperties = [
+        { property: getRepairNo, dataType: 'function' },
+        { property: getQtyForRepair, dataType: 'function' },
+        { property: getSerialRepair, dataType: 'function' },
+        { property: getCategoryRepair, dataType: 'function' },
+        { property: getItem, dataType: 'function' },
+        { property: getItemorServiceWarrantyRepair, dataType: 'function' },
+        { property: getItemorServicePriceRepair, dataType: 'function' },
+    ]
+    fillDataIntoPurcahseTable(repairItemTable, invoiceCR, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
+
+}
+
+const getRepairNo = (rowOb) => {
+    return repairno;
+}
+const getQtyForRepair = (rowOb) => {
+    return 1
+}
+const getSerialRepair = (rowOb) => {
+    let serial = ""
+    rowOb.duetoRepair.usedItems.forEach(element => {
+        serial = serial + "<p class = 'working-status'>" + element.serialno + "</p>"
+
+    })
+    return serial;
+
+}
+
+const getCategoryRepair = (rowOb) => {
+    let cat = ""
+    rowOb.duetoRepair.usedItems.forEach(element => {
+        cat = cat + "<p class = 'working-status'>" + element.category + "</p>"
+
+    })
+    return cat;
+
+}
+const getItem = (rowOb) => {
+    let catIt = ""
+    rowOb.duetoRepair.usedItems.forEach(element => {
+        catIt = catIt + "<p class = 'working-status'>" + element.itemname + "</p>"
+
+    })
+    return catIt;
+
+}
+const getItemorServiceWarrantyRepair = (rowOb) => {
+    categoriesItems1 = ajaxGetRequest(`/${categoryname1}/getlist`, categoryname1)
+    // ajaxGetRequest(`/${categoryname1}/getqty`, categoryname1)
+    console.log(categoriesItems1);
+
+
+    let catItWarrenty = ""
+    rowOb.duetoRepair.usedItems.forEach(element => {
+        categoriesItemsRep = ajaxGetRequest(`/${element.category}/getlist`)
+        const filteredDataRep = filterByName(element.itemname, categoriesItemsRep);
+
+        console.log("Filtered data:", filteredDataRep[0]);
+        const objRep = filteredDataRep[0]
+
+        const warrentyPeriod = objRep.warrenty
+        catItWarrenty = catItWarrenty + "<p class = 'working-status'>" + warrentyPeriod + "</p>"
+
+    })
+    return catItWarrenty;
+
+}
+const getItemorServicePriceRepair = (rowOb) => {
+    let catItPrice = ""
+    rowOb.duetoRepair.usedItems.forEach(element => {
+        catItPrice = catItPrice + "<p class = 'working-status'>" + element.unitprice + "</p>"
+
+    })
+    return catItPrice;
+
+}
+
+const createTable = (invoiceC) => {
+
+    displayProperties = [
+        { property: getQty, dataType: 'function' },
+        { property: getSerialNoSaleName, dataType: 'function' },
+        { property: getCateName, dataType: 'function' },
+        { property: getItemorService, dataType: 'function' },
+        { property: getItemorServiceWarranty, dataType: 'function' },
+        { property: getItemorServicePrice, dataType: 'function' },
+    ]
+    fillDataIntoPurcahseTable(repairItemTable, invoiceC.salesHasSerials, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
+
+}
+
+const getQty = (rowOb) => {
+    return 1;
+}
+const getCateName = (rowOb) => {
+    return rowOb.serialno_id.category_id.name;
+}
+
+const getSerialNoSaleName = (rowOb) => {
+    return rowOb.serialno_id.itemname;
+}
+const getItemorService = (rowOb) => {
+    return "Item";
+}
+
+const getItemorServiceWarranty = (rowOb) => {
+    return `<p>${rowOb.warrentystartdate}-${warrentyexpire}<span>(${warrentyperiod})Days</span></p>`
+}
+const getItemorServicePrice = (rowOb) => {
+    // ajax
+    return rowOb?.serialno_id?.itemprice ? rowOb?.serialno_id?.itemprice : null;
+
+}
 
 const refreshRepairTable = () => {
     repair = new Object();
@@ -474,7 +700,7 @@ const getDiagItemCategory = (rowObject) => {
 
     let ItemDiagCategory = '';
     // rowObject.usedItems.forEach(element => {
-    ItemDiagCategory ="<p class = 'working-status'>" + rowObject?.category ? rowObject?.category : "-" + "</p>"
+    ItemDiagCategory = "<p class = 'working-status'>" + rowObject?.category ? rowObject?.category : "-" + "</p>"
     // })
     return ItemDiagCategory
 }
@@ -482,7 +708,7 @@ const getDiagItemName = (rowObject) => {
     let ItemDiagName = '';
     // let getprice = '';
     // rowObject.usedItems.forEach(element => {
-    ItemDiagName =  "<p class = 'working-status'>" + rowObject.itemname ? rowObject.itemname : "-" + "</p>"
+    ItemDiagName = "<p class = 'working-status'>" + rowObject.itemname ? rowObject.itemname : "-" + "</p>"
 
     // })
     return ItemDiagName

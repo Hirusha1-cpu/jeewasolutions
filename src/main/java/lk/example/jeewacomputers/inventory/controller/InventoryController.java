@@ -27,8 +27,8 @@ public class InventoryController {
 
         ModelAndView viewEmp = new ModelAndView();
         viewEmp.addObject("logusername", auth.getName());
-        viewEmp.addObject("modulename", "Graphic");
-        viewEmp.addObject("title", "Graphic");
+        viewEmp.addObject("modulename", "Inventory");
+        viewEmp.addObject("title", "Inventory Management - BIT Project 2024");
         viewEmp.setViewName("inventory/inventory.html");
         return viewEmp;
     }

@@ -35,12 +35,11 @@ public class AccessoriesItems {
     private Integer warrenty;
 
     @Column(name = "name")
-    @NotNull
     private String name;
 
-    @Column(name = "added_datetime")
-    @NotNull
-    private LocalDate added_datetime;
+    // @Column(name = "added_datetime")
+    // // @NotNull
+    // private LocalDate added_datetime;
 
     @Column(name = "deleted_datetime")
     private LocalDate deleted_datetime;
@@ -48,9 +47,9 @@ public class AccessoriesItems {
     @Column(name = "updated_datetime")
     private LocalDate updated_datetime;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "added_user_id", referencedColumnName = "id")
-    private User added_user_id;
+    // @ManyToOne(optional = false)
+    // @JoinColumn(name = "added_user_id", referencedColumnName = "id")
+    // private User added_user_id;
 
     @Column(name = "deleted_user")
     private Integer deleted_user;
@@ -59,19 +58,15 @@ public class AccessoriesItems {
     private Integer updated_user;
 
     @Column(name = "max_discounted_ratio")
-    @NotNull
     private BigDecimal max_discounted_price;
 
     @Column(name = "min_discounted_ratio")
-    @NotNull
     private BigDecimal min_discounted_price;
 
     @Column(name = "sales_rate")
-    @NotNull
     private BigDecimal sales_rate;
 
     @Column(name = "purchase_price")
-    @NotNull
     private BigDecimal purchase_price;
 
     @ManyToOne

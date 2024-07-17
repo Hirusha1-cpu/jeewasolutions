@@ -30,7 +30,7 @@
 
                         <h4 class="fw-bolder">Warrenty </h4>
                         <button id="empaddbtn" class="btn btn-success mb-2">Add Invoice</button>
-                      
+
                     </div>
                     <div class="container-fluid">
                         <div class="row">
@@ -193,48 +193,54 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="modal fade" id="staticBackdrop00" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" id="staticBackdrop00" data-bs-backdrop="static" tabindex="-1"
+                                aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="staticBackdropLabel">Diagnosed Item Details</h5>
-                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row mt-3">
-
-                                            <div class="mb-3 table-responsive">
-                                                <table class="table table-dark table-bordered border-primary" id="repairItemTableDig">
-                                                    <thead>
-            
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">Category</th>
-                                                        <th scope="col">Item Name</th>
-                                                        <th scope="col">Price</th>
-            
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Diagnosed Item Details</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
-                                        <div class="row mt-3 p-2">
-                                            <div class="row py-1 p-2  d-flex justify-content-start align-items-center ">
-                                                <div class="col-6 form-floating p-1 pl-2">
-                                                    <input type="text" class="form-control" id="repairItemTotalPriceDig"
-                                                        placeholder=""
-                                                       >
-                                                    <label for="repairItemTotalPriceDig" class="pl-2">Total Price</label>
+                                        <div class="modal-body">
+                                            <div class="row mt-3">
+
+                                                <div class="mb-3 table-responsive">
+                                                    <table class="table table-dark table-bordered border-primary"
+                                                        id="repairItemTableDig">
+                                                        <thead>
+
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Category</th>
+                                                            <th scope="col">Item Name</th>
+                                                            <th scope="col">Price</th>
+
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3 p-2">
+                                                <div
+                                                    class="row py-1 p-2  d-flex justify-content-start align-items-center ">
+                                                    <div class="col-6 form-floating p-1 pl-2">
+                                                        <input type="text" class="form-control"
+                                                            id="repairItemTotalPriceDig" placeholder="">
+                                                        <label for="repairItemTotalPriceDig" class="pl-2">Total
+                                                            Price</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-danger">Approved</button>
+                                        </div>
                                     </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                      <button type="button" class="btn btn-danger">Approved</button> </div>
-                                  </div>
                                 </div>
-                              </div>
+                            </div>
                             <div class="col-6">
 
                                 <div class="mb-3 table-responsive">
@@ -267,7 +273,7 @@
                             data-bs-target="#staticBackdrop3">
                             Repair Item Payment
                         </button>
-                       
+
                         <h4>Invoice Form</h4>
                     </div>
 
@@ -384,7 +390,7 @@
                             </div>
                         </div>
                     </div>
-                  
+
 
                     <div style="border: 1px solid black; padding: 10px;">
 
@@ -399,146 +405,171 @@
                                         <div id="date" class="fw-bolder" style="color: red;">2024-09-09</div>
                                     </div>
                                     <!-- date end -->
-                                    <!-- choose category start -->
-                                    <!-- <div class="row">
-                                        <div class="col-2 mt-1">
-                                            <label for="category">Select the category</label>
-                                        </div>
-                                        <div class="col-5">
-                                            <select class="form-select" id="category"
-                                                aria-label="Default select example">
-                                                <option selected>Select A Category</option>
-                                                <option value="1">Graphic Card</option>
-                                                <option value="2">Ram</option>
-                                                <option value="3">MotherBoard</option>
-                                                <option value="3">Monitor</option>
-                                                <option value="3">Hard Disk</option>
-                                                <option value="3">Casing</option>
-                                                <option value="3">Power Supply</option>
-                                                <option value="3">Processor</option>
-                                                <option value="3">Accessories</option>
-                                            </select>
-                                        </div>
-                                    </div> -->
-                                    <!-- choose category end -->
-                                    <!-- select item name start -->
-                                    <!-- <div class="row mt-2">
-                                        <div class="col-2 mt-1">
-                                            <label for="category">Select item name</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <select class="form-select" id="category"
-                                                aria-label="Default select example">
-                                                <option selected>Select Item</option>
-                                                <option value="1">Graphic Card</option>
-                                                <option value="2">Ram</option>
-                                                <option value="3">MotherBoard</option>
-                                                <option value="3">Monitor</option>
-                                                <option value="3">Hard Disk</option>
-                                                <option value="3">Casing</option>
-                                                <option value="3">Power Supply</option>
-                                                <option value="3">Processor</option>
-                                            </select>
-                                        </div>
-                                    </div> -->
-                                    <!-- select item name end -->
-                                    <div class="row p-1">
-                                        <div id="itemDtails" class="fw-bolder" style="color: rgb(0, 0, 255);">Item
-                                            Details
-                                        </div>
-                                    </div>
+
                                     <!-- item details start -->
-                                    <div class="row mt-3">
-                                        <div class="row">
-                                            <div class="col-6 form-floating p-1 ms-2">
-                                                <input type="text" class="form-control " id="barcodeNo" placeholder="">
-                                                <label for="barcodeNo" class="pl-2">Barcode</label>
-                                            </div>
+                                    <div class="row">
+                                        <div class="row ms-2">
+                                            <ul class="nav nav-underline">
 
-                                            <!-- <div class="row">
-                                                <div class="col-4 p-2 form-floating p-1">
-                                                    <form id="uploadForm" enctype="multipart/form-data">
-                                                        <input type="file" id="qrCodeImage" name="qrCodeImage"
-                                                            accept="image/*">
-                                                        <button type="submit">Upload QR Code</button>
-                                                    </form>
+                                                <li class="nav-item">
+                                                    <p class="nav-link fw-bolder" onclick="handleItem()" style="color: rgb(0, 0, 255);">Item Payment</p>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <p class="nav-link fw-bolder" onclick="handleRepair()" style="color: rgb(255, 0, 4);">Repair Payment</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- Item payment start -->
+                                        <div class="row " id="displayPayforItem">
 
+                                            <div class="row p-1">
+                                                <div id="itemDtails" class="fw-bolder" style="color: rgb(0, 0, 255);">
+                                                    Item
+                                                    Details
                                                 </div>
-                                            </div> -->
-
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-6 form-floating p-1 ms-2">
-                                                <input type="text" class="form-control " id="lblItemName1"
-                                                    placeholder=""
-                                                    onchange="textValidation(lblItemName1,'', 'itemTableDetail', 'itemname');">
-                                                <label for="lblItemName1" class="pl-2">Item Name</label>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-6 form-floating p-1 ms-2">
+                                                    <input type="text" class="form-control " id="barcodeNo"
+                                                        placeholder="">
+                                                    <label for="barcodeNo" class="pl-2">Barcode</label>
+                                                </div>
 
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-6 form-floating p-1 ms-2">
-
-                                                <select class="form-select" id="invoiceSerialId"
-                                                    aria-label="Default select example" onchange="getItemDetails()">
-
-                                                </select>
-                                                <label for="invoiceSerialId" class="pl-2">Item Serial No</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-3">
-                                            <div class="col-6 form-floating p-1 ms-2">
-                                                <input type="number" class="form-control " id="invoiceUnitPrice"
-                                                    placeholder=""
-                                                    onchange="textValidation(invoiceUnitPrice,'', 'itemTableDetail', 'unitprice');">
-                                                <label for="invoiceUnitPrice" class="pl-2">Item UnitPrice</label>
-                                            </div>
-
-                                        </div>
-
-                                       
-                                        <div class="row mt-3">
-                                            <div class="mr-1">
-                                                <!-- <button class="btn btn-warning" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseItemWarrenty" aria-expanded="false"
-                                                    aria-controls="collapseItemWarrenty">
-                                                    Warrenty
-                                                </button> -->
-
-                                            </div>
-
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="mr-1">
-                                                <button class="btn btn-info" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseItemDetails1" aria-expanded="false"
-                                                    aria-controls="collapseItemDetails1" style="color: white;"
-                                                    onclick="addToSerialiedTable()">
-                                                    Add Item
-                                                </button>
-                                                <!-- <div class="collapse mt-3" id="collapseItemDetails">
-                                                    <div class="card card-body">
-                                                        <table class="table " id="itemSerializedTable">
-                                                            <thead>
-                                                                <tr>
-
-                                                                    <th scope="col">#</th>
-                                                                    <th scope="col">Item Code</th>
-                                                                    <th scope="col">Item Name</th>
-                                                                    <th scope="col">Item Price</th>
-                                                                    <th scope="col">Item warrenty</th>
-                                                                    <th scope="col">Buttons</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-
-                                                            </tbody>
-                                                        </table>
+                                                <!-- <div class="row">
+                                                    <div class="col-4 p-2 form-floating p-1">
+                                                        <form id="uploadForm" enctype="multipart/form-data">
+                                                            <input type="file" id="qrCodeImage" name="qrCodeImage"
+                                                                accept="image/*">
+                                                            <button type="submit">Upload QR Code</button>
+                                                        </form>
+    
                                                     </div>
                                                 </div> -->
+
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-6 form-floating p-1 ms-2">
+                                                    <input type="text" class="form-control " id="lblItemName1"
+                                                        placeholder=""
+                                                        onchange="textValidation(lblItemName1,'', 'itemTableDetail', 'itemname');">
+                                                    <label for="lblItemName1" class="pl-2">Item Name</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-6 form-floating p-1 ms-2">
+
+                                                    <select class="form-select" id="invoiceSerialId"
+                                                        aria-label="Default select example" onchange="getItemDetails()">
+
+                                                    </select>
+                                                    <label for="invoiceSerialId" class="pl-2">Item Serial No</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-3">
+                                                <div class="col-6 form-floating p-1 ms-2">
+                                                    <input type="number" class="form-control " id="invoiceUnitPrice"
+                                                        placeholder=""
+                                                        onchange="textValidation(invoiceUnitPrice,'', 'itemTableDetail', 'unitprice');">
+                                                    <label for="invoiceUnitPrice" class="pl-2">Item UnitPrice</label>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="row mt-3">
+                                                <div class="mr-1">
+                                                    <button class="btn btn-info" type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseItemDetails1" aria-expanded="false"
+                                                        aria-controls="collapseItemDetails1" style="color: white;"
+                                                        onclick="addToSerialiedTable()">
+                                                        Add Item
+                                                    </button>
+
+                                                </div>
                                             </div>
                                         </div>
+                                        <!-- Item payment end -->
+                                        <!-- Serive repair payment start -->
+                                        <div class="row d-none" id="displayPayforRepair">
+
+                                            <div class="row p-1">
+                                                <div id="itemDtails" class="fw-bolder" style="color: rgb(0, 0, 255);">
+                                                    Repair
+                                                    Details
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 form-floating p-1 ms-2">
+                                                    <input type="text" class="form-control " id="barcodeNoRepair"
+                                                        placeholder="">
+                                                    <label for="barcodeNo" class="pl-2">Barcode</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-6 form-floating p-1 ms-2">
+                                                    <input type="text" class="form-control " id="lblItemName1Repair"
+                                                        placeholder="">
+                                                    <label for="lblItemName1Repair" class="pl-2">Item Category</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-6 form-floating p-1 ms-2">
+                                                    <input type="text" class="form-control " id="lblItemName1Repair"
+                                                        placeholder="">
+                                                    <label for="lblItemName1Repair" class="pl-2">Item Name</label>
+                                                </div>
+
+                                            </div>
+               
+                                            <div class="row mt-3">
+                                                <div class="col-6 form-floating p-1 ms-2">
+                                                    
+                                                    <select class="form-select" id="invoiceSerialId"
+                                                        aria-label="Default select example" onchange="getItemDetails()">
+
+                                                    </select>
+                                                    <label for="invoiceSerialId" class="pl-2">Repair Payment For</label>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="row mt-3">
+                                                <div class="mr-1">
+                                                    <button class="btn btn-info" type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseItemDetails1" aria-expanded="false"
+                                                        aria-controls="collapseItemDetails1" style="color: white;"
+                                                        onclick="addToSerialiedTable()">
+                                                        Add Repair
+                                                    </button>
+                                                    <!-- <div class="collapse mt-3" id="collapseItemDetails">
+                                                        <div class="card card-body">
+                                                            <table class="table " id="itemSerializedTable">
+                                                                <thead>
+                                                                    <tr>
+    
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">Item Code</th>
+                                                                        <th scope="col">Item Name</th>
+                                                                        <th scope="col">Item Price</th>
+                                                                        <th scope="col">Item warrenty</th>
+                                                                        <th scope="col">Buttons</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+    
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Serive repair payment end -->
                                         <div class="row mt-3">
                                             <div class="col-3 form-floating p-1 ms-2">
                                                 <input type="text" class="form-control" id="inputCustomerName"
@@ -773,8 +804,346 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- payment Modal -->
-                                    <div class="modal fade" id="printingModal" tabindex="-1"
+                                    <!-- item details end -->
+                                    <!-- invoice start -->
+                                    <div class="background-color d-none" id="printingModalPrint1"
+                                        style="border: 2px solid rgb(155, 153, 153);">
+                                        <!-- logo , invoice, address start -->
+                                        <div class="row"
+                                            style="display: flex; justify-content: space-evenly; align-items: center; ">
+                                            <div class="col-3 " style="background-color: #0c48a2;">
+                                                <div class=""
+                                                    style="display: flex; justify-content: center; align-items: center; ">
+
+                                                    <img src="../resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png"
+                                                        alt="" style="width: 150px; height: 200px;"><br>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 ps-4 ms-5"
+                                                style=" font-size: 80px; display: flex; justify-content: center; align-items: center; ">
+                                                <p class="fw-lighter font-monospace">INVOICE</p>
+                                            </div>
+                                            <div class="col-3 fw-bold "
+                                                style="margin-left: 51px; color: white; background-color: #5d5d5d;">
+                                                <p class="mb-1">Address:</p>
+                                                <Address class="">No:41/c/1, Kospitiana, Pugoda</Address>
+
+                                                <p class="mb-1">Contact:</p>
+                                                <p>0775371591</p>
+
+                                                <p class="mb-1">Email:</p>
+                                                <p>hirushafernando121@gmail.com</p>
+                                            </div>
+                                        </div>
+                                        <!-- logo , invoice, address end -->
+                                        <!-- bill to start -->
+                                        <div class="row  mt-4"
+                                            style="display: flex; justify-content: space-evenly; align-items: center; ">
+                                            <div class="col-6 me-4 fw-bold"
+                                                style="background-color: #565858; color: white;">
+                                                <div class="row">
+
+                                                    <div
+                                                        class="col-3 fs-5   pt-4  border-end border-5 rounded-end-circle border-white">
+                                                        BILL
+                                                        TO:</div>
+
+                                                    <div class="col-8" style="margin-top: 15px;">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <p>Customer Name:</p>
+                                                            </div>
+                                                            <div class="col-6 pe-4">
+                                                                <p id="cusNamePrint">Hirusha</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <p>Customer Phone:</p>
+                                                            </div>
+                                                            <div class="col-6 pe-4">
+                                                                <p id="cusPhonePrint">0775371591</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-5 fw-bold" style="background-color: #0c48a2; color: azure;">
+                                                <div class="row">
+
+                                                    <div
+                                                        class="col-3 fs-6 p-4 border-end border-5 rounded-end-circle border-white">
+                                                        INVOICE NO:
+                                                    </div>
+
+                                                    <div class="col-8">
+                                                        <div class="col">
+
+                                                            <div class="row">
+                                                                <div
+                                                                    class="col-6 pt-4  mt-1 border-end border-5 rounded-end-circle border-white">
+                                                                    <p>100APCS5</p>
+                                                                </div>
+                                                                <div class="col-6 p-3 fw-bold" style="color: crimson;">
+                                                                    DATE: <p id="cusDatePrint">2024-05-04</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- bill to end -->
+                                        <!-- date and invoice start -->
+                                        <div class="row"></div>
+                                        <!-- date and invoice end -->
+                                        <!-- table start -->
+                                        <div class="row p-4">
+                                            <table class="table table-secondary table-lg" id="cusTablePrint">
+                                                <thead class="table   table-striped-columns">
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Qty</th>
+                                                        <th scope="col">Serial no</th>
+                                                        <th scope="col">Category</th>
+                                                        <th scope="col">Item/service</th>
+                                                        <th scope="col">Warrenty</th>
+                                                        <th scope="col">Unit Price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-group-divider">
+                                                    <!-- <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>Mark</td>
+                                                        <td>Otto</td>
+                                                        <td>@mdo</td>
+                                                        <td>Mark</td>
+                                                        <td>Otto</td>
+                                                        <td>@mdo</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">2</th>
+                                                        <td>Jacob</td>
+                                                        <td>Thornton</td>
+                                                        <td>@fat</td>
+                                                        <td>Mark</td>
+                                                        <td>Otto</td>
+                                                        <td>@mdo</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">3</th>
+                                                        <td>Jacob</td>
+                                                        <td>Thornton</td>
+                                                        <td>@twitter</td>
+                                                        <td>Mark</td>
+                                                        <td>Otto</td>
+                                                        <td>@mdo</td>
+
+                                                    </tr> -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row p-4">
+                                            <table class="table table-secondary table-lg" id="cusRepairTablePrint">
+                                                <thead class="table   table-striped-columns">
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Repair ID</th>
+                                                        <th scope="col">Qty</th>
+                                                        <th scope="col">Serial no</th>
+                                                        <th scope="col">Category</th>
+                                                        <th scope="col">Item</th>
+                                                        <th scope="col">Warrenty</th>
+                                                        <th scope="col">Unit Price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-group-divider">
+                                                    <!-- <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>Mark</td>
+                                                        <td>Otto</td>
+                                                        <td>@mdo</td>
+                                                        <td>Mark</td>
+                                                        <td>Otto</td>
+                                                        <td>@mdo</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">2</th>
+                                                        <td>Jacob</td>
+                                                        <td>Thornton</td>
+                                                        <td>@fat</td>
+                                                        <td>Mark</td>
+                                                        <td>Otto</td>
+                                                        <td>@mdo</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">3</th>
+                                                        <td>Jacob</td>
+                                                        <td>Thornton</td>
+                                                        <td>@twitter</td>
+                                                        <td>Mark</td>
+                                                        <td>Otto</td>
+                                                        <td>@mdo</td>
+
+                                                    </tr> -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- table end -->
+                                        <!-- payment method, total start -->
+                                        <div class="row mt-3 fw-bold fs-6"
+                                            style="display: flex; justify-content: space-evenly; ">
+                                            <div class="col-4 me-4 pe-5 ">
+                                                <div class="row">
+                                                    <div class="col-5">
+
+                                                        <p>Payment method:</p>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <p id="cusPayMethodPrint">Card</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-5">
+
+                                                        <p>Referrance No:</p>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <p id="cusReferrancePrint">00AAAWE1234</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-3"></div>
+                                            <div class="col-4">
+                                                <div class="row">
+                                                    <div class="col-5">
+                                                        <p id="">Sub Total:</p>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <p id="cusSubTotalPrint">Rs.2000</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-5">
+                                                        <p>Discount:</p>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <p>Rs.2000</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-5">
+                                                        <p>Paid Amount:</p>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <p id="cusPaidPrint">Rs.2000</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-5">
+                                                        <p>Balance:</p>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <p id="cusBalancePrint">Rs.2000</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row pt-1" style="background-color: #5d5d5d; color: white;">
+                                                    <div class="col-5">
+                                                        <p>Grand Total:</p>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <p id="cusGrandPrint">Rs.2000</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- payment method, total end -->
+                                        <div class="row mt-3">
+                                            <div
+                                                class="col-12 pr-0 pl-0 d-flex justify-content-center align-items-center">
+                                                <img src="../resourcesT/assets/invoicelogo/hp.png" alt=""
+                                                    class="icon-size">
+                                                <img src="../resourcesT/assets/invoicelogo/asus.png" alt=""
+                                                    class="icon-size">
+                                                <img src="../resourcesT/assets/invoicelogo/dell.png" alt=""
+                                                    class="icon-size">
+                                                <img src="../resourcesT/assets/invoicelogo/msi.png" alt=""
+                                                    class="icon-size">
+                                                <img src="../resourcesT/assets/invoicelogo/intel.png" alt=""
+                                                    class="icon-size">
+                                                <img src="../resourcesT/assets/invoicelogo/amd.png" alt=""
+                                                    class="icon-size">
+                                                <img src="../resourcesT/assets/invoicelogo/lenovo.png" alt=""
+                                                    class="icon-size">
+                                                <img src="../resourcesT/assets/invoicelogo/nvidia.png" alt=""
+                                                    class="icon-size">
+                                                <img src="../resourcesT/assets/invoicelogo/trandcend.png" alt=""
+                                                    class="icon-size">
+                                                <img src="../resourcesT/assets/invoicelogo/gigabyte.png" alt=""
+                                                    class="icon-size">
+                                                <img src="../resourcesT/assets/invoicelogo/king.png" alt=""
+                                                    class="icon-size">
+                                                <img src="../resourcesT/assets/invoicelogo/samsung.png" alt=""
+                                                    class="icon-size">
+                                                <img src="../resourcesT/assets/invoicelogo/master.png" alt=""
+                                                    class="icon-size">
+                                            </div>
+                                        </div>
+                                        <!-- terms and sign start -->
+                                        <div class="row p-4">
+                                            <p class="fw-bold">Term & Conditions</p>
+                                            Thank you for your purchase. Defect part will be repaired within 14 days
+                                            time period. No warranty
+                                            for chip burnt, physical damage, corroded, misuse, negligence or improper
+                                            operations.No replacement
+                                            warranty for laptop, only repair warranty. No warranty or return for
+                                            software. Goods sold once not
+                                            returnable. No cash refund or return after transactions.
+
+                                            Submit this invoice for Warranty Claim.
+
+                                            Technical Support: 011-4582457
+                                        </div>
+                                        <!-- terms and sign end -->
+                                        <!-- footer start -->
+                                        <div class="row mb-4 pb-5 ps-3">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-11 input-group">
+                                                        <label class="mr-2 mb-2 ml-2 pl-1 inv-cus-info-lable"
+                                                            for="txtAssignByView">Assign By :</label>
+                                                        <input type="text" id="txtAssignByView" disabled
+                                                            class="form-control inv-cus-info p-0" value="">
+                                                    </div>
+                                                    <div class="col-1"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6"></div>
+                                        </div>
+                                        <div class="row mt-4 p-2">
+                                            <div class="col-3 pl-5 signature-info">
+                                                <p>Jeewa Compuers</p>
+                                            </div>
+                                            <div class="col-3 pl-2 signature-info">
+                                                <p>Customer Signature</p>
+                                            </div>
+                                            <div class="col-6" style="text-align: center; font-size: 13px">
+                                                <p>-----Thank You-----</p>
+                                            </div>
+                                        </div>
+                                        <!-- footer end -->
+                                    </div>
+                                    <!-- invoice start -->
+                                    <!-- payment print Modal -->
+                                    <div class="modal fade" id="printingModalPayements" tabindex="-1"
                                         aria-labelledby="exampleModalLabel34" aria-hidden="true">
                                         <div class="modal-dialog modal-lg ">
                                             <div class="modal-content">
@@ -786,7 +1155,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <!-- invoice start -->
-                                                    <div class="background-color " id="printingModal"
+                                                    <div class="background-color " id="printingModalPayements"
                                                         style="border: 2px solid rgb(155, 153, 153);">
                                                         <!-- logo , invoice, address start -->
                                                         <div class="row"
@@ -1078,7 +1447,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- payment Modal end-->
+                                    <!-- payment print Modal end-->
 
                                     <!-- item details end -->
                                     <!-- customer details start -->
@@ -1086,7 +1455,7 @@
 
                                         <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
                                             data-bs-target="#collapseBankDetails" aria-expanded="false"
-                                            aria-controls="collapseBankDetails">
+                                            aria-controls="collapseBankDetails" onclick="printInvoice()">
                                             Customer Details
                                         </button>
 
@@ -1158,6 +1527,34 @@
                                                                 <th scope="col">Item Code</th>
                                                                 <th scope="col">Item Name</th>
                                                                 <th scope="col">Item Price</th>
+                                                                <th scope="col">Item warrenty</th>
+                                                                <th scope="col">Buttons</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row p-2">
+                                        <div id="date" class="fw-bolder" style="color: red;">Repair Details</div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="mr-1">
+
+                                            <div class="collapse mt-3" id="collapseItemDetails">
+                                                <div class="card card-body">
+                                                    <table class="table table-dark" id="itemSerializedTable">
+                                                        <thead>
+                                                            <tr>
+
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">Repair Code</th>
+                                                                <th scope="col">Item Category</th>
+                                                                <th scope="col">Item Name</th>
                                                                 <th scope="col">Item warrenty</th>
                                                                 <th scope="col">Buttons</th>
                                                             </tr>
