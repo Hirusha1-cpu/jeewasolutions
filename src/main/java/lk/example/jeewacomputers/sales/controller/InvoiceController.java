@@ -150,7 +150,7 @@ public class InvoiceController {
 
         } catch (Exception e) {
 
-            return "Save not completed :" + e.getMessage();
+            return null;
         }
 
     }
