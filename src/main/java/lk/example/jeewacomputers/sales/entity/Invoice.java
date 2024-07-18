@@ -49,8 +49,6 @@ public class Invoice {
     @Column(name = "referenceno")
     private String referenceno;
 
-    @Column(name = "itemorservicestatus")
-    private String itemorservicestatus;
 
     @Column(name = "total")
     private BigDecimal total;
@@ -65,6 +63,11 @@ public class Invoice {
     @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
     // @JsonIgnore
     private List<SalesHasSerial> salesHasSerials;
+
+    @JsonIgnoreProperties(value = {"sales_id"})
+    @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @JsonIgnore
+    private List<SalesHasDue> salesHasDues;
 
     @JsonIgnoreProperties(value = { "sales_id" })
     @OneToOne(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true, optional = true)

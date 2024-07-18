@@ -1,6 +1,7 @@
 package lk.example.jeewacomputers.sales.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.format.DateTimeFormatters;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,7 @@ import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
 import lk.example.jeewacomputers.payment.entity.IncomePayment;
 import lk.example.jeewacomputers.sales.dao.InvoiceDao;
 import lk.example.jeewacomputers.sales.entity.Invoice;
+import lk.example.jeewacomputers.sales.entity.SalesHasDue;
 import lk.example.jeewacomputers.sales.entity.SalesHasSerial;
 // import lk.example.jeewacomputers.sales.entity.SerialNoList;
 
@@ -130,9 +132,14 @@ public class InvoiceController {
                 System.out.println("executed-4");
                 for (SalesHasSerial salesHasSerial : invoice.getSalesHasSerials()) {
                     salesHasSerial.setSales_id(invoice);
+                 
                   SerialNo serialNo = salesHasSerial.getSerialno_id();
                   serialNo.setAvailability(Boolean.FALSE);
                   serialNoDao.save(serialNo);
+
+                }
+                for (SalesHasDue salesHasDue : invoice.getSalesHasDues()) {
+                    salesHasDue.setSales_id(invoice);
 
                 }
                 System.out.println("executed-5");
