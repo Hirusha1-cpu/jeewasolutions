@@ -26,7 +26,6 @@ window.addEventListener('load', () => {
     refreshInvoiceForm();
     // refreshGrnTable();
     refreshRepairTable();
-
 })
 
 
@@ -48,8 +47,12 @@ const refreshInvoiceForm = () => {
     serialNumbers = new Object();
     // serialNoListCount = ajaxGetRequest("/serialno/getlist")
     serialNoListCount = ajaxGetRequest("/serialno/getlistwithoutnotnull")
+    dueRepairsList = ajaxGetRequest("/duerepair/getlist")
+    getAvailableBarcodes = ajaxGetRequest("/serialno/getavailablelist")
 
+    fillDataIntoSelect(barcodeNo, "Select Barcode", getAvailableBarcodes, 'barcode')
     fillDataIntoSelect(invoiceSerialId, "Select SerialNumber List", serialNoListCount, 'serialno')
+    fillDataIntoSelect(barcodeNoRepair, "Select barcode", dueRepairsList, 'barcode')
 
     const collapseInvoiceElement = document.getElementById("collapseItemDetails");
 
@@ -58,6 +61,14 @@ const refreshInvoiceForm = () => {
 
     // Optionally, you can also set aria-expanded attribute to 'true' for accessibility
     collapseInvoiceElement.setAttribute("aria-expanded", "true");
+
+    const collapseInvoiceRepairElement = document.getElementById("collapseItemRepDetails");
+
+    // Remove the 'collapse' class to open the collapse
+    collapseInvoiceRepairElement.classList.remove("collapse");
+
+    // Optionally, you can also set aria-expanded attribute to 'true' for accessibility
+    collapseInvoiceRepairElement.setAttribute("aria-expanded", "true");
 
 }
 const handleItem = () => {
@@ -93,7 +104,7 @@ const checkdiscount = (cusname) => {
             discountCusRate.disabled = true;
             discountCusRate.value = serverresponseof_discount?.discount ? serverresponseof_discount?.discount : 1;
             invoiceDiscountedPrice.disabled = false
-            invoiceDiscountedPrice.value = parseInt(invoiceTotalPrice.value) * parseInt(discountCusRate.value)
+            invoiceDiscountedPrice.value =parseFloat(invoiceTotalPrice.value)-(parseFloat(invoiceTotalPrice.value) * parseFloat(discountCusRate.value))
             console.log(invoiceDiscountedPrice.value);
         } else {
             // Enable the input field and set its value
@@ -101,7 +112,7 @@ const checkdiscount = (cusname) => {
             discountCusRate.value = serverresponseof_discount?.discount ? serverresponseof_discount?.discount : 1;
             discountCusPhone.disabled = false
             discountCusPhone.value = discountname.phone
-            invoiceDiscountedPrice.value = parseInt(invoiceTotalPrice.value) * parseInt(discountCusRate.value)
+            invoiceDiscountedPrice.value = parseFloat(invoiceTotalPrice.value)-(parseFloat(invoiceTotalPrice.value) * parseFloat(discountCusRate.value))
             console.log(invoiceDiscountedPrice.value);
         }
     } catch (error) {
@@ -127,15 +138,15 @@ const checkdiscount = (cusname) => {
 //         discountCusRate.value = serverresponseof_discount.discount
 //     }
 // }
-const getItemDetails = () => {
-    serialObject = JSON.parse(invoiceSerialId.value)
-    console.log(serialObject);
+const getItemDetails = (serialObject) => {
+    // serialObject = JSON.parse(invoiceSerialId.value)
+    // console.log(serialObject);
 
-    // itemsDetails1 = ajaxGetRequest("/invoice/getlist/" + JSON.parse(invoiceSerialId.value));
-    // console.log(itemsDetails1);
-    // console.log(itemsDetails1.itemname);
-    lblItemName1.value = serialObject.itemname
-    invoiceUnitPrice.value = serialObject.itemprice
+    // // itemsDetails1 = ajaxGetRequest("/invoice/getlist/" + JSON.parse(invoiceSerialId.value));
+    // // console.log(itemsDetails1);
+    // // console.log(itemsDetails1.itemname);
+    // lblItemName1.value = serialObject.itemname
+    // invoiceUnitPrice.value = serialObject.itemprice
     // let categoryName;
     // categoryName = itemsDetails1.category_id.name
     const categoryname1 = (serialObject.category_id.name).replace(/\s/g, '').toLowerCase()
@@ -180,19 +191,46 @@ function filterByName(itemname, data) {
         (item) => (item.name).includes(itemname)
     );
 }
+const getSerialItemDetails = (value2) => {
+    lblItemName1.value = value2.itemname
+    invoiceSerialId.value = value2.serialno
+    invoiceUnitPrice.value = value2.itemprice
+    getItemDetails(value2)
+}
+
+const getRepairItemDetails = (value1) => {
+    console.log(value1);
+    lblItemCate1Repair.value = value1.category
+    lblItemName1Repair.value = value1.itemname
+    let customerVal = ajaxGetRequest("duerepair/getrepairbydue/" + value1.repairid)
+    console.log(customerVal);
+    inputCustomerName.value = customerVal.customer_id.name
+    inputCustomerContact.value = customerVal.customer_id.phone
+
+}
 const addToRepairTable = () => {
     itemRepairTableDetail = new Object();
-    itemRepairTableDetail.repairCode = repaircodeNoRepair.value
     itemRepairTableDetail.itemCategory = lblItemCate1Repair.value
     itemRepairTableDetail.itemName = lblItemName1Repair.value
-    itemRepairTableDetail.total = lblItemName1Repair.value
+    itemRepairTableDetail.repairFor = invoiceRepairFor.value
+    if (customer_id1 == null) {
+        customer_id1.name = inputCustomerName.value
+        customer_id1.phone = inputCustomerContact.value
+        invoice.customer_id = customer_id1
+
+    }
+    console.log(customer_id1);
 
 }
 const addToTable = () => {
     //customer table ekata save wenna one data tika e object eke piliwelata
-    customer_id1.name = inputCustomerName.value
-    customer_id1.phone = inputCustomerContact.value
-    invoice.customer_id = customer_id1
+    if (customer_id1 == null) {
+        customer_id1.name = inputCustomerName.value
+        customer_id1.phone = inputCustomerContact.value
+        invoice.customer_id = customer_id1
+
+    }
+    console.log(customer_id1);
 
     itemTableDetail = new Object();
     //me tika wadagath item table eke data tika penna gnna
@@ -240,35 +278,38 @@ const addRepairToSerialiedTable = () => {
     // Item Name
     // Total
     addToRepairTable()
+    invoice.itemorservicestatus = "service"
     console.log(itemRepairTableDetail);
     irepairtable.push(itemRepairTableDetail)
 
     barcodeNoRepair.value = ""
-    repaircodeNoRepair.value = ""
     lblItemCate1Repair.value = ""
     lblItemName1Repair.value = ""
     invoiceRepairFor.value = ""
 
     displayProperties = [
-        { property: getRepairCode, dataType: 'function' },
+        // { property: getRepairCode, dataType: 'function' },
         { property: getRepairItemCategory, dataType: 'function' },
         { property: getRepairItemName, dataType: 'function' },
-        { property: getRepairTotal, dataType: 'function' },
+        { property: getRepairStatus, dataType: 'function' },
     ]
     fillDataIntoPurcahseTable(itemSerializedRepairTable, irepairtable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
 
 }
-const getRepairCode = (rowOb) => {
-    return rowOb.repairCode
-}
+// const getRepairCode = (rowOb) => {
+//     return rowOb.repairCode
+// }
+// const getRepairTotal = (rowOb) => {
+//     return rowOb.total
+// }
 const getRepairItemCategory = (rowOb) => {
     return rowOb.itemCategory
 }
 const getRepairItemName = (rowOb) => {
     return rowOb.itemName
 }
-const getRepairTotal = (rowOb) => {
-    return rowOb.total
+const getRepairStatus = (rowOb) => {
+    return rowOb.repairFor
 }
 const addToSerialiedTable = () => {
 
@@ -276,9 +317,9 @@ const addToSerialiedTable = () => {
 
     addToTable()
     // invoice.serialnolist_id.push(serialNumbers)
-    saleSerial.serialno_id = serialObject
+    saleSerial.serialno_id = JSON.parse(barcodeNo.value)
     invoice.salesHasSerials.push(saleSerial)
-
+    invoice.itemorservicestatus = "item"
 
     console.log(invoice);
     console.log(itemTableDetail);
@@ -309,12 +350,19 @@ const addToSerialiedTable = () => {
     lblItemName1.value = ""
     invoiceSerialId.value = ""
     invoiceUnitPrice.value = ""
-    inputCustomerName.value = ""
-    inputCustomerContact.value = ""
     inputWarrentyItemName.value = ""
     inputWarStartDate.value = ""
     inputWarPeriod.value = ""
     inputWarrentyEnd.value = ""
+
+
+    const collapseInvoiceElement = document.getElementById("collapseItemWarrenty");
+
+    // Remove the 'collapse' class to open the collapse
+    collapseInvoiceElement.classList.add("collapse");
+
+    // Optionally, you can also set aria-expanded attribute to 'true' for accessibility
+    collapseInvoiceElement.setAttribute("aria-expanded", "false");
 
     displayProperties = [
         { property: getSerialedItemCode, dataType: 'function' },
@@ -353,6 +401,7 @@ const submitInvoice = () => {
     // invoice.invoicetotalprice = invoiceTotalPrice.value
     // invoice.invoicebalance = invoiceBalance.value
     //serial number list
+    
     console.log(invoice);
     // invoice.serialNoList.push(serialNumbers)
     incomePaymentsObj.payment = invoiceTotalPrice.value
@@ -603,6 +652,7 @@ const refreshRepairTable = () => {
 
 }
 
+
 const getWarrentyItemDetails = () => {
     serialwarrentyObject = JSON.parse(warrentySerialId.value)
     console.log(serialwarrentyObject);
@@ -799,3 +849,41 @@ const readyRepair = () => {
     repairItemIntoTable()
 
 }
+const getPaymentMethod = (paymentMethod) => {
+    console.log(paymentMethod);
+    try {
+      // Check if paymentMethod is a string (assuming it's the selected value)
+      if (typeof paymentMethod === 'string') {
+        const paymentObject = { value: paymentMethod.toLowerCase() }; // Convert to lowercase for case-insensitivity
+        console.log(paymentObject);
+  
+        if (paymentObject.value === "card") {
+          afterPayment1.classList.add("d-none");
+          afterPayment2.classList.add("d-none");
+          invoiceCustomerPaymentRefference1.classList.remove("d-none");
+        } else if (paymentObject.value === "cash") {
+          // Handle cash payment logic (add if needed)
+          afterPayment1.classList.remove("d-none");
+          afterPayment2.classList.remove("d-none");
+          invoiceCustomerPaymentRefference1.classList.add("d-none");
+        } else {
+          console.warn("Unexpected payment method:", paymentObject.value);
+        }
+      } else {
+        console.error("Invalid payment method type:", typeof paymentMethod);
+      }
+    } catch (error) {
+      console.error("Error in getPaymentMethod:", error);
+    }
+  };
+  
+
+// const getPaymentMethod = (paymentOb) =>{
+//     console.log(paymentOb);
+//     if ( paymentOb.value == "card") {
+//       afterPayment.classList.add("d-none")
+//       invoiceCustomerPaymentRefference.classList.remove("d-none")
+
+//     }
+   
+// }

@@ -37,6 +37,9 @@ public interface SerialNoDao extends JpaRepository<SerialNo, Integer>{
     @Query(value ="SELECT s.barcode FROM SerialNo s where s.barcode = ?1")
     public String getExistItemBarcode(String barcode );
 
+    @Query(value ="SELECT s FROM SerialNo s where s.availability = true")
+    public List<SerialNo> getAvailableIst();
+
     // @Query(value = "SELECT new SerialNo(s.serialno, s.itemname, s.category_id) FROM jeewacomputersproject.serialno s INNER JOIN jeewacomputersproject.sales_has_serialno ss ON s.id = ss.serialno_id INNER JOIN jeewacomputersproject.sales sa ON sa.id = ss.sales_id WHERE sa.customer_id = (SELECT id FROM jeewacomputersproject.customer WHERE name = ?1);", nativeQuery = true)
     // public SerialNo getItemsByCusName(String name);
 

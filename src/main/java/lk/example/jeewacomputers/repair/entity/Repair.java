@@ -38,6 +38,9 @@ public class Repair {
      @Column(name = "repairstatus")
     private String repairstatus;
 
+    @Column(name = "barcodeforrepair")
+    private String barcode;
+
     @JsonIgnoreProperties(value = {"repair_id"})
     @OneToMany(mappedBy = "repair_id", cascade = CascadeType.ALL)
     // @JsonIgnore

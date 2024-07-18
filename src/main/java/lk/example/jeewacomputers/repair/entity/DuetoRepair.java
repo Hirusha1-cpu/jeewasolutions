@@ -48,6 +48,9 @@ public class DuetoRepair {
      @Column(name = "fault")
     private String fault;
 
+     @Column(name = "barcodeforrepair")
+    private String barcode;
+
     @Column(name = "technicalnote")
     private String technicalnote;
 

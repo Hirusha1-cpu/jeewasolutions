@@ -29,6 +29,24 @@ public interface DuetoRepairDao extends JpaRepository<DuetoRepair, Integer>{
     @Query(value = "select ui from UsedItems ui where ui.due_to_repairitem_id.id in (select d.id from DuetoRepair d where d.repairid = ?1)")
     public List<UsedItems> getUsedItemsByDue(Integer repairid);
 
+    @Query(value ="SELECT CONCAT('brcode',lpad((SUBSTRING(barcode, 7, 6))+1,5,0)) as barcode FROM jeewacomputersproject.due_to_repairitem as s where barcode = ?1;",nativeQuery = true)
+    // @Query(value ="select CONCAT('bcode',lpad((SUBSTRING(s.barcode, 6, 5))+1,5,0)) as empno from SerialNo s where s.barcode = ?1")
+    public String getItemNextBarcode(String barcode);
+
+    @Query(value ="SELECT CONCAT('brcode',lpad(max(SUBSTRING(barcode, 7, 6))+1,5,0),?1) as repno FROM jeewacomputersproject.due_to_repairitem as s;",nativeQuery = true)
+    // @Query(value ="SELECT CONCAT('bcode',lpad(max(SUBSTRING(s.barcode, 6, 5))+1,5,0)) as empno FROM SerialNo s")
+    public String getItemBarcode(Integer id);
+
+    @Query(value ="SELECT max(id) FROM jeewacomputersproject.due_to_repairitem;",nativeQuery = true)
+    // @Query(value ="SELECT CONCAT('bcode',lpad(max(SUBSTRING(s.barcode, 6, 5))+1,5,0)) as empno FROM SerialNo s")
+    public Integer getMaxId();
+
+    @Query(value ="SELECT s.barcode FROM DuetoRepair s where s.barcode = ?1")
+    public String getExistItemBarcode(String barcode );
+
+    
+
+
 
 
 

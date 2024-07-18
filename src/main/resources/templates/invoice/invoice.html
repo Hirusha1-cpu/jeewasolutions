@@ -429,9 +429,12 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-6 form-floating p-1 ms-2">
-                                                    <input type="text" class="form-control " id="barcodeNo"
-                                                        placeholder="">
-                                                    <label for="barcodeNo" class="pl-2">Barcode</label>
+                                                    <select class="form-select" id="barcodeNo"
+                                                    aria-label="Default select example" onchange="getSerialItemDetails(JSON.parse(this.value))">
+
+                                                </select>
+                                                <label for="barcodeNo" class="pl-2">Barcode</label>
+                                                 
                                                 </div>
 
                                                 <!-- <div class="row">
@@ -458,10 +461,9 @@
                                             <div class="row mt-2">
                                                 <div class="col-6 form-floating p-1 ms-2">
 
-                                                    <select class="form-select" id="invoiceSerialId"
-                                                        aria-label="Default select example" onchange="getItemDetails()">
-
-                                                    </select>
+                                                    <input type="text" class="form-control " id="invoiceSerialId"
+                                                        placeholder=""
+                                                        onchange="textValidation(invoiceSerialId,'', 'itemTableDetail', 'itemname');">
                                                     <label for="invoiceSerialId" class="pl-2">Item Serial No</label>
                                                 </div>
                                             </div>
@@ -500,21 +502,18 @@
                                                 </div>
                                             </div>
                                             <div class="row">
+                                               
                                                 <div class="col-6 form-floating p-1 ms-2">
-                                                    <input type="text" class="form-control " id="barcodeNoRepair"
-                                                        placeholder="">
+                                                    <select class="form-select" id="barcodeNoRepair"
+                                                        aria-label="Default select example" onchange="getRepairItemDetails(JSON.parse(this.value))">
+
+                                                    </select>
                                                     <label for="barcodeNoRepair" class="pl-2">Barcode</label>
+                                                   
                                                 </div>
 
                                             </div>
-                                            <div class="row">
-                                                <div class="col-6 form-floating p-1 ms-2">
-                                                    <input type="text" class="form-control " id="repaircodeNoRepair"
-                                                        placeholder="">
-                                                    <label for="repaircodeNoRepair" class="pl-2">Repair Code</label>
-                                                </div>
-
-                                            </div>
+        
                                             <div class="row mt-2">
                                                 <div class="col-6 form-floating p-1 ms-2">
                                                     <input type="text" class="form-control " id="lblItemCate1Repair"
@@ -536,10 +535,12 @@
                                                 <div class="col-6 form-floating p-1 ms-2">
                                                     
                                                     <select class="form-select" id="invoiceRepairFor"
-                                                        aria-label="Default select example" onchange="getItemDetails()">
-
+                                                        aria-label="Default select example" >
+                                                        <option selected>Select Repair Payement</option>
+                                                        <option value="Diagnosed">Diagnosed Payment</option>
+                                                        <option value="Full Repair">Full Repair Payment</option>
                                                     </select>
-                                                    <label for="invoiceSerialId" class="pl-2">Repair Payment For</label>
+                                                    <label for="invoiceRepairFor" class="pl-2">Repair Payment For</label>
                                                 </div>
 
                                             </div>
@@ -760,15 +761,15 @@
                                             <div class="col-4 form-floating p-1 ms-2">
                                                 <select class="form-select" id="paymentMethod"
                                                     aria-label="Default select example"
-                                                    onchange="selectDFieldValidation(paymentMethod,'', 'invoice', 'paymentmethod'); ">
+                                                    onchange="selectFieldValidation(paymentMethod,'', 'invoice', 'paymentmethod'); getPaymentMethod(this.value) ">
                                                     <option selected>Payment Method</option>
-                                                    <option value="Card">Card</option>
-                                                    <option value="Cash">Cash</option>
+                                                    <option value="card">Card</option>
+                                                    <option value="cash">Cash</option>
                                                 </select>
                                                 <label for="paymentMethod" class="pl-2">Payment Method</label>
 
                                             </div>
-                                            <div class="col-3 form-floating p-1 ms-2">
+                                            <div class="col-3 d-none form-floating p-1 ms-2" id="invoiceCustomerPaymentRefference1">
                                                 <input type="text" class="form-control "
                                                     id="invoiceCustomerPaymentRefference" placeholder="Referrance No:"
                                                     oninput="textValidation(invoiceCustomerPaymentRefference,'', 'invoice', 'referenceno');">
@@ -778,14 +779,14 @@
 
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-6 form-floating p-1 ms-2">
+                                            <div class="col-6 form-floating p-1 ms-2" id="afterPayment1">
                                                 <input type="text" class="form-control " id="invoiceCustomerPayment"
                                                     placeholder=""
                                                     oninput="textValidation(invoiceCustomerPayment,'', 'invoice', 'customerpaidamount'); calculateBalance()">
                                                 <label for="invoiceCustomerPayment" class="pl-2">Cutomer payment</label>
                                             </div>
 
-                                            <div class="col-6 form-floating p-1 ms-2">
+                                            <div class="col-6 form-floating p-1 ms-2" id="afterPayment2">
                                                 <input type="text" class="form-control " id="invoiceBalance"
                                                     placeholder=""
                                                     oninput="textValidation(invoiceBalance,'', 'invoice', 'balance'); ">
@@ -1550,17 +1551,16 @@
                                     <div class="row mt-3">
                                         <div class="mr-1">
 
-                                            <div class="collapse mt-3" id="collapseItemDetails">
+                                            <div class="collapse mt-3" id="collapseItemRepDetails">
                                                 <div class="card card-body">
                                                     <table class="table table-dark" id="itemSerializedRepairTable">
                                                         <thead>
                                                             <tr>
 
                                                                 <th scope="col">#</th>
-                                                                <th scope="col">Repair Code</th>
                                                                 <th scope="col">Item Category</th>
                                                                 <th scope="col">Item Name</th>
-                                                                <th scope="col">Total</th>
+                                                                <th scope="col">Repair Status</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>

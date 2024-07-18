@@ -22,6 +22,11 @@ public class SerialNoController {
         // login user authentication and authorization
         return serialNoDao.findAll();
     }
+    @GetMapping(value = "/serialno/getavailablelist", produces = "application/json")
+    public List<SerialNo> findAlls() {
+        // login user authentication and authorization
+        return serialNoDao.getAvailableIst();
+    }
 
     @GetMapping(value = "/serialno/getlistwithoutnotnull", produces = "application/json")
     public List<SerialNo> findSerialNoList() {

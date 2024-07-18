@@ -74,7 +74,7 @@ public class InvoiceController {
 
     @PostMapping(value = "/invoice")
     // @Transactional
-    public String save(@RequestBody Invoice invoice) {
+    public Invoice save(@RequestBody Invoice invoice) {
 
         try {
             invoice.setInvoiceno("11111");
@@ -144,9 +144,9 @@ public class InvoiceController {
             IncomePayment existingIncomePayment = invoice.getIncomePayments();
             existingIncomePayment.setSales_id(invoice);
           
-            invoiceDao.save(invoice);
+            Invoice i = invoiceDao.save(invoice);
 
-            return "OK";
+            return i;
 
         } catch (Exception e) {
 
