@@ -59,7 +59,7 @@ const refreshRepairTable = () => {
     { property: getItemRepairName, dataType: 'function' },
     { property: getItemRepairStatus, dataType: 'function' },
     { property: getItemRepairCustomer, dataType: 'function' },
-    { property: 'repairstatus', dataType: 'string' },
+    { property: getRepairType, dataType: 'function' },
     { property: getItemRepairPaidStatus, dataType: 'function' }
   ]
   fillDataIntoTable(repairTab, repairDetails, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, true)
@@ -73,6 +73,14 @@ const getItemRepairName = (rowObject) => {
     DueRepairItemName = DueRepairItemName + "<p class = 'working-status'>" + element?.itemname ? element?.itemname : "-" + "</p>"
   })
   return DueRepairItemName
+}
+const getRepairType = (rowObject) => {
+  console.log(rowObject);
+  let DueRepairType = '';
+  rowObject.duetoRepair.forEach(element => {
+    DueRepairType = DueRepairType + "<p class = 'working-status'>" + element?.repairtype ? element?.repairtype : "-" + "</p>"
+  })
+  return DueRepairType
 }
 const getItemRepairStatus = (rowObject) => {
   let DueRepairItemStatus = '';

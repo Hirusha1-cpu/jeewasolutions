@@ -60,7 +60,8 @@
 
                                             <div class="col-6 form-floating  p-1">
                                                 <input type="text" class="form-control" id="lblItemWarrentyName"
-                                                    placeholder="NVIDIA GeForce RTX 4090">
+                                                    placeholder="NVIDIA GeForce RTX 4090"
+                                                     onchange="textValidation(lblItemWarrentyName,'', 'warrentyItem', 'itemname'); ">
                                                 <label for="lblItemWarrentyName">Item name</label>
 
                                             </div>
@@ -69,7 +70,7 @@
 
                                             <div class="col-6 form-floating  p-1">
                                                 <input type="text" class="form-control" id="lblItemWarrentyCategory"
-                                                    placeholder="">
+                                                    placeholder=""  onchange="textValidation(lblItemWarrentyCategory,'', 'category_id', 'name'); ">
                                                 <label for="lblItemWarrentyCategory">Item Category</label>
 
                                             </div>
@@ -252,6 +253,7 @@
                                             <th scope="col">Item Name</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Customer</th>
+                                            <th scope="col">Taken Date</th>
                                             <th scope="col">Button</th>
 
                                         </thead>

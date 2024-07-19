@@ -58,10 +58,10 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "user");
         User user = dao.getUserByUsername(auth.getName());
-        GraphicCard graphicCard = graphicCardDao.getGraphicByName("ASUS DUAL TTX");
+        // GraphicCard graphicCard = graphicCardDao.getGraphicByName("ASUS DUAL TTX");
         ModelAndView viewEmp = new ModelAndView();
         viewEmp.addObject("loguserrole", user.getRoles().iterator().next().getName());
-        viewEmp.addObject("loguserphoto", graphicCard.getGraphic_photo());
+        // viewEmp.addObject("loguserphoto", graphicCard.getGraphic_photo());
         viewEmp.addObject("logusername", auth.getName());
         viewEmp.addObject("modulename", "User");
 

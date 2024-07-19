@@ -75,7 +75,7 @@ const getPurchItemQty = (rowOb) => {
 }
 const getPurchItemSupplier = (rowOb) => {
     // return rowOb.supplier_id.name
-    return null
+    return rowOb.supplier_id.name
 }
 //refill the purchase order form 
 const refillPurchBtn = (item) => {

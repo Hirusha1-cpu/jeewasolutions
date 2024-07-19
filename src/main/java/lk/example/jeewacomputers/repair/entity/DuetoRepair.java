@@ -2,6 +2,8 @@ package lk.example.jeewacomputers.repair.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -56,6 +58,9 @@ public class DuetoRepair {
 
     @Column(name = "repairid")
     private Integer repairid;
+
+    @Column(name = "takendate")
+    private LocalDate takendate;
 
     @ManyToOne
     @JoinColumn(name = "repair_id", referencedColumnName = "id")

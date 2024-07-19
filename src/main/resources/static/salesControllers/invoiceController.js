@@ -36,6 +36,7 @@ const refreshInvoiceForm = () => {
     irepairtable = []
     serialno_id = new Object();
     cusObject = new Object();
+    category_id = new Object();
     customer_id = new Object();
     customer_id1 = new Object();
     usedItemsObj = new Object();
@@ -46,6 +47,7 @@ const refreshInvoiceForm = () => {
     invoice.salesHasDues = new Array();
     saleSerial = new Object();
     salesHasDue = new Object();
+    serialwarrentyObject = new Object();
     serialNumbers = new Object();
     // serialNoListCount = ajaxGetRequest("/serialno/getlist")
     serialNoListCount = ajaxGetRequest("/serialno/getlistwithoutnotnull")
@@ -841,6 +843,7 @@ const repairItemIntoTable = () => {
         { property: getSerialNoItemName, dataType: 'function' },
         { property: getRepairItemStatus, dataType: 'function' },
         { property: getRepairItemCustomer, dataType: 'function' },
+        { property: getRepairItemTakenDate, dataType: 'function' },
     ]
     fillDataIntoPurcahseTable(repairItemTable, repairtable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
 
@@ -853,6 +856,14 @@ const getSerialNo = (rowOb) => {
         ItemRepair = ItemRepair + "<p class = 'working-status'>" + element.serialno + "</p>"
     })
     return ItemRepair
+}
+const getRepairItemTakenDate = (rowOb) => {
+    console.log(rowOb);
+    let ItemRepairDate = '';
+    rowOb.duetoRepair.forEach(element => {
+        ItemRepairDate = ItemRepairDate + "<p class = 'working-status'>" + element.takendate + "</p>"
+    })
+    return ItemRepairDate
 }
 const getSerialNoItemName = (rowOb) => {
     let ItemSerialNo = '';
@@ -949,9 +960,10 @@ const getRepairItemCustomer = (rowOb) => {
 const readyRepair = () => {
     warrentyItem.serialno = serialwarrentyObject.serialno
     warrentyItem.itemname = serialwarrentyObject.itemname
-    warrentyItem.category = serialwarrentyObject.category_id.name
+    warrentyItem.category = serialwarrentyObject.category_id
     // warrentyItem.statusofrepair = warrentyItemStatus.value
     warrentyItem.fault = warrentyFault.value
+    
 
     warrentyItem.usedItems.push(usedItemsObj)
     customerObj.name = inputWarrentyCustomerName.value

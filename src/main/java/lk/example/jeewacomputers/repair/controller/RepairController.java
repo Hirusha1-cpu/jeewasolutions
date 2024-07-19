@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.transaction.Transactional;
+import java.time.LocalDateTime;
 
 import java.util.*;
 
@@ -125,8 +126,8 @@ public class RepairController {
                 }
                 String newBarcode = duetoRepairDao.getItemBarcode(k);
                 duetoRepair.setBarcode(newBarcode);
+                duetoRepair.setTakendate(LocalDateTime.now().toLocalDate());;
                 k++;
-
                 duetoRepair.setRepairid(repairDao.getMaxRepairId());
                 duetoRepair.setRepair_id(repair);
                 duetoRepair.setStatusofrepair("pending diagnosis");

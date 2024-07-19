@@ -61,8 +61,8 @@ public class Laptop {
     private LocalDate updated_datetime;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "added_user_id", referencedColumnName = "id")
-    private User added_user_id;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user_id;
 
     @Column(name = "deleted_user")
     private Integer deleted_user;

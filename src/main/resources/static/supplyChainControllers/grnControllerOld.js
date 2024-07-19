@@ -206,12 +206,12 @@ const refillGrnBtn = (item) => {
         inputPurchaseQuantity.value = grn.grnHasCategory[inputValue].qty
         inputPurchaseItemPrice.value = grn.grnHasCategory[inputValue].item_price
         inputPurchaseLinePrice.value = grn.grnHasCategory[inputValue].lineprice
-        inputPurchaseDiscount.value = grn.grnHasCategory[inputValue].discount
+        // inputPurchaseDiscount.value = grn.grnHasCategory[inputValue].discount
     } else {
         inputPurchaseQuantity.value = grn.grnHasCategory[0].qty
         inputPurchaseItemPrice.value = grn.grnHasCategory[0].item_price
         inputPurchaseLinePrice.value = grn.grnHasCategory[0].lineprice
-        inputPurchaseDiscount.value = grn.grnHasCategory[0].discount
+        // inputPurchaseDiscount.value = grn.grnHasCategory[0].discount
     }
     // console.log(inputValue);
     fillDataIntoSelect(selectSuppliersList, "Select Supplier", suppliers, 'name', grn.purchase_id.supplier_id.name);
@@ -630,7 +630,7 @@ const addGrn = () => {
     inputPurchaseQuantity.value = ""
     inputPurchaseItemPrice.value = ""
     inputPurchaseLinePrice.value = ""
-    inputPurchaseDiscount.value = ""
+    // inputPurchaseDiscount.value = ""
     // inputSerialNo.value = ""
 }
 
