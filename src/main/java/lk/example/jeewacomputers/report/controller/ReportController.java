@@ -41,7 +41,7 @@ public class ReportController {
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
                 "employee");
         // GraphicCard graphicCard = graphicCardDao.getGraphicByName("ASUS DUAL TTX");
-        System.out.println(auth);
+        // System.out.println(auth);
         
         ModelAndView viewEmp = new ModelAndView();
         viewEmp.addObject("logusername", auth.getName());
@@ -67,7 +67,7 @@ public class ReportController {
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
                 "employee");
         // GraphicCard graphicCard = graphicCardDao.getGraphicByName("ASUS DUAL TTX");
-        System.out.println(auth);
+        // System.out.println(auth);
         
         ModelAndView viewEmp = new ModelAndView();
         viewEmp.addObject("logusername", auth.getName());
