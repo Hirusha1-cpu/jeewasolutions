@@ -24,7 +24,7 @@
             <main class="content px-3 py-2 w3-container">
 
                 <!-- employee table start -->
-                <div class="w3-animate-right " id="empTable">
+                <div class="w3-animate-right " id="empTable1">
 
                     <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
 
@@ -41,14 +41,15 @@
                                         </select>
                                     </div>
                                     <div class="col-6">
-                                        <select class="form-select " aria-label="Default select example" id="selectEStatus1">
+                                        <select class="form-select " aria-label="Default select example"
+                                            id="selectEStatus1">
                                         </select>
                                     </div>
                                 </div>
-    
-    
+
+
                                 <button type="button" class="btn btn-success mt-3"
-                                    onclick="generateReports(selectDesignation1.value, selectEStatus1.value)">Generate</button>
+                                    onclick="generateReports(selectDesignation1.value, selectEStatus1.value,'designationWorking')">Generate</button>
                             </div>
                             <div class="col-6"></div>
                         </div>
@@ -56,7 +57,7 @@
                             <div class="mb-3 table-responsive">
                                 <table class="table table-striped-columns" id="empTabReport">
                                     <thead class="table-secondary">
-    
+
                                         <th scope="col">#</th>
                                         <th scope="col">Employee No</th>
                                         <th scope="col">FullName</th>
@@ -65,10 +66,10 @@
                                         <th scope="col">Email</th>
                                         <th scope="col">Status Of employee</th>
                                         <th scope="col">Designation</th>
-    
+
                                     </thead>
                                     <tbody>
-    
+
                                     </tbody>
                                 </table>
                             </div>
@@ -77,56 +78,153 @@
                 </div>
                 <!-- employee table end -->
                 <!-- Invoice table start -->
-                <div class="w3-animate-right " id="empTable">
+                <div class="w3-animate-right " id="empTable2">
 
                     <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
 
-                        <h4 class="fw-bold">Invoice Management</h4>
+                        <!-- <h4 class="fw-bold">Invoice Management</h4> -->
                     </div>
                     <div class="row border border-info">
                         <h5>Sales | Date</h5>
                         <div class="row mt-3 mb-3">
                             <div class="col-6">
                                 <div class="row">
-                                    
+
                                     <div class="col-6">
-                                        <select class="form-select " aria-label="Default select example" id="selectSchedule">
-                                        </select>
+                                        <input type="date" class="form-control form-control-lg" id="startDate1">
+
+                                    </div>
+                                    <div class="col-6">
+
+                                        <input type="date" class="form-control form-control-lg" id="endDate1">
+
+                                        <!-- <input type="date" class="form-control form-control-lg" id="inputDateRequired"
+                                            required
+                                            onchange="dateFieldValidation(inputDateRequired,'','porder','requireddate','oldOrder');"> -->
+
                                     </div>
                                 </div>
-    
-    
                                 <button type="button" class="btn btn-success mt-3"
-                                    onclick="generateReports()">Generate</button>
+                                    onclick="generateReports(startDate1.value, endDate1.value,'saleCount','myChartViewOfDailysales','Sales','sales','date',empTabReport3)">Generate</button>
+
+                                <button type="button" class="btn btn-success mt-3"
+                                    onclick="printChart1('viewChartOfSales')">Print</button>
+
                             </div>
                             <div class="col-6"></div>
                         </div>
                         <div class="container-fluid">
-                            <div class="mb-3 table-responsive">
-                                <table class="table table-striped-columns" id="empTabReportInvoice">
-                                    <thead class="table-secondary">
-    
-                                        <th scope="col">#</th>
-                                        <th scope="col">Employee No</th>
-                                        <th scope="col">FullName</th>
-                                        <th scope="col">NIC</th>
-                                        <th scope="col">Mobile</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Status Of employee</th>
-                                        <th scope="col">Designation</th>
-    
-                                    </thead>
-                                    <tbody>
-    
-                                    </tbody>
-                                </table>
+                            <div class="row">
+                                <div class="col-6">
+
+                                    <div class="row">
+                                        <div class="col mt-2">
+                                            <canvas id="myChartViewOfDailysales"></canvas>
+                                        </div>
+                                        <img src="" id="viewChartOfSales"
+                                            style="display: none; width: 150px; height: 100px;" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+
+                                    <div class="mb-3 table-responsive ">
+                                        <table class="table table-striped-columns" id="empTabReport3">
+                                            <thead class="table-secondary">
+
+                                                <th scope="col">#</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Sale</th>
+
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Invoice table end -->
+                <!-- category vise item count given date range -->
+                <div class="w3-animate-right " id="empTable3">
 
-               
+                    <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
+
+                        <!-- <h4 class="fw-bold">Report Management</h4> -->
+                    </div>
+                    <div class="row border border-info">
+                        <h5>Category | Item Count</h5>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="date" class="form-control form-control-lg" id="startDate">
+
+                                    </div>
+                                    <div class="col-6">
+
+                                        <input type="date" class="form-control form-control-lg" id="endDate">
+
+                                        <!-- <input type="date" class="form-control form-control-lg" id="inputDateRequired"
+                                            required
+                                            onchange="dateFieldValidation(inputDateRequired,'','porder','requireddate','oldOrder');"> -->
+
+                                    </div>
+                                </div>
+
+
+                                <button type="button" class="btn btn-success mt-3"
+                                    onclick="generateReports(startDate.value, endDate.value,'categoryVise','myChartViewOfCategoryCount','item count','Number of Items','Category',empTabReport2)">Generate</button>
+
+                                <button type="button" class="btn btn-success mt-3"
+                                    onclick="printChart1('viewChartOfCustomers')">Print</button>
+
+
+                            </div>
+
+                            <div class="col-6"></div>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-6">
+
+                                    <div class="row">
+                                        <div class="col mt-2">
+                                            <canvas id="myChartViewOfCategoryCount"></canvas>
+                                        </div>
+                                        <img src="" id="viewChartOfCustomers"
+                                            style="display: none; width: 150px; height: 100px;" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+
+                                    <div class="mb-3 table-responsive ">
+                                        <table class="table table-striped-columns" id="empTabReport2">
+                                            <thead class="table-secondary">
+
+                                                <th scope="col">#</th>
+                                                <th scope="col">Category Name</th>
+                                                <th scope="col">Count</th>
+
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- category vise item count given date range -->
+
+
 
             </main>
             <!-- main component end -->

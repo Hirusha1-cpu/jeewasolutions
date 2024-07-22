@@ -13,6 +13,7 @@ import lk.example.jeewacomputers.items.dao.GraphicCardDao;
 import lk.example.jeewacomputers.privilege.controller.PrivilegeController;
 import lk.example.jeewacomputers.report.dao.ReportDao;
 import lk.example.jeewacomputers.report.entity.ReportCategoryViseCount;
+import lk.example.jeewacomputers.report.entity.ReportDateViseSales;
 import lk.example.jeewacomputers.user.dao.UserDao;
 import lk.example.jeewacomputers.user.entity.User;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -115,9 +116,24 @@ public class ReportController {
         }
     }
 
-    @GetMapping(value = "/reportdataworkingemployeechart/categryvisecount", produces = "application/json")
-    public List<ReportCategoryViseCount> getCategoryViseCount() {
-        String[][] queryDataList = reportDao.getCategoryViceItemCountGivenDateRange();
+    //reportdataworkingemployeechart/categryvisecount?start=?1&&end=?2
+    @GetMapping(value = "/reportdataworkingemployeechart/categryvisecount",params = {"startdate", "enddate"}, produces = "application/json")
+    public List<ReportCategoryViseCount> getCategoryViseCount(@RequestParam("startdate") String start, @RequestParam("enddate") String end){
+        String[][] queryDataList = reportDao.getCategoryViceItemCountGivenDateRange(start, end);
+        List<ReportCategoryViseCount> result = new ArrayList<>();
+        for (String[] reportCategoryViseCount : queryDataList) {
+            ReportCategoryViseCount reportCategoryViseCount2 = new ReportCategoryViseCount();
+            reportCategoryViseCount2.setCategoryname(reportCategoryViseCount[0]);
+            reportCategoryViseCount2.setItemcount(reportCategoryViseCount[1]);
+
+            result.add(reportCategoryViseCount2);
+        }
+        return result;
+    }
+    // reportdataworkingemployeechart/categryvisecount?start=?1&&end=?2
+    @GetMapping(value = "/reportdataworkingemployeechart/datevisesale",params = {"startdate", "enddate"}, produces = "application/json")
+    public List<ReportCategoryViseCount> getDateViseSales(@RequestParam("startdate") String start, @RequestParam("enddate") String end){
+        String[][] queryDataList = reportDao.getTotalDailyGivenDateRange(start, end);
         List<ReportCategoryViseCount> result = new ArrayList<>();
         for (String[] reportCategoryViseCount : queryDataList) {
             ReportCategoryViseCount reportCategoryViseCount2 = new ReportCategoryViseCount();
