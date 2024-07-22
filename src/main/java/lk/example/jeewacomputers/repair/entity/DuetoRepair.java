@@ -3,7 +3,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.LocalDate;
-
+import java.math.BigDecimal;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,6 +40,12 @@ public class DuetoRepair {
 
      @Column(name = "category")
     private String category;
+
+     @Column(name = "total")
+    private BigDecimal total;
+
+     @Column(name = "charges")
+    private BigDecimal charges;
 
      @Column(name = "statusofrepair")
     private String statusofrepair;

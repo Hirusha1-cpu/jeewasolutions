@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
 
 @Entity // apply as an entity class
 @Table(name = "useditems") // for map with given table
@@ -36,7 +37,7 @@ public class UsedItems {
     private String category;
 
      @Column(name = "unitprice")
-    private String unitprice;
+    private BigDecimal unitprice;
 
     @ManyToOne(optional = true)
     @JoinColumn(name = "due_to_repairitem_id", referencedColumnName = "id")

@@ -3,6 +3,7 @@ package lk.example.jeewacomputers.grnanditem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.math.BigDecimal;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -13,10 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lk.example.jeewacomputers.categorypcpartandbrand.entity.Category;
-import lk.example.jeewacomputers.sales.entity.SalesHasSerial;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.*;
@@ -59,7 +58,7 @@ public class SerialNo {
 
     @Column(name = "itemprice")
     // @NotNull
-    private Integer itemprice;
+    private BigDecimal itemprice;
     
     @Column(name = "availability")
     // @NotNull

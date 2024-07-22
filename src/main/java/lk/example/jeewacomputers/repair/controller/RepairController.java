@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
-
+import java.math.BigDecimal;
 import java.util.*;
 
 import lk.example.jeewacomputers.customer.dao.CustomerDao;
@@ -20,7 +19,6 @@ import lk.example.jeewacomputers.grnanditem.dao.SerialNoDao;
 import lk.example.jeewacomputers.payment.entity.IncomePayment;
 import lk.example.jeewacomputers.repair.dao.DuetoRepairDao;
 import lk.example.jeewacomputers.repair.dao.RepairDao;
-import lk.example.jeewacomputers.repair.dao.UsedItemDao;
 import lk.example.jeewacomputers.repair.entity.DuetoRepair;
 import lk.example.jeewacomputers.repair.entity.Repair;
 import lk.example.jeewacomputers.repair.entity.UsedItems;
@@ -126,7 +124,7 @@ public class RepairController {
                 }
                 String newBarcode = duetoRepairDao.getItemBarcode(k);
                 duetoRepair.setBarcode(newBarcode);
-                duetoRepair.setTakendate(LocalDateTime.now().toLocalDate());;
+                duetoRepair.setTakendate(LocalDateTime.now().toLocalDate());
                 k++;
                 duetoRepair.setRepairid(repairDao.getMaxRepairId());
                 duetoRepair.setRepair_id(repair);
@@ -159,12 +157,15 @@ public class RepairController {
         List<DuetoRepair> dueToRepairInRepair = repair.getDuetoRepair();
         exRepair.setDuetoRepair(dueToRepairInRepair);
 
+        BigDecimal total1 = BigDecimal.ZERO;
+        BigDecimal charges = BigDecimal.ZERO;
         for (DuetoRepair duetoRepair : repair.getDuetoRepair()) {
             DuetoRepair duetoRepairnew = new DuetoRepair();
             duetoRepairnew.setStatusofrepair(duetoRepair.getStatusofrepair());
             duetoRepair.setRepair_id(exRepair);
             duetoRepairDao.save(duetoRepairnew);
-
+            total1 = total1.add(duetoRepair.getTotal());
+            charges = charges.add(duetoRepair.getCharges());
             List<UsedItems> usedItems = duetoRepair.getUsedItems();
             duetoRepair.setUsedItems(usedItems);
 
@@ -174,6 +175,8 @@ public class RepairController {
             }
             // duetoRepair.setStatusofrepair("Diagnosed");
         }
+        exRepair.setCharges(charges);
+        exRepair.setDuerepairtotal(total1);
         IncomePayment incomePayment = repair.getIncomePayments();
         incomePayment.setRepair_id(exRepair);
         exRepair.setIncomePayments(repair.getIncomePayments());

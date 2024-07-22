@@ -1,6 +1,7 @@
 package lk.example.jeewacomputers.grnanditem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.math.BigDecimal;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -47,7 +48,7 @@ public class GrnHasCategory {
 
     @Column(name = "item_price")
     // @NotNull
-    private Integer item_price;
+    private BigDecimal item_price;
 
     @Column(name = "qty")
     // @NotNull
@@ -55,11 +56,11 @@ public class GrnHasCategory {
 
     @Column(name = "lineprice")
     // @NotNull
-    private Integer lineprice;
+    private BigDecimal lineprice;
     
     @Column(name = "discount")
     // @NotNull
-    private Integer discount;
+    private BigDecimal discount;
 
     @Column(name = "itemcode")
     // @NotNull

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import java.math.BigDecimal;
 
 
 import lk.example.jeewacomputers.repair.dao.DuetoRepairDao;
@@ -69,8 +70,11 @@ public class DuetoRepairController {
         System.out.println("ss");
         System.out.println(duetoRepair);
         try {
+            BigDecimal total = BigDecimal.ZERO;
             for (UsedItems usedItems2 : duetoRepair.getUsedItems()) {
                  usedItems2.setDue_to_repairitem_id(duetoRepair);
+                 duetoRepair.setTotal(null);
+                 total = total.add(usedItems2.getUnitprice());
                 // UsedItems used = new UsedItems();
                 // used.setDue_to_repairitem_id(duetoRepair);
                 // used.setCategory(usedItems2.getCategory());
@@ -78,8 +82,11 @@ public class DuetoRepairController {
                 // usedItemDao.save(used);
                 
             }
-         duetoRepair.setRepair_id(repairDao.getReferenceById(duetoRepair.getRepairid()));
-     
+            duetoRepair.setCharges(new BigDecimal("400.00") );
+
+            duetoRepair.setRepair_id(repairDao.getReferenceById(duetoRepair.getRepairid()));
+
+            duetoRepair.setTotal(total.add(new BigDecimal("400.00")));
             duetoRepairDao.save(duetoRepair);
             return "OK";
         } catch (Exception e) {

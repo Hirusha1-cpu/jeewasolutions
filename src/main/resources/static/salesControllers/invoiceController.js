@@ -307,7 +307,7 @@ const addRepairToSerialiedTable = () => {
     // Total
     addToRepairTable()
     cusRepairTablePrintDiv.classList.remove('d-none')
-    salesHasDue.statusofserivceorrepair = "service"
+    salesHasDue.statusofserviceorrepair = "service" 
     salesHasDue.due_to_repairitem_id = JSON.parse(barcodeNoRepair.value)
     invoice.salesHasDues.push(salesHasDue)
     console.log(itemRepairTableDetail);

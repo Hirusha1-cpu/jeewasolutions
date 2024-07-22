@@ -1,7 +1,6 @@
 package lk.example.jeewacomputers.sales.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.format.DateTimeFormatters;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.Authentication;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
 
 import lk.example.jeewacomputers.customer.dao.CustomerDao;
 import lk.example.jeewacomputers.customer.entity.Customer;
@@ -55,13 +55,13 @@ public class InvoiceController {
         // login user authentication and authorization
         return invoiceDao.findAll(Sort.by(Direction.DESC, "id"));
     }
-  
 
     @GetMapping(value = "/invoice/getlist/{serialno}", produces = "application/json")
     public SerialNo findItemAll(@PathVariable("serialno") String serialno) {
         // login user authentication and authorization
         return invoiceDao.getItemBySerialNo(serialno);
     }
+
     @GetMapping(value = "/invoice/getlisted/{id}", produces = "application/json")
     public Invoice findItemAlls(@PathVariable("id") Integer id) {
         // login user authentication and authorization
@@ -79,15 +79,15 @@ public class InvoiceController {
     public Invoice save(@RequestBody Invoice invoice) {
 
         try {
-            invoice.setInvoiceno("11111");
-            
+            invoice.setInvoiceno(invoiceDao.generateInvoiceNo());
+            invoice.setDatetime(LocalDateTime.now().toLocalDate());
             Customer newCustomer = new Customer();
             newCustomer.setName(invoice.getCustomer_id().getName());
             newCustomer.setPhone(invoice.getCustomer_id().getPhone());
             // customerdao.save(newCustomer);
             Customer existingcs = customerdao.getCustomerByPhone(invoice.getCustomer_id().getPhone());
             System.out.println(invoice);
-            
+
             if (existingcs == null) {
                 System.out.println("executed");
                 customerdao.save(newCustomer);
@@ -103,14 +103,14 @@ public class InvoiceController {
 
                 System.out.println("executed-2");
                 existingcs.setBuyrounds(existingcs.getBuyrounds() + 1);
-                    existingcs.setCustomerType(null);
-                if ((existingcs.getBuyrounds()+1)> customerdao.getPremiumBuyRounds().getBuyrounds()) {
+                existingcs.setCustomerType(null);
+                if ((existingcs.getBuyrounds() + 1) > customerdao.getPremiumBuyRounds().getBuyrounds()) {
                     existingcs.setCustomerType(customerdao.getPremiumBuyRounds());
-                }else if((existingcs.getBuyrounds()+1)> customerdao.getFirstStageBuyRounds().getBuyrounds()){
+                } else if ((existingcs.getBuyrounds() + 1) > customerdao.getFirstStageBuyRounds().getBuyrounds()) {
                     existingcs.setCustomerType(customerdao.getFirstStageBuyRounds());
-                }else if((existingcs.getBuyrounds()+1)> customerdao.getSecondStageBuyRounds().getBuyrounds()){
+                } else if ((existingcs.getBuyrounds() + 1) > customerdao.getSecondStageBuyRounds().getBuyrounds()) {
                     existingcs.setCustomerType(customerdao.getSecondStageBuyRounds());
-                }else{
+                } else {
                     existingcs.setCustomerType(customerdao.getNormalBuyRounds());
                 }
                 customerdao.save(existingcs);
@@ -132,25 +132,37 @@ public class InvoiceController {
                 System.out.println("executed-4");
                 for (SalesHasSerial salesHasSerial : invoice.getSalesHasSerials()) {
                     salesHasSerial.setSales_id(invoice);
-                 
-                  SerialNo serialNo = salesHasSerial.getSerialno_id();
-                  serialNo.setAvailability(Boolean.FALSE);
-                  serialNoDao.save(serialNo);
+
+                    SerialNo serialNo = salesHasSerial.getSerialno_id();
+                    serialNo.setAvailability(Boolean.FALSE);
+                    serialNoDao.save(serialNo);
 
                 }
-                for (SalesHasDue salesHasDue : invoice.getSalesHasDues()) {
-                    salesHasDue.setSales_id(invoice);
 
-                }
                 System.out.println("executed-5");
 
             } else {
                 System.out.println("No SalesHasSerial entries found for this invoice.");
 
             }
+            if (invoice.getSalesHasDues() != null) {
+                System.out.println("executed-4");
+                for (SalesHasDue salesHasDue : invoice.getSalesHasDues()) {
+                    salesHasDue.setSales_id(invoice);
+    
+                }
+                // meke sale ekat ekka sale eke many to one ekak due ekata thye nm
+                
+                System.out.println("executed-5");
+
+            } else {
+                System.out.println("No SalesHasSerial entries found for this invoice.");
+
+            }
+
             IncomePayment existingIncomePayment = invoice.getIncomePayments();
             existingIncomePayment.setSales_id(invoice);
-          
+
             Invoice i = invoiceDao.save(invoice);
 
             return i;

@@ -2,6 +2,7 @@ package lk.example.jeewacomputers.grnanditem.entity;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -71,15 +72,15 @@ public class Grn {
 
     @Column(name = "totalamount")
     // @NotNull
-    private Integer totalamount;
+    private BigDecimal totalamount;
 
     @Column(name = "discountrate")
     // @NotNull
-    private Integer discountrate;
+    private BigDecimal discountrate;
 
     @Column(name = "netamount")
     // @NotNull
-    private Integer netamount;
+    private BigDecimal netamount;
 
     @JsonIgnoreProperties(value = {"grn_id"})
     @OneToMany(mappedBy = "grn_id", cascade = CascadeType.ALL, orphanRemoval = true)

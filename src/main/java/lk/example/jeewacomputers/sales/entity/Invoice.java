@@ -13,14 +13,15 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lk.example.jeewacomputers.customer.entity.Customer;
 import lk.example.jeewacomputers.payment.entity.IncomePayment;
+import lk.example.jeewacomputers.repair.entity.DuetoRepair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 
 import java.math.BigDecimal;
 import java.util.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity // apply as an entity class
@@ -49,6 +50,8 @@ public class Invoice {
     @Column(name = "referenceno")
     private String referenceno;
 
+    @Column(name = "datetime")
+    private LocalDate datetime;
 
     @Column(name = "total")
     private BigDecimal total;
@@ -72,6 +75,11 @@ public class Invoice {
     @JsonIgnoreProperties(value = { "sales_id" })
     @OneToOne(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval = true, optional = true)
     private IncomePayment incomePayments;
+
+    //  @ManyToOne
+    // @JoinColumn(name = "due_to_repairitem_id", referencedColumnName = "id")
+    // // @JsonIgnoreProperties(value = {"sales_id"})
+    // private DuetoRepair due_to_repairitem_id ;
 
     // @JsonIgnoreProperties(value = {"sales_id"})
     // @OneToMany(mappedBy = "sales_id", cascade = CascadeType.ALL, orphanRemoval =

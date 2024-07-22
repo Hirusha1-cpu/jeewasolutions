@@ -73,6 +73,8 @@ public class WebConfiguration {
                     .requestMatchers("/reportpedingemployee/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
                     .requestMatchers("/reportpedingorder/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
                     .requestMatchers("/reportdataworkingemployee/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
+                    .requestMatchers("/reportdataworkingemployeechart/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
+                    .requestMatchers("/reportdataworkingemployee/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
                     .requestMatchers("/reportdataemployee/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
                     .requestMatchers("/inventory/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
 

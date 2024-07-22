@@ -38,6 +38,6 @@ public class SalesHasDue {
     // @JsonIgnoreProperties(value = {"sales_id"})
     private DuetoRepair due_to_repairitem_id ;
 
-    @Column(name = "statusofserivceorrepair")
-    private String statusofserivceorrepair;
+    @Column(name = "statusofserviceorrepair")
+    private String statusofserviceorrepair;
 }

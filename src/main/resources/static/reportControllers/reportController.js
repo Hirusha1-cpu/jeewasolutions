@@ -10,7 +10,7 @@ window.addEventListener('load', () => {
 
 })
 
-const refreshReportTable = async (employees2) => {
+const refreshReportTable = (employees2) => {
     // employees1 = ajaxGetRequest('/reportdataworkingemployee')
     const displayProperties = [
         { property: 'empno', dataType: 'string' },
@@ -34,8 +34,8 @@ const refreshReportTable = async (employees2) => {
    
 }
 
-const generateReports = () =>{
-    employees1 = ajaxGetRequest('/reportdataemployee?status='+JSON.parse(selectEStatus1.value).id+'&designation='+JSON.parse(selectDesignation1.value).id)
+const generateReports = (selectDesignation1,selectEStatus1) =>{
+    employees1 = ajaxGetRequest('/reportdataemployee?status='+JSON.parse(selectEStatus1).id+'&designation='+JSON.parse(selectDesignation1).id)
     console.log(employees1);
     refreshReportTable(employees1)
 

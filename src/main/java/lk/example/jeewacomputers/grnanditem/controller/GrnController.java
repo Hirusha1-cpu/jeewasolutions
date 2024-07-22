@@ -26,6 +26,8 @@ import lk.example.jeewacomputers.grnanditem.entity.GrnHasAccessories;
 import lk.example.jeewacomputers.grnanditem.entity.GrnHasCategory;
 import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
 import lk.example.jeewacomputers.service.BarCodeGenerator;
+import java.math.BigDecimal;
+
 
 @RestController
 // @EnableTransactionManagement
@@ -105,7 +107,7 @@ public class GrnController {
                 for (int i = 0; i < qty; i++) {
                     SerialNo serialNo = new SerialNo();
                     serialNo.setItemcode(icode + "-" + (i + 1));
-                    serialNo.setItemprice(grnHasAccessories.getUnitprice());
+                    serialNo.setItemprice(new BigDecimal(grnHasAccessories.getUnitprice()));
                     serialNo.setAvailability(true);
                     serialNo.setBarcode(serialNoDao.getItemBarcode(k));
                     serialNo.setCategory_id(categoryDao.getReferenceById(9));

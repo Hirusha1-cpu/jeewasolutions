@@ -1,7 +1,7 @@
 package lk.example.jeewacomputers.repair.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import java.math.BigDecimal;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,6 +37,12 @@ public class Repair {
 
      @Column(name = "repairstatus")
     private String repairstatus;
+
+    @Column(name = "charges")
+    private BigDecimal charges;
+
+     @Column(name = "duerepairtotal")
+    private BigDecimal duerepairtotal;
 
     @JsonIgnoreProperties(value = {"repair_id"})
     @OneToMany(mappedBy = "repair_id", cascade = CascadeType.ALL)
