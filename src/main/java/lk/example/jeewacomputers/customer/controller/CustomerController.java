@@ -7,12 +7,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.data.domain.Sort.Direction;
 import lk.example.jeewacomputers.customer.dao.CustomerDao;
 import lk.example.jeewacomputers.customer.entity.Customer;
 import lk.example.jeewacomputers.customer.entity.CustomerType;
+import lk.example.jeewacomputers.report.entity.ReportCategoryViseCount;
 
 import java.util.*;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,6 +60,7 @@ public class CustomerController {
     public Integer getCustomerCount(@PathVariable("name") String name) {
         return customerDao.getCustomerCount(name);
     }
+
 
     @PostMapping(value = "/customer")
     public String postMethodName(@RequestBody Customer customer) {

@@ -1,10 +1,12 @@
 window.addEventListener('load', () => {
   refreshDashboard();
   // refreshGrnTable();
-
 })
 
 const refreshDashboard = () => {
+
+  fillDataToCustomer()
+  fillDueTable()
   // $('#empAttendence').DataTable({
   //   responsive: true
   // });
@@ -112,6 +114,41 @@ const refreshDashboard = () => {
 
 };
 
+const fillDataToCustomer = () => {
+  customer = ajaxGetRequest('/reportdataworkingemployeechart/customertypedata')
+  const displayProperties = [
+    { property: "categoryname", dataType: 'string' },
+    { property: getitemcount, dataType: 'function' },
+  ]
+  fillDataIntoDashBoardTable(customerTypeTable, customer, displayProperties, editEmployeeBtn1,false)
+
+}
+const getitemcount = (rowOb) => {
+  return `<p class="working-status">${rowOb.itemcount}</p>`
+}
+const editEmployeeBtn1 = (rowOb) => {
+
+}
+
+const handleCustomer = () => {
+  window.location.href = "/customer";
+}
+
+const fillDueTable = () =>{
+  dueRepair = ajaxGetRequest('/reportdataworkingemployeechart/duerepaircount')
+  const displayProperties = [
+    { property: "categoryname", dataType: 'string' },
+    { property: getitemcount, dataType: 'function' },
+  ]
+  fillDataIntoDashBoardTable(dueRepId, dueRepair, displayProperties, editEmployeeBtn1,false)
+
+}
+
+
+const handleDue = ()=>{
+  window.location.href = "/repair";
+}
+
 const refreshProfileEdit = () => {
   loggedUser = ajaxGetRequest("/loggeduser")
   console.log(loggedUser);
@@ -119,7 +156,7 @@ const refreshProfileEdit = () => {
   console.log("kkkkk");
   inputUsernameSet.value = loggedUser.username;
   inputEmailSet.value = loggedUser.email
-  
+
   // if (loggedUser.graphic_photo == null) {
   //   imageGraphic.src = "resourcesT/assets/jeewa-high-resolution-logo-white-transparent.png"
   // } else {
@@ -142,20 +179,22 @@ const submitUserSettings = () => {
 
 const passwordsValidation = () => {
   if (inputPasswordSet.value != "") {
-      if (inputPasswordSet.value == inputRePasswordSet.value) {
-          inputPasswordSet.style.border = "2px solid green";
-          inputRePasswordSet.style.border = "2px solid green";
-          loggedUser.password = inputPasswordSet.value;
-      } else {
-          inputPasswordSet.style.border = "2px solid red";
-          inputRePasswordSet.style.border = "2px solid red";
-          loggedUser.password = null;
-      }
-
-  } else {
-      alert("Please fill password")
+    if (inputPasswordSet.value == inputRePasswordSet.value) {
+      inputPasswordSet.style.border = "2px solid green";
+      inputRePasswordSet.style.border = "2px solid green";
+      loggedUser.password = inputPasswordSet.value;
+    } else {
       inputPasswordSet.style.border = "2px solid red";
       inputRePasswordSet.style.border = "2px solid red";
       loggedUser.password = null;
+    }
+
+  } else {
+    alert("Please fill password")
+    inputPasswordSet.style.border = "2px solid red";
+    inputRePasswordSet.style.border = "2px solid red";
+    loggedUser.password = null;
   }
 }
+
+

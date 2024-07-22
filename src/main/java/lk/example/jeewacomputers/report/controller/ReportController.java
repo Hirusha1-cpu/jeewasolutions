@@ -6,14 +6,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import java.util.HashMap;
+
 import java.util.*;
 import lk.example.jeewacomputers.employee.dao.EmployeeDao;
 import lk.example.jeewacomputers.items.dao.GraphicCardDao;
 import lk.example.jeewacomputers.privilege.controller.PrivilegeController;
 import lk.example.jeewacomputers.report.dao.ReportDao;
 import lk.example.jeewacomputers.report.entity.ReportCategoryViseCount;
-import lk.example.jeewacomputers.report.entity.ReportDateViseSales;
+// import lk.example.jeewacomputers.report.entity.ReportDateViseSales;
 import lk.example.jeewacomputers.user.dao.UserDao;
 import lk.example.jeewacomputers.user.entity.User;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -145,4 +145,32 @@ public class ReportController {
         return result;
     }
     
+        @GetMapping(value = "/reportdataworkingemployeechart/customertypedata", produces = "application/json")
+    public List<ReportCategoryViseCount> getDateViseSales(){
+        String[][] queryDataList = reportDao.getCustomerTypeViceCounts();
+        List<ReportCategoryViseCount> result = new ArrayList<>();
+        for (String[] reportCategoryViseCount : queryDataList) {
+            ReportCategoryViseCount reportCategoryViseCount2 = new ReportCategoryViseCount();
+            reportCategoryViseCount2.setCategoryname(reportCategoryViseCount[0]);
+            reportCategoryViseCount2.setItemcount(reportCategoryViseCount[1]);
+
+            result.add(reportCategoryViseCount2);
+        }
+        return result;
+    }
+    
+    @GetMapping(value = "/reportdataworkingemployeechart/duerepaircount", produces = "application/json")
+    public List<ReportCategoryViseCount> getDueRepairCount(){
+        String[][] queryDataList = reportDao.getDueRepairTypeCount();
+        List<ReportCategoryViseCount> result = new ArrayList<>();
+        for (String[] reportCategoryViseCount : queryDataList) {
+            ReportCategoryViseCount reportCategoryViseCount2 = new ReportCategoryViseCount();
+            reportCategoryViseCount2.setCategoryname(reportCategoryViseCount[0]);
+            reportCategoryViseCount2.setItemcount(reportCategoryViseCount[1]);
+
+            result.add(reportCategoryViseCount2);
+        }
+        return result;
+    }
+
 }

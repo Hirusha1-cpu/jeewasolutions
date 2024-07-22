@@ -84,14 +84,14 @@ public class EmployeeController {
         User user = userDao.getUserByUsername(auth.getName());
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(),
                 "employee");
-        GraphicCard graphicCard = graphicCardDao.getGraphicByName("ASUS DUAL TTX");
+        // GraphicCard graphicCard = graphicCardDao.getGraphicByName("ASUS DUAL TTX");
         System.out.println(auth);
         
         ModelAndView viewEmp = new ModelAndView();
         viewEmp.addObject("logusername", auth.getName());
         viewEmp.addObject("modulename", "Employee");
         viewEmp.addObject("loguserrole", user.getRoles().iterator().next().getName());
-        viewEmp.addObject("loguserphoto", graphicCard.getGraphic_photo());
+        // viewEmp.addObject("loguserphoto", graphicCard.getGraphic_photo());
         if ((logUserPrivi.get("select")) && (dao.getStatusOfEmployee("Deleted", auth.getName()) == null)) {
             viewEmp.addObject("title", "Employee Management - BIT Project 2024");
             viewEmp.setViewName("systemuser_components/employee.html");

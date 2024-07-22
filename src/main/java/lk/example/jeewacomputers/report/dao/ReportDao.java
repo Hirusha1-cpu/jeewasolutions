@@ -18,17 +18,27 @@ public interface ReportDao extends JpaRepository<Employee, Integer> {
     @Query(value = "select  ca.name as category,count(se.id) as itemcount from jeewacomputersproject.sales_has_serialno AS ss inner join jeewacomputersproject.sales AS s on ss.sales_id = s.id inner join jeewacomputersproject.serialno AS se on ss.serialno_id = se.id inner join jeewacomputersproject.customer as c on s.customer_id = c.id inner join jeewacomputersproject.category as ca on ca.id = se.category_id  where s.datetime between ?1 and ?2 group by ca.id;", nativeQuery = true)
     String[][] getCategoryViceItemCountGivenDateRange(String sd, String ed);
 
-    // particular daterange ekaka wikununa daily 
+    // particular daterange ekaka wikununa daily
     @Query(value = "select date(s.datetime) as date,sum(se.itemprice) as sales  from jeewacomputersproject.sales_has_serialno AS ss inner join jeewacomputersproject.sales AS s on ss.sales_id = s.id inner join jeewacomputersproject.serialno AS se on ss.serialno_id = se.id inner join jeewacomputersproject.customer as c on s.customer_id = c.id inner join jeewacomputersproject.category as ca on ca.id = se.category_id  where s.datetime between ?1 and ?2 group by date(s.datetime),MONTH(s.datetime), YEAR(s.datetime);", nativeQuery = true)
     String[][] getTotalDailyGivenDateRange(String sd, String ed);
 
-    // particular daterange ekaka wikununa weekly 
+    // particular daterange ekaka wikununa weekly
     @Query(value = "select week(s.datetime) as date,sum(se.itemprice) as sales  from jeewacomputersproject.sales_has_serialno AS ss inner join jeewacomputersproject.sales AS s on ss.sales_id = s.id inner join jeewacomputersproject.serialno AS se on ss.serialno_id = se.id inner join jeewacomputersproject.customer as c on s.customer_id = c.id inner join jeewacomputersproject.category as ca on ca.id = se.category_id  where s.datetime between ?1 and ?2 group by date(s.datetime),week(s.datetime),MONTH(s.datetime), YEAR(s.datetime);", nativeQuery = true)
     String[][] getTotalWeekGivenDateRange(String sd, String ed);
 
-    // particular daterange ekaka wikununa weekly 
+    // particular daterange ekaka wikununa weekly
     @Query(value = "select monthname(s.datetime) as date,sum(se.itemprice) as sales  from jeewacomputersproject.sales_has_serialno AS ss inner join jeewacomputersproject.sales AS s on ss.sales_id = s.id inner join jeewacomputersproject.serialno AS se on ss.serialno_id = se.id inner join jeewacomputersproject.customer as c on s.customer_id = c.id inner join jeewacomputersproject.category as ca on ca.id = se.category_id  where s.datetime between ?1 and ?2 group by date(s.datetime),week(s.datetime),monthname(s.datetime), YEAR(s.datetime);", nativeQuery = true)
     String[][] getTotalMonthlyGivenDateRange(String sd, String ed);
+
+    // SELECT ct.customertypes, COUNT(*) AS customer_count FROM
+    // jeewacomputersproject.customer as c inner join
+    // jeewacomputersproject.customertype as ct on c.customertype_id = ct.id group
+    // by ct.customertypes;
+    @Query(value = "SELECT ct.customertypes, COUNT(*) AS customer_count FROM jeewacomputersproject.customer as c inner join jeewacomputersproject.customertype as ct on c.customertype_id = ct.id group by ct.customertypes;", nativeQuery = true)
+    String[][] getCustomerTypeViceCounts();
+
+    @Query(value = "SELECT statusofrepair, count(*) as count FROM jeewacomputersproject.due_to_repairitem as dr group by dr.statusofrepair;", nativeQuery = true)
+    String[][] getDueRepairTypeCount();
 
     // select monthname(s.addeddate) => week, year
     // select s.itemname,sum(b.orderqty),count(b.orderqty) from
@@ -109,7 +119,13 @@ public interface ReportDao extends JpaRepository<Employee, Integer> {
     // GROUP BY MONTH(s.datetime), YEAR(s.datetime);
 
     // daily sales
-    // select sum(se.itemprice) as sales, date(s.datetime) as date from jeewacomputersproject.sales_has_serialno AS ss inner join jeewacomputersproject.sales AS s on ss.sales_id = s.id inner join jeewacomputersproject.serialno AS se on ss.serialno_id = se.id inner join jeewacomputersproject.customer as c on s.customer_id = c.id inner join jeewacomputersproject.category as ca on ca.id = se.category_id  where s.datetime between '2024-06-29' and '2024-06-30' group by date(s.datetime),MONTH(s.datetime), YEAR(s.datetime);
-
+    // select sum(se.itemprice) as sales, date(s.datetime) as date from
+    // jeewacomputersproject.sales_has_serialno AS ss inner join
+    // jeewacomputersproject.sales AS s on ss.sales_id = s.id inner join
+    // jeewacomputersproject.serialno AS se on ss.serialno_id = se.id inner join
+    // jeewacomputersproject.customer as c on s.customer_id = c.id inner join
+    // jeewacomputersproject.category as ca on ca.id = se.category_id where
+    // s.datetime between '2024-06-29' and '2024-06-30' group by
+    // date(s.datetime),MONTH(s.datetime), YEAR(s.datetime);
 
 }

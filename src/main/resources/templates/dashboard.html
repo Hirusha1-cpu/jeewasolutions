@@ -37,7 +37,7 @@
                 </div>
                 <div class="cardbody">
 
-                  <table class="table " id="empAttendence">
+                  <table class="table " id="orderTable">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -47,19 +47,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Rtx</td>
-                        <td>23</td>
-                        <td><button class="btn btn-outline-success">View</button></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Vtx</td>
-                        <td>34</td>
-                        <td><button class="btn btn-outline-success">View</button></td>
-                      </tr>
-
+                    
                     </tbody>
                   </table>
                 </div>
@@ -77,34 +65,22 @@
                 </div>
                 <div class="cardbody">
 
-                  <table class="table " id="empAttendence">
+                  <table class="table " id="customerTypeTable">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Type</th>
                         <th scope="col">Count</th>
-                        <th scope="col">Button</th>
+                        <!-- <th scope="col">Button</th> -->
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Permium</td>
-                        <td>23</td>
-                        <td><button class="btn btn-outline-success">View</button></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>1stStage</td>
-                        <td>34</td>
-                        <td><button class="btn btn-outline-success">View</button></td>
-                      </tr>
-
+                    
                     </tbody>
                   </table>
                 </div>
               </div>
-              <button class="btn btn-success" style="color: white; border-radius: 5px;">View Customers</button>
+              <button class="btn btn-success" style="color: white; border-radius: 5px;" onclick="handleCustomer()"> View Customers</button>
             </div>
           </div>
           <!-- customer end -->
@@ -121,36 +97,28 @@
                 </div>
                 <div class="cardbody">
 
-                  <table class="table " id="empAttendence">
+                  <table class="table " id="dueRepId">
                     <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Repair</th>
-                        <th scope="col">Button</th>
-                      </tr>
+                      <th scope="col">#</th>
+                       <th scope="col">Repair Type</th>
+                        <th scope="col">Count</th>
                     </thead>
                     <tbody>
                       <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td><button class="btn btn-outline-success">View</button></td>
+                        <td>Diagnosed</td>
+                        <td>23</td>
+                        
                       </tr>
                       <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td><button class="btn btn-outline-success">View</button></td>
+                        <td>Processing</td>
+                        <td>20</td>
+                        
                       </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td><button class="btn btn-outline-success">View</button></td>
-                      </tr>
-
                     </tbody>
                   </table>
                 </div>
               </div>
-              <button class="btn btn-info" style="color: white; border-radius: 5px;">View Repairs</button>
+              <button class="btn btn-info" style="color: white; border-radius: 5px;"  onclick="handleDue()">View Repairs</button>
             </div>
 
           </div>
