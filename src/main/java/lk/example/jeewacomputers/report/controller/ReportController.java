@@ -117,6 +117,7 @@ public class ReportController {
     }
 
     //reportdataworkingemployeechart/categryvisecount?start=?1&&end=?2
+    //reportdataworkingemployeechart/datevisesale?startdate=2024-06-29&enddate=2024-06-30
     @GetMapping(value = "/reportdataworkingemployeechart/categryvisecount",params = {"startdate", "enddate"}, produces = "application/json")
     public List<ReportCategoryViseCount> getCategoryViseCount(@RequestParam("startdate") String start, @RequestParam("enddate") String end){
         String[][] queryDataList = reportDao.getCategoryViceItemCountGivenDateRange(start, end);

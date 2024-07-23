@@ -162,6 +162,7 @@ public class InvoiceController {
 
             IncomePayment existingIncomePayment = invoice.getIncomePayments();
             existingIncomePayment.setSales_id(invoice);
+            // existingIncomePayment.setRepair_id(null);
 
             Invoice i = invoiceDao.save(invoice);
 

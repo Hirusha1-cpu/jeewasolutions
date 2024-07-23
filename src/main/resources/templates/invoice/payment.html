@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{ layouts/head :: headFragment}">
+
+</head>
+
+<head th:replace="~{ layouts/head :: headPaymentFragment}">
+
+</head>
+
+
+<body>
+    <div class="wrapper">
+
+        <!-- side bar -->
+        <aside th:replace="~{ layouts/sidebar :: sidebarfragment}"></aside>
+
+
+       
+        <!-- ui content area start -->
+        <div class="main">
+            <!-- top navbar -->
+            <nav th:replace="~{ layouts/navbar :: topnavbarfragment}"></nav>
+            <!-- main component start -->
+            <main class="content px-3 py-2 w3-container">
+
+                <!-- employee table start -->
+                <div class="w3-animate-right" id="empTable">
+
+                    <div class="mb-3 " style="display: flex; justify-content:space-between; align-items: center;">
+
+                        <h4>Income Payment Table</h4>
+                        <button id="empaddbtn" class="btn btn-success mb-2">GRN Payment Table</button>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="mb-3 table-responsive">
+                            <table class="table table-dark table-bordered border-primary" id="incomePaymentTable">
+                                <thead>
+
+                                    <th scope="col">#</th>
+                                    <th scope="col">Invoice No</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Customer</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Button</th>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- employee table end -->
+                <div id="empForm" class="w3-animate-left" style="display: none;">
+                    <div class="" style="display: flex; justify-content: space-between; align-items: center;">
+                        <button id="empFormToTable" class="btn btn-success mb-3">Income Payment Table</button>
+
+                        <h4>GRN Payment Table</h4>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="mb-3 table-responsive">
+                            <table class="table table-dark table-bordered border-primary" id="grnExpenseTab">
+                                <thead>
+
+                                    <th scope="col">#</th>
+                                    <th scope="col">Grn No</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Itemname</th>
+                                    <th scope="col">Qty</th>
+                                    <th scope="col">Payment</th>
+                                    <th scope="col">Button</th>
+
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+  
+
+                </div>
+
+                
+
+            </main>
+            <!-- main component end -->
+
+        </div>
+        <!-- ui content area end -->
+    </div>
+
+
+    <script src="templates/layouts/layout1.js"></script>
+    <script src="templates/layouts/layout2.js"></script>
+
+</body>
+
+</html>

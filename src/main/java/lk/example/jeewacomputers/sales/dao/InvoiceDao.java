@@ -20,6 +20,18 @@ public interface InvoiceDao extends JpaRepository<Invoice, Integer>{
     @Query(value ="SELECT lpad(max(invoiceno)+1,5,1) as invoiceno FROM jeewacomputersproject.sales;",nativeQuery = true)
     public String generateInvoiceNo();
 
+    @Query(value ="SELECT invoiceno FROM jeewacomputersproject.sales as s inner join jeewacomputersproject.sales_has_due_to_repairitem as sd on s.id = sd.sales_id where s.id in(select sales_id from jeewacomputersproject.sales_has_due_to_repairitem);",nativeQuery = true)
+    public String getInvoiceNo();
+
+    @Query(value ="select i from Invoice i  ",nativeQuery = true)
+    public String getInvoiceNo1();
+
+
+
+    
+
+
+
 
 
    

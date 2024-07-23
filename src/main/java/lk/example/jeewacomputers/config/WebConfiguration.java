@@ -77,6 +77,7 @@ public class WebConfiguration {
                     .requestMatchers("/reportdataworkingemployee/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
                     .requestMatchers("/reportdataemployee/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
                     .requestMatchers("/inventory/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
+                    .requestMatchers("/income/**").hasAnyAuthority("Admin", "Data Entry Operator","Cashier", "Assistant Manager","Technician")
 
                     .anyRequest().authenticated();
         })

@@ -23,6 +23,16 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 });
 window.addEventListener('load', () => {
+   
+    const date = new Date();
+
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    let today = `${day}-${month}-${year}`;
+    dateId.innerHTML = today;
+
     refreshInvoiceForm();
     // refreshGrnTable();
     refreshRepairTable();
@@ -54,6 +64,10 @@ const refreshInvoiceForm = () => {
     dueRepairsList = ajaxGetRequest("/duerepair/getlist")
     getAvailableBarcodes = ajaxGetRequest("/serialno/getavailablelist")
 
+    getInvoiceNumbers = ajaxGetRequest("/invoice/getlist")
+
+    fillDataIntoSelect(invoiceNumber, "Select Invoice", getInvoiceNumbers, 'invoiceno')
+
     fillDataIntoSelect(barcodeNo, "Select Barcode", getAvailableBarcodes, 'barcode')
     fillDataIntoSelect(invoiceSerialId, "Select SerialNumber List", serialNoListCount, 'serialno')
     fillDataIntoSelect(barcodeNoRepair, "Select barcode", dueRepairsList, 'barcode')
@@ -73,6 +87,9 @@ const refreshInvoiceForm = () => {
 
     // Optionally, you can also set aria-expanded attribute to 'true' for accessibility
     collapseInvoiceRepairElement.setAttribute("aria-expanded", "true");
+
+}
+const getDetailsByInvoiceNo = ()=>{
 
 }
 const handleItem = () => {
@@ -181,6 +198,9 @@ const getItemDetails = (serialObject) => {
         newDate.setDate(newDate.getDate() + warrentyPeriod);
         inputWarrentyEnd.value = newDate.toISOString().slice(0, 10);
         saleSerial.warrentyexpire = date(inputWarrentyEnd.value)
+
+
+      
         // saleSerial.warrentyexpire=inputWarrentyEnd.value
         //open bank collapse model
         const collapseWarrentyElement = document.getElementById("collapseItemWarrenty");
@@ -457,6 +477,12 @@ const submitInvoice = () => {
     console.log(invoice);
     // invoice.serialNoList.push(serialNumbers)
     incomePaymentsObj.payment = invoiceTotalPrice.value
+    if (salesHasDue.due_to_repairitem_id) {
+        
+        incomePaymentsObj.repair_id = salesHasDue.due_to_repairitem_id
+    }else{
+        incomePaymentsObj.repair_id = null
+    }
     // incomePaymentsObj.sales_id = invoice
     invoice.incomePayments = incomePaymentsObj
 
@@ -813,6 +839,16 @@ const getWarrentyItemDetails = () => {
         newWarrentyDate.setDate(newWarrentyDate.getDate() + warrentyItemPeriod);
         inputWarrentyItemEnd.value = newWarrentyDate.toISOString().slice(0, 10);
         // saleSerial.warrentyexpire=inputWarrentyEnd.value
+
+        const today = new Date()
+        console.log("executed",inputWarrentyItemEnd.value, date(today));
+        if (inputWarrentyItemEnd.value <  date(today)) {
+            console.log("executed");
+            returnId.disabled = true
+        }
+        else{
+            readyRepairId.disabled = true
+        }
         //open bank collapse model
         const collapseWarrentyItemElement = document.getElementById("collapseItemsWarrenty");
 
@@ -895,7 +931,7 @@ const getRepairItemStatus = (rowOb) => {
         const statusText = element.statusofrepair; // Store status for readability
 
         if (statusText === "pending diagnosis") {
-            itemStatus += `<p class="working-status">${statusText}</p>`;
+            itemStatus += `<p class="deleted-status">${statusText}</p>`;
         } else if (statusText === "Diagnoesed") {
             // Use template literal for clarity and to avoid string concatenation
             itemStatus += `<button type="button" class="working-status btn btn-secondary mb-3" 
@@ -980,6 +1016,29 @@ const readyRepair = () => {
     repairItemIntoTable()
 
 }
+const returnCompany = () => {
+    warrentyItem.serialno = serialwarrentyObject.serialno
+    warrentyItem.itemname = serialwarrentyObject.itemname
+    warrentyItem.category = serialwarrentyObject.category_id
+    // warrentyItem.statusofrepair = warrentyItemStatus.value
+    warrentyItem.fault = warrentyFault.value
+    
+
+    warrentyItem.usedItems.push(usedItemsObj)
+    customerObj.name = inputWarrentyCustomerName.value
+    customerObj.phone = inputWarrentyCustomerContact.value
+    repair.customer_id = customerObj
+
+    repair.duetoRepair.push(warrentyItem);
+    // repair.usedItems.push(useItem)
+
+    console.log(repair);
+
+    let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
+    console.log("serverResponse", serverResponse1);
+    repairItemIntoTable()
+}
+
 const getPaymentMethod = (paymentMethod) => {
     console.log(paymentMethod);
     try {

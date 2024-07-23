@@ -59,6 +59,18 @@
                                         <div class="row mt-2">
 
                                             <div class="col-6 form-floating  p-1">
+                                                <select class="form-select" id="invoiceNumber"
+                                                aria-label="Default select example"
+                                                onchange="getDetailsByInvoiceNo()">
+                                              
+                                            </select>
+                                            <label for="warrentyStatus" class="pl-2">Invoice No</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+
+                                            <div class="col-6 form-floating  p-1">
                                                 <input type="text" class="form-control" id="lblItemWarrentyName"
                                                     placeholder="NVIDIA GeForce RTX 4090"
                                                      onchange="textValidation(lblItemWarrentyName,'', 'warrentyItem', 'itemname'); ">
@@ -183,8 +195,8 @@
                                             </div>
                                             <div class="row mt-2">
                                                 <div class=" form-floating p-1">
-                                                    <button class="btn btn-success">Return Company</button>
-                                                    <button class="btn btn-danger" style="color: white;"
+                                                    <button id="returnId" class="btn btn-success" onclick="returnCompany()">Return Company</button>
+                                                    <button id="readyRepairId" class="btn btn-danger" style="color: white;"
                                                         onclick="readyRepair()">Ready Repair</button>
                                                 </div>
 
@@ -403,7 +415,7 @@
 
                                     <!-- date start -->
                                     <div class="row p-2">
-                                        <div id="date" class="fw-bolder" style="color: red;">2024-09-09</div>
+                                        <div id="dateId" class="fw-bolder" style="color: red;">2024-09-09</div>
                                     </div>
                                     <!-- date end -->
 
@@ -1123,11 +1135,11 @@
                                     <!-- customer details start -->
                                     <p class="d-inline-flex gap-1 mt-4">
 
-                                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                        <!-- <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
                                             data-bs-target="#collapseBankDetails" aria-expanded="false"
                                             aria-controls="collapseBankDetails" onclick="printInvoice()">
                                             Customer Details
-                                        </button>
+                                        </button> -->
 
                                     </p><br>
                                     <!-- customer details end -->
