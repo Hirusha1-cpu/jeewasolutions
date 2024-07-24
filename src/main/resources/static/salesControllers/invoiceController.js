@@ -61,13 +61,12 @@ const refreshInvoiceForm = () => {
     serialNumbers = new Object();
     // serialNoListCount = ajaxGetRequest("/serialno/getlist")
     serialNoListCount = ajaxGetRequest("/serialno/getlistwithoutnotnull")
-    dueRepairsList = ajaxGetRequest("/duerepair/getlist")
+    dueRepairsList = ajaxGetRequest("/duerepair/getduebystatusfordiagnoesedcompleted")
     getAvailableBarcodes = ajaxGetRequest("/serialno/getavailablelist")
 
-    getInvoiceNumbers = ajaxGetRequest("/invoice/getlist")
+   // getInvoiceNumbersNotInDueRepairInSales = ajaxGetRequest("/serialno/getlist")
 
-    fillDataIntoSelect(invoiceNumber, "Select Invoice", getInvoiceNumbers, 'invoiceno')
-
+   
     fillDataIntoSelect(barcodeNo, "Select Barcode", getAvailableBarcodes, 'barcode')
     fillDataIntoSelect(invoiceSerialId, "Select SerialNumber List", serialNoListCount, 'serialno')
     fillDataIntoSelect(barcodeNoRepair, "Select barcode", dueRepairsList, 'barcode')
@@ -126,7 +125,7 @@ const checkdiscount = (cusname) => {
             discountCusRate.value = serverresponseof_discount?.discount ? serverresponseof_discount?.discount : 1;
             invoiceDiscountedPrice.disabled = false
             invoiceDiscountedPrice.value =parseFloat(invoiceTotalPrice.value)-(parseFloat(invoiceTotalPrice.value) * parseFloat(discountCusRate.value))
-            console.log(invoiceDiscountedPrice.value);
+            // console.log(invoiceDiscountedPrice.value);
         } else {
             // Enable the input field and set its value
             discountCusRate.disabled = false;
@@ -134,7 +133,7 @@ const checkdiscount = (cusname) => {
             discountCusPhone.disabled = false
             discountCusPhone.value = discountname.phone
             invoiceDiscountedPrice.value = parseFloat(invoiceTotalPrice.value)-(parseFloat(invoiceTotalPrice.value) * parseFloat(discountCusRate.value))
-            console.log(invoiceDiscountedPrice.value);
+            // console.log(invoiceDiscountedPrice.value);
         }
     } catch (error) {
         console.error("Error fetching discount:", error);
@@ -248,6 +247,16 @@ const getRepairItemDetails = (value1) => {
     console.log(value1);
     lblItemCate1Repair.value = value1.category
     lblItemName1Repair.value = value1.itemname
+    const diagnosedOption = Array.from(invoiceRepairFor.options).find(option => option.value === 'Diagnosed');
+    const fullRepairOption = Array.from(invoiceRepairFor.options).find(option => option.value === 'Full Repair');
+
+    if (value1.statusofrepair === "Diagnoesed") {
+        diagnosedOption.selected = true
+    } else {
+        fullRepairOption.selected = true
+        
+    }
+    invoiceRepairFor.value = value1.statusofrepair
     let customerVal = ajaxGetRequest("duerepair/getrepairbydue/" + value1.repairid)
     console.log(customerVal);
     inputCustomerName.value = customerVal.customer_id.name
@@ -507,12 +516,12 @@ const printInvoice = (response) => {
     // Add the d-none class back
     table2.classList.add("d-none");
 
-    // let newWindow = window.open('', '_blank');
-    let newWindow = window.open();
+    let newWindow = window.open('', '_blank');
+    // let newWindow = window.open();
     newWindow.document.write(`
         <html>
         <head>
-            <title>${1000}</title>
+            <title>${response.customer_id.name}-${response.invoiceno}</title>
             <link rel='stylesheet' href='resourcesT/bootstrap_5.3.1/css/bootstrap.min.css'>
         </head>
         <body>
@@ -795,8 +804,12 @@ const refreshRepairTable = () => {
     useItem = new Object();
 
 
-    serialNoListCountForWarrenty = ajaxGetRequest("/serialno/getlistwithoutnotnull")
-    fillDataIntoSelect(warrentySerialId, "Select SerialNumber List", serialNoListCountForWarrenty, 'serialno')
+    getInvoiceNumbersNotInDueRepairInSales = ajaxGetRequest("/invoice/getinvoicesnotindueandinsaleserial")
+    
+    fillDataIntoSelect(warrentySerialId, "Select Serial No", getInvoiceNumbersNotInDueRepairInSales, 'serialno')
+   
+    // serialNoListCountForWarrenty = ajaxGetRequest("/serialno/getlistwithoutnotnull")
+    // fillDataIntoSelect(warrentySerialId, "Select SerialNumber List", serialNoListCountForWarrenty, 'serialno')
     repairItemIntoTable()
 
 }
@@ -804,9 +817,11 @@ const refreshRepairTable = () => {
 
 const getWarrentyItemDetails = () => {
     serialwarrentyObject = JSON.parse(warrentySerialId.value)
+    getWarrntyStartDate = ajaxGetRequest1("/invoice/getwarrantystartdate/" + serialwarrentyObject.serialno)
     console.log(serialwarrentyObject);
 
     lblItemWarrentyName.value = serialwarrentyObject.itemname
+    lblItemWarrentyCategory.value = serialwarrentyObject.category_id.name
     // warrentyUnitPrice.value = serialwarrentyObject.itemprice
 
     customer3 = ajaxGetRequest1("/invoice/getcustomer/" + serialwarrentyObject.serialno)
@@ -833,21 +848,22 @@ const getWarrentyItemDetails = () => {
     if (!isNaN(warrentyItemPeriod)) {
         // inputWarrentyItemName.value = itemsDetails1.itemname
         inputWarrentyItemPeriod.value = warrentyItemPeriod + " Days"
-        inputWarrentyItemStart.value = new Date().toISOString().slice(0, 10);
+        // inputWarrentyItemStart.value = getWarrntyStartDate
+        inputWarrentyItemStart.value = new Date(getWarrntyStartDate).toISOString().slice(0, 10);
         // saleSerial.warrentystartdate=inputWarStartDate.value
         const newWarrentyDate = new Date(inputWarrentyItemStart.value);
         newWarrentyDate.setDate(newWarrentyDate.getDate() + warrentyItemPeriod);
         inputWarrentyItemEnd.value = newWarrentyDate.toISOString().slice(0, 10);
+        // inputWarrentyItemEnd.value = newWarrentyDate;
         // saleSerial.warrentyexpire=inputWarrentyEnd.value
 
         const today = new Date()
         console.log("executed",inputWarrentyItemEnd.value, date(today));
-        if (inputWarrentyItemEnd.value <  date(today)) {
+        if (inputWarrentyItemEnd.value < today.toISOString().slice(0, 10)) {
             console.log("executed");
-            returnId.disabled = true
-        }
-        else{
-            readyRepairId.disabled = true
+            returnId.disabled = true;
+        } else {
+            readyRepairId.disabled = true;
         }
         //open bank collapse model
         const collapseWarrentyItemElement = document.getElementById("collapseItemsWarrenty");
@@ -937,6 +953,8 @@ const getRepairItemStatus = (rowOb) => {
             itemStatus += `<button type="button" class="working-status btn btn-secondary mb-3" 
             data-bs-toggle="modal" data-bs-target="#staticBackdrop00" 
             onclick="handleClick(${rowOb.id})">${statusText}</button>`;
+        }else {
+            itemStatus += `<p class="resign-status">${statusText}</p>`;
         }
     });
 
@@ -997,7 +1015,7 @@ const readyRepair = () => {
     warrentyItem.serialno = serialwarrentyObject.serialno
     warrentyItem.itemname = serialwarrentyObject.itemname
     warrentyItem.category = serialwarrentyObject.category_id
-    // warrentyItem.statusofrepair = warrentyItemStatus.value
+    warrentyItem.statusofrepair = "pending diagnosis"
     warrentyItem.fault = warrentyFault.value
     
 
@@ -1019,8 +1037,9 @@ const readyRepair = () => {
 const returnCompany = () => {
     warrentyItem.serialno = serialwarrentyObject.serialno
     warrentyItem.itemname = serialwarrentyObject.itemname
-    warrentyItem.category = serialwarrentyObject.category_id
-    // warrentyItem.statusofrepair = warrentyItemStatus.value
+    warrentyItem.category = serialwarrentyObject.category_id.name
+
+    warrentyItem.statusofrepair = "Return To Company"
     warrentyItem.fault = warrentyFault.value
     
 

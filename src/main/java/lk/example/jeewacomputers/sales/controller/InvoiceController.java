@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lk.example.jeewacomputers.customer.dao.CustomerDao;
@@ -56,10 +57,27 @@ public class InvoiceController {
         return invoiceDao.findAll(Sort.by(Direction.DESC, "id"));
     }
 
+    // @GetMapping(value = "/invoice/getinvoicesnotindue", produces = "application/json")
+    // public List<Invoice> findAllsForInvoice() {
+    //     // login user authentication and authorization
+    //     return invoiceDao.getInvoiceNo1();
+    // }
+    @GetMapping(value = "/invoice/getinvoicesnotindueandinsaleserial", produces = "application/json")
+    public List<SerialNo> findAllsForInvoice1() {
+        // login user authentication and authorization
+        return invoiceDao.getInvoiceNo2();
+    }
+
     @GetMapping(value = "/invoice/getlist/{serialno}", produces = "application/json")
     public SerialNo findItemAll(@PathVariable("serialno") String serialno) {
         // login user authentication and authorization
         return invoiceDao.getItemBySerialNo(serialno);
+    }
+
+    @GetMapping(value = "/invoice/getwarrantystartdate/{serialno}", produces = "application/json")
+    public LocalDate findWarrantyStart(@PathVariable("serialno") String serialno) {
+        // login user authentication and authorization
+        return invoiceDao.getWarrantyStartDate(serialno);
     }
 
     @GetMapping(value = "/invoice/getlisted/{id}", produces = "application/json")

@@ -76,9 +76,9 @@ public class RepairController {
     @PostMapping(value = "/repair")
     // @Transactional
     public String save(@RequestBody Repair repair) {
-
+        System.out.println(repair);
         try {
-
+            
             Customer newCustomer = new Customer();
             newCustomer.setName(repair.getCustomer_id().getName());
             newCustomer.setPhone(repair.getCustomer_id().getPhone());
@@ -111,6 +111,8 @@ public class RepairController {
             }
             int k = 1;
             for (DuetoRepair duetoRepair : repair.getDuetoRepair()) {
+                System.out.println("extecgghhh");
+                System.out.println(duetoRepair);
                 for (UsedItems usedItems : duetoRepair.getUsedItems()) {
                     // purchaseHasCategory.setPurchase_id(purchase);
                     usedItems.setDue_to_repairitem_id(duetoRepair);
@@ -125,10 +127,10 @@ public class RepairController {
                 String newBarcode = duetoRepairDao.getItemBarcode(k);
                 duetoRepair.setBarcode(newBarcode);
                 duetoRepair.setTakendate(LocalDateTime.now().toLocalDate());
-                k++;
+                // duetoRepair.setStatusofrepair("pending diagnosis");
                 duetoRepair.setRepairid(repairDao.getMaxRepairId());
                 duetoRepair.setRepair_id(repair);
-                duetoRepair.setStatusofrepair("pending diagnosis");
+                k++;
             }
             IncomePayment existingIncomePayment = repair.getIncomePayments();
             if (existingIncomePayment != null) {

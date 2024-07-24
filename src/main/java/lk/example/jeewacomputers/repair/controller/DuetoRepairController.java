@@ -58,6 +58,12 @@ public class DuetoRepairController {
         return duetoRepairDao.getDueRepairByStatusForProcessing();
     }
 
+     @GetMapping(value = "/duerepair/getduebystatusfordiagnoesedcompleted", produces = "application/json")
+    public List<DuetoRepair> findRepairForPay() {
+        // login user authentication and authorization
+        return duetoRepairDao.getDueRepairBywithoutreturnCompanyandpending();
+    }
+
      @GetMapping(value = "/duerepair/getusedItemsbyDueRepairs/{id}", produces = "application/json")
     public List<UsedItems> findUsedItems(@PathVariable("id") Integer id) {
         // login user authentication and authorization
