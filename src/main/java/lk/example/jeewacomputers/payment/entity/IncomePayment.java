@@ -1,7 +1,7 @@
 package lk.example.jeewacomputers.payment.entity;
 
 import java.time.LocalDate;
-
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +33,7 @@ public class IncomePayment {
     private Integer payment;
 
     @Column(name = "date")
-    private LocalDate date;
+    private LocalDateTime date;
 
     @Column(name = "invoiceno")
     private String invoiceno;

@@ -156,17 +156,18 @@ public class RepairController {
 
     }
 
-    @PutMapping(value = "/repair/{id}")
+    @PutMapping(value = "/repair")
     // @Transactional
-    public String saveUpdate(@PathVariable Integer id, @RequestBody Repair repair) {
-        Repair exRepair = repairDao.getRepairById(id);
+    public String saveUpdate( @RequestBody Repair exRepair) {
+        // Repair exRepair = repairDao.getRepairById(id);
 
         try {
 
             BigDecimal total1 = BigDecimal.ZERO;
             BigDecimal charges = BigDecimal.ZERO;
-            for (DuetoRepair duetoRepair : repair.getDuetoRepair()) {
+            for (DuetoRepair duetoRepair : exRepair.getDuetoRepair()) {
                 // DuetoRepair duetoRepairnew = new DuetoRepair();
+                duetoRepair.setRepair_id(exRepair);
                 duetoRepair.setStatusofrepair("Completed");
                 // duetoRepair.setTechnicalnote(duetoRepair.getTechnicalnote());
                 // duetoRepairDao.save(duetoRepairnew);
@@ -189,9 +190,9 @@ public class RepairController {
             exRepair.setDuerepairtotal(total1);
             
 
-            IncomePayment incomePayment = repair.getIncomePayments();
+            IncomePayment incomePayment = exRepair.getIncomePayments();
             incomePayment.setRepair_id(exRepair);
-            incomePayment.setDate(LocalDateTime.now().toLocalDate());
+            incomePayment.setDate(LocalDateTime.now());
             incomePaymentDao.save(incomePayment);
             // exRepair.setIncomePayments(repair.getIncomePayments());
 

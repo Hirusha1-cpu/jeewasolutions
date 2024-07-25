@@ -357,30 +357,14 @@
                                         <table class="table" id="repairUsedItemTable">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">Item Code</th>
+                                                    <th scope="col">Serial No</th>
                                                     <th scope="col">Item Name</th>
+                                                    <th scope="col">Item Category</th>
                                                     <th scope="col">Item Price</th>
-                                                    <th scope="col">Total Price</th>
-                                                    <th scope="col">Buttons</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th scope="row">00001</th>
-                                                    <td>Ram</td>
-                                                    <td>23</td>
-                                                    <td>100</td>
-                                                    <td>2300</td>
-                                                    <td>
-                                                        <!-- <button class="btn btn-success">send</button> -->
-                                                        <button class="btn btn-success"><i
-                                                                class="fa-solid fa-money-check-dollar"></i></button>
-                                                        <button class="btn btn-danger"><i
-                                                                class="fa-solid fa-trash"></i></button>
-                                                    </td>
-                                                </tr>
-
-
+                         
                                             </tbody>
                                         </table>
                                     </div>
@@ -388,7 +372,7 @@
                                     <div class="d-flex justify-content-end gap-3">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Submit</button>
+                                        <button type="button" class="btn btn-primary" onclick="handleUsedSubmit()">Submit</button>
 
                                     </div>
 

@@ -40,10 +40,15 @@ window.addEventListener('load', () => {
 
 
 const refreshInvoiceForm = () => {
+    customerVal = null
+    price = 0
+    totalPrice = 0;
     invoice = new Object();
     duetoRepair = new Object();
     itable = []
     irepairtable = []
+    totalForRepair = 0
+    totalForItem = 0
     serialno_id = new Object();
     cusObject = new Object();
     category_id = new Object();
@@ -122,17 +127,29 @@ const checkdiscount = (cusname) => {
         // If the response is null or undefined, keep the input field disabled and set its value to "-"
         if (boolDis) {
             discountCusRate.disabled = true;
-            discountCusRate.value = serverresponseof_discount?.discount ? serverresponseof_discount?.discount : 1;
+            discountCusRate.value = serverresponseof_discount?.discount ? serverresponseof_discount?.discount : "-";
             invoiceDiscountedPrice.disabled = false
-            invoiceDiscountedPrice.value =parseFloat(invoiceTotalPrice.value)-(parseFloat(invoiceTotalPrice.value) * parseFloat(discountCusRate.value))
+            if (discountCusRate.value == 0.01) {
+                discountCusRate.value = "-"
+                invoiceDiscountedPrice.value =parseFloat(invoiceTotalPrice.value)
+            }else{
+
+                invoiceDiscountedPrice.value =parseFloat(invoiceTotalPrice.value)-(parseFloat(invoiceTotalPrice.value) * parseFloat(discountCusRate.value))
+            }
             // console.log(invoiceDiscountedPrice.value);
         } else {
             // Enable the input field and set its value
-            discountCusRate.disabled = false;
-            discountCusRate.value = serverresponseof_discount?.discount ? serverresponseof_discount?.discount : 1;
+            discountCusRate.disabled = true;
+            discountCusRate.value = serverresponseof_discount?.discount ? serverresponseof_discount?.discount : "-";
             discountCusPhone.disabled = false
             discountCusPhone.value = discountname.phone
-            invoiceDiscountedPrice.value = parseFloat(invoiceTotalPrice.value)-(parseFloat(invoiceTotalPrice.value) * parseFloat(discountCusRate.value))
+            if (discountCusRate.value == 0.01) {
+                discountCusRate.value = "-"
+                invoiceDiscountedPrice.value =parseFloat(invoiceTotalPrice.value)
+            }else{
+
+                invoiceDiscountedPrice.value = parseFloat(invoiceTotalPrice.value)-(parseFloat(invoiceTotalPrice.value) * parseFloat(discountCusRate.value))
+            }
             // console.log(invoiceDiscountedPrice.value);
         }
     } catch (error) {
@@ -240,14 +257,33 @@ const getSerialItemDetails = (value2) => {
     lblItemName1.value = value2.itemname
     invoiceSerialId.value = value2.serialno
     invoiceUnitPrice.value = value2.itemprice
+
+    totalForItem += value2.itemprice
+
     getItemDetails(value2)
 }
+
 
 const getRepairItemDetails = (value1) => {
     console.log(value1);
     lblItemCate1Repair.value = value1.category
     lblItemName1Repair.value = value1.itemname
+    
+    totalForRepair += value1.total
+    
+    // lblItemName1Repair.value = value1.itemname
+    console.log(totalForRepair);
 
+    // invoiceTotalPrice.value = totalForRepair
+    // function isNumeric(value) {
+    //     return !isNaN(parseFloat(value)) && isFinite(value);
+    //   }     
+    // if (isNumeric(invoiceTotalPrice.value)) {
+    //     invoiceTotalPrice.value = parseFloat(invoiceTotalPrice.value) + parseFloat(value1.total)
+    // }else{
+    //     invoiceTotalPrice.value = parseFloat(value1.total)
+    // }
+    // invoiceTotalPrice.value = value1.total
     // const selectElement = document.getElementById('invoiceRepairFor');
     // const diagnosedOption = Array.from(selectElement.options).find(option => option.value === 'Diagnosed');
     // const fullRepairOption = Array.from(selectElement.options).find(option => option.value === 'Full Repair');
@@ -259,7 +295,7 @@ const getRepairItemDetails = (value1) => {
         
     }
     // selectElement.value = value1.statusofrepair
-    let customerVal = ajaxGetRequest("duerepair/getrepairbydue/" + value1.repairid)
+    customerVal = ajaxGetRequest("duerepair/getrepairbydue/" + value1.repairid)
     console.log(customerVal);
     inputCustomerName.value = customerVal.customer_id.name
     inputCustomerContact.value = customerVal.customer_id.phone
@@ -278,6 +314,8 @@ const addToRepairTable = () => {
     itemRepairTableDetail.itemCategory = lblItemCate1Repair.value
     itemRepairTableDetail.itemName = lblItemName1Repair.value
     itemRepairTableDetail.repairFor = invoiceRepairFor.value
+    itemRepairTableDetail.total = totalForRepair
+    console.log(itemRepairTableDetail);
     if (customer_id1 == null) {
         customer_id1.name = inputCustomerName.value
         customer_id1.phone = inputCustomerContact.value
@@ -302,6 +340,7 @@ const addToTable = () => {
     itemTableDetail.itemname = lblItemName1.value;
     // itemTableDetail.serialno = invoiceSerialId.value
     itemTableDetail.unitprice = invoiceUnitPrice.value
+    itemTableDetail.itotal = totalForItem
 
 
     //me tikath item table ekata wadagath namuth penann na
@@ -369,20 +408,31 @@ const addRepairToSerialiedTable = () => {
     console.log(itemRepairTableDetail);
     irepairtable.push(itemRepairTableDetail)
 
+    
     let totalPrice = 0; // Initialize total price
-    for (let index = 0; index < itable.length; index++) {
-        let element = itable[index];
+    for (let index = 0; index < irepairtable.length; index++) {
+        let element = irepairtable[index];
         console.log(element);
         // Check if 'itemprice' is a string and convert to a number if necessary
         // let price = typeof element.itemprice === 'string' ? parseFloat(element.itemprice) : element.itemprice;
-        let price = parseInt(element.unitprice);
+        price = parseInt(element.total);
         console.log(price);
         console.log(typeof price);
 
+        function isNumeric(value) {
+            return !isNaN(parseFloat(value)) && isFinite(value);
+          }
         // Ensure 'price' is a number before adding
         if (typeof price === 'number' && !isNaN(price)) {
             totalPrice += price;
-            invoiceTotalPrice.value = totalPrice; // Update invoice total (optional)
+            tot = totalForRepair + totalForItem
+            invoiceTotalPrice.value = tot
+            // if (isNumeric(invoiceTotalPrice.value)) {
+            //     // invoiceTotalPrice.value = parseFloat(invoiceTotalPrice.value) + parseFloat(price)
+            //     invoiceTotalPrice.value =  parseFloat(price)
+            // }else{
+            //     invoiceTotalPrice.value = totalPrice; // Update invoice total (optional)
+            //   }
         } else {
             console.error("Invalid price format for item:", element.itemname); // Handle invalid price format
         }
@@ -433,20 +483,32 @@ const addToSerialiedTable = () => {
     itable.push(itemTableDetail)
 
     console.log(itable);
-    let totalPrice = 0; // Initialize total price
+    // let totalPrice = 0; // Initialize total price
     for (let index = 0; index < itable.length; index++) {
         let element = itable[index];
         console.log(element);
         // Check if 'itemprice' is a string and convert to a number if necessary
         // let price = typeof element.itemprice === 'string' ? parseFloat(element.itemprice) : element.itemprice;
-        let price = parseInt(element.unitprice);
+        price = parseInt(element.itotal);
         console.log(price);
         console.log(typeof price);
+        function isNumeric(value) {
+            return !isNaN(parseFloat(value)) && isFinite(value);
+          }
 
         // Ensure 'price' is a number before adding
         if (typeof price === 'number' && !isNaN(price)) {
             totalPrice += price;
-            invoiceTotalPrice.value = totalPrice; // Update invoice total (optional)
+            tot = totalForRepair + totalForItem
+            invoiceTotalPrice.value = tot
+            // if (isNumeric(invoiceTotalPrice.value)) {
+            //     // invoiceTotalPrice.value =  price
+            //     invoiceTotalPrice.value = parseFloat(price)
+            // }else{
+
+            //     invoiceTotalPrice.value = parseFloat(price); // Update invoice total (optional)
+            // }
+
         } else {
             console.error("Invalid price format for item:", element.itemname); // Handle invalid price format
         }
@@ -512,11 +574,13 @@ const submitInvoice = () => {
     console.log(invoice);
     // invoice.serialNoList.push(serialNumbers)
     incomePaymentsObj.payment = invoiceTotalPrice.value
+    console.log(salesHasDue);
     if (salesHasDue.due_to_repairitem_id) {
-        
-        incomePaymentsObj.repair_id = salesHasDue.due_to_repairitem_id
+        invoice.repairidforsale = customerVal.id
+        // incomePaymentsObj.repair_id = customerVal
     }else{
         incomePaymentsObj.repair_id = null
+        invoice.repairidforsale = null
     }
     // incomePaymentsObj.sales_id = invoice
     invoice.incomePayments = incomePaymentsObj

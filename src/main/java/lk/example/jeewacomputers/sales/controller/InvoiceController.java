@@ -21,6 +21,8 @@ import lk.example.jeewacomputers.customer.entity.Customer;
 import lk.example.jeewacomputers.grnanditem.dao.SerialNoDao;
 import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
 import lk.example.jeewacomputers.payment.entity.IncomePayment;
+import lk.example.jeewacomputers.repair.dao.DuetoRepairDao;
+import lk.example.jeewacomputers.repair.entity.Repair;
 import lk.example.jeewacomputers.sales.dao.InvoiceDao;
 import lk.example.jeewacomputers.sales.entity.Invoice;
 import lk.example.jeewacomputers.sales.entity.SalesHasDue;
@@ -39,6 +41,9 @@ public class InvoiceController {
 
     @Autowired
     private CustomerDao customerdao;
+
+    @Autowired
+    private DuetoRepairDao duetoRepairDao;
 
     @RequestMapping(value = "/invoice")
     public ModelAndView invoiceUI() {
@@ -167,21 +172,22 @@ public class InvoiceController {
                 System.out.println("executed-4");
                 for (SalesHasDue salesHasDue : invoice.getSalesHasDues()) {
                     salesHasDue.setSales_id(invoice);
-    
                 }
                 // meke sale ekat ekka sale eke many to one ekak due ekata thye nm
                 
                 System.out.println("executed-5");
-
+                
             } else {
                 System.out.println("No SalesHasSerial entries found for this invoice.");
-
+                
             }
-
+           
+            
             IncomePayment existingIncomePayment = invoice.getIncomePayments();
             existingIncomePayment.setSales_id(invoice);
-            // existingIncomePayment.setRepair_id(null);
-
+            existingIncomePayment.setDate(LocalDateTime.now());
+            Repair repairforsale = duetoRepairDao.getRepairByDue(invoice.getRepairidforsale());
+            existingIncomePayment.setRepair_id(repairforsale);
             Invoice i = invoiceDao.save(invoice);
 
             return i;
