@@ -82,6 +82,11 @@ public class DuetoRepair {
     // @JsonIgnore
     private List<UsedItems> usedItems;
 
+    @JsonIgnoreProperties(value = {"due_to_repairitem_id"})
+    @OneToMany(mappedBy = "due_to_repairitem_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @JsonIgnore
+    private List<DiagnosedItems> diagnosedItems;
+
     
 
 

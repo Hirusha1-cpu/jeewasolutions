@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import java.time.LocalDate;
 
 import java.time.LocalDateTime;
 import java.math.BigDecimal;
@@ -16,9 +17,11 @@ import java.util.*;
 import lk.example.jeewacomputers.customer.dao.CustomerDao;
 import lk.example.jeewacomputers.customer.entity.Customer;
 import lk.example.jeewacomputers.grnanditem.dao.SerialNoDao;
+import lk.example.jeewacomputers.payment.dao.IncomePaymentDao;
 import lk.example.jeewacomputers.payment.entity.IncomePayment;
 import lk.example.jeewacomputers.repair.dao.DuetoRepairDao;
 import lk.example.jeewacomputers.repair.dao.RepairDao;
+import lk.example.jeewacomputers.repair.dao.UsedItemDao;
 import lk.example.jeewacomputers.repair.entity.DuetoRepair;
 import lk.example.jeewacomputers.repair.entity.Repair;
 import lk.example.jeewacomputers.repair.entity.UsedItems;
@@ -36,6 +39,9 @@ public class RepairController {
     private RepairDao repairDao;
 
     @Autowired
+    private IncomePaymentDao incomePaymentDao;
+
+    @Autowired
     private SerialNoDao serialNoDao;
 
     @Autowired
@@ -43,6 +49,9 @@ public class RepairController {
 
     @Autowired
     private CustomerDao customerdao;
+
+    @Autowired
+    private UsedItemDao usedItemDao;
 
     @GetMapping(value = "/repair/getlist", produces = "application/json")
     public List<Repair> findAlls() {
@@ -53,7 +62,7 @@ public class RepairController {
     @GetMapping(value = "/repair/getlist/{id}", produces = "application/json")
     public Repair findRepair(@PathVariable("id") Integer id) {
         // login user authentication and authorization
-        return repairDao.getRepairById(id);
+        return repairDao.getReferenceById(id);
     }
 
     @GetMapping(value = "/repair/getrepairbycustomer/{name}", produces = "application/json")
@@ -78,7 +87,7 @@ public class RepairController {
     public String save(@RequestBody Repair repair) {
         System.out.println(repair);
         try {
-            
+
             Customer newCustomer = new Customer();
             newCustomer.setName(repair.getCustomer_id().getName());
             newCustomer.setPhone(repair.getCustomer_id().getPhone());
@@ -111,13 +120,11 @@ public class RepairController {
             }
             int k = 1;
             for (DuetoRepair duetoRepair : repair.getDuetoRepair()) {
-                System.out.println("extecgghhh");
-                System.out.println(duetoRepair);
-                for (UsedItems usedItems : duetoRepair.getUsedItems()) {
-                    // purchaseHasCategory.setPurchase_id(purchase);
-                    usedItems.setDue_to_repairitem_id(duetoRepair);
+                // for (UsedItems usedItems : duetoRepair.getUsedItems()) {
+                // // purchaseHasCategory.setPurchase_id(purchase);
+                // usedItems.setDue_to_repairitem_id(duetoRepair);
 
-                }
+                // }
                 // purchaseHasCategory.setPurchase_id(purchase);
                 String s = duetoRepairDao.getExistItemBarcode(duetoRepairDao.getItemBarcode(duetoRepairDao.getMaxId()));
                 System.out.println(s);
@@ -132,13 +139,13 @@ public class RepairController {
                 duetoRepair.setRepair_id(repair);
                 k++;
             }
-            IncomePayment existingIncomePayment = repair.getIncomePayments();
-            if (existingIncomePayment != null) {
-                existingIncomePayment.setRepair_id(repair);
+            // IncomePayment existingIncomePayment = repair.getIncomePayments();
+            // existingIncomePayment.setRepair_id(repair);
+            // if (existingIncomePayment != null) {
 
-            }
+            // }
 
-            repair.setRepairstatus("pending diagnosis");
+            // repair.setRepairstatus("pending diagnosis");
             repairDao.save(repair);
             return "OK";
 
@@ -151,40 +158,47 @@ public class RepairController {
 
     @PutMapping(value = "/repair/{id}")
     // @Transactional
-    public Repair saveUpdate(@PathVariable Integer id, @RequestBody Repair repair) {
+    public String saveUpdate(@PathVariable Integer id, @RequestBody Repair repair) {
         Repair exRepair = repairDao.getRepairById(id);
-        // exRepair.setTechnicalnote(repair.getTechnicalnote());
-        exRepair.setRepairstatus(repair.getRepairstatus());
 
-        List<DuetoRepair> dueToRepairInRepair = repair.getDuetoRepair();
-        exRepair.setDuetoRepair(dueToRepairInRepair);
+        try {
 
-        BigDecimal total1 = BigDecimal.ZERO;
-        BigDecimal charges = BigDecimal.ZERO;
-        for (DuetoRepair duetoRepair : repair.getDuetoRepair()) {
-            DuetoRepair duetoRepairnew = new DuetoRepair();
-            duetoRepairnew.setStatusofrepair(duetoRepair.getStatusofrepair());
-            duetoRepair.setRepair_id(exRepair);
-            duetoRepairDao.save(duetoRepairnew);
-            total1 = total1.add(duetoRepair.getTotal());
-            charges = charges.add(duetoRepair.getCharges());
-            List<UsedItems> usedItems = duetoRepair.getUsedItems();
-            duetoRepair.setUsedItems(usedItems);
+            BigDecimal total1 = BigDecimal.ZERO;
+            BigDecimal charges = BigDecimal.ZERO;
+            for (DuetoRepair duetoRepair : repair.getDuetoRepair()) {
+                // DuetoRepair duetoRepairnew = new DuetoRepair();
+                duetoRepair.setStatusofrepair("Completed");
+                // duetoRepair.setTechnicalnote(duetoRepair.getTechnicalnote());
+                // duetoRepairDao.save(duetoRepairnew);
+                total1 = total1.add(duetoRepair.getTotal());
+                charges = charges.add(duetoRepair.getCharges());
 
-            for (UsedItems usedItems2 : duetoRepair.getUsedItems()) {
-                // purchaseHasCategory.setPurchase_id(purchase);
-                usedItems2.setDue_to_repairitem_id(duetoRepair);
+                for (UsedItems usedItems2 : duetoRepair.getUsedItems()) {
+
+                    UsedItems used = new UsedItems();
+                    used.setDue_to_repairitem_id(duetoRepair);
+                    used.setCategory(usedItems2.getCategory());
+                    used.setItemname(usedItems2.getItemname());
+                    usedItemDao.save(used);
+
+                }
+
             }
-            // duetoRepair.setStatusofrepair("Diagnosed");
+            // exRepair.setRepairstatus("Completed");
+            exRepair.setCharges(charges);
+            exRepair.setDuerepairtotal(total1);
+            
+
+            IncomePayment incomePayment = repair.getIncomePayments();
+            incomePayment.setRepair_id(exRepair);
+            incomePayment.setDate(LocalDateTime.now().toLocalDate());
+            incomePaymentDao.save(incomePayment);
+            // exRepair.setIncomePayments(repair.getIncomePayments());
+
+            repairDao.save(exRepair);
+            return "ok";
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
         }
-        exRepair.setCharges(charges);
-        exRepair.setDuerepairtotal(total1);
-        IncomePayment incomePayment = repair.getIncomePayments();
-        incomePayment.setRepair_id(exRepair);
-        exRepair.setIncomePayments(repair.getIncomePayments());
-
-        Repair repair2 = repairDao.save(exRepair);
-        return repair2;
     }
-
 }

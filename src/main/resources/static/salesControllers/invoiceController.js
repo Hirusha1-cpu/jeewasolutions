@@ -247,16 +247,18 @@ const getRepairItemDetails = (value1) => {
     console.log(value1);
     lblItemCate1Repair.value = value1.category
     lblItemName1Repair.value = value1.itemname
-    const diagnosedOption = Array.from(invoiceRepairFor.options).find(option => option.value === 'Diagnosed');
-    const fullRepairOption = Array.from(invoiceRepairFor.options).find(option => option.value === 'Full Repair');
+
+    // const selectElement = document.getElementById('invoiceRepairFor');
+    // const diagnosedOption = Array.from(selectElement.options).find(option => option.value === 'Diagnosed');
+    // const fullRepairOption = Array.from(selectElement.options).find(option => option.value === 'Full Repair');
 
     if (value1.statusofrepair === "Diagnoesed") {
-        diagnosedOption.selected = true
+        selectElement('invoiceRepairFor','Diagnosed')
     } else {
-        fullRepairOption.selected = true
+        selectElement('invoiceRepairFor','Full Repair')
         
     }
-    invoiceRepairFor.value = value1.statusofrepair
+    // selectElement.value = value1.statusofrepair
     let customerVal = ajaxGetRequest("duerepair/getrepairbydue/" + value1.repairid)
     console.log(customerVal);
     inputCustomerName.value = customerVal.customer_id.name
@@ -265,6 +267,12 @@ const getRepairItemDetails = (value1) => {
 
 
 }
+
+function selectElement(id, valueToSelect) {    
+    let element = document.getElementById(id);
+    element.value = valueToSelect;
+}
+
 const addToRepairTable = () => {
     itemRepairTableDetail = new Object();
     itemRepairTableDetail.itemCategory = lblItemCate1Repair.value
@@ -305,6 +313,25 @@ const addToTable = () => {
     // serialNumbers = new Object();
     //serial number list ekk lesa gnnwa serial number tika
     // serialNumbers.serialno = invoiceSerialId.value
+}
+
+const addSubRepair = () =>{
+ //open bank collapse model
+ const collapseWarrentyItemElement = document.getElementById("collapseItemsWarrenty");
+
+ // Remove the 'collapse' class to open the collapse
+ collapseWarrentyItemElement.classList.add("collapse")
+ warrentySerialId.value = ""
+ lblItemWarrentyName.value = ""
+ lblItemWarrentyCategory.value = ""
+ warrentyStatus.value = ""
+ warrentyFault.value = ""
+ inputItemRepName.value = ""
+ inputWarrentyItemStart.value = ""
+ inputWarrentyItemPeriod.value = ""
+ inputWarrentyItemEnd.value = ""
+ inputWarrentyCustomerName.value =""
+ inputWarrentyCustomerContact.value =""
 }
 const selectCustomerType = () => {
 
@@ -354,7 +381,6 @@ const addRepairToSerialiedTable = () => {
 
         // Ensure 'price' is a number before adding
         if (typeof price === 'number' && !isNaN(price)) {
-
             totalPrice += price;
             invoiceTotalPrice.value = totalPrice; // Update invoice total (optional)
         } else {
@@ -854,6 +880,7 @@ const getWarrentyItemDetails = () => {
         const newWarrentyDate = new Date(inputWarrentyItemStart.value);
         newWarrentyDate.setDate(newWarrentyDate.getDate() + warrentyItemPeriod);
         inputWarrentyItemEnd.value = newWarrentyDate.toISOString().slice(0, 10);
+        toBeExpier.innerHTML = inputWarrentyItemEnd.value
         // inputWarrentyItemEnd.value = newWarrentyDate;
         // saleSerial.warrentyexpire=inputWarrentyEnd.value
 
@@ -1013,8 +1040,11 @@ const getRepairItemCustomer = (rowOb) => {
 
 const readyRepair = () => {
     warrentyItem.serialno = serialwarrentyObject.serialno
-    warrentyItem.itemname = serialwarrentyObject.itemname
-    warrentyItem.category = serialwarrentyObject.category_id
+    if (warrentyItem.serialno) {
+        
+        warrentyItem.itemname = serialwarrentyObject.itemname
+        warrentyItem.category = serialwarrentyObject.category_id.name
+    }
     warrentyItem.statusofrepair = "pending diagnosis"
     warrentyItem.fault = warrentyFault.value
     
@@ -1032,6 +1062,9 @@ const readyRepair = () => {
     let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
     console.log("serverResponse", serverResponse1);
     repairItemIntoTable()
+    addSubRepair()
+   
+    
 
 }
 const returnCompany = () => {
@@ -1056,6 +1089,8 @@ const returnCompany = () => {
     let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
     console.log("serverResponse", serverResponse1);
     repairItemIntoTable()
+    addSubRepair()
+
 }
 
 const getPaymentMethod = (paymentMethod) => {

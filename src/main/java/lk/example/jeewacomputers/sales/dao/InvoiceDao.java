@@ -28,6 +28,7 @@ public interface InvoiceDao extends JpaRepository<Invoice, Integer>{
     public List<Invoice> getInvoiceNo1();
 
     // @Query(value ="select s from SerialNo s where s.id in (select ss.serialno_id from SalesHasSerial ss where ss.sales_id in (select i.id from Invoice i where i.salesHasDues.id in (select sd.id from SalesHasDue sd where sd.due_to_repairitem_id in (where ))))")
+    //SELECT * FROM jeewacomputersproject.serialno where serialno not in(SELECT serialno FROM jeewacomputersproject.due_to_repairitem) and id in (SELECT serialno_id FROM jeewacomputersproject.sales_has_serialno);
     @Query(value ="select s from SerialNo s where s.serialno not in (select d.serialno from DuetoRepair d ) and s.serialno in (select ss.serialno_id.serialno from SalesHasSerial ss)")
     public List<SerialNo> getInvoiceNo2();
 

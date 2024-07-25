@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 
-
+import lk.example.jeewacomputers.repair.dao.DiagnosedItemsDao;
 import lk.example.jeewacomputers.repair.dao.DuetoRepairDao;
 import lk.example.jeewacomputers.repair.dao.RepairDao;
 import lk.example.jeewacomputers.repair.dao.UsedItemDao;
+import lk.example.jeewacomputers.repair.entity.DiagnosedItems;
 import lk.example.jeewacomputers.repair.entity.DuetoRepair;
 import lk.example.jeewacomputers.repair.entity.Repair;
 import lk.example.jeewacomputers.repair.entity.UsedItems;
@@ -25,7 +26,7 @@ public class DuetoRepairController {
     @Autowired
     private DuetoRepairDao duetoRepairDao;
     @Autowired
-    private RepairDao repairDao;
+    private DiagnosedItemsDao diagnosedItemsDao;
     @Autowired
     private UsedItemDao usedItemDao;
 
@@ -72,28 +73,46 @@ public class DuetoRepairController {
 
     @PutMapping(value = "/duerepair/{id}")
     public String update(@PathVariable Integer id,@RequestBody DuetoRepair duetoRepair) {
-        // DuetoRepair extduetoRepair = duetoRepairDao.getReferenceById(id);
+        DuetoRepair extduetoRepair = duetoRepairDao.getReferenceById(id);
+        DuetoRepair updateRepair = extduetoRepair;
         System.out.println("ss");
         System.out.println(duetoRepair);
+
         try {
             BigDecimal total = BigDecimal.ZERO;
-            for (UsedItems usedItems2 : duetoRepair.getUsedItems()) {
-                 usedItems2.setDue_to_repairitem_id(duetoRepair);
-                 duetoRepair.setTotal(null);
-                 total = total.add(usedItems2.getUnitprice());
-                // UsedItems used = new UsedItems();
-                // used.setDue_to_repairitem_id(duetoRepair);
-                // used.setCategory(usedItems2.getCategory());
-                // used.setItemname(usedItems2.getItemname());
-                // usedItemDao.save(used);
+            // updateRepair.setUsedItems(duetoRepair.getUsedItems());
+            for (DiagnosedItems diagnosedItems : duetoRepair.getDiagnosedItems()) {
+                DiagnosedItems diagnosticItems = new DiagnosedItems();
+                diagnosticItems.setDue_to_repairitem_id(duetoRepair);
+                diagnosticItems.setItemname(diagnosedItems.getItemname());
+                diagnosticItems.setCategory(diagnosedItems.getCategory());
+                diagnosedItemsDao.save(diagnosticItems);
                 
             }
-            duetoRepair.setCharges(new BigDecimal("400.00") );
+            if (duetoRepair.getUsedItems() != null) {
+                
+                for (UsedItems usedItems2 : duetoRepair.getUsedItems()) {
+                    //  usedItems2.setDue_to_repairitem_id(duetoRepair);
+                    updateRepair.setTotal(new BigDecimal(1000));
+                     if (usedItems2.getUnitprice() != null) {
+                         total = total.add(usedItems2.getUnitprice());
+                        
+                     }
+                    UsedItems used = new UsedItems();
+                    used.setDue_to_repairitem_id(duetoRepair);
+                    used.setCategory(usedItems2.getCategory());
+                    used.setItemname(usedItems2.getItemname());
+                    usedItemDao.save(used);
+                    
+                }
+            }
+            updateRepair.setStatusofrepair(duetoRepair.getStatusofrepair());
+            updateRepair.setCharges(new BigDecimal("400.00") );
 
-            duetoRepair.setRepair_id(repairDao.getReferenceById(duetoRepair.getRepairid()));
+            // duetoRepair.setRepair_id(repairDao.getReferenceById(duetoRepair.getRepairid()));
 
-            duetoRepair.setTotal(total.add(new BigDecimal("400.00")));
-            duetoRepairDao.save(duetoRepair);
+            updateRepair.setTotal(total.add(new BigDecimal("400.00")));
+            duetoRepairDao.save(updateRepair);
             return "OK";
         } catch (Exception e) {
             return "Error: " + e.getMessage();
