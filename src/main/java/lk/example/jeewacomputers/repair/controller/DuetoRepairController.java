@@ -102,10 +102,10 @@ public class DuetoRepairController {
             // updateRepair.setUsedItems(duetoRepair.getUsedItems());
             for (DiagnosedItems diagnosedItems : duetoRepair.getDiagnosedItems()) {
                 DiagnosedItems diagnosticItems = new DiagnosedItems();
-                diagnosticItems.setDue_to_repairitem_id(duetoRepair);
+                diagnosticItems.setDue_to_repairitem_id(diagnosedItems.getDue_to_repairitem_id());
                 diagnosticItems.setItemname(diagnosedItems.getItemname());
                 diagnosticItems.setCategory(diagnosedItems.getCategory());
-                
+                diagnosticItems.setUnitprice(diagnosedItems.getUnitprice());
                 diagnosedItemsDao.save(diagnosticItems);
                 
             }

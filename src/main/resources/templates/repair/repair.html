@@ -80,7 +80,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title fw-bolder" style="color: red;">Urgent Repairs</h5>
-                                            <p class="card-text"><span class="fw-bolder me-2">23</span>Repairs</p>
+                                            <p class="card-text"><span class="fw-bolder me-2" id="selectUrgentRepairsSpan">23</span>Repairs</p>
                                             <select class="form-select col-5" aria-label="Default select example"
                                                 id="selectUrgentRepairs" onchange="getSelectedRepair(this.value)">
                                             </select>
@@ -92,7 +92,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title fw-bolder" style="color: red;">Shop Repairs</h5>
-                                            <p class="card-text"><span class="fw-bolder me-2">23</span>Repairs</p>
+                                            <p class="card-text"><span class="fw-bolder me-2" id="selectShopRepairsSpan">23</span>Repairs</p>
                                             <select class="form-select col-5" aria-label="Default select example"
                                                 id="selectShopRepairs" onchange="getSelectedRepair(this.value)">
                                             </select>
@@ -105,7 +105,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title fw-bolder" style="color: red;">Out Of Shop Repairs
                                             </h5>
-                                            <p class="card-text"><span class="fw-bolder me-2">23</span>Repairs</p>
+                                            <p class="card-text"><span class="fw-bolder me-2" id="selectOutShopRepairsSpan">23</span>Repairs</p>
                                             <select class="form-select col-5" aria-label="Default select example"
                                                 id="selectOutShopRepairs" onchange="getSelectedRepair(this.value)">
                                             </select>
@@ -117,7 +117,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title fw-bolder" style="color: red;">Processing Repairs</h5>
-                                            <p class="card-text"><span class="fw-bolder me-2">23</span>Repairs</p>
+                                            <p class="card-text"><span class="fw-bolder me-2" id="selectPurchaseOrderProcessSpan">23</span>Repairs</p>
                                             <select class="form-select col-5" aria-label="Default select example"
                                                 id="selectPurchaseOrderProcess"
                                                 onchange="getSelectedRepair(this.value)">
@@ -259,7 +259,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bolder" style="color: red;">Completed Repairs</h5>
-                                    <p class="card-text"><span class="fw-bolder me-2">23</span>Repairs</p>
+                                    <p class="card-text"><span class="fw-bolder me-2" id="selectApprovedRepairsSpan">23</span>Repairs</p>
                                     <select class="form-select col-5" aria-label="Default select example"
                                         id="selectApprovedRepairs"
                                         onchange="getSelectedRepair(this.value)">
@@ -270,12 +270,12 @@
                     </div>
                     <!-- Item details add model start -->
                     <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
+                        data-bs-target="#exampleModal" disabled id="addItemDetailsId" >
                         Add Item Details
                     </button>
                     <!-- diagnosis -->
                     <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal"
-                        data-bs-target="#diagnosisModal">
+                        data-bs-target="#diagnosisModal" disabled id="diagnosisId">
                         Diagnosis
                     </button>
                     <!-- diagnosis -->

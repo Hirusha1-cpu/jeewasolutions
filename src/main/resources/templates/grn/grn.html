@@ -303,12 +303,12 @@
                                 <div class="col-3 form-floating p-1">
                                     <input type="number" class="inputPurchaseQuantity form-control"
                                         id="inputPurchaseQuantity" placeholder=""
-                                        onchange="textDValidation(inputPurchaseQuantity,'','grnHasItems','qty'); generateLinePrice(); ">
+                                        oninput="textDValidation(inputPurchaseQuantity,'','grnHasItems','qty'); generateLinePrice(); generateSerialNumberList2()">
                                     <label for="floatingInput" class="pl-2">Quantity</label>
                                 </div>
                                 <div class="col-3 form-floating p-1">
                                     <input type="number" class="form-control" id="inputPurchaseItemPrice" placeholder=""
-                                        onchange="textDValidation(inputPurchaseItemPrice,'','grnHasItems','item_price'); generateLinePrice(); generateSerialNumberList2()">
+                                        onchange="textDValidation(inputPurchaseItemPrice,'','grnHasItems','item_price'); generateLinePrice(); ">
                                     <label for="floatingInput">Unit Price</label>
                                 </div>
                                 <div class="col-3 form-floating p-1">

@@ -46,6 +46,7 @@ const refreshInvoiceForm = () => {
     totalPrice = 0;
     invoice = new Object();
     duetoRepair = new Object();
+    duetoRepair2 = new Object();
     itable = []
     irepairtable = []
     totalForRepair = 0
@@ -579,6 +580,10 @@ const submitInvoice = () => {
     console.log(salesHasDue);
     if (salesHasDue.due_to_repairitem_id) {
         invoice.repairidforsale = customerVal.id
+        // const repairforDueRepair2 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair.repairid))
+        duetoRepair2.statusofrepair = "Paid"
+        let serverResponse4 = ajaxRequestBodyMethod(`/duerepair/${salesHasDue.due_to_repairitem_id.id}`, "PUT", duetoRepair2);
+        console.log(serverResponse4);
         // incomePaymentsObj.repair_id = customerVal
     }else{
         incomePaymentsObj.repair_id = null
