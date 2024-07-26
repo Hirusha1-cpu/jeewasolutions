@@ -56,7 +56,6 @@ public class Repair {
 
     @JsonIgnoreProperties(value = {"repair_id"})
     @OneToOne(mappedBy = "repair_id", cascade = CascadeType.ALL, orphanRemoval = true, optional = true)
-    // @JsonIgnore
     private IncomePayment incomePayments;
     
 }

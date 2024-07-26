@@ -3,6 +3,9 @@ package lk.example.jeewacomputers.payment.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,12 +43,14 @@ public class IncomePayment {
 
     @OneToOne(optional = true)
     @JoinColumn(name = "sales_id", referencedColumnName = "id")
+    @JsonIgnore
     // @JsonIgnoreProperties(value = {"sales_id"})
     private Invoice sales_id ;
 
     @OneToOne(optional = true)
     @JoinColumn(name = "repair_id", referencedColumnName = "id")
-    // @JsonIgnoreProperties(value = {"sales_id"})
+    @JsonIgnore
+    // @JsonIgnoreProperties(value = {"repair_id"})
     private Repair repair_id ;
 
 }

@@ -41,6 +41,7 @@ window.addEventListener('load', () => {
 
 const refreshInvoiceForm = () => {
     customerVal = null
+    button = ''
     price = 0
     totalPrice = 0;
     invoice = new Object();
@@ -402,6 +403,7 @@ const addRepairToSerialiedTable = () => {
     // Total
     addToRepairTable()
     cusRepairTablePrintDiv.classList.remove('d-none')
+    cusRepairUsedItemTablePrint.classList.remove('d-none')
     salesHasDue.statusofserviceorrepair = "service" 
     salesHasDue.due_to_repairitem_id = JSON.parse(barcodeNoRepair.value)
     invoice.salesHasDues.push(salesHasDue)
@@ -665,6 +667,7 @@ const setDataIntInvoicePrint = (invoiceP) => {
     createTable(invoiceP)
     console.log(invoiceP);
     createRepairTable(invoiceP)
+    createRepairUsedTable(invoiceP)
       
     // if (invoiceP.salesHasDues.statusofserivceorrepair === "service") {
     //     cusRepairTablePrintDiv.classList.remove('d-none')
@@ -699,6 +702,74 @@ const setDataIntInvoicePrint = (invoiceP) => {
 }
 
 
+const createRepairUsedTable = (invoiceUItem) => {
+    console.log(invoiceUItem);
+    displayProperties = [
+        { property: getRepairNoUItems, dataType: 'function' },
+        { property: getSerialRepairUItems, dataType: 'function' },
+        { property: getCategoryRepairUItems, dataType: 'function' },
+        { property: getItemUItems, dataType: 'function' },
+        { property: getItemorServiceWarrantyRepairUItems, dataType: 'function' },
+        { property: getItemorServicePriceRepairUItems, dataType: 'function' },
+    ]
+    fillDataIntoTable(cusRepairUsedItemTablePrint, invoiceUItem.salesHasDues, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
+
+}
+
+const getRepairNoUItems = (rowOb)=>{
+    return rowOb?.due_to_repairitem_id?.repairid
+}
+const getSerialRepairUItems = (rowOb)=>{
+        let getSerial = ''
+    rowOb?.due_to_repairitem_id?.usedItems.forEach(elem => {
+         getSerial = getSerial + elem?.serialno
+        })
+    return getSerial
+}
+const getCategoryRepairUItems = (rowOb)=>{
+      let cat = ""
+    rowOb?.due_to_repairitem_id?.usedItems?.forEach(elem => {
+        cat = cat + elem?.category
+
+    })
+    return cat
+}
+const getItemUItems = (rowOb)=>{
+    let catItems = ""
+    rowOb?.due_to_repairitem_id?.usedItems?.forEach(elem => {
+        catItems = catItems + elem?.itemname
+
+    })
+    return catItems
+}
+const getItemorServiceWarrantyRepairUItems = (rowOb)=>{
+    let catIUtWarrenty = ""
+    rowOb?.due_to_repairitem_id?.usedItems.forEach(element => {
+        try {
+            categoriesItemsRep = ajaxGetRequest(`/${element?.category}/getlist`)
+            const filteredDataRep = filterByName(element?.itemname, categoriesItemsRep);
+    
+            console.log("Filtered data:", filteredDataRep[0]);
+            const objRep = filteredDataRep[0]
+    
+            const warrentyPeriod = objRep.warrenty
+            catIUtWarrenty = catIUtWarrenty  +"<p >"+ warrentyPeriod + "</p>"
+            
+        } catch (error) {
+            catIUtWarrenty = catIUtWarrenty + "<p >" + "-" + "</p>"
+        }
+
+    })
+    return catIUtWarrenty;
+}
+const getItemorServicePriceRepairUItems = (rowOb)=>{
+    let catItemsPrice = ""
+    rowOb?.due_to_repairitem_id?.usedItems?.forEach(elem => {
+        catItemsPrice = catItemsPrice + elem?.unitprice
+
+    })
+    return catItemsPrice
+}
 const createRepairTable = (invoiceCR) => {
     console.log(invoiceCR);
     displayProperties = [
@@ -708,12 +779,15 @@ const createRepairTable = (invoiceCR) => {
         { property: getCategoryRepair, dataType: 'function' },
         { property: getItem, dataType: 'function' },
         { property: getUsedItemsRepair, dataType: 'function' },
-        { property: getItemorServiceWarrantyRepair, dataType: 'function' },
-        { property: getItemorServicePriceRepair, dataType: 'function' },
+        { property: getItemorServiceWarrantyRepairTotal, dataType: 'function' },
+        // { property: getItemorServicePriceRepair, dataType: 'function' },
     ]
     fillDataIntoTable(cusRepairTablePrint, invoiceCR.salesHasDues, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
 
 }
+
+
+
 const getRepairNo = (elem) => {
     // console.log(rowOb);
     // let repNo = ''
@@ -743,22 +817,23 @@ const getCategoryRepair = (rowOb) => {
 
 }
 const getItem = (rowOb) => {
-    let catIt = ""
-    try {
-        rowOb.due_to_repairitem_id.usedItems.forEach(elem => {
-            catIt = catIt + elem?.itemname ? elem?.itemname : "-" 
+    return rowOb?.due_to_repairitem_id?.itemname;
+    // let catIt = ""
+    // try {
+    //     rowOb?.due_to_repairitem_id?.usedItems.forEach(elem => {
+    //         catIt = catIt + elem?.itemname ? elem?.itemname : "-" 
     
-        })
-    } catch (error) {
-        catIt = catIt + "-"
-    }
+    //     })
+    // } catch (error) {
+    //     catIt = catIt + "-"
+    // }
    
-    return catIt;
+    // return catIt;
 
 }
 const getUsedItemsRepair = (rowOb) =>{
     let usedItemsForRepair = ""
-    rowOb.due_to_repairitem_id.usedItems.forEach(element => {
+    rowOb?.due_to_repairitem_id?.usedItems.forEach(element => {
         try {
             
             usedItemsForRepair = usedItemsForRepair  +"<p >"+ element.itemname  + "</p>"
@@ -770,45 +845,45 @@ const getUsedItemsRepair = (rowOb) =>{
     })
     return usedItemsForRepair;
 }
-const getItemorServiceWarrantyRepair = (rowOb) => {
-
+const getItemorServiceWarrantyRepairTotal = (rowOb) => {
+    return rowOb?.due_to_repairitem_id?.total;
     // categoriesItems1 = ajaxGetRequest(`/${categoryname1}/getlist`, categoryname1)
     // // ajaxGetRequest(`/${categoryname1}/getqty`, categoryname1)
     // console.log(categoriesItems1);
 
 
-    let catItWarrenty = ""
-    rowOb.due_to_repairitem_id.usedItems.forEach(element => {
-        try {
-            categoriesItemsRep = ajaxGetRequest(`/${element?.category}/getlist`)
-            const filteredDataRep = filterByName(element?.itemname, categoriesItemsRep);
+    // let catItWarrenty = ""
+    // rowOb.due_to_repairitem_id.usedItems.forEach(element => {
+    //     try {
+    //         categoriesItemsRep = ajaxGetRequest(`/${element?.category}/getlist`)
+    //         const filteredDataRep = filterByName(element?.itemname, categoriesItemsRep);
     
-            console.log("Filtered data:", filteredDataRep[0]);
-            const objRep = filteredDataRep[0]
+    //         console.log("Filtered data:", filteredDataRep[0]);
+    //         const objRep = filteredDataRep[0]
     
-            const warrentyPeriod = objRep.warrenty
-            catItWarrenty = catItWarrenty  +"<p >"+ warrentyPeriod + "</p>"
+    //         const warrentyPeriod = objRep.warrenty
+    //         catItWarrenty = catItWarrenty  +"<p >"+ warrentyPeriod + "</p>"
             
-        } catch (error) {
-            catItWarrenty = catItWarrenty + "<p >" + "-" + "</p>"
-        }
+    //     } catch (error) {
+    //         catItWarrenty = catItWarrenty + "<p >" + "-" + "</p>"
+    //     }
 
-    })
-    return catItWarrenty;
+    // })
+    // return catItWarrenty;
 
 }
 const getItemorServicePriceRepair = (rowOb) => {
-    let catItPrice = ""
-    try {
+    // let catItPrice = ""
+    // try {
         
-        rowOb.due_to_repairitem_id.usedItems.forEach(element => {
-            catItPrice = catItPrice + "<p class = 'working-status'>" + element.unitprice + "</p>"
+    //     rowOb.due_to_repairitem_id.usedItems.forEach(element => {
+    //         catItPrice = catItPrice + "<p class = 'working-status'>" + element.unitprice + "</p>"
     
-        })
-    } catch (error) {
-        catItPrice = catItPrice + "-"
-    }
-    return catItPrice;
+    //     })
+    // } catch (error) {
+    //     catItPrice = catItPrice + "-"
+    // }
+    // return catItPrice;
 
 }
 
@@ -991,7 +1066,9 @@ const repairItemIntoTable = () => {
     fillDataIntoPurcahseTable(repairItemTable, repairtable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
 
 }
-
+const getRepairItemCustomer = (rowOb)=>{
+    return rowOb?.customer_id?.name
+}
 const getSerialNo = (rowOb) => {
     console.log(rowOb);
     let ItemRepair = '';
@@ -1032,6 +1109,7 @@ const getSerialNoItemName = (rowOb) => {
 
 // }
 const getRepairItemStatus = (rowOb) => {
+
     let itemStatus = ''; // Use a more descriptive variable name
 
     rowOb.duetoRepair.forEach(element => {
@@ -1040,10 +1118,9 @@ const getRepairItemStatus = (rowOb) => {
         if (statusText === "pending diagnosis") {
             itemStatus += `<p class="deleted-status">${statusText}</p>`;
         } else if (statusText === "Diagnoesed") {
-            // Use template literal for clarity and to avoid string concatenation
             itemStatus += `<button type="button" class="working-status btn btn-secondary mb-3" 
             data-bs-toggle="modal" data-bs-target="#staticBackdrop00" 
-            onclick="handleClick(${rowOb.id})">${statusText}</button>`;
+            onclick="handleClick(${element.id})">${statusText}</button>`;
         }else {
             itemStatus += `<p class="resign-status">${statusText}</p>`;
         }
@@ -1052,10 +1129,12 @@ const getRepairItemStatus = (rowOb) => {
     return itemStatus;
 };
 const handleClick = (elem) => {
+    //dure repair id eka hmbenawa
     console.log(elem); // Log the clicked status or perform other actions
     let iddue = elem
     console.log(iddue);
-    const diagnosistable = ajaxGetRequest(`/duerepair/getusedItemsbyDueRepairs/${iddue}`)
+
+    const diagnosistable = ajaxGetRequest(`/duerepair/getlist/${iddue}`)
     console.log(diagnosistable);
 
     displayProperties = [
@@ -1063,31 +1142,92 @@ const handleClick = (elem) => {
         { property: getDiagItemName, dataType: 'function' },
         { property: getDiagItemPrice, dataType: 'function' },
     ]
-    fillDataIntoPurcahseTable(repairItemTableDig, diagnosistable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
+    fillDataIntoPurcahseTable(repairItemTableDig, diagnosistable.diagnosedItems, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
 
-    repairItemTotalPriceDig.value = "1000.00"
-};
-const getDiagItemCategory = (rowObject) => {
+    let totalUnitPrice = 0;
 
-    let ItemDiagCategory = '';
-    // rowObject.usedItems.forEach(element => {
-    ItemDiagCategory = "<p class = 'working-status'>" + rowObject?.category ? rowObject?.category : "-" + "</p>"
+        // Loop through diagnosed items and fetch their prices
+        for (const item of diagnosistable.diagnosedItems) {
+            const priceResponse = ajaxGetRequest(`serialno/getitemprice/${item?.itemname}`);
+            const price = parseFloat(priceResponse);
+            totalUnitPrice += price;
+        }
+    // let tots = diagnosistable.diagnosedItems.forEach(data => {
+
+    //      calculateTotalPrice(data).then(totalPrice => {
+    //         repairItemTotalPriceDig.value = totalPrice;
+    //     });
     // })
-    return ItemDiagCategory
+
+    repairItemTotalPriceDig.value = totalUnitPrice
+
+     button = document.createElement('button')
+    button.className = 'btn btn-danger'
+    button.innerHTML = 'Approve'
+    button.onclick = () => {
+        // console.log('edit', item.id, index);
+        handleApprove(elem)
+    }
+
+    let div = document.getElementById('diagnosedItemFooter'); // Create the div element
+   
+    // Append the button to the div
+    div.appendChild(button);
+
+};
+const handleClose = () =>{
+    if (button) {
+        // Remove the button from its parent node
+        button.parentNode.removeChild(button);
+        // Optionally, you can set button to null or empty string
+        button = null;
+    }}
+const calculateTotalPrice = async (diagnosistable) => {
+    let total = 0;
+    const itemPricePromises = diagnosistable.map(item => {
+        return ajaxGetRequest("serialno/getitemprice/" + item?.itemname);
+    });
+    // const itemPricePromises = ajaxGetRequest("serialno/getitemprice/" + diagnosistable?.itemname)
+
+    const itemPrices = await Promise.all(itemPricePromises);
+    itemPrices.forEach(price => {
+        total += parseFloat(price);
+    });
+    return total;
+};
+const handleApprove = (elem)=>{
+    console.log(elem);
+    let getDueRepair =  ajaxGetRequest(`duerepair/getlist/${elem}`)
+    console.log(getDueRepair);
+    getDueRepair.statusofrepair = "Approved";
+    // let repairSelected =  ajaxGetRequest(`repair/getlist/${elem}`)
+    // let dueRepair = repairSelected.duetoRepair
+    // console.log(dueRepair);
+    let serverResponse2 = ajaxRequestBodyMethod(`/duerepair/${elem}`, "PUT", getDueRepair);
+    console.log(serverResponse2);
+}
+const getDiagItemCategory = (rowObject) => {
+    // console.log(rowObject);
+    
+    // let ItemDiagCategory = '';
+    // rowObject.forEach(element => {
+    // ItemDiagCategory =  ItemDiagCategory + "<p class = 'working-status'>" + element?.category ? element?.category : "-" + "</p>"
+    // })
+    return rowObject.category
 }
 const getDiagItemName = (rowObject) => {
-    let ItemDiagName = '';
-    // let getprice = '';
-    // rowObject.usedItems.forEach(element => {
-    ItemDiagName = "<p class = 'working-status'>" + rowObject.itemname ? rowObject.itemname : "-" + "</p>"
+    // let ItemDiagName = '';
+    // // let getprice = '';
+    // rowObject.forEach(element => {
+    // ItemDiagName = ItemDiagName + "<p class = 'working-status'>" + element.itemname ? element.itemname : "-" + "</p>"
 
     // })
-    return ItemDiagName
+    return rowObject.itemname
 }
 const getDiagItemPrice = (rowObject) => {
-    let getprice = '';
-    // rowObject.usedItems.forEach(element => {
-    const get = ajaxGetRequest("serialno/getitemprice/" + rowObject.itemname)
+    // let getprice = 0;
+    // rowObject.forEach(element => {
+    let get = ajaxGetRequest("serialno/getitemprice/" + rowObject?.itemname)
     if (get) {
         // getprice = parseFloat(getprice) + parseFloat(get)
         getprice = parseFloat(get)
@@ -1096,11 +1236,11 @@ const getDiagItemPrice = (rowObject) => {
     }
     // })
 
-    return (getDiagItemCategory(rowObject) === "-" && getDiagItemName(rowObject) === "-") ? "-" : getprice
+    // return "-"
+    // return (getDiagItemCategory(rowObject) === "-" && getDiagItemName(rowObject) === "-") ? "-" : getprice
+    return getprice
 }
-const getRepairItemCustomer = (rowOb) => {
-    return rowOb.customer_id.name
-}
+
 
 const readyRepair = () => {
     warrentyItem.serialno = serialwarrentyObject.serialno

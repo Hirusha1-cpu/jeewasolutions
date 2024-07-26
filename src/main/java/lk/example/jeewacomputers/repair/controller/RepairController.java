@@ -128,9 +128,7 @@ public class RepairController {
                 // purchaseHasCategory.setPurchase_id(purchase);
                 String s = duetoRepairDao.getExistItemBarcode(duetoRepairDao.getItemBarcode(duetoRepairDao.getMaxId()));
                 System.out.println(s);
-                if (s == null) {
-                    duetoRepair.setBarcode("brcode00001" + 01);
-                }
+                    duetoRepair.setBarcode("brcode00001" );
                 String newBarcode = duetoRepairDao.getItemBarcode(k);
                 duetoRepair.setBarcode(newBarcode);
                 duetoRepair.setTakendate(LocalDateTime.now().toLocalDate());
@@ -144,6 +142,14 @@ public class RepairController {
             // if (existingIncomePayment != null) {
 
             // }
+            
+            // String s = repairDao.getExistItemBarcode(repairDao.getItemBarcode(repairDao.getMaxId()));
+            // System.out.println(s);
+            // if (s == null) {
+            //     repair.setRepairno("R00001");
+            // }
+            // String newRcode = repairDao.getItemBarcode(1);
+            // repair.setRepairno(newRcode);
 
             // repair.setRepairstatus("pending diagnosis");
             repairDao.save(repair);

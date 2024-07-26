@@ -19,7 +19,7 @@ public interface SerialNoDao extends JpaRepository<SerialNo, Integer>{
     @Query(value = "select s from SerialNo s inner join SalesHasSerial ss on s.id = ss.id inner join Invoice i on i.id = ss.id where i.customer_id in (select c.id from Customer c where name = ?1)")
     public SerialNo getItemsByCusName(String name);
 
-    @Query(value ="SELECT itemprice FROM jeewacomputersproject.serialno where itemname in (SELECT itemname FROM jeewacomputersproject.useditems where itemname = ?1 ) ORDER BY RAND() LIMIT 1 ;",nativeQuery = true)
+    @Query(value ="SELECT itemprice FROM jeewacomputersproject.serialno where itemname in (SELECT itemname FROM jeewacomputersproject.diagnosisitems where itemname = ?1 ) ORDER BY RAND() LIMIT 1 ;",nativeQuery = true)
     public BigDecimal getItemPriceForDiagnose(String itemname);
 
     @Query(value ="SELECT CONCAT('bcode',lpad(max(SUBSTRING(barcode, 6, 5))+1,5,0),?1) as empno FROM jeewacomputersproject.serialno as s;",nativeQuery = true)

@@ -3,6 +3,7 @@ package lk.example.jeewacomputers.repair.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import lk.example.jeewacomputers.repair.entity.DiagnosedItems;
 import lk.example.jeewacomputers.repair.entity.DuetoRepair;
 import lk.example.jeewacomputers.repair.entity.Repair;
 import lk.example.jeewacomputers.repair.entity.UsedItems;
@@ -23,6 +24,9 @@ public interface DuetoRepairDao extends JpaRepository<DuetoRepair, Integer>{
     @Query(value = "select d from DuetoRepair d where d.repairtype = ?1 and d.statusofrepair = 'pending diagnosis'")
     public List<DuetoRepair> getDueRepairByStatus(String repairtype);
 
+    @Query(value = "select d from DuetoRepair d where d.statusofrepair = 'Approved'")
+    public List<DuetoRepair> getDueRepairByStatusApprove();
+
     @Query(value = "select d from DuetoRepair d where  d.statusofrepair ='Diagnoesed'")
     public List<DuetoRepair> getDueRepairByStatusForProcessing();
 
@@ -31,6 +35,9 @@ public interface DuetoRepairDao extends JpaRepository<DuetoRepair, Integer>{
 
     @Query(value = "select ui from UsedItems ui where ui.due_to_repairitem_id.id in (select d.id from DuetoRepair d where d.repairid = ?1)")
     public List<UsedItems> getUsedItemsByDue(Integer repairid);
+
+    @Query(value = "select di from DiagnosedItems di where di.due_to_repairitem_id.id in (select d.id from DuetoRepair d where d.repairid = ?1)")
+    public List<DiagnosedItems> getDiagnoseItemsByDue(Integer repairid);
 
     @Query(value ="SELECT CONCAT('brcode',lpad((SUBSTRING(barcodeforrepair, 7, 6))+1,5,0)) as barcodeforrepair FROM jeewacomputersproject.due_to_repairitem as s where barcodeforrepair = ?1;",nativeQuery = true)
     // @Query(value ="select CONCAT('bcode',lpad((SUBSTRING(s.barcode, 6, 5))+1,5,0)) as empno from SerialNo s where s.barcode = ?1")

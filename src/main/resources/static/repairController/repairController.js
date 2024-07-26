@@ -32,6 +32,7 @@ const refreshRepairForm = () => {
   const duerepairShop = ajaxGetRequest("/duerepair/getduebystatus/Shop Item")
   const duerepairNonShop = ajaxGetRequest("/duerepair/getduebystatus/Non Shop Item")
   const duerepairUrgent = ajaxGetRequest("/duerepair/getduebystatus/Urgent Repair")
+  const duerepairApproved= ajaxGetRequest("/duerepair/getduebystatusapproved")
   const duerepairProcessing = ajaxGetRequest("duerepair/getduebystatusforprocess")
   const availableSerials = ajaxGetRequest("serialno/getavailablelist")
   const categories = ajaxGetRequest("/category/getlist")
@@ -41,6 +42,7 @@ const refreshRepairForm = () => {
   fillDataIntoSelect(selectShopRepairs, "Select Shop Repairs", duerepairShop, 'fault')
   fillDataIntoSelect(selectOutShopRepairs, "Select Non Shop Repairs", duerepairNonShop, 'fault')
   fillDataIntoSelect(selectPurchaseOrderProcess, "Select Processing", duerepairProcessing, 'fault')
+  fillDataIntoSelect(selectApprovedRepairs, "Select Approved Repairs", duerepairApproved, 'fault')
   serialNoListCountForRepair = ajaxGetRequest("/serialno/getlistwithoutnotnull")
   fillDataIntoSelect(selectRepairCategory, "Select Category", categories, 'name')
 }
@@ -266,6 +268,7 @@ const addUsedItemToSubTable = () => {
     { property: getItemPrice, dataType: 'string' },
   ]
   fillDataIntoDashBoardTable(repairUsedItemTable, duetoRepair.usedItems, displayProperties, editEmployeeBtn1,false)
+  fillDataIntoDashBoardTable(repairUsedItemTable2, duetoRepair.usedItems, displayProperties, editEmployeeBtn1,false)
 
 
 
@@ -349,9 +352,11 @@ const submitRepair = () => {
   // paymentOb.repair_id = repairUpdate
   repairUpdate.incomePayments = paymentOb
   console.log(repairUpdate);
+  duetoRepair.statusofrepair = "Completeted"
   const repairforDueRepair2 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair.repairid))
   let repairDetail2 = ajaxGetRequest("/repair/getlist/" + repairforDueRepair2.id)
   let id2 = repairDetail2.id
+  
   let serverResponse2 = ajaxRequestBodyMethod(`/repair`, "PUT", repairUpdate);
   console.log("serverResponse", serverResponse2);
 

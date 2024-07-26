@@ -36,6 +36,14 @@ public class DuetoRepairController {
         return duetoRepairDao.findAll(Sort.by(Direction.DESC, "id"));
     }
 
+    @GetMapping(value = "/duerepair/getlist/{id}", produces = "application/json")
+    public DuetoRepair findDueRepair(@PathVariable("id") Integer id) {
+        // login user authentication and authorization
+        return duetoRepairDao.getReferenceById(id);
+    }
+
+
+
     @PostMapping(value = "/duerepair")
     public String save(@RequestBody DuetoRepair duetoRepair) {
         duetoRepairDao.save(duetoRepair);
@@ -51,7 +59,12 @@ public class DuetoRepairController {
      @GetMapping(value = "/duerepair/getduebystatus/{type}", produces = "application/json")
     public List<DuetoRepair> findRepairBytype(@PathVariable("type") String repairtype) {
         // login user authentication and authorization
-        return duetoRepairDao.getDueRepairByStatus(repairtype);
+        return duetoRepairDao.getDueRepairByStatus(repairtype);}
+
+     @GetMapping(value = "/duerepair/getduebystatusapproved", produces = "application/json")
+    public List<DuetoRepair> findRepairBytypeApprove() {
+        // login user authentication and authorization
+        return duetoRepairDao.getDueRepairByStatusApprove();
     }
      @GetMapping(value = "/duerepair/getduebystatusforprocess", produces = "application/json")
     public List<DuetoRepair> findRepairBytypeForProcess() {
@@ -71,6 +84,12 @@ public class DuetoRepairController {
         return duetoRepairDao.getUsedItemsByDue(id);
     }
 
+     @GetMapping(value = "/duerepair/getdiagnoseditemsbyrepairid/{id}", produces = "application/json")
+    public List<DiagnosedItems> findDiagnoseItems(@PathVariable("id") Integer id) {
+        // login user authentication and authorization
+        return duetoRepairDao.getDiagnoseItemsByDue(id);
+    }
+
     @PutMapping(value = "/duerepair/{id}")
     public String update(@PathVariable Integer id,@RequestBody DuetoRepair duetoRepair) {
         DuetoRepair extduetoRepair = duetoRepairDao.getReferenceById(id);
@@ -86,6 +105,7 @@ public class DuetoRepairController {
                 diagnosticItems.setDue_to_repairitem_id(duetoRepair);
                 diagnosticItems.setItemname(diagnosedItems.getItemname());
                 diagnosticItems.setCategory(diagnosedItems.getCategory());
+                
                 diagnosedItemsDao.save(diagnosticItems);
                 
             }
