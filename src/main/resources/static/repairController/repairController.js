@@ -319,7 +319,7 @@ const getOtherRepairs = () => {
   //employees4 = ajaxGetRequest(`/reportdataworkingemployeechart/datevisesale?startdate=${selectDesignation1}&enddate=${selectEStatus1}`)
 
   if (getRepairsByCustomer.length > 0 ) {
-    selectedOtherRepId.disabled = false
+    selectRepairStatus.disabled = false
     fillDataIntoSelect(selectRepairsByCustomer, `Select ${repairCustomerName.value}'s Repairs`, getRepairsByCustomer, 'id')
   } else {
     selectRepairsByCustomer.value = null

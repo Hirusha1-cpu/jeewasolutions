@@ -17,6 +17,7 @@ import java.util.*;
 import lk.example.jeewacomputers.categorypcpartandbrand.dao.CategoryDao;
 import lk.example.jeewacomputers.grnanditem.dao.GrnDao;
 import lk.example.jeewacomputers.items.dao.RamDao;
+import lk.example.jeewacomputers.items.entity.PowerSupply;
 import lk.example.jeewacomputers.items.entity.Ram;
 
 @RestController
@@ -35,6 +36,13 @@ public class RamController {
     public List<Ram> findAll() {
         // login user authentication and authorization
         return dao.findAll(Sort.by(Direction.DESC, "id"));
+    }
+
+         @GetMapping(value = "/ram/getreorderreached", produces = "application/json")
+    public List<Ram> findAllReorderReached() {
+        // login user authentication and authorization
+        // return dao.findAll(Sort.by(Direction.DESC, "id"));
+        return dao.getReorderPointReached();
     }
 
     @RequestMapping(value = "/ram")

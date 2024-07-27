@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 import lk.example.jeewacomputers.items.dao.MonitorDao;
+import lk.example.jeewacomputers.items.entity.Laptop;
 import lk.example.jeewacomputers.items.entity.Monitor;
 
 @RestController
@@ -24,6 +25,13 @@ public class MonitorController {
     public List<Monitor> findAll() {
         // login user authentication and authorization
         return dao.findAll(Sort.by(Direction.DESC, "id"));
+    }
+
+      @GetMapping(value = "/monitor/getreorderreached", produces = "application/json")
+    public List<Monitor> findAllReorderReached() {
+        // login user authentication and authorization
+        // return dao.findAll(Sort.by(Direction.DESC, "id"));
+        return dao.getReorderPointReached();
     }
 
      @RequestMapping(value = "/monitor")

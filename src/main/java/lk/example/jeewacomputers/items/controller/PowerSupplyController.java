@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 import lk.example.jeewacomputers.items.dao.PowerSupplyDao;
+import lk.example.jeewacomputers.items.entity.MotherBoard;
 import lk.example.jeewacomputers.items.entity.PowerSupply;
 
 @RestController
@@ -25,6 +26,13 @@ public class PowerSupplyController {
         return dao.findAll(Sort.by(Direction.DESC, "id"));
     }
 
+       @GetMapping(value = "/powersupply/getreorderreached", produces = "application/json")
+    public List<PowerSupply> findAllReorderReached() {
+        // login user authentication and authorization
+        // return dao.findAll(Sort.by(Direction.DESC, "id"));
+        return dao.getReorderPointReached();
+    }
+    
      @RequestMapping(value = "/powersupply")
     public ModelAndView employeeUI() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

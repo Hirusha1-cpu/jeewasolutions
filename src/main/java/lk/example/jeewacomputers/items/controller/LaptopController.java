@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 import java.math.BigDecimal;
 import lk.example.jeewacomputers.items.dao.LaptopDao;
-import lk.example.jeewacomputers.items.entity.GraphicCard;
 import lk.example.jeewacomputers.items.entity.Laptop;
 
 @RestController
@@ -26,6 +25,20 @@ public class LaptopController {
         // login user authentication and authorization
         // return dao.findAll(Sort.by(Direction.DESC, "id"));
         return laptopDao.findAll(Sort.by(Direction.DESC, "id"));
+    }
+
+    @GetMapping(value = "/laptop/getreorderreached", produces = "application/json")
+    public List<Laptop> findAllReorderReached() {
+        // login user authentication and authorization
+        // return dao.findAll(Sort.by(Direction.DESC, "id"));
+        return laptopDao.getReorderPointReached();
+    }
+
+    @GetMapping(value = "/laptop/getreorderreached/{name}", produces = "application/json")
+    public Laptop findoneReorderReached(@PathVariable("name") String name) {
+        // login user authentication and authorization
+        // return dao.findAll(Sort.by(Direction.DESC, "id"));
+        return laptopDao.getReorderPointReached(name);
     }
 
     @GetMapping(value = "/laptop/getselratio/{name}", produces = "application/json")

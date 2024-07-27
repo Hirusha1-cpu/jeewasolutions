@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
 import lk.example.jeewacomputers.items.dao.MotherBoardDao;
+import lk.example.jeewacomputers.items.entity.GraphicCard;
 import lk.example.jeewacomputers.items.entity.MotherBoard;
 
 @RestController
@@ -26,6 +27,13 @@ public class MotherBoardController {
         return dao.findAll(Sort.by(Direction.DESC, "id"));
     }
 
+     @GetMapping(value = "/motherboard/getreorderreached", produces = "application/json")
+    public List<MotherBoard> findAllReorderReached() {
+        // login user authentication and authorization
+        // return dao.findAll(Sort.by(Direction.DESC, "id"));
+        return dao.getReorderPointReached();
+    }
+    
      @RequestMapping(value = "/motherboard")
     public ModelAndView employeeUI() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

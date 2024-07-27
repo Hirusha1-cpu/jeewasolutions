@@ -106,4 +106,7 @@ public class PowerSupply {
 
     @Column(name = "qty")
     private Integer qty;
+
+    @Column(name = "reorder_point")
+    private Integer reorder_point;
 }

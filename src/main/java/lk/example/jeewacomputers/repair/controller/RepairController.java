@@ -66,10 +66,10 @@ public class RepairController {
         return repairDao.getReferenceById(id);
     }
 
-    @GetMapping(value = "/repair/getrepairbycustomer",params = {"name", "iddue"}, produces = "application/json")
+    @GetMapping(value = "/repair/getrepairbycustomer", params = { "name", "iddue" }, produces = "application/json")
     public List<Repair> findRepairByName(@RequestParam("name") String name, @RequestParam("iddue") Integer iddue) {
         // login user authentication and authorization
-        return repairDao.getRepairByCustomerName(name,iddue);
+        return repairDao.getRepairByCustomerName(name, iddue);
     }
 
     @RequestMapping(value = "/repair")
@@ -88,7 +88,7 @@ public class RepairController {
     public String save(@RequestBody Repair repair) {
         System.out.println(repair);
         try {
-
+            repair.setRepairno(repairDao.getNextRepairno());
             Customer newCustomer = new Customer();
             newCustomer.setName(repair.getCustomer_id().getName());
             newCustomer.setPhone(repair.getCustomer_id().getPhone());
@@ -119,7 +119,6 @@ public class RepairController {
                 customerdao.save(existingc);
                 repair.setCustomer_id(existingc);
             }
-            int k = 1;
             for (DuetoRepair duetoRepair : repair.getDuetoRepair()) {
                 // for (UsedItems usedItems : duetoRepair.getUsedItems()) {
                 // // purchaseHasCategory.setPurchase_id(purchase);
@@ -127,16 +126,20 @@ public class RepairController {
 
                 // }
                 // purchaseHasCategory.setPurchase_id(purchase);
-                String s = duetoRepairDao.getExistItemBarcode(duetoRepairDao.getItemBarcode(duetoRepairDao.getMaxId()));
+                String s = duetoRepairDao.getItemNextBarcode(duetoRepairDao
+                        .getExistItemBarcode(duetoRepairDao.getReferenceById(duetoRepairDao.getMaxId()).getBarcode()));
                 System.out.println(s);
-                duetoRepair.setBarcode("brcode00001");
-                String newBarcode = duetoRepairDao.getItemBarcode(k);
-                duetoRepair.setBarcode(newBarcode);
+                if (s != null) {
+                    duetoRepair.setBarcode("brcode00001");
+
+                } else {
+
+                    duetoRepair.setBarcode(s);
+                }
                 duetoRepair.setTakendate(LocalDateTime.now().toLocalDate());
                 // duetoRepair.setStatusofrepair("pending diagnosis");
                 duetoRepair.setRepairid(repairDao.getMaxRepairId());
                 duetoRepair.setRepair_id(repair);
-                k++;
             }
             // IncomePayment existingIncomePayment = repair.getIncomePayments();
             // existingIncomePayment.setRepair_id(repair);

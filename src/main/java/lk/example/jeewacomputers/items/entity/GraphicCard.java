@@ -12,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lk.example.jeewacomputers.categorypcpartandbrand.entity.Brand;
 import lk.example.jeewacomputers.categorypcpartandbrand.entity.Category;
 import lk.example.jeewacomputers.categorypcpartandbrand.entity.PcPartStatus;

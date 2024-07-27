@@ -12,6 +12,9 @@ public interface RepairDao extends JpaRepository<Repair, Integer> {
     @Query(value = "SELECT max(repair_id)+1 FROM jeewacomputersproject.due_to_repairitem;", nativeQuery = true)
     public Integer getMaxRepairId();
 
+    @Query(value = " SELECT CONCAT('R', LPAD(MAX(CAST(SUBSTRING(repairno, 2) AS UNSIGNED)) + 1, 5, '0')) AS repno FROM jeewacomputersproject.repair;", nativeQuery = true)
+    public String getNextRepairno();
+
     @Query(value = "SELECT * FROM jeewacomputersproject.repair where customer_id in (SELECT id from jeewacomputersproject.customer where name = ?1) and id != iddue;", nativeQuery = true)
     public List<Repair> getRepairByCustomerName(String name , Integer iddue);
 

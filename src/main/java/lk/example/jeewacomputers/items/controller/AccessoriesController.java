@@ -6,16 +6,15 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lk.example.jeewacomputers.grnanditem.dao.AccessoriesDao;
 import lk.example.jeewacomputers.items.dao.AccessoriesItemsDao;
-import lk.example.jeewacomputers.items.dao.CasingDao;
 import lk.example.jeewacomputers.items.entity.AccessoriesItems;
-import lk.example.jeewacomputers.items.entity.Casing;
+import lk.example.jeewacomputers.items.entity.GraphicCard;
+
 import java.util.*;
 
 @RestController
 public class AccessoriesController {
-       @Autowired
+    @Autowired
     private AccessoriesItemsDao dao;
 
     @GetMapping(value = "/accessoriesitems/getlist", produces = "application/json")
@@ -24,6 +23,11 @@ public class AccessoriesController {
         return dao.findAll(Sort.by(Direction.DESC, "id"));
     }
 
-
+    @GetMapping(value = "/accessoriesitems/getreorderreached", produces = "application/json")
+    public List<AccessoriesItems> findAllReorderReached() {
+        // login user authentication and authorization
+        // return dao.findAll(Sort.by(Direction.DESC, "id"));
+        return dao.getReorderPointReached();
+    }
 
 }

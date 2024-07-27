@@ -47,6 +47,14 @@ public interface DuetoRepairDao extends JpaRepository<DuetoRepair, Integer>{
     // @Query(value ="SELECT CONCAT('bcode',lpad(max(SUBSTRING(s.barcode, 6, 5))+1,5,0)) as empno FROM SerialNo s")
     public String getItemBarcode(Integer id);
 
+    
+    
+    @Query(value ="SELECT barcodeforrepair FROM jeewacomputersproject.due_to_repairitem where barcodeforrepair = ?1 ;",nativeQuery = true)
+    // @Query(value ="SELECT CONCAT('bcode',lpad(max(SUBSTRING(s.barcode, 6, 5))+1,5,0)) as empno FROM SerialNo s")
+    public String getItemBarcodeFromBarcode(String barcode);
+
+
+
     @Query(value ="SELECT max(id) FROM jeewacomputersproject.due_to_repairitem;",nativeQuery = true)
     // @Query(value ="SELECT CONCAT('bcode',lpad(max(SUBSTRING(s.barcode, 6, 5))+1,5,0)) as empno FROM SerialNo s")
     public Integer getMaxId();

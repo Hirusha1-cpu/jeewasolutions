@@ -5,10 +5,10 @@ window.addEventListener('load', () => {
 })
 
 const refreshIncomeTable = () => {
-    incomeTable = ajaxGetRequest("income/getlist")
+    incomeTable = ajaxGetRequest("income/cusvisegetlist")
     displayProperties = [
         // { property: getRepairCode, dataType: 'function' },
-        { property: "invoiceno", dataType: 'string' },
+        { property: getInvoice, dataType: 'function' },
         { property: getDateOfSales, dataType: 'function' },
         { property: getCustomerOfSales, dataType: 'function' },
         { property: getTotalOfSales, dataType: 'function' },
@@ -17,16 +17,26 @@ const refreshIncomeTable = () => {
 
 }
 
+const getInvoice = (rowOb) => {
+    return rowOb.invoiceno ? rowOb.invoice : "-"
+}
 const getDateOfSales = (rowOb) => {
-    return rowOb.sales_id?.datetime
+    return rowOb.date ? rowOb.date : "-"
 }
 
 const getCustomerOfSales = (rowOb) => {
-    return rowOb.sales_id?.customer_id?.name
+    console.log(rowOb.customer);
+    let customer = ajaxGetRequest(`customer/getlist/${parseInt(rowOb.customer)}`)
+    if (customer != null) {
+        return (customer?.name ? customer?.name : "-")  + " || " +( customer?.phone ? customer?.phone : "-" )
+    } else {
+        return "-"
+    }
+
 }
 
 const getTotalOfSales = (rowOb) => {
-    return rowOb.sales_id?.total
+    return rowOb.total ? rowOb.total : "-"
 }
 
 

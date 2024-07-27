@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
 import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
 import lk.example.jeewacomputers.inventory.dao.InventoryDao;
-
 import java.util.*;
 
 @RestController

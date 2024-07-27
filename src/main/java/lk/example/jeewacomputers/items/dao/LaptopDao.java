@@ -3,8 +3,7 @@ package lk.example.jeewacomputers.items.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.math.BigDecimal;
-
-import lk.example.jeewacomputers.items.entity.GraphicCard;
+import java.util.*;
 import lk.example.jeewacomputers.items.entity.Laptop;
 
 public interface LaptopDao extends JpaRepository<Laptop, Integer> {
@@ -20,4 +19,11 @@ public interface LaptopDao extends JpaRepository<Laptop, Integer> {
 
     @Query(value = "SELECT count(*) as qty FROM jeewacomputersproject.serialno where availability = 1 && itemname in (SELECT name FROM jeewacomputersproject.laptop where name= ?1)", nativeQuery = true)
     public Integer getQtyFromName(String name);
+
+    @Query(value = "SELECT l FROM Laptop l where l.qty < l.reorder_point")
+    public List<Laptop> getReorderPointReached();
+
+    @Query(value = "SELECT l FROM Laptop l where l.qty < l.reorder_point and name = ?1 ")
+    public Laptop getReorderPointReached(String name);
+
 }

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
 import lk.example.jeewacomputers.items.dao.HardDiskDao;
-
+import lk.example.jeewacomputers.items.entity.GraphicCard;
 import lk.example.jeewacomputers.items.entity.HardDisk;
 
 @RestController
@@ -26,6 +26,15 @@ public class HardDiskController {
         return dao.findAll(Sort.by(Direction.DESC, "id"));
         
     }
+
+
+    @GetMapping(value = "/harddisk/getreorderreached", produces = "application/json")
+    public List<HardDisk> findAllReorderReached() {
+        // login user authentication and authorization
+        // return dao.findAll(Sort.by(Direction.DESC, "id"));
+        return dao.getReorderPointReached();
+    }
+
 
      @RequestMapping(value = "/harddisk")
     public ModelAndView employeeUI() {

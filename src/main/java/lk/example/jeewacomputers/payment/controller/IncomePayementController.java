@@ -1,5 +1,6 @@
 package lk.example.jeewacomputers.payment.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,7 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 import lk.example.jeewacomputers.employee.dao.EmployeeDao;
 import lk.example.jeewacomputers.payment.dao.IncomePaymentDao;
 import lk.example.jeewacomputers.payment.entity.IncomePayment;
+import lk.example.jeewacomputers.payment.entity.IncomePaymentsCustomer;
 import lk.example.jeewacomputers.privilege.controller.PrivilegeController;
+import lk.example.jeewacomputers.report.entity.ReportCategoryViseCount;
 import lk.example.jeewacomputers.user.dao.UserDao;
 import lk.example.jeewacomputers.user.entity.User;
 
@@ -41,6 +44,23 @@ public class IncomePayementController {
     public List<IncomePayment> findAll() {
         // login user authentication and authorization
         return incomePaymentDao.findAll(Sort.by(Direction.DESC, "id"));
+    }
+
+     @GetMapping(value = "/income/cusvisegetlist", produces = "application/json")
+    public List<IncomePaymentsCustomer> findCusomerVisePayments() {
+        // login user authentication and authorization
+        String[][] queryDataList = incomePaymentDao.getCustomerViseIncome();
+        List<IncomePaymentsCustomer> result = new ArrayList<>();
+        for (String[] reportCategoryViseCount : queryDataList) {
+            IncomePaymentsCustomer reportCategoryViseCount2 = new IncomePaymentsCustomer();
+            reportCategoryViseCount2.setInvoiceno(reportCategoryViseCount[0]);
+            reportCategoryViseCount2.setDate(reportCategoryViseCount[1]);
+            reportCategoryViseCount2.setCustomer(reportCategoryViseCount[2]);
+            reportCategoryViseCount2.setTotal(reportCategoryViseCount[3]);
+
+            result.add(reportCategoryViseCount2);
+        }
+        return result;
     }
 
      @RequestMapping(value = "/income")

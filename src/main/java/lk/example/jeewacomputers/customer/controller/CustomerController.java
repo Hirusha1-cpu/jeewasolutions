@@ -32,6 +32,10 @@ public class CustomerController {
         // Sort.by(Direction.DESC, "id")
         return customerDao.findAll(Sort.by(Direction.DESC, "id"));
     }
+    @GetMapping(value = "/customer/getlist/{id}", produces = "application/json")
+    public Customer findbyCustomerid(@PathVariable("id") Integer id) {
+        return customerDao.getReferenceById(id);
+    }
 
     @RequestMapping(value = "/customer")
     public ModelAndView customerUI() {

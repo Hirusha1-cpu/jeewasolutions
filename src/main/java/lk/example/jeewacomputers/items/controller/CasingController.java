@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 import lk.example.jeewacomputers.items.dao.CasingDao;
+import lk.example.jeewacomputers.items.entity.AccessoriesItems;
 import lk.example.jeewacomputers.items.entity.Casing;
 
 @RestController
@@ -23,6 +24,13 @@ public class CasingController {
     public List<Casing> findAll() {
         // login user authentication and authorization
         return dao.findAll(Sort.by(Direction.DESC, "id"));
+    }
+
+       @GetMapping(value = "/casing/getreorderreached", produces = "application/json")
+    public List<Casing> findAllReorderReached() {
+        // login user authentication and authorization
+        // return dao.findAll(Sort.by(Direction.DESC, "id"));
+        return dao.getReorderPointReached();
     }
 
      @RequestMapping(value = "/casing")

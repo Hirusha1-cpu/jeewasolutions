@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import jakarta.websocket.server.PathParam;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -23,6 +22,7 @@ import lk.example.jeewacomputers.grnanditem.dao.GrnDao;
 import lk.example.jeewacomputers.grnanditem.dao.SerialNoDao;
 import lk.example.jeewacomputers.items.dao.GraphicCardDao;
 import lk.example.jeewacomputers.items.entity.GraphicCard;
+import lk.example.jeewacomputers.items.entity.Laptop;
 
 @RestController
 public class GraphicCardController {
@@ -41,6 +41,13 @@ public class GraphicCardController {
         // login user authentication and authorization
         // findQtyByName();
         return dao.findAll(Sort.by(Direction.DESC, "id"));
+    }
+
+    @GetMapping(value = "/graphiccard/getreorderreached", produces = "application/json")
+    public List<GraphicCard> findAllReorderReached() {
+        // login user authentication and authorization
+        // return dao.findAll(Sort.by(Direction.DESC, "id"));
+        return dao.getReorderPointReached();
     }
 
     @GetMapping(value = "/graphiccard/getqty", produces = "application/json")

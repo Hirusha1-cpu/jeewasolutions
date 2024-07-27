@@ -7,6 +7,7 @@ const refreshDashboard = () => {
 
   fillDataToCustomer()
   fillDueTable()
+  fillDataIntoReorderTable()
   // $('#empAttendence').DataTable({
   //   responsive: true
   // });
@@ -120,7 +121,7 @@ const fillDataToCustomer = () => {
     { property: "categoryname", dataType: 'string' },
     { property: getitemcount, dataType: 'function' },
   ]
-  fillDataIntoDashBoardTable(customerTypeTable, customer, displayProperties, editEmployeeBtn1,false)
+  fillDataIntoDashBoardTable(customerTypeTable, customer, displayProperties, editEmployeeBtn1, false)
 
 }
 const getitemcount = (rowOb) => {
@@ -134,19 +135,76 @@ const handleCustomer = () => {
   window.location.href = "/customer";
 }
 
-const fillDueTable = () =>{
+const fillDueTable = () => {
   dueRepair = ajaxGetRequest('/reportdataworkingemployeechart/duerepaircount')
   const displayProperties = [
     { property: "categoryname", dataType: 'string' },
     { property: getitemcount, dataType: 'function' },
   ]
-  fillDataIntoDashBoardTable(dueRepId, dueRepair, displayProperties, editEmployeeBtn1,false)
+  fillDataIntoDashBoardTable(dueRepId, dueRepair, displayProperties, editEmployeeBtn1, false)
 
 }
 
 
-const handleDue = ()=>{
+const handleDue = () => {
   window.location.href = "/repair";
+}
+
+const fillDataIntoReorderTable = () => {
+  const categoryNames = ajaxGetRequest('category/getlist');
+  const arrayListCate = (categoryNames.map((categoryName) => {
+    console.log(categoryName);
+    let categoriesItems1 = ajaxGetRequest(`/${categoryName.name}/getlist`);
+    console.log(categoriesItems1);
+    let getReorderItems = ajaxGetRequest(`/${categoryName.name}/getreorderreached`)
+    console.log(getReorderItems);
+    return {
+      category_name: categoryName.name,
+      items: categoriesItems1.map(categoryItem => {
+        return {
+          qty: categoryItem.qty,
+          name: categoryItem.name,
+          purchase_price: categoryItem.purchase_price,
+          category_name: categoryItem.category_id?.name,
+          reorderstatus: true,
+          reorderqty: categoryItem.reorder_point
+        }
+      })
+    }
+  }))
+
+  const displayProperties = [
+    { property: getname, dataType: 'function' },
+  ]
+  fillDataIntoDashBoardTable(reorderId, arrayListCate, displayProperties, editEmployeeBtn0, false)
+
+}
+
+
+const getname = (rowOb) => {
+  let iname = ''
+  rowOb?.items.forEach((item) => {
+
+    iname = iname + (`<button type="button" onclick="handleClickDash(${JSON.stringify(item.id)})" class = 'deleted-status'>  ${item.name}  </button>`)
+
+  })
+  return iname
+}
+
+const handleClickDash = (item)=>{
+   // If item is a string, parse it back to an object
+   if (typeof item === 'string') {
+    item = JSON.parse(item);
+  }
+  console.log(item);
+}
+
+const editEmployeeBtn0 = (rowOb) => {
+
+}
+
+const handleReorder = () => {
+  window.location.href = "/inventory";
 }
 
 const refreshProfileEdit = () => {
@@ -165,6 +223,8 @@ const refreshProfileEdit = () => {
   // }
 
 }
+
+
 
 const submitUserSettings = () => {
   let serverResponse = ajaxRequestBodyMethod("/changeuser", "PUT", loggedUser)

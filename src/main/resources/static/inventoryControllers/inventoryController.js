@@ -4,8 +4,7 @@ window.addEventListener('load', () => {
 })
 
 const refreshInventoryTable = () => {
-     getCountsCategory()
-
+    getCountsCategory()
     // itemGraphicList = ajaxGetRequest('/inventory?name=graphiccard')
     // itemRamList = ajaxGetRequest('/inventory?name=ram')
     // itemCasingList = ajaxGetRequest('/inventory?name=casing')
@@ -84,8 +83,6 @@ const refreshInventoryTable = () => {
 
 }
 
-
-
 const editEmployeeBtn = () => {
 
 }
@@ -105,63 +102,168 @@ const getCountsCategory = async () => {
         console.log(categoryName);
         let categoriesItems1 = await ajaxGetRequest(`/${categoryName.name}/getlist`);
         console.log(categoriesItems1);
+        let getReorderItems = await ajaxGetRequest(`/${categoryName.name}/getreorderreached`)
+        console.log(getReorderItems);
+        if (getReorderItems.length > 0) {
 
-        if (Array.isArray(categoriesItems1) && categoriesItems1.length > 0) {
+            if (Array.isArray(categoriesItems1) && categoriesItems1.length > 0) {
+                const hasMatchingReorderItems = categoriesItems1.some(categoryItem =>
+                    getReorderItems.some(reorderItem => reorderItem.name === categoryItem.name)
+                );
+                console.log(hasMatchingReorderItems);
+                if (hasMatchingReorderItems) {
+
+                    return {
+                        category_name: categoryName.name,
+                        items: categoriesItems1.map(categoryItem => {
+                            const matchingReorderItem = getReorderItems.find(reorderItem => reorderItem.name === categoryItem.name);
+                            if (matchingReorderItem) {
+                                
+                                return {
+                                    qty: categoryItem.qty,
+                                    name: categoryItem.name,
+                                    purchase_price: categoryItem.purchase_price,
+                                    category_name: categoryItem.category_id?.name,
+                                    reorderstatus: true,
+                                    reorderqty: categoryItem.reorder_point
+                                };
+                            } else {
+                                return {
+                                    qty: categoryItem.qty,
+                                    name: categoryItem.name,
+                                    purchase_price: categoryItem.purchase_price,
+                                    category_name: categoryItem.category_id?.name,
+                                    reorderstatus: false,
+                                    reorderqty: categoryItem.reorder_point
+                                };
+                            }
+                        }),
+                    };
+                } else {
+                    return {
+                        category_name: categoryName.name,
+                        items: categoriesItems1.map(item => ({
+                            qty: item.qty,
+                            name: item.name,
+                            purchase_price: item.purchase_price,
+                            category_name: item.category_id?.name,
+                            reorderstatus: false,
+                            reorderqty: item.reorder_point
+                        })),
+                    }
+                }
+            
+
+            } else {
+                if (Array.isArray(categoriesItems1) && categoriesItems1.length > 0) {
+                  
+                    categoriesItems1.forEach(categoryItem => {
+                       
+                        return {
+                            category_name: categoryName.name,
+                            items: categoriesItems1.map(item => ({
+                                qty: item.qty,
+                                name: item.name,
+                                purchase_price: item.purchase_price,
+                                category_name: item.category_id?.name,
+                                reorderstatus: false,
+                                reorderqty: item.reorder_point
+                            })),
+
+                        };
+
+                    })
+                } else {
+                    return {
+                        category_name: categoryName.name,
+                        items: []
+                    };
+                }
+            }
+        } else {
             return {
                 category_name: categoryName.name,
                 items: categoriesItems1.map(item => ({
                     qty: item.qty,
                     name: item.name,
                     purchase_price: item.purchase_price,
-                    category_name: item.category_id?.name
-                }))
-             
-            };
-        } else {
-            return {
-                category_name: categoryName.name,
-                items: []
-            };
-        }
-    }));
+                    category_name: item.category_id?.name,
+                    reorderstatus: false,
+                    reorderqty: item.reorder_point
+                })),
+            }
+        };
+    }))
 
     console.log(arrayListCate);
-    
+
     // This filter is not necessary anymore since we're always returning an object
     // const filteredArrayListCate = arrayListCate.filter(category => category !== null);
-    
     console.log(arrayListCate);
     const displayProperties = [
-        { property: "category_name", dataType: 'string' },
+        { property: getCategory, dataType: 'function' },
         { property: getItemname, dataType: 'function' },
         { property: getItemprice, dataType: 'function' },
-        { property: getQty, dataType: 'function' }
+        { property: getQty, dataType: 'function' },
+        { property: getReorderQty, dataType: 'function' }
     ]
 
     fillDataIntoTable(inventoryTab, arrayListCate, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, false)
 
 };
 
+const getCategory = (rowOb) => {
+    console.log(rowOb);
+    return rowOb?.category_name
+}
+
 const getQty = (rowOb) => {
+
     console.log(rowOb);
     let qty = ''
-    rowOb.items.forEach((item) =>{
-        
-        qty = qty +"<p class = 'working-status'>" +  item.qty + "</p>"
+    rowOb?.items.forEach((item) => {
+        if (item.reorderstatus == true) {
+            qty = qty + "<p class = 'deleted-status'>" + item.qty + "</p>"
+        } else {
+
+            qty = qty + "<p class = 'working-status'>" + item.qty + "</p>"
+        }
     })
     return qty
 }
 const getItemname = (rowOb) => {
     let iname = ''
-    rowOb.items.forEach((item) =>{
-        iname = iname +"<p class = 'working-status'>"+ item.name + "</p>"
+    rowOb?.items.forEach((item) => {
+        if (item.reorderstatus == true) {
+            iname = iname + ("<p class = 'deleted-status'>" + item.name + "</p>")
+        } else {
+
+            iname = iname + ("<p class = 'working-status'>" + item.name + "</p>")
+        }
     })
     return iname
 }
 const getItemprice = (rowOb) => {
     let price = ''
-    rowOb.items.forEach((item) =>{
-        price = price + "<p class = 'working-status'>"+ item.purchase_price + "</p>"
+    rowOb?.items.forEach((item) => {
+        if (item.reorderstatus == true) {
+            price = price + "<p class = 'deleted-status'>" + item.purchase_price + "</p>"
+        } else {
+
+            price = price + "<p class = 'working-status'>" + item.purchase_price + "</p>"
+        }
+    })
+    return price
+}
+const getReorderQty = (rowOb) => {
+    let price = ''
+    rowOb?.items.forEach((item) => {
+        if (item.reorderstatus == true) {
+            price = price + "<p class = 'deleted-status'>" + item.reorderqty + "</p>"
+        } else {
+
+            price = price + "<p class = 'working-status'>" + item.reorderqty + "</p>"
+        }
     })
     return price
 }

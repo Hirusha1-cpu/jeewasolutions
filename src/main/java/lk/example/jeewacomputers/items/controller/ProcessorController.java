@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
 import lk.example.jeewacomputers.items.dao.ProcessorDao;
+import lk.example.jeewacomputers.items.entity.PowerSupply;
 import lk.example.jeewacomputers.items.entity.Processor;
 
 @RestController
@@ -24,6 +25,13 @@ public class ProcessorController {
     public List<Processor> findAll() {
         // login user authentication and authorization
         return dao.findAll(Sort.by(Direction.DESC, "id"));
+    }
+
+         @GetMapping(value = "/processor/getreorderreached", produces = "application/json")
+    public List<Processor> findAllReorderReached() {
+        // login user authentication and authorization
+        // return dao.findAll(Sort.by(Direction.DESC, "id"));
+        return dao.getReorderPointReached();
     }
 
      @RequestMapping(value = "/processor")
