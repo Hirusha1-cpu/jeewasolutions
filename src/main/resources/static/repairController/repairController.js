@@ -14,6 +14,7 @@ window.addEventListener('load', () => {
 })
 const refreshRepairForm = () => {
   repairUpdate = new Object();
+  repairUpdate1 = new Object();
   duetoRepair = new Object();
   duetoRepair1 = null
   serialObjectRepair = null
@@ -25,6 +26,7 @@ const refreshRepairForm = () => {
   repairUpdate.usedItems = []
   duetoRepair.usedItems = []
   repairUpdate.diagnosisUpdate = []
+  repairUpdate1.diagnosisUpdate = []
   diagnosisDueUpdate.usedItems = []
   diagnosisDueUpdate.diagnosedItems = []
   // repairUpdate.duetoRepair = []
@@ -239,6 +241,7 @@ const getSelectedRepair = (value) => {
   repairItemFault.value = duetoRepair1.fault
   repairCustomerName.value = repairforDueRepair.customer_id.name
   repairCustomerPhone.value = repairforDueRepair.customer_id.phone
+
   getOtherRepairs()
 }
 
@@ -311,10 +314,13 @@ const handleUsedSubmit = () => {
 }
 const getOtherRepairs = () => {
 
-  const getRepairsByCustomer = ajaxGetRequest(`/repair/getrepairbycustomer/${repairCustomerName.value}`)
-  if (getRepairsByCustomer.length > 0) {
+  // const getRepairsByCustomer = ajaxGetRequest(`/repair/getrepairbycustomer/${repairCustomerName.value}`)
+  const getRepairsByCustomer = ajaxGetRequest(`/repair/getrepairbycustomer?name=${repairCustomerName.value}&iddue=${duetoRepair1.id}`)
+  //employees4 = ajaxGetRequest(`/reportdataworkingemployeechart/datevisesale?startdate=${selectDesignation1}&enddate=${selectEStatus1}`)
 
-    fillDataIntoSelect(selectRepairsByCustomer, "Select Repairs", getRepairsByCustomer, 'id')
+  if (getRepairsByCustomer.length > 0 ) {
+    selectedOtherRepId.disabled = false
+    fillDataIntoSelect(selectRepairsByCustomer, `Select ${repairCustomerName.value}'s Repairs`, getRepairsByCustomer, 'id')
   } else {
     selectRepairsByCustomer.value = null
   }
@@ -393,11 +399,11 @@ const submitRepair = () => {
   }
 
   repairUpdate.repairstatus = selectRepairStatus.value;
-    
-    // repairUpdate.incomePayments = {
-    //     payment: parseInt(1000),
-    //     invoiceno: "Roooo1"
-    // };
+
+  // repairUpdate.incomePayments = {
+  //     payment: parseInt(1000),
+  //     invoiceno: "Roooo1"
+  // };
 
   // repairUpdate.duetoRepair.push(duetoRepair)
   console.log(repairUpdate);
@@ -445,8 +451,9 @@ const nextRepair = (repair1) => {
 // }
 
 const submitDiagnosis = () => {
+  let dueRepairDetail2 = ajaxGetRequest("/duerepair/getlist/" + JSON.parse(duetoRepair1.id))
   // diagnosisDueUpdate = JSON.parse(selectUrgentRepairs.value)
-  diagnosisDueUpdate = duetoRepair
+  // diagnosisDueUpdate = duetoRepair
   // console.log(JSON.parse(selectRepairCategory.value).name);
   console.log(selectRepairCategory.value);
   console.log(repair);
@@ -456,17 +463,20 @@ const submitDiagnosis = () => {
   // paymentOb.repair_id = repairUpdate
 
   // repairUpdate1.incomePayments = paymentOb
+  diagnosisDueUpdate = dueRepairDetail2
+  diagnosisDueUpdate.id = dueRepairDetail2.id
 
   diagnosisDueUpdate.statusofrepair = "Diagnoesed"
   // diagnosisUpdate.category = JSON.parse(selectRepairCategory.value).name
-  // diagnosisUpdate.due_to_repairitem_id = diagnosisDueUpdate
+  // diagnosisUpdate.due_to_repairitem_id = duetoRepair1
   diagnosisDueUpdate.diagnosedItems.push(diagnosisUpdate)
 
-  repairUpdate1.duetoRepair.push(diagnosisDueUpdate)
+
+  // repairUpdate1.duetoRepair.push(diagnosisDueUpdate)
   // repairUpdate.usedItems.push(diagnosisUpdate) 
   console.log(diagnosisDueUpdate);
   console.log("created");
-  let id7 = diagnosisDueUpdate.id
+  let id7 = duetoRepair1.id
   let serverResponse3 = ajaxRequestBodyMethod(`/duerepair/${id7}`, "PUT", diagnosisDueUpdate);
   console.log(serverResponse3);
 

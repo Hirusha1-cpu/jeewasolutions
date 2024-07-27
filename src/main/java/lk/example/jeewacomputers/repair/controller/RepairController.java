@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDate;
@@ -65,10 +66,10 @@ public class RepairController {
         return repairDao.getReferenceById(id);
     }
 
-    @GetMapping(value = "/repair/getrepairbycustomer/{name}", produces = "application/json")
-    public List<Repair> findRepairByName(@PathVariable("name") String name) {
+    @GetMapping(value = "/repair/getrepairbycustomer",params = {"name", "iddue"}, produces = "application/json")
+    public List<Repair> findRepairByName(@RequestParam("name") String name, @RequestParam("iddue") Integer iddue) {
         // login user authentication and authorization
-        return repairDao.getRepairByCustomerName(name);
+        return repairDao.getRepairByCustomerName(name,iddue);
     }
 
     @RequestMapping(value = "/repair")
@@ -216,10 +217,10 @@ public class RepairController {
             // incomePayment.setRepair_id(existingRepair);
             // incomePayment.setDate(LocalDateTime.now());
             // incomePaymentDao.save(incomePayment);
-            
+
             // exRepair.setIncomePayments(repair.getIncomePayments());
 
-            // repairDao.save(existingRepair);
+            repairDao.save(existingRepair);
             return "OK";
         } catch (Exception e) {
             return "Error: " + e.getMessage();

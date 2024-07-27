@@ -93,27 +93,29 @@ public class DuetoRepairController {
     @PutMapping(value = "/duerepair/{id}")
     public String update(@PathVariable Integer id,@RequestBody DuetoRepair duetoRepair) {
         DuetoRepair extduetoRepair = duetoRepairDao.getReferenceById(id);
-        DuetoRepair updateRepair = extduetoRepair;
         System.out.println("ss");
         System.out.println(duetoRepair);
 
         try {
             BigDecimal total = BigDecimal.ZERO;
             // updateRepair.setUsedItems(duetoRepair.getUsedItems());
-            for (DiagnosedItems diagnosedItems : duetoRepair.getDiagnosedItems()) {
-                DiagnosedItems diagnosticItems = new DiagnosedItems();
-                diagnosticItems.setDue_to_repairitem_id(diagnosedItems.getDue_to_repairitem_id());
-                diagnosticItems.setItemname(diagnosedItems.getItemname());
-                diagnosticItems.setCategory(diagnosedItems.getCategory());
-                diagnosticItems.setUnitprice(diagnosedItems.getUnitprice());
-                diagnosedItemsDao.save(diagnosticItems);
+            if (duetoRepair.getDiagnosedItems() != null) {
                 
+                for (DiagnosedItems diagnosedItems : duetoRepair.getDiagnosedItems()) {
+                    DiagnosedItems diagnosticItems = new DiagnosedItems();
+                    diagnosticItems.setDue_to_repairitem_id(extduetoRepair);
+                    diagnosticItems.setItemname(diagnosedItems.getItemname());
+                    diagnosticItems.setCategory(diagnosedItems.getCategory());
+                    diagnosticItems.setUnitprice(diagnosedItems.getUnitprice());
+                    diagnosedItemsDao.save(diagnosticItems);
+                    
+                }
             }
             if (duetoRepair.getUsedItems() != null) {
                 
                 for (UsedItems usedItems2 : duetoRepair.getUsedItems()) {
                     //  usedItems2.setDue_to_repairitem_id(duetoRepair);
-                    updateRepair.setTotal(new BigDecimal(1000));
+                    extduetoRepair.setTotal(new BigDecimal(1000));
                      if (usedItems2.getUnitprice() != null) {
                          total = total.add(usedItems2.getUnitprice());
                         
@@ -126,13 +128,13 @@ public class DuetoRepairController {
                     
                 }
             }
-            updateRepair.setStatusofrepair(duetoRepair.getStatusofrepair());
-            updateRepair.setCharges(new BigDecimal("400.00") );
+            extduetoRepair.setStatusofrepair(duetoRepair.getStatusofrepair());
+            extduetoRepair.setCharges(new BigDecimal("400.00") );
 
             // duetoRepair.setRepair_id(repairDao.getReferenceById(duetoRepair.getRepairid()));
 
-            updateRepair.setTotal(total.add(new BigDecimal("400.00")));
-            duetoRepairDao.save(updateRepair);
+            extduetoRepair.setTotal(total.add(new BigDecimal("400.00")));
+            duetoRepairDao.save(extduetoRepair);
             return "OK";
         } catch (Exception e) {
             return "Error: " + e.getMessage();

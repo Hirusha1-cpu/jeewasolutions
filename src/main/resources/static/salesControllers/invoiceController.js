@@ -120,7 +120,7 @@ const checkdiscount = (cusname) => {
         // Make an asynchronous GET request
        
             serverresponseof_discount = ajaxGetRequest(`/customer/getdiscount/${inputCustomerName.value}`);
-            if (serverresponseof_discount != null) {
+            if (serverresponseof_discount.length > 0) {
                 
                 boolDis = true
             }else{
@@ -149,7 +149,7 @@ const checkdiscount = (cusname) => {
             discountCusRate.value = serverresponseof_discount?.discount ? serverresponseof_discount?.discount : "-";
             discountCusPhone.disabled = false
             discountCusPhone.value = discountname.phone
-            if (discountCusRate.value == 0.01) {
+            if (discountCusRate.value === "-") {
                 discountCusRate.value = "-"
                 invoiceDiscountedPrice.value =parseFloat(invoiceTotalPrice.value)
             }else{
@@ -586,6 +586,7 @@ const submitInvoice = () => {
         invoice.repairidforsale = customerVal.id
         // const repairforDueRepair2 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair.repairid))
         duetoRepair2.statusofrepair = "Paid"
+        
         let serverResponse4 = ajaxRequestBodyMethod(`/duerepair/${salesHasDue.due_to_repairitem_id.id}`, "PUT", duetoRepair2);
         console.log(serverResponse4);
         // incomePaymentsObj.repair_id = customerVal
@@ -633,7 +634,7 @@ const printInvoice = (response) => {
     newWindow.document.write(`
         <html>
         <head>
-            <title>${response.customer_id.name}-${response.invoiceno}</title>
+            <title>${inputCustomerName.value}-${response.invoiceno}</title>
             <link rel='stylesheet' href='resourcesT/bootstrap_5.3.1/css/bootstrap.min.css'>
         </head>
         <body>
@@ -686,12 +687,16 @@ const printInvoice = (response) => {
 const setDataIntInvoicePrint = (invoiceP) => {
     createTable(invoiceP)
     console.log(invoiceP);
-    createRepairTable(invoiceP)
-    if (invoiceP.due_to_repairitem_id.useItems.length > 0)  {
-        cusRepairUsedItemTablePrintDiv.classList.remove("d-none")
-        createRepairUsedTable(invoiceP)
+    if (invoiceP.salesHasDues.length > 0) {
+        
+        createRepairTable(invoiceP)
+    
+        // if (invoiceP.salesHasDues.due_to_repairitem_id.usedItems.length > 0)  {
+            cusRepairUsedItemTablePrintDiv.classList.remove("d-none")
+            createRepairUsedTable(invoiceP)
+        // }
+          
     }
-      
     // if (invoiceP.salesHasDues.statusofserivceorrepair === "service") {
     //     cusRepairTablePrintDiv.classList.remove('d-none')
     //     console.log("executed --1");
@@ -1188,10 +1193,12 @@ const handleClick = (elem) => {
     button.className = 'btn btn-danger'
     button.innerHTML = 'Approve'
     button.type = 'button';
+    
     button.onclick = () => {
         // console.log('edit', item.id, index);
         handleApprove(elem)
         button.setAttribute('data-bs-dismiss', 'modal');
+        $("staticBackdrop00").model('hide')
     }
 
     let div = document.getElementById('diagnosedItemFooter'); // Create the div element
