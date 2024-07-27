@@ -15,20 +15,23 @@ window.addEventListener('load', () => {
 const refreshRepairForm = () => {
   repairUpdate = new Object();
   duetoRepair = new Object();
+  duetoRepair1 = null
+  serialObjectRepair = null
   paymentOb = new Object();
   repairitems = new Object();
   diagnosisUpdate = new Object();
   usedItemsObj = new Object();
   diagnosisDueUpdate = new Object();
   repairUpdate.usedItems = []
+  duetoRepair.usedItems = []
   repairUpdate.diagnosisUpdate = []
   diagnosisDueUpdate.usedItems = []
   diagnosisDueUpdate.diagnosedItems = []
-  repairUpdate.duetoRepair = []
+  // repairUpdate.duetoRepair = []
   repairitems.categoriesBrandsWithSuppliers = []
   usedItemsForRepair = new Object();
   const repairs = ajaxGetRequest("/repair/getlist")
-  const duerepair1 = ajaxGetRequest("/duerepair/getlist")
+  // const duerepair1 = ajaxGetRequest("/duerepair/getlist")
   const duerepairShop = ajaxGetRequest("/duerepair/getduebystatus/Shop Item")
   const duerepairNonShop = ajaxGetRequest("/duerepair/getduebystatus/Non Shop Item")
   const duerepairUrgent = ajaxGetRequest("/duerepair/getduebystatus/Urgent Repair")
@@ -151,7 +154,7 @@ const filterByCategoryInDiagnosis = () => {
         selectedCategoryBrand.category_id = JSON.parse(selectRepairCategory.value);
         selectedCategoryBrand.brand_id = element
         diagnosisUpdate.itemname = element.name
-        let uprice =  ajaxGetRequest("serialno/getitemprice/" + element?.name)
+        let uprice = ajaxGetRequest("serialno/getitemprice/" + element?.name)
         diagnosisUpdate.unitprice = uprice
 
         diagnosisUpdate.category = categorynamefordiagnos
@@ -226,14 +229,14 @@ const getSelectedRepair = (value) => {
 
   addItemDetailsId.disabled = false
   diagnosisId.disabled = false
-  duetoRepair = JSON.parse(value)
-  const repairforDueRepair = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair.repairid))
+  duetoRepair1 = JSON.parse(value)
+  const repairforDueRepair = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair1.repairid))
   console.log(repairforDueRepair);
   // diagnosisDueUpdate.repair_id = repairforDueRepair
-  repairItemName1.value = duetoRepair.itemname
-  repairItemCategory.value = duetoRepair.category
-  repairItemStatus.value = duetoRepair.statusofrepair
-  repairItemFault.value = duetoRepair.fault
+  repairItemName1.value = duetoRepair1.itemname
+  repairItemCategory.value = duetoRepair1.category
+  repairItemStatus.value = duetoRepair1.statusofrepair
+  repairItemFault.value = duetoRepair1.fault
   repairCustomerName.value = repairforDueRepair.customer_id.name
   repairCustomerPhone.value = repairforDueRepair.customer_id.phone
   getOtherRepairs()
@@ -252,11 +255,11 @@ const addUsedItemToSubTable = () => {
   repairCategoryName.value = repairItemCategory.value
 
   console.log("hi");
-  const repairforDueRepair1 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair.repairid))
+  const repairforDueRepair1 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair1.repairid))
   let repairDetail = ajaxGetRequest("/repair/getlist/" + repairforDueRepair1.id)
 
-  console.log(repairDetail);
-  repairUpdate = repairDetail
+  // console.log(repairDetail);
+  // repairUpdate = repairDetail
   // usedItemsForRepair.id = 1
   usedItemsForRepair.itemname = repairUsedItemItemName.value
   usedItemsForRepair.serialno = serialObjectRepair.serialno
@@ -266,7 +269,7 @@ const addUsedItemToSubTable = () => {
   console.log(usedItemsForRepair);
   // usedItemsForRepair.repair_id = repair
   duetoRepair.usedItems.push(usedItemsForRepair)
-  repairUpdate.id = repairDetail.id
+  // repairUpdate.id = repairDetail.id
   console.log(repairUpdate);
 
   repairUsedItemCode.value = ""
@@ -274,13 +277,14 @@ const addUsedItemToSubTable = () => {
   repairUsedItemItemName.value = ""
 
   const displayProperties = [
-    { property: getSerialNo, dataType: 'function' },
-    { property: "itemname", dataType: 'String' },
+    { property: "serialno", dataType: 'string' },
+    { property: "itemname", dataType: 'string' },
     { property: "category", dataType: 'string' },
-    { property: getItemPrice, dataType: 'string' },
+    { property: "unitprice", dataType: 'string' },
   ]
-  fillDataIntoDashBoardTable(repairUsedItemTable, duetoRepair.usedItems, displayProperties, editEmployeeBtn1, false)
-  fillDataIntoDashBoardTable(repairUsedItemTable2, duetoRepair.usedItems, displayProperties, editEmployeeBtn1, false)
+  fillDataIntoDashBoardTable(repairUsedItemTable, duetoRepair.usedItems, displayProperties, editEmployeeBtn3, false)
+  fillDataIntoDashBoardTable(repairUsedItemTable2, duetoRepair.usedItems, displayProperties, editEmployeeBtn2, false)
+
 
 
 
@@ -294,12 +298,13 @@ const addUsedItemToSubTable = () => {
 
 }
 
-const getSerialNo = (rowOb) => {
-  return rowOb?.serialno
+const editEmployeeBtn3 = () => {
+
 }
-const getItemPrice = (rowOb) => {
-  return rowOb?.unitprice
+const editEmployeeBtn2 = () => {
+
 }
+
 
 const handleUsedSubmit = () => {
 
@@ -351,26 +356,53 @@ const sendPurchBtn = (rowObject) => {
 }
 
 const submitRepair = () => {
-  repairUpdate.repairstatus = selectRepairStatus.value
+  const repairforDueRepair2 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair1.repairid))
+  let repairDetail2 = ajaxGetRequest("/repair/getlist/" + repairforDueRepair2.id)
+  console.log(repairDetail2);
+  let idr3 = repairDetail2.id
+  repairUpdate = repairDetail2
+  // duetoRepair =repairDetail2.duetoRepair
+  // repairUpdate.repairstatus = selectRepairStatus.value
+  duetoRepair.id = duetoRepair1.id
   duetoRepair.technicalnote = repairTechnicalNote.value
   console.log(repairUpdate);
+  console.log(repairDetail2);
+  console.log(duetoRepair);
   // let id  = repair.id
   // let serverResponse2 = ajaxRequestBodyMethod(`/repair/${id}`, "PUT", repairUpdate);
   // console.log("serverResponse", serverResponse2);
   // repairPaymentUpdate = serverResponse2
   repairItemNamePayment.textContent = usedItemsForRepair.itemname
   repairTotalPrice.textContent = parseInt(1000)
-  paymentOb.payment = parseInt(1000)
+  // paymentOb.payment = parseInt(1000)
+  // paymentOb.invoiceno = "Roooo1"
   // paymentOb.repair_id = repairUpdate
-  repairUpdate.incomePayments = paymentOb
-  console.log(repairUpdate);
-  duetoRepair.statusofrepair = "Completeted"
-  repairUpdate.duetoRepair.push(duetoRepair)
-  const repairforDueRepair2 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair.repairid))
-  let repairDetail2 = ajaxGetRequest("/repair/getlist/" + repairforDueRepair2.id)
-  let id2 = repairDetail2.id
+  // repairUpdate.incomePayments = paymentOb
+  // duetoRepair.statusofrepair = "Completeted"
 
-  let serverResponse2 = ajaxRequestBodyMethod(`/repair`, "PUT", repairUpdate);
+  // Update the existing DuetoRepair
+  let existingDuetoRepair = repairDetail2.duetoRepair.find(dr => dr.id === duetoRepair.id);
+  if (existingDuetoRepair) {
+    existingDuetoRepair.statusofrepair = "Completed";
+    existingDuetoRepair.technicalnote = repairTechnicalNote.value;
+    // Add new UsedItems to the existing DuetoRepair
+    existingDuetoRepair.usedItems.push(...duetoRepair.usedItems);
+  } else {
+    // If not found, add the new DuetoRepair
+    repairUpdate.duetoRepair.push(duetoRepair);
+  }
+
+  repairUpdate.repairstatus = selectRepairStatus.value;
+    
+    // repairUpdate.incomePayments = {
+    //     payment: parseInt(1000),
+    //     invoiceno: "Roooo1"
+    // };
+
+  // repairUpdate.duetoRepair.push(duetoRepair)
+  console.log(repairUpdate);
+
+  let serverResponse2 = ajaxRequestBodyMethod(`/repair/${idr3}`, "PUT", repairUpdate);
   console.log("serverResponse", serverResponse2);
 
   repairItemName1.value = ""
@@ -400,17 +432,17 @@ const nextRepair = (repair1) => {
   // repairCustomerPhone.value = repair1.customer_id.phone
 }
 
-const submitPayment = () => {
-  paymentOb.payment = parseInt(1000)
-  // paymentOb.repair_id = repairUpdate
-  repairUpdate.incomePayments = paymentOb
-  console.log(repairUpdate);
-  const repairforDueRepair2 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair.repairid))
-  let repairDetail2 = ajaxGetRequest("/repair/getlist/" + repairforDueRepair2.id)
-  let id2 = repairDetail2.id
-  let serverResponse2 = ajaxRequestBodyMethod(`/repair`, "PUT", repairUpdate);
-  console.log("serverResponse", serverResponse2);
-}
+// const submitPayment = () => {
+//   paymentOb.payment = parseInt(1000)
+//   // paymentOb.repair_id = repairUpdate
+//   repairUpdate.incomePayments = paymentOb
+//   console.log(repairUpdate);
+//   const repairforDueRepair2 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair.repairid))
+//   let repairDetail2 = ajaxGetRequest("/repair/getlist/" + repairforDueRepair2.id)
+//   let id2 = repairDetail2.id
+//   let serverResponse2 = ajaxRequestBodyMethod(`/repair`, "PUT", repairUpdate);
+//   console.log("serverResponse", serverResponse2);
+// }
 
 const submitDiagnosis = () => {
   // diagnosisDueUpdate = JSON.parse(selectUrgentRepairs.value)
@@ -422,14 +454,15 @@ const submitDiagnosis = () => {
   console.log(id3);
   paymentOb.payment = parseInt(1000)
   // paymentOb.repair_id = repairUpdate
-  repairUpdate.incomePayments = paymentOb
+
+  // repairUpdate1.incomePayments = paymentOb
 
   diagnosisDueUpdate.statusofrepair = "Diagnoesed"
   // diagnosisUpdate.category = JSON.parse(selectRepairCategory.value).name
-  diagnosisUpdate.due_to_repairitem_id = diagnosisDueUpdate
+  // diagnosisUpdate.due_to_repairitem_id = diagnosisDueUpdate
   diagnosisDueUpdate.diagnosedItems.push(diagnosisUpdate)
 
-  repairUpdate.duetoRepair.push(diagnosisDueUpdate)
+  repairUpdate1.duetoRepair.push(diagnosisDueUpdate)
   // repairUpdate.usedItems.push(diagnosisUpdate) 
   console.log(diagnosisDueUpdate);
   console.log("created");

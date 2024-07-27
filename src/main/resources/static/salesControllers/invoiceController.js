@@ -115,14 +115,18 @@ const checkdiscount = (cusname) => {
     discountCusRate.disabled = true;
     let discountname = inputCustomerName.value
     console.log(inputCustomerName.value);
+    let serverresponseof_discount = null
     try {
         // Make an asynchronous GET request
-        try {
+       
             serverresponseof_discount = ajaxGetRequest(`/customer/getdiscount/${inputCustomerName.value}`);
-            boolDis = true
-        } catch (error) {
-            boolDis = false
-        }
+            if (serverresponseof_discount != null) {
+                
+                boolDis = true
+            }else{
+                boolDis = false
+            }
+    
 
         console.log(serverresponseof_discount);
 
@@ -598,6 +602,17 @@ const submitInvoice = () => {
     // ajaxGetRequest(`/${categoryname1}/getqty`, categoryname1)
     console.log("serverResponse", serverResponse11);
     printInvoice(serverResponse11)
+        inputCustomerName.value = ''
+    inputCustomerContact.value = ''
+    invoiceTotalPrice.value = ''
+    discountCusRate.value = ''
+    invoiceDiscountedPrice.value = ''
+    paymentMethod.value = ''
+    invoiceCustomerPaymentRefference.value = ''
+    invoiceCustomerPayment.value = ''
+    invoiceBalance.value = ''
+    irepairtable = []
+    itable = []
 }
 const printInvoice = (response) => {
     setDataIntInvoicePrint(response)
@@ -672,7 +687,10 @@ const setDataIntInvoicePrint = (invoiceP) => {
     createTable(invoiceP)
     console.log(invoiceP);
     createRepairTable(invoiceP)
-    createRepairUsedTable(invoiceP)
+    if (invoiceP.due_to_repairitem_id.useItems.length > 0)  {
+        cusRepairUsedItemTablePrintDiv.classList.remove("d-none")
+        createRepairUsedTable(invoiceP)
+    }
       
     // if (invoiceP.salesHasDues.statusofserivceorrepair === "service") {
     //     cusRepairTablePrintDiv.classList.remove('d-none')
@@ -1169,9 +1187,11 @@ const handleClick = (elem) => {
      button = document.createElement('button')
     button.className = 'btn btn-danger'
     button.innerHTML = 'Approve'
+    button.type = 'button';
     button.onclick = () => {
         // console.log('edit', item.id, index);
         handleApprove(elem)
+        button.setAttribute('data-bs-dismiss', 'modal');
     }
 
     let div = document.getElementById('diagnosedItemFooter'); // Create the div element

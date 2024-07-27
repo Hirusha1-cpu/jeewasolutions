@@ -128,7 +128,7 @@ public class RepairController {
                 // purchaseHasCategory.setPurchase_id(purchase);
                 String s = duetoRepairDao.getExistItemBarcode(duetoRepairDao.getItemBarcode(duetoRepairDao.getMaxId()));
                 System.out.println(s);
-                    duetoRepair.setBarcode("brcode00001" );
+                duetoRepair.setBarcode("brcode00001");
                 String newBarcode = duetoRepairDao.getItemBarcode(k);
                 duetoRepair.setBarcode(newBarcode);
                 duetoRepair.setTakendate(LocalDateTime.now().toLocalDate());
@@ -142,11 +142,12 @@ public class RepairController {
             // if (existingIncomePayment != null) {
 
             // }
-            
-            // String s = repairDao.getExistItemBarcode(repairDao.getItemBarcode(repairDao.getMaxId()));
+
+            // String s =
+            // repairDao.getExistItemBarcode(repairDao.getItemBarcode(repairDao.getMaxId()));
             // System.out.println(s);
             // if (s == null) {
-            //     repair.setRepairno("R00001");
+            // repair.setRepairno("R00001");
             // }
             // String newRcode = repairDao.getItemBarcode(1);
             // repair.setRepairno(newRcode);
@@ -162,48 +163,64 @@ public class RepairController {
 
     }
 
-    @PutMapping(value = "/repair")
+    @PutMapping(value = "/repair/{id}")
     // @Transactional
-    public String saveUpdate( @RequestBody Repair exRepair) {
-        // Repair exRepair = repairDao.getRepairById(id);
+    public String saveUpdate(@PathVariable Integer id, @RequestBody Repair exRepair1) {
+
+        Repair existingRepair = repairDao.getReferenceById(id);
 
         try {
 
             BigDecimal total1 = BigDecimal.ZERO;
             BigDecimal charges = BigDecimal.ZERO;
-            for (DuetoRepair duetoRepair : exRepair.getDuetoRepair()) {
-                // DuetoRepair duetoRepairnew = new DuetoRepair();
-                duetoRepair.setRepair_id(exRepair);
-                duetoRepair.setStatusofrepair("Completed");
-                // duetoRepair.setTechnicalnote(duetoRepair.getTechnicalnote());
-                // duetoRepairDao.save(duetoRepairnew);
-                total1 = total1.add(duetoRepair.getTotal());
-                charges = charges.add(duetoRepair.getCharges());
+            for (DuetoRepair duetoRepair : exRepair1.getDuetoRepair()) {
+                // Find the existing DuetoRepair by id
+                DuetoRepair existingDuetoRepair = duetoRepairDao.findById(duetoRepair.getId())
+                        .orElseThrow(() -> new RuntimeException("DuetoRepair not found"));
 
-                for (UsedItems usedItems2 : duetoRepair.getUsedItems()) {
+                // Update the existing DuetoRepair
+                existingDuetoRepair.setStatusofrepair("Completed");
+                existingDuetoRepair.setTechnicalnote(duetoRepair.getTechnicalnote());
 
-                    UsedItems used = new UsedItems();
-                    used.setDue_to_repairitem_id(duetoRepair);
-                    used.setCategory(usedItems2.getCategory());
-                    used.setItemname(usedItems2.getItemname());
-                    usedItemDao.save(used);
-
+                if (duetoRepair.getTotal() != null) {
+                    total1 = total1.add(duetoRepair.getTotal());
+                }
+                if (duetoRepair.getCharges() != null) {
+                    charges = charges.add(duetoRepair.getCharges());
+                }
+                // Handle UsedItems
+                if (duetoRepair.getUsedItems() != null) {
+                    for (UsedItems newUsedItem : duetoRepair.getUsedItems()) {
+                        if (newUsedItem.getId() == null) {
+                            // This is a new UsedItem, so create and save it
+                            UsedItems usedItem = new UsedItems();
+                            usedItem.setDue_to_repairitem_id(existingDuetoRepair);
+                            usedItem.setCategory(newUsedItem.getCategory());
+                            usedItem.setSerialno(newUsedItem.getSerialno());
+                            usedItem.setItemname(newUsedItem.getItemname());
+                            usedItem.setUnitprice(newUsedItem.getUnitprice());
+                            usedItemDao.save(usedItem);
+                        }
+                        // If the UsedItem has an id, it already exists, so we don't need to do anything
+                    }
                 }
 
             }
             // exRepair.setRepairstatus("Completed");
-            exRepair.setCharges(charges);
-            exRepair.setDuerepairtotal(total1);
-            
+            existingRepair.setCharges(charges);
+            existingRepair.setDuerepairtotal(total1);
+            existingRepair.setRepairstatus(exRepair1.getRepairstatus());
 
-            IncomePayment incomePayment = exRepair.getIncomePayments();
-            incomePayment.setRepair_id(exRepair);
-            incomePayment.setDate(LocalDateTime.now());
-            incomePaymentDao.save(incomePayment);
+            System.out.println("executed rep 1");
+            // IncomePayment incomePayment = exRepair1.getIncomePayments();
+            // incomePayment.setRepair_id(existingRepair);
+            // incomePayment.setDate(LocalDateTime.now());
+            // incomePaymentDao.save(incomePayment);
+            
             // exRepair.setIncomePayments(repair.getIncomePayments());
 
-            repairDao.save(exRepair);
-            return "ok";
+            // repairDao.save(existingRepair);
+            return "OK";
         } catch (Exception e) {
             return "Error: " + e.getMessage();
         }
