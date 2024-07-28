@@ -112,73 +112,87 @@
                                     </div>
                                     <div class="modal-body">
                                         <form onsubmit="return false" id="formSettings">
-                                        
-                                        <div class="row ms-4">
-                                            <div class="col-3">
-                                                <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                                                    class="rounded-circle mb-4 ms-3" height="75"
-                                                    alt="Black and White Portrait of a Man" loading="lazy" />
+
+                                            <div class="row ms-4">
+                                                <div class="col-3">
+                                                    <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                                                        class="rounded-circle mb-4 ms-3" height="75"
+                                                        alt="Black and White Portrait of a Man" loading="lazy" />
+                                                </div>
+                                                <div class="col-9 mt-3">
+                                                    <button class="btn btn-primary" type="button">Add +</button>
+                                                    <button class="btn btn-danger " type="button">Remove</button>
+                                                </div>
                                             </div>
-                                            <div class="col-9 mt-3">
-                                                <button class="btn btn-primary" type="button" >Add +</button>
-                                                <button class="btn btn-danger " type="button">Remove</button>
+                                            <!-- username start -->
+                                            <div class="mb-3  ms-3 me-3 row form-floating">
+
+                                                <input type="text" class="form-control " placeholder="Enter Username"
+                                                    id="inputUsernameSet" required
+                                                    onkeyup="textValidation(inputUsernameSet, '^[A-Z][a-z]{2,30}$', 'loggedUser', 'username')">
+
+                                                <label for="inputUsernameSet" class="">
+
+                                                    Username
+                                                    <i class="fa-solid fa-question" data-bs-toggle="tooltip"
+                                                        data-bs-title="Enter UserName" data-bs-placement="bottom"></i>
+                                                </label>
+
                                             </div>
-                                        </div>
-                                        <!-- username start -->
-                                        <div class="mb-3  ms-3 me-3 row form-floating">
-
-                                            <input type="text" class="form-control " placeholder="Enter Username"
-                                                id="inputUsernameSet" required
-                                                onkeyup="textValidation(inputUsernameSet, '^[A-Z][a-z]{2,30}$', 'loggedUser', 'username')">
-
-                                            <label for="inputUsernameSet" class="">
-
-                                                Username
-                                                <i class="fa-solid fa-question" data-bs-toggle="tooltip"
-                                                    data-bs-title="Enter UserName" data-bs-placement="bottom"></i>
-                                            </label>
-
-                                        </div>
-                                        <!-- username end -->
-                                        <!-- password start -->
-                                        <div class="mb-3  ms-3 me-3 row form-floating">
+                                            <!-- username end -->
+                                            <!-- password start -->
+                                            <div class="mb-3  ms-3 me-3 row form-floating">
 
 
-                                            <input type="password" class="form-control " placeholder="Enter Password"
-                                                id="inputPasswordSet" required
-                                                onkeyup="textValidation(inputPasswordSet, '^[A-Z][a-z]{2,30}$', 'loggedUser', 'password')">
-                                            <label for="inputPasswordSet" class="">Password</label>
+                                                <input type="password" class="form-control "
+                                                    placeholder="Enter Password" id="inputPasswordSet" required
+                                                    onkeyup="textValidation(inputPasswordSet, '^[A-Z][a-z]{2,30}$', 'loggedUser', 'password')">
+                                                <label for="inputPasswordSet" class="">Password</label>
 
-                                        </div>
+                                            </div>
 
-                                        <!-- password end -->
-                                        <!-- password re start -->
-                                        <div class="mb-3  ms-3 me-3 row form-floating">
+                                            <!-- password end -->
+                                            <!-- password re start -->
+                                            <div class="mb-3  ms-3 me-3 row form-floating">
 
-                                            <input type="password" class="form-control " placeholder="Enter Re-Password"
-                                                id="inputRePasswordSet" required onkeyup="passwordsValidation()">
+                                                <input type="password" class="form-control "
+                                                    placeholder="Enter Re-Password" id="inputRePasswordSet" required
+                                                    onkeyup="passwordsValidation()">
 
-                                            <label for="inputRePasswordSet" class="">Re-Password</label>
+                                                <label for="inputRePasswordSet" class="">Re-Password</label>
 
-                                        </div>
+                                            </div>
 
-                                        <!-- password re end -->
-                                        <!-- email start -->
-                                        <div class="mb-3  ms-3 me-3 row form-floating">
+                                            <!-- password re end -->
+                                            <!-- email start -->
+                                            <div class="mb-3  ms-3 me-3 row form-floating">
 
-                                            <input type="email" class="form-control" placeholder="Enter Email"
-                                                id="inputEmailSet" required
-                                                onkeyup="textValidation(inputEmailSet, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'loggedUser', 'email')">
-                                            <label for="inputEmailSet" class="">Email</label>
+                                                <input type="email" class="form-control" placeholder="Enter Email"
+                                                    id="inputEmailSet" required
+                                                    onkeyup="textValidation(inputEmailSet, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'loggedUser', 'email')">
+                                                <label for="inputEmailSet" class="">Email</label>
 
 
-                                        </div>
+                                            </div>
 
-                                        <!-- email end -->
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" onclick="submitUserSettings()">Save changes</button>
-                                    </form>
+                                            <!-- email end -->
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary"
+                                                onclick="submitUserSettings()">Save changes</button>
+                                            <script>
+                                                const submitUserSettings = () => {
+                                                    let serverResponse = ajaxRequestBodyMethod("/changeuser", "PUT", loggedUser)
+                                                    if (serverResponse == "OK") {
+                                                        alert("User profile change successfully...!")
+                                                        window.location.assign("/logout")
+                                                    } else {
+                                                        alert("Delete not succefully  .." + serverResponse)
+                                                    }
+
+                                                }
+                                            </script>
+                                        </form>
                                     </div>
                                     <div class="modal-footer">
                                     </div>
@@ -195,7 +209,18 @@
                             <a class="nav-link " style="color: #a20c68; font-weight: bolder; " aria-disabled="true"
                                 th:text="${loguserrole}"></a>
                         </li>
+                        <li class="nav-item ">
+                            <button type="button" class="btn btn-primary" onclick="logout()">
+                                <i class="fa-solid fa-right-from-bracket fa-beat" id="logoutIcon"></i>
+                            </button>
+                            <script>
+                                const logout = () => {
+
+                                    window.location.href = "/logout";
+                                }
+                            </script>
                         </li>
+                        <!-- </li> -->
                         <!-- profile end -->
 
                     </ul>

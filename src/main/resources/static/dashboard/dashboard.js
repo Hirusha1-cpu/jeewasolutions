@@ -162,13 +162,37 @@ const refreshDashboard = () => {
   //    });
   // }
 
-  updateChart(monthlysale);
+  updateChart(monthlysale,'','doughnut');
 
 
   
 };
 
-const updateChart = (data,fieldValue) => {
+const updateChart = (data,fieldValue,charttype) => {
+  // const colors = [
+  //   { background: 'rgba(255, 99, 132, 0.2)', border: 'rgb(255, 99, 132)' },
+  //   { background: 'rgba(255, 159, 64, 0.2)', border: 'rgb(255, 159, 64)' },
+  //   { background: 'rgba(255, 205, 86, 0.2)', border: 'rgb(255, 205, 86)' },
+  //   { background: 'rgba(75, 192, 192, 0.2)', border: 'rgb(75, 192, 192)' },
+  //   { background: 'rgba(54, 162, 235, 0.2)', border: 'rgb(54, 162, 235)' },
+  //   { background: 'rgba(153, 102, 255, 0.2)', border: 'rgb(153, 102, 255)' },
+  //   { background: 'rgba(201, 203, 207, 0.2)', border: 'rgb(201, 203, 207)' }
+  // ];
+  
+  // const labels = Utils.months({ count: 7 });
+  
+  // const datasets = colors.map((color, index) => ({
+  //   label: `Color ${index + 1}`, // You can customize the label format here
+  //   data: [65, 59, 80, 81, 56, 55, 40][index], // Assuming your data points match the color array
+  //   backgroundColor: color.background,
+  //   borderColor: color.border,
+  //   borderWidth: 1
+  // }));
+  
+  // const data = {
+  //   labels: labels,
+  //   datasets: datasets
+  // };
   
   if (chartInstance) {
     chartInstance.destroy();
@@ -195,12 +219,20 @@ const updateChart = (data,fieldValue) => {
  
 
   chartInstance =  new Chart(ctx, {
-     type: 'line',
+    //  type: `${charttype}`,
+     type: `bar`,
      data: {
        labels: customerNames,
        datasets: [{
-         label: 'Sales',
+         label: '',
          data: itemCounts,
+         backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)',
+          'rgb(255, 105, 80)',
+          'rgb(255, 200, 16)'
+        ],
          borderWidth: 1
        }]
      },
@@ -235,6 +267,28 @@ const selectFieldValidation9 = (fieldId) => {
     updateChart(monthlysale,fieldValue);
   } else if (fieldValue === '2') {
     updateChart(weeklysale,fieldValue);
+  }
+};
+const selectFieldValidationChart = (fieldId) => {
+  const fieldValue = fieldId.value;
+
+  if (fieldValue === 'bar') {
+
+    updateChart('','','bar');
+  } else if (fieldValue === 'doughnut') {
+    updateChart('','','doughnut');
+  }
+  else if (fieldValue === 'pie') {
+    updateChart('','','pie');
+  }
+  else if (fieldValue === 'polarArea') {
+    updateChart('','','polarArea');
+  }
+  else if (fieldValue === 'radar') {
+    updateChart('','','radar');
+  }
+  else if (fieldValue === 'scatter') {
+    updateChart('','','scatter');
   }
 };
 const fillDataToCustomer = () => {
