@@ -138,8 +138,8 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Items</th>
-                        <!-- <th scope="col">Button</th> -->
+                        <th scope="col">Category</th>
+                        <th scope="col">qty</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -164,12 +164,12 @@
                   <h5 class="card-title" style="color: white; font-weight: bolder;">Return Items</h5>
                 </div>
                 <div class="cardbody">
-                  <table class="table">
+                  <table class="table" id="returnId">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Item</th>
-                        <th scope="col">Button</th>
+                        <th scope="col">Serial</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -187,7 +187,7 @@
                   </table>
                 </div>
               </div>
-              <button class="btn btn-danger" style="color: white; border-radius: 5px;">View Return Items</button>
+              <button class="btn btn-danger" style="color: white; border-radius: 5px;" onclick="handleReturn()">View Return Items</button>
             </div>
           </div>
 
@@ -242,6 +242,10 @@
               style=" background: linear-gradient(to right, #ea4a21, #feb47b); font-weight: bolder; color: white;">
 
               <h5>Sales Statistics</h5>
+              <select name="" id="valueOfMonthOrWeek" onchange="selectFieldValidation9(this);">
+                <option value="1">Monthly</option>
+                <option value="2">Weekly</option>
+              </select>
             </div>
           </div>
           <div class="col-6 mt-2">

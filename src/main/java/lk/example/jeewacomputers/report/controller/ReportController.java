@@ -13,6 +13,7 @@ import lk.example.jeewacomputers.items.dao.GraphicCardDao;
 import lk.example.jeewacomputers.privilege.controller.PrivilegeController;
 import lk.example.jeewacomputers.report.dao.ReportDao;
 import lk.example.jeewacomputers.report.entity.ReportCategoryViseCount;
+import lk.example.jeewacomputers.report.entity.ReportCategoryViseCountWeek;
 // import lk.example.jeewacomputers.report.entity.ReportDateViseSales;
 import lk.example.jeewacomputers.user.dao.UserDao;
 import lk.example.jeewacomputers.user.entity.User;
@@ -168,6 +169,36 @@ public class ReportController {
             ReportCategoryViseCount reportCategoryViseCount2 = new ReportCategoryViseCount();
             reportCategoryViseCount2.setCategoryname(reportCategoryViseCount[0]);
             reportCategoryViseCount2.setItemcount(reportCategoryViseCount[1]);
+
+            result.add(reportCategoryViseCount2);
+        }
+        return result;
+    }
+    
+    @GetMapping(value = "/reportdataworkingemployeechart/duerepaircountmonth", produces = "application/json")
+    public List<ReportCategoryViseCount> getMonthlysale(){
+        String[][] queryDataList = reportDao.getMonthlySale();
+        List<ReportCategoryViseCount> result = new ArrayList<>();
+        for (String[] reportCategoryViseCount : queryDataList) {
+            ReportCategoryViseCount reportCategoryViseCount2 = new ReportCategoryViseCount();
+            reportCategoryViseCount2.setCategoryname(reportCategoryViseCount[0]);
+            reportCategoryViseCount2.setItemcount(reportCategoryViseCount[1]);
+
+            result.add(reportCategoryViseCount2);
+        }
+        return result;
+    }
+
+    @GetMapping(value = "/reportdataworkingemployeechart/duerepaircountweek", produces = "application/json")
+    public List<ReportCategoryViseCountWeek> getWeeklysale(){
+        String[][] queryDataList = reportDao.getWeeklySale();
+        List<ReportCategoryViseCountWeek> result = new ArrayList<>();
+        for (String[] reportCategoryViseCount : queryDataList) {
+            ReportCategoryViseCountWeek reportCategoryViseCount2 = new ReportCategoryViseCountWeek();
+            reportCategoryViseCount2.setCategoryname(reportCategoryViseCount[0]);
+            reportCategoryViseCount2.setItemcount(reportCategoryViseCount[1]);
+            reportCategoryViseCount2.setWeek_start(reportCategoryViseCount[2]);
+            reportCategoryViseCount2.setWeek_end(reportCategoryViseCount[3]);
 
             result.add(reportCategoryViseCount2);
         }

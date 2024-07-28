@@ -40,6 +40,7 @@ const refreshRepairForm = () => {
   const duerepairApproved = ajaxGetRequest("/duerepair/getduebystatusapproved")
   const duerepairProcessing = ajaxGetRequest("duerepair/getduebystatusforprocess")
   const availableSerials = ajaxGetRequest("serialno/getavailablelist")
+  const availableBarcodes = ajaxGetRequest("duerepair/getrepairbybarcode")
   const categories = ajaxGetRequest("/category/getlist")
   selectUrgentRepairsSpan.innerHTML = duerepairUrgent.length
   selectShopRepairsSpan.innerHTML = duerepairShop.length
@@ -55,6 +56,7 @@ const refreshRepairForm = () => {
   selectApprovedRepairsSpan.innerHTML = duerepairApproved.length
   serialNoListCountForRepair = ajaxGetRequest("/serialno/getlistwithoutnotnull")
   fillDataIntoSelect(selectRepairCategory, "Select Category", categories, 'name')
+  fillDataIntoSelect(repairItemBarcode, "Select Barcode", availableBarcodes, 'barcode')
 }
 
 const refreshRepairTable = () => {
@@ -244,6 +246,24 @@ const getSelectedRepair = (value) => {
 
   getOtherRepairs()
 }
+
+const getSelectedBarcodeRepair = (value2)=>{
+  addItemDetailsId.disabled = false
+  diagnosisId.disabled = false
+  duetoRepair1 = JSON.parse(value2)
+  const repairforDueRepair1 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair1.repairid))
+  console.log(repairforDueRepair1);
+  // diagnosisDueUpdate.repair_id = repairforDueRepair
+  repairItemName1.value = duetoRepair1.itemname
+  repairItemCategory.value = duetoRepair1.category
+  repairItemStatus.value = duetoRepair1.statusofrepair
+  repairItemFault.value = duetoRepair1.fault
+  repairCustomerName.value = repairforDueRepair1.customer_id.name
+  repairCustomerPhone.value = repairforDueRepair1.customer_id.phone
+
+  getOtherRepairs()
+}
+
 
 const getUsedItemDetails = () => {
   serialObjectRepair = JSON.parse(repairUsedItemCode.value)

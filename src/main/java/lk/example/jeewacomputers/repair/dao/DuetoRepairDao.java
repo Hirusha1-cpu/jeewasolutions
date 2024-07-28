@@ -21,8 +21,14 @@ public interface DuetoRepairDao extends JpaRepository<DuetoRepair, Integer>{
     @Query(value = "select r from Repair r where r.id in (select d.repair_id.id from DuetoRepair d where d.repairid = ?1)")
     public Repair getRepairByDue(Integer repairid);
 
-    @Query(value = "select d from DuetoRepair d where d.repairtype = ?1 and d.statusofrepair = 'pending diagnosis'")
+    @Query(value = "select d from DuetoRepair d where d.statusofrepair = ?1")
     public List<DuetoRepair> getDueRepairByStatus(String repairtype);
+
+    @Query(value = "select d from DuetoRepair d where d.statusofrepair != 'Completed' or d.statusofrepair != 'Paid'")
+    public List<DuetoRepair> getDueRepairByWithoutComplted();
+
+    @Query(value = "select d from DuetoRepair d where d.barcode = ?1")
+    public DuetoRepair getDueRepairByBarcode(String barcode);
 
     @Query(value = "select d from DuetoRepair d where d.statusofrepair = 'Approved'")
     public List<DuetoRepair> getDueRepairByStatusApprove();
@@ -61,6 +67,9 @@ public interface DuetoRepairDao extends JpaRepository<DuetoRepair, Integer>{
 
     @Query(value ="SELECT s.barcode FROM DuetoRepair s where s.barcode = ?1")
     public String getExistItemBarcode(String barcode );
+
+    @Query(value ="SELECT s FROM DuetoRepair s where s.statusofrepair = ?1")
+    public List<DuetoRepair> getItemsFromStatus(String statusofrepair );
 
     
 

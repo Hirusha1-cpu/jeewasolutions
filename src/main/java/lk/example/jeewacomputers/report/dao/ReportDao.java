@@ -40,6 +40,33 @@ public interface ReportDao extends JpaRepository<Employee, Integer> {
     @Query(value = "SELECT statusofrepair, count(*) as count FROM jeewacomputersproject.due_to_repairitem as dr group by dr.statusofrepair;", nativeQuery = true)
     String[][] getDueRepairTypeCount();
 
+    @Query(value = " SELECT SUM(se.itemprice) AS total_sales,\n" + //
+            "\tmonthname(s.datetime) AS month_name\n" + //
+            "\n" + //
+            "     FROM jeewacomputersproject.sales_has_serialno AS ss\n" + //
+            "     INNER JOIN jeewacomputersproject.sales AS s ON ss.sales_id = s.id\n" + //
+            "\tINNER JOIN jeewacomputersproject.serialno AS se ON ss.serialno_id = se.id\n" + //
+            "     INNER JOIN jeewacomputersproject.customer AS c ON s.customer_id = c.id\n" + //
+            "\tINNER JOIN jeewacomputersproject.category AS ca ON ca.id = se.category_id\n" + //
+            "     WHERE s.datetime \n" + //
+            "     GROUP BY MONTH(s.datetime), monthname(s.datetime),YEAR(s.datetime), weekofyear(s.datetime);", nativeQuery = true)
+    String[][] getMonthlySale();
+
+    // @Query(value = " SELECT SUM(se.itemprice) AS total_sales,\n" + //
+    //         "\tweek(s.datetime) AS week\n" + //
+    //         "\n" + //
+    //         "     FROM jeewacomputersproject.sales_has_serialno AS ss\n" + //
+    //         "     INNER JOIN jeewacomputersproject.sales AS s ON ss.sales_id = s.id\n" + //
+    //         "\tINNER JOIN jeewacomputersproject.serialno AS se ON ss.serialno_id = se.id\n" + //
+    //         "     INNER JOIN jeewacomputersproject.customer AS c ON s.customer_id = c.id\n" + //
+    //         "\tINNER JOIN jeewacomputersproject.category AS ca ON ca.id = se.category_id\n" + //
+    //         "     WHERE s.datetime \n" + //
+    //         "     GROUP BY MONTH(s.datetime), monthname(s.datetime),YEAR(s.datetime), week(s.datetime);", nativeQuery = true)
+    // String[][] getWeeklySale();
+
+    @Query(value = "SELECT SUM(se.itemprice) AS total_sales,WEEK(s.datetime) AS week,MIN(DATE_ADD(s.datetime, INTERVAL(1 - DAYOFWEEK(s.datetime)) DAY)) AS week_start,MAX(DATE_ADD(s.datetime, INTERVAL(7 - DAYOFWEEK(s.datetime)) DAY)) AS week_end FROM jeewacomputersproject.sales_has_serialno AS ss INNER JOIN jeewacomputersproject.sales AS s ON ss.sales_id = s.id INNER JOIN jeewacomputersproject.serialno AS se ON ss.serialno_id = se.id INNER JOIN jeewacomputersproject.customer AS c ON s.customer_id = c.id INNER JOIN jeewacomputersproject.category AS ca ON ca.id = se.category_id GROUP BY YEAR(s.datetime), WEEK(s.datetime);", nativeQuery = true)
+    String[][] getWeeklySale();
+
     // select monthname(s.addeddate) => week, year
     // select s.itemname,sum(b.orderqty),count(b.orderqty) from
     // jee.s as s, jee.b as b, jee.c as c where s.id = b.id and b.id = c.id between

@@ -13,7 +13,6 @@ import java.math.BigDecimal;
 
 import lk.example.jeewacomputers.repair.dao.DiagnosedItemsDao;
 import lk.example.jeewacomputers.repair.dao.DuetoRepairDao;
-import lk.example.jeewacomputers.repair.dao.RepairDao;
 import lk.example.jeewacomputers.repair.dao.UsedItemDao;
 import lk.example.jeewacomputers.repair.entity.DiagnosedItems;
 import lk.example.jeewacomputers.repair.entity.DuetoRepair;
@@ -55,6 +54,16 @@ public class DuetoRepairController {
         // login user authentication and authorization
         return duetoRepairDao.getRepairByDue(id);
     }
+     @GetMapping(value = "/duerepair/getrepairbybarcode/{barcode}", produces = "application/json")
+    public DuetoRepair findRepairByBarcode(@PathVariable("barcode") String barcode) {
+        // login user authentication and authorization
+        return duetoRepairDao.getDueRepairByBarcode(barcode);
+    }
+     @GetMapping(value = "/duerepair/getrepairbybarcode", produces = "application/json")
+    public List<DuetoRepair> findRepairsByBarcode() {
+        // login user authentication and authorization
+        return duetoRepairDao.getDueRepairByWithoutComplted();
+    }
 
      @GetMapping(value = "/duerepair/getduebystatus/{type}", produces = "application/json")
     public List<DuetoRepair> findRepairBytype(@PathVariable("type") String repairtype) {
@@ -66,8 +75,14 @@ public class DuetoRepairController {
         // login user authentication and authorization
         return duetoRepairDao.getDueRepairByStatusApprove();
     }
+     @GetMapping(value = "/duerepair/getduebystatusstatusofrepair/{status}", produces = "application/json")
+    public List<DuetoRepair> findRepairBytypeForProcess(@PathVariable("status") String statusofrepair) {
+        // login user authentication and authorization
+        return duetoRepairDao.getItemsFromStatus(statusofrepair);
+    }
+
      @GetMapping(value = "/duerepair/getduebystatusforprocess", produces = "application/json")
-    public List<DuetoRepair> findRepairBytypeForProcess() {
+    public List<DuetoRepair> findRepairBystatus() {
         // login user authentication and authorization
         return duetoRepairDao.getDueRepairByStatusForProcessing();
     }

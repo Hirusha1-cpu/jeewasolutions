@@ -2,12 +2,17 @@ window.addEventListener('load', () => {
   refreshDashboard();
   // refreshGrnTable();
 })
-
+let chartInstance;
 const refreshDashboard = () => {
 
+  //fill data to customer card
   fillDataToCustomer()
+  //fill data to Repair card
   fillDueTable()
+  //fill data to Reorder part card
   fillDataIntoReorderTable()
+  //fill data to return part card
+  fillDataIntoReturnTable()
   // $('#empAttendence').DataTable({
   //   responsive: true
   // });
@@ -15,7 +20,10 @@ const refreshDashboard = () => {
 
   // Fetch invoices (assuming you have a working `ajaxGetRequest`)
   const invoices = ajaxGetRequest("/invoice/getlist");
+  const monthlysale = ajaxGetRequest("reportdataworkingemployeechart/duerepaircountmonth")
+  const weeklysale = ajaxGetRequest("reportdataworkingemployeechart/duerepaircountweek")
   const getRole = ajaxGetRequest1("/dashboard/getauth");
+
   console.log(getRole);
   let cleanString = getRole.replace(/[\[\]]/g, ''); // g for glaobal, apply for all and '' replaces with []
   // Trim any extra spaces (if needed)
@@ -23,6 +31,8 @@ const refreshDashboard = () => {
   console.log(cleanString);
   // grnDashboard
   // saleDashboard
+
+  //check privileges
   if (cleanString === "Admin") {
     saleDashboard.classList.remove("d-none")
   }
@@ -75,46 +85,158 @@ const refreshDashboard = () => {
   // }
 
   // Prepare data for the chart
+  
+  
+  
+
+  // for (const invoice of invoices) {
+  //   customerNames.push(invoice.customer_id.name); // Extract customer name
+  //   itemCounts.push(invoice.salesHasSerials.length); // Count serial numbers
+  // }
+
+
+  // for (const invoice of weeklysale) {
+  //   customerNames.push(invoice.itemcount); // Extract customer name
+  //   itemCounts.push(invoice.categoryname); // Count serial numbers    
+  // }
+  // console.log(time.type);
+
+  // if (time.type === "1") {
+    
+  //   for (const invoice of monthlysale) {
+  //   customerNames.push(invoice.itemcount); // Extract customer name
+  //   itemCounts.push(invoice.categoryname); // Count serial numbers
+  //   }
+  // }else{
+  //   for (const invoice of weeklysale) {
+  //     customerNames.push(invoice.itemcount); // Extract customer name
+  //     itemCounts.push(invoice.categoryname); // Count serial numbers    
+  //     }
+  // }
+
+
+
+  // Create the chart with the prepared data
+  // const updateChart = (data) => {
+  //   if (data === 1) {
+  //     for (const invoice of monthlysale) {
+  //       customerNames.push(invoice.itemcount); // Extract customer name
+  //       itemCounts.push(invoice.categoryname); // Count serial numbers
+  //       }
+  //   } else {
+  //     for (const invoice of weeklysale) {
+  //       customerNames.push(invoice.itemcount); // Extract customer name
+  //       itemCounts.push(invoice.categoryname); // Count serial numbers    
+  //       }
+  //   }
+  //   if (chartInstance) {
+  //     chartInstance.destroy();
+  //   }
+  //   chartInstance =  new Chart(ctx, {
+  //      type: 'bar',
+  //      data: {
+  //        labels: customerNames,
+  //        datasets: [{
+  //          label: 'Item Count',
+  //          data: itemCounts,
+  //          borderWidth: 1
+  //        }]
+  //      },
+  //      options: {
+  //        scales: {
+  //          y: {
+  //            beginAtZero: true,
+  //            title: {
+  //              display: true,
+  //              text: 'Sales'
+  //            }
+  //          },
+  //          x: {
+  //            title: {
+  //              display: true,
+  //              text: 'Time'
+  //            }
+  //          }
+  //        }
+  //      }
+  //    });
+  // }
+
+  updateChart(monthlysale);
+
+
+  
+};
+
+const updateChart = (data,fieldValue) => {
+  
+  if (chartInstance) {
+    chartInstance.destroy();
+  }
+  const ctx = document.getElementById('myChart');
   const customerNames = [];
   const itemCounts = [];
 
-  for (const invoice of invoices) {
-    customerNames.push(invoice.customer_id.name); // Extract customer name
-    itemCounts.push(invoice.salesHasSerials.length); // Count serial numbers
-  }
+    for (const invoice of data) {
+      if (fieldValue === '2') {
+        const weekLabel = `${new Date(invoice.week_start).toLocaleDateString()} - ${new Date(invoice.week_end).toLocaleDateString()}`;
 
-  // Create the chart with the prepared data
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: customerNames,
-      datasets: [{
-        label: 'Item Count',
-        data: itemCounts,
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: 'Number of Items'
-          }
-        },
-        x: {
-          title: {
-            display: true,
-            text: 'Customer'
-          }
-        }
+        customerNames.push(weekLabel); // Extract customer name
+        itemCounts.push(invoice.categoryname); // Count serial numbers
+
+      } else {
+        
+        customerNames.push(invoice.itemcount); // Extract customer name
+        itemCounts.push(invoice.categoryname); // Count serial numbers
       }
-    }
-  });
+      // const weekLabel = `${new Date(item.week_start).toLocaleDateString()} - ${new Date(item.week_end).toLocaleDateString()}`;
 
+      }
+ 
+
+  chartInstance =  new Chart(ctx, {
+     type: 'line',
+     data: {
+       labels: customerNames,
+       datasets: [{
+         label: 'Sales',
+         data: itemCounts,
+         borderWidth: 1
+       }]
+     },
+     options: {
+       scales: {
+         y: {
+           beginAtZero: true,
+           title: {
+             display: true,
+             text: 'Sales'
+           }
+         },
+         x: {
+           title: {
+             display: true,
+             text: 'Time'
+           }
+         }
+       }
+     }
+   });
+}
+
+
+// Function to handle select change
+const selectFieldValidation9 = (fieldId) => {
+  const monthlysale = ajaxGetRequest("reportdataworkingemployeechart/duerepaircountmonth")
+  const weeklysale = ajaxGetRequest("reportdataworkingemployeechart/duerepaircountweek")
+  const fieldValue = fieldId.value;
+
+  if (fieldValue === '1') {
+    updateChart(monthlysale,fieldValue);
+  } else if (fieldValue === '2') {
+    updateChart(weeklysale,fieldValue);
+  }
 };
-
 const fillDataToCustomer = () => {
   customer = ajaxGetRequest('/reportdataworkingemployeechart/customertypedata')
   const displayProperties = [
@@ -175,6 +297,7 @@ const fillDataIntoReorderTable = () => {
 
   const displayProperties = [
     { property: getname, dataType: 'function' },
+    { property: getqty, dataType: 'function' },
   ]
   fillDataIntoDashBoardTable(reorderId, arrayListCate, displayProperties, editEmployeeBtn0, false)
 
@@ -182,13 +305,25 @@ const fillDataIntoReorderTable = () => {
 
 
 const getname = (rowOb) => {
-  let iname = ''
+  return rowOb.category_name
+}
+// const getname = (rowOb) => {
+//   let iname = ''
+//   rowOb?.items.forEach((item) => {
+
+//     iname = iname + (`<button type="button" onclick="handleClickDash(${JSON.stringify(item.id)})" class = 'deleted-status'>  ${item.name}  </button>`)
+
+//   })
+//   return iname
+// }
+const getqty = (rowOb) => {
+  let iqty = 0
   rowOb?.items.forEach((item) => {
 
-    iname = iname + (`<button type="button" onclick="handleClickDash(${JSON.stringify(item.id)})" class = 'deleted-status'>  ${item.name}  </button>`)
+    iqty = iqty + item.qty 
 
   })
-  return iname
+  return  `<p class="working-status">${iqty}</p>`
 }
 
 const handleClickDash = (item)=>{
@@ -207,6 +342,31 @@ const handleReorder = () => {
   window.location.href = "/inventory";
 }
 
+const fillDataIntoReturnTable = ()=>{
+  const returnItems = ajaxGetRequest("duerepair/getduebystatusstatusofrepair/Return To Company")
+  const displayProperties = [
+    { property: getReturnname, dataType: 'function' },
+    { property: getSerial, dataType: 'function' },
+  ]
+  fillDataIntoDashBoardTable(returnId, returnItems, displayProperties, editEmployeeBtn0, false)
+
+}
+const getReturnname = (rowOb)=>{
+  return rowOb?.itemname
+}
+const getSerial = (rowOb)=>{
+  
+  return `<p class="working-status">${rowOb?.serialno}</p>`
+}
+
+const handleReturn = ()=>{
+  window.location.href = "/invoice?showTable=true";
+  // window.location.href = "/invoice";
+  // const table = document.getElementById("empTable")
+  // table.style.display = "block";
+  // const form = document.getElementById("empForm")
+  // form.style.display = "none"
+}
 const refreshProfileEdit = () => {
   loggedUser = ajaxGetRequest("/loggeduser")
   console.log(loggedUser);

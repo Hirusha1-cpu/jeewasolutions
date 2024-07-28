@@ -177,6 +177,20 @@
 
 <head th:fragment="headInvoiceFragment">
     <script src="salesControllers/invoiceController.js"></script>
+    <script>
+        window.onload = function() {
+          const urlParams = new URLSearchParams(window.location.search);
+          const showTable = urlParams.get('showTable');
+            
+          if (showTable === 'true') {
+            const table = document.getElementById("empTable");
+            const form = document.getElementById("empForm");
+    
+            if (table) table.style.display = "block";
+            if (form) form.style.display = "none";
+          }
+        }
+      </script>
 </head>
 <!-- Invoice head end -->
 <!-- customer head start -->
