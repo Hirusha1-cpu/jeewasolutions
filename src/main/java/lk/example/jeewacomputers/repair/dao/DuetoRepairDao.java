@@ -21,7 +21,7 @@ public interface DuetoRepairDao extends JpaRepository<DuetoRepair, Integer>{
     @Query(value = "select r from Repair r where r.id in (select d.repair_id.id from DuetoRepair d where d.repairid = ?1)")
     public Repair getRepairByDue(Integer repairid);
 
-    @Query(value = "select d from DuetoRepair d where d.statusofrepair = ?1")
+    @Query(value = "select d from DuetoRepair d where d.repairtype = ?1")
     public List<DuetoRepair> getDueRepairByStatus(String repairtype);
 
     @Query(value = "select d from DuetoRepair d where d.statusofrepair != 'Completed' or d.statusofrepair != 'Paid'")

@@ -546,7 +546,7 @@ const addToSerialiedTable = () => {
         { property: getSerialedItemPrice, dataType: 'function' },
         { property: getSerialedItemWarrenty, dataType: 'function' },
     ]
-    fillDataIntoPurcahseTable(itemSerializedTable, itable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
+    fillDataIntoPurcahseTable(itemSerializedTable, itable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
 
     //reset the value attributes
 
@@ -1198,7 +1198,7 @@ const handleClick = (elem) => {
         // console.log('edit', item.id, index);
         handleApprove(elem)
         button.setAttribute('data-bs-dismiss', 'modal');
-        $("staticBackdrop00").model('hide')
+        // $("staticBackdrop00").model('hide')
     }
 
     let div = document.getElementById('diagnosedItemFooter'); // Create the div element

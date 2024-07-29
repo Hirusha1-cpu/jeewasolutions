@@ -34,9 +34,9 @@ const refreshRepairForm = () => {
   usedItemsForRepair = new Object();
   const repairs = ajaxGetRequest("/repair/getlist")
   // const duerepair1 = ajaxGetRequest("/duerepair/getlist")
-  const duerepairShop = ajaxGetRequest("/duerepair/getduebystatus/Shop Item")
-  const duerepairNonShop = ajaxGetRequest("/duerepair/getduebystatus/Non Shop Item")
-  const duerepairUrgent = ajaxGetRequest("/duerepair/getduebystatus/Urgent Repair")
+  const duerepairShop = ajaxGetRequest("/duerepair/getduebystatus/shop item")
+  const duerepairNonShop = ajaxGetRequest("/duerepair/getduebystatus/non shop item")
+  const duerepairUrgent = ajaxGetRequest("/duerepair/getduebystatus/urgent repair")
   const duerepairApproved = ajaxGetRequest("/duerepair/getduebystatusapproved")
   const duerepairProcessing = ajaxGetRequest("duerepair/getduebystatusforprocess")
   const availableSerials = ajaxGetRequest("serialno/getavailablelist")

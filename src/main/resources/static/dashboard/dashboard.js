@@ -13,6 +13,8 @@ const refreshDashboard = () => {
   fillDataIntoReorderTable()
   //fill data to return part card
   fillDataIntoReturnTable()
+
+  fillDataIntoItemCateTable()
   // $('#empAttendence').DataTable({
   //   responsive: true
   // });
@@ -22,6 +24,7 @@ const refreshDashboard = () => {
   const invoices = ajaxGetRequest("/invoice/getlist");
   const monthlysale = ajaxGetRequest("reportdataworkingemployeechart/duerepaircountmonth")
   const weeklysale = ajaxGetRequest("reportdataworkingemployeechart/duerepaircountweek")
+
   const getRole = ajaxGetRequest1("/dashboard/getauth");
 
   console.log(getRole);
@@ -35,20 +38,25 @@ const refreshDashboard = () => {
   //check privileges
   if (cleanString === "Admin") {
     saleDashboard.classList.remove("d-none")
+    customerDashboard.classList.remove("d-none")
+    repairDashboard.classList.remove("d-none")
+    reorderDashboard.classList.remove("d-none")
+    returnDashboard.classList.remove("d-none")
   }
-  if (cleanString === "Assistant Manager") {
-    customerDashboard.classList.add("d-none")
-    prequsetDashboard.classList.remove("d-none")
-    // saleDashboard.classList.remove("d-none")
-    grnDashboard.classList.remove("d-none")
-    // repairDashboard.classList.add("d-none")
-    // reorderDashboard.classList.add("d-none")
-    // returnDashboard.classList.add("d-none")
-  } else {
-    // customerDashboard.classList.remove("d-none")
-    // repairDashboard.classList.remove("d-none")
-    // reorderDashboard.classList.remove("d-none")
-    // returnDashboard.classList.remove("d-none")
+  else if (cleanString === "Assistant Manager") {
+    repairDashboard.classList.remove("d-none")
+    reorderDashboard.classList.remove("d-none")
+    returnDashboard.classList.remove("d-none")
+    grnDashboard1.classList.remove("d-none")
+    requestOrderDashboard.classList.remove("d-none")
+
+  }
+  else if (cleanString === "Cashier") {
+    gotosalesId.classList.remove("d-none")
+    addarepairId.classList.remove("d-none")
+    viewItemsId.classList.remove("d-none")
+
+
   }
   // if (cleanString === "Technician") {
   //   customerDashboard.classList.add("d-none")
@@ -85,9 +93,9 @@ const refreshDashboard = () => {
   // }
 
   // Prepare data for the chart
-  
-  
-  
+
+
+
 
   // for (const invoice of invoices) {
   //   customerNames.push(invoice.customer_id.name); // Extract customer name
@@ -102,7 +110,7 @@ const refreshDashboard = () => {
   // console.log(time.type);
 
   // if (time.type === "1") {
-    
+
   //   for (const invoice of monthlysale) {
   //   customerNames.push(invoice.itemcount); // Extract customer name
   //   itemCounts.push(invoice.categoryname); // Count serial numbers
@@ -162,13 +170,13 @@ const refreshDashboard = () => {
   //    });
   // }
 
-  updateChart(monthlysale,'','doughnut');
+  updateChart(monthlysale, '', 'doughnut');
 
 
-  
+
 };
 
-const updateChart = (data,fieldValue,charttype) => {
+const updateChart = (data, fieldValue, charttype) => {
   // const colors = [
   //   { background: 'rgba(255, 99, 132, 0.2)', border: 'rgb(255, 99, 132)' },
   //   { background: 'rgba(255, 159, 64, 0.2)', border: 'rgb(255, 159, 64)' },
@@ -178,9 +186,9 @@ const updateChart = (data,fieldValue,charttype) => {
   //   { background: 'rgba(153, 102, 255, 0.2)', border: 'rgb(153, 102, 255)' },
   //   { background: 'rgba(201, 203, 207, 0.2)', border: 'rgb(201, 203, 207)' }
   // ];
-  
+
   // const labels = Utils.months({ count: 7 });
-  
+
   // const datasets = colors.map((color, index) => ({
   //   label: `Color ${index + 1}`, // You can customize the label format here
   //   data: [65, 59, 80, 81, 56, 55, 40][index], // Assuming your data points match the color array
@@ -188,12 +196,12 @@ const updateChart = (data,fieldValue,charttype) => {
   //   borderColor: color.border,
   //   borderWidth: 1
   // }));
-  
+
   // const data = {
   //   labels: labels,
   //   datasets: datasets
   // };
-  
+
   if (chartInstance) {
     chartInstance.destroy();
   }
@@ -201,59 +209,59 @@ const updateChart = (data,fieldValue,charttype) => {
   const customerNames = [];
   const itemCounts = [];
 
-    for (const invoice of data) {
-      if (fieldValue === '2') {
-        const weekLabel = `${new Date(invoice.week_start).toLocaleDateString()} - ${new Date(invoice.week_end).toLocaleDateString()}`;
+  for (const invoice of data) {
+    if (fieldValue === '2') {
+      const weekLabel = `${new Date(invoice.week_start).toLocaleDateString()} - ${new Date(invoice.week_end).toLocaleDateString()}`;
 
-        customerNames.push(weekLabel); // Extract customer name
-        itemCounts.push(invoice.categoryname); // Count serial numbers
+      customerNames.push(weekLabel); // Extract customer name
+      itemCounts.push(invoice.categoryname); // Count serial numbers
 
-      } else {
-        
-        customerNames.push(invoice.itemcount); // Extract customer name
-        itemCounts.push(invoice.categoryname); // Count serial numbers
-      }
-      // const weekLabel = `${new Date(item.week_start).toLocaleDateString()} - ${new Date(item.week_end).toLocaleDateString()}`;
+    } else {
 
-      }
- 
+      customerNames.push(invoice.itemcount); // Extract customer name
+      itemCounts.push(invoice.categoryname); // Count serial numbers
+    }
+    // const weekLabel = `${new Date(item.week_start).toLocaleDateString()} - ${new Date(item.week_end).toLocaleDateString()}`;
 
-  chartInstance =  new Chart(ctx, {
+  }
+
+
+  chartInstance = new Chart(ctx, {
     //  type: `${charttype}`,
-     type: `bar`,
-     data: {
-       labels: customerNames,
-       datasets: [{
-         label: '',
-         data: itemCounts,
-         backgroundColor: [
+    type: `bar`,
+    data: {
+      labels: customerNames,
+      datasets: [{
+        label: '',
+        data: itemCounts,
+        backgroundColor: [
           'rgb(255, 99, 132)',
           'rgb(54, 162, 235)',
           'rgb(255, 205, 86)',
           'rgb(255, 105, 80)',
           'rgb(255, 200, 16)'
         ],
-         borderWidth: 1
-       }]
-     },
-     options: {
-       scales: {
-         y: {
-           beginAtZero: true,
-           title: {
-             display: true,
-             text: 'Sales'
-           }
-         },
-         x: {
-           title: {
-             display: true,
-             text: 'Time'
-           }
-         }
-       }
-     }
-   });
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Sales'
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Time'
+          }
+        }
+      }
+    }
+  });
 }
 
 
@@ -264,9 +272,9 @@ const selectFieldValidation9 = (fieldId) => {
   const fieldValue = fieldId.value;
 
   if (fieldValue === '1') {
-    updateChart(monthlysale,fieldValue);
+    updateChart(monthlysale, fieldValue);
   } else if (fieldValue === '2') {
-    updateChart(weeklysale,fieldValue);
+    updateChart(weeklysale, fieldValue);
   }
 };
 const selectFieldValidationChart = (fieldId) => {
@@ -274,23 +282,24 @@ const selectFieldValidationChart = (fieldId) => {
 
   if (fieldValue === 'bar') {
 
-    updateChart('','','bar');
+    updateChart('', '', 'bar');
   } else if (fieldValue === 'doughnut') {
-    updateChart('','','doughnut');
+    updateChart('', '', 'doughnut');
   }
   else if (fieldValue === 'pie') {
-    updateChart('','','pie');
+    updateChart('', '', 'pie');
   }
   else if (fieldValue === 'polarArea') {
-    updateChart('','','polarArea');
+    updateChart('', '', 'polarArea');
   }
   else if (fieldValue === 'radar') {
-    updateChart('','','radar');
+    updateChart('', '', 'radar');
   }
   else if (fieldValue === 'scatter') {
-    updateChart('','','scatter');
+    updateChart('', '', 'scatter');
   }
 };
+
 const fillDataToCustomer = () => {
   customer = ajaxGetRequest('/reportdataworkingemployeechart/customertypedata')
   const displayProperties = [
@@ -374,15 +383,15 @@ const getqty = (rowOb) => {
   let iqty = 0
   rowOb?.items.forEach((item) => {
 
-    iqty = iqty + item.qty 
+    iqty = iqty + item.qty
 
   })
-  return  `<p class="working-status">${iqty}</p>`
+  return `<p class="working-status">${iqty}</p>`
 }
 
-const handleClickDash = (item)=>{
-   // If item is a string, parse it back to an object
-   if (typeof item === 'string') {
+const handleClickDash = (item) => {
+  // If item is a string, parse it back to an object
+  if (typeof item === 'string') {
     item = JSON.parse(item);
   }
   console.log(item);
@@ -396,7 +405,7 @@ const handleReorder = () => {
   window.location.href = "/inventory";
 }
 
-const fillDataIntoReturnTable = ()=>{
+const fillDataIntoReturnTable = () => {
   const returnItems = ajaxGetRequest("duerepair/getduebystatusstatusofrepair/Return To Company")
   const displayProperties = [
     { property: getReturnname, dataType: 'function' },
@@ -405,15 +414,15 @@ const fillDataIntoReturnTable = ()=>{
   fillDataIntoDashBoardTable(returnId, returnItems, displayProperties, editEmployeeBtn0, false)
 
 }
-const getReturnname = (rowOb)=>{
+const getReturnname = (rowOb) => {
   return rowOb?.itemname
 }
-const getSerial = (rowOb)=>{
-  
+const getSerial = (rowOb) => {
+
   return `<p class="working-status">${rowOb?.serialno}</p>`
 }
 
-const handleReturn = ()=>{
+const handleReturn = () => {
   window.location.href = "/invoice?showTable=true";
   // window.location.href = "/invoice";
   // const table = document.getElementById("empTable")
@@ -421,6 +430,43 @@ const handleReturn = ()=>{
   // const form = document.getElementById("empForm")
   // form.style.display = "none"
 }
+
+const fillDataIntoItemCateTable = () => {
+  const categoriesforCashier = ajaxGetRequest("category/getlist")
+  const displayProperties = [
+    { property: getCatName, dataType: 'function' },
+  ]
+  fillDataIntoDashBoardTable(viewItemsIdTable, categoriesforCashier, displayProperties, editEmployeeBtnCash, false)
+  addCategoryClickListeners()
+
+}
+const getCatName = (rowOb) =>{
+  // return  `<p class="yellow-status" onclick="handleCate()">${rowOb?.name}</p>`
+  return `<button class="btn yellow-status" data-category-name="${rowOb.name}" data-category-id="${rowOb.id}">${rowOb.name}</button>`
+}
+const editEmployeeBtnCash = () => {
+  
+}
+
+// Call this function after the table is populated
+const addCategoryClickListeners = () => {
+  document.querySelectorAll('.yellow-status').forEach(button => {
+    button.addEventListener('click', (event) => {
+      const categoryName = event.target.getAttribute('data-category-name');
+      const categoryId = event.target.getAttribute('data-category-id');
+      handleCate(categoryName, categoryId);
+    });
+  });
+}
+
+const handleCate = (name, id) => {
+  console.log('Category Name:', name);
+  console.log('Category ID:', id);
+  const cat = ajaxGetRequest(`${name}/getlist`)
+  console.log(cat);
+}
+
+
 const refreshProfileEdit = () => {
   loggedUser = ajaxGetRequest("/loggeduser")
   console.log(loggedUser);

@@ -126,6 +126,8 @@ public class RepairController {
 
                 // }
                 // purchaseHasCategory.setPurchase_id(purchase);
+
+                // metana error ekk thyeee
                 String s = duetoRepairDao.getItemNextBarcode(duetoRepairDao
                         .getExistItemBarcode(duetoRepairDao.getReferenceById(duetoRepairDao.getMaxId()).getBarcode()));
                 System.out.println(s);
