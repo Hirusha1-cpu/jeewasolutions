@@ -247,7 +247,7 @@ const getSelectedRepair = (value) => {
   getOtherRepairs()
 }
 
-const getSelectedBarcodeRepair = (value2)=>{
+const getSelectedBarcodeRepair = (value2) => {
   addItemDetailsId.disabled = false
   diagnosisId.disabled = false
   duetoRepair1 = JSON.parse(value2)
@@ -338,8 +338,8 @@ const getOtherRepairs = () => {
   const getRepairsByCustomer = ajaxGetRequest(`/repair/getrepairbycustomer?name=${repairCustomerName.value}&iddue=${duetoRepair1.id}`)
   //employees4 = ajaxGetRequest(`/reportdataworkingemployeechart/datevisesale?startdate=${selectDesignation1}&enddate=${selectEStatus1}`)
 
-  if (getRepairsByCustomer.length > 0 ) {
-    selectRepairStatus.disabled = false
+  if (getRepairsByCustomer.length > 0) {
+    selectRepairsByCustomer.disabled = false
     fillDataIntoSelect(selectRepairsByCustomer, `Select ${repairCustomerName.value}'s Repairs`, getRepairsByCustomer, 'id')
   } else {
     selectRepairsByCustomer.value = null
@@ -431,6 +431,13 @@ const submitRepair = () => {
   let serverResponse2 = ajaxRequestBodyMethod(`/repair/${idr3}`, "PUT", repairUpdate);
   console.log("serverResponse", serverResponse2);
 
+  serverResponse2.duetoRepair.forEach(elem => {
+    elem.usedItems.forEach(item => {
+
+      let categoryname3 = (item.category).replace(/\s/g, '').toLowerCase()
+      ajaxGetRequest(`/${categoryname3}/getqty/${item.itemname}`)
+    })
+  })
   repairItemName1.value = ""
   repairItemCategory.value = ""
   repairItemStatus.value = ""
@@ -442,7 +449,15 @@ const submitRepair = () => {
   repairUsedItemCode.value = ""
   repairUsedItemCategory.value = ""
   repairUsedItemItemName.value = ""
-
+  repairItemName.value = ""
+  repairCategoryName.value = ""
+  selectRepairStatus.value = ""
+  repairTechnicalNote.value = ""
+  selectUrgentRepairs.value = ""
+  selectShopRepairs.value = ""
+  selectOutShopRepairs.value = ""
+  selectPurchaseOrderProcess.value = ""
+  selectApprovedRepairs.value = ""
   refreshRepairForm();
 
 }

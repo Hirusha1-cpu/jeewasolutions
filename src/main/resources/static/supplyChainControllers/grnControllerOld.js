@@ -620,6 +620,11 @@ const addGrn = () => {
 
     let serverResponse = ajaxRequestBodyMethod("/grn", "POST", grn);
     console.log("serverResponse", serverResponse);
+    // serverResponse.grnHasCategory.forEach(elem =>{
+
+    //     let categoryname13 = (elem.category_id.name).replace(/\s/g, '').toLowerCase()
+    //     ajaxGetRequest(`/${categoryname13}/getqty/${elem.itemname}`)
+    // })
     let grnObjects = ajaxGetRequest("grn/getlists/" + serverResponse)
     console.log("grnObjects", grnObjects);
     //post krama ena response eka set krnwa ayeth grn ekata 
@@ -651,11 +656,15 @@ const addGrnMain = () => {
     const id = grnItems.id
     //metana kalin post krpu grn ekata update ekk wadinwa
     // grnHasItems.category_id.name
-    const categoryname = (grnHasItems.category_id.name).replace(/\s/g, '').toLowerCase()
-    ajaxGetRequest(`/${categoryname}/getqty`, categoryname)
+   
 
     let serverResponse1 = ajaxRequestBodyMethod(`/grn/${id}`, "PUT", grn); // meken put ekak call karnna
     console.log(serverResponse1);
+       serverResponse1.grnHasCategory.forEach(elem =>{
+
+        let categoryname13 = (elem.category_id.name).replace(/\s/g, '').toLowerCase()
+        ajaxGetRequest(`/${categoryname13}/getqty/${elem.itemname}`)
+    })
 
     refreshGrnTable();
 

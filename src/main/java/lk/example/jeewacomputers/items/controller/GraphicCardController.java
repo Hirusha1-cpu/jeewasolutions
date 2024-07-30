@@ -50,16 +50,19 @@ public class GraphicCardController {
         return dao.getReorderPointReached();
     }
 
-    @GetMapping(value = "/graphiccard/getqty", produces = "application/json")
-    public String findQtyByName() {
+    @GetMapping(value = "/graphiccard/getqty/{name}", produces = "application/json")
+    public String findQtyByName(@PathVariable("name") String name) {
         List<GraphicCard> graphicCards =  findAll();
         for (GraphicCard graphicCard : graphicCards) {
-           Integer qty = dao.getQtyFromName(graphicCard.getName());
-           System.out.println(qty);
-           graphicCard.setQty(qty);
-           dao.save(graphicCard);
+            if (graphicCard.getName().equals(name)) { // Check if the laptop name matches
+                Integer qty = dao.getQtyFromName(name);
+                System.out.println(qty);
+                graphicCard.setQty(qty);
+                dao.save(graphicCard);
+                return "OK";
+            }
         }
-        return "OK";
+        return "Graphic card not found";
     }
 
     @GetMapping(value = "/graphiccard/getreorderppoint/{name}", produces = "application/json")

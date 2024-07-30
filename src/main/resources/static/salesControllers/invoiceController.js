@@ -110,7 +110,15 @@ const handleRepair = () => {
 const checkdiscount = (cusname) => {
     // const discountname = inputCustomerName.value;
     console.log(inputCustomerName.value);
-    invoice.customer_id = cusObject
+    if (cusObject != null) {
+        
+       cusObject.name = inputCustomerName.value
+         cusObject.phone =  inputCustomerContact.value
+
+    } 
+        
+        invoice.customer_id = cusObject
+    
     // Initially disable the input field
     discountCusRate.disabled = true;
     let discountname = inputCustomerName.value
@@ -199,6 +207,7 @@ const getItemDetails = (serialObject) => {
 
     const filteredData = filterByName(serialObject.itemname, categoriesItems1);
 
+
     console.log("Filtered data:", filteredData[0]);
     const obj = filteredData[0]
 
@@ -267,45 +276,73 @@ const getSerialItemDetails = (value2) => {
     totalForItem += value2.itemprice
 
     getItemDetails(value2)
+    
 }
 
 
 const getRepairItemDetails = (value1) => {
-    console.log(value1);
-    lblItemCate1Repair.value = value1.category
-    lblItemName1Repair.value = value1.itemname
-    
-    totalForRepair += value1.total
-    
-    // lblItemName1Repair.value = value1.itemname
-    console.log(totalForRepair);
-
-    // invoiceTotalPrice.value = totalForRepair
-    // function isNumeric(value) {
-    //     return !isNaN(parseFloat(value)) && isFinite(value);
-    //   }     
-    // if (isNumeric(invoiceTotalPrice.value)) {
-    //     invoiceTotalPrice.value = parseFloat(invoiceTotalPrice.value) + parseFloat(value1.total)
-    // }else{
-    //     invoiceTotalPrice.value = parseFloat(value1.total)
-    // }
-    // invoiceTotalPrice.value = value1.total
-    // const selectElement = document.getElementById('invoiceRepairFor');
-    // const diagnosedOption = Array.from(selectElement.options).find(option => option.value === 'Diagnosed');
-    // const fullRepairOption = Array.from(selectElement.options).find(option => option.value === 'Full Repair');
-
-    if (value1.statusofrepair === "Diagnoesed") {
-        selectElement('invoiceRepairFor','Diagnosed')
-    } else {
-        selectElement('invoiceRepairFor','Full Repair')
+    if (inputCustomerName.value !="") {
+        inputCustomerName.disabled = true
+inputCustomerContact.disabled = true
+        customerVal = ajaxGetRequest("duerepair/getrepairbydue/" + value1.repairid)
+        console.log(customerVal);
         
-    }
-    // selectElement.value = value1.statusofrepair
-    customerVal = ajaxGetRequest("duerepair/getrepairbydue/" + value1.repairid)
-    console.log(customerVal);
-    inputCustomerName.value = customerVal.customer_id.name
-    inputCustomerContact.value = customerVal.customer_id.phone
+        if (inputCustomerName.value === customerVal.customer_id.name) {
+            console.log(value1);
+            lblItemCate1Repair.value = value1.category
+            lblItemName1Repair.value = value1.itemname
+            
+            totalForRepair += value1.total
+           console.log(totalForRepair);
+         if (value1.statusofrepair === "Diagnoesed") {
+                selectElement('invoiceRepairFor','Diagnosed')
+            } else {
+                selectElement('invoiceRepairFor','Full Repair')
+                
+            }
+          checkdiscount()
+        }else{
+            alert(`This Repair is not owe to ${inputCustomerName.value} `)
+        }
+    }else{
 
+        console.log(value1);
+        lblItemCate1Repair.value = value1.category
+        lblItemName1Repair.value = value1.itemname
+        
+        totalForRepair += value1.total
+        
+        // lblItemName1Repair.value = value1.itemname
+        console.log(totalForRepair);
+    
+        // invoiceTotalPrice.value = totalForRepair
+        // function isNumeric(value) {
+        //     return !isNaN(parseFloat(value)) && isFinite(value);
+        //   }     
+        // if (isNumeric(invoiceTotalPrice.value)) {
+        //     invoiceTotalPrice.value = parseFloat(invoiceTotalPrice.value) + parseFloat(value1.total)
+        // }else{
+        //     invoiceTotalPrice.value = parseFloat(value1.total)
+        // }
+        // invoiceTotalPrice.value = value1.total
+        // const selectElement = document.getElementById('invoiceRepairFor');
+        // const diagnosedOption = Array.from(selectElement.options).find(option => option.value === 'Diagnosed');
+        // const fullRepairOption = Array.from(selectElement.options).find(option => option.value === 'Full Repair');
+    
+        if (value1.statusofrepair === "Diagnoesed") {
+            selectElement('invoiceRepairFor','Diagnosed')
+        } else {
+            selectElement('invoiceRepairFor','Full Repair')
+            
+        }
+        // selectElement.value = value1.statusofrepair
+        customerVal = ajaxGetRequest("duerepair/getrepairbydue/" + value1.repairid)
+        console.log(customerVal);
+        inputCustomerName.value = customerVal.customer_id.name
+        inputCustomerContact.value = customerVal.customer_id.phone
+
+        checkdiscount()
+    }
 
 
 }
@@ -458,7 +495,10 @@ const addRepairToSerialiedTable = () => {
         { property: getRepairStatus, dataType: 'function' },
     ]
     fillDataIntoPurcahseTable(itemSerializedRepairTable, irepairtable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
-
+    checkdiscount()
+    inputCustomerName.disabled = true
+    inputCustomerContact.disabled = true
+    
 }
 // const getRepairCode = (rowOb) => {
 //     return rowOb.repairCode
@@ -522,6 +562,7 @@ const addToSerialiedTable = () => {
     }
 
     console.log("Total price:", totalPrice);
+    checkdiscount()
 
     lblItemName1.value = ""
     invoiceSerialId.value = ""
@@ -597,11 +638,21 @@ const submitInvoice = () => {
     // incomePaymentsObj.sales_id = invoice
     invoice.incomePayments = incomePaymentsObj
 
-
+    console.log(invoice);
     let serverResponse11 = ajaxRequestBodyMethod("/invoice", "POST", invoice);
-    // const categoryname1 = (serialObject.category_id.name).replace(/\s/g, '').toLowerCase()
-    // ajaxGetRequest(`/${categoryname1}/getqty`, categoryname1)
+   
     console.log("serverResponse", serverResponse11);
+    try {
+        
+        serverResponse11.salesHasSerials.forEach(elem =>{
+    
+            let categoryname13 = (elem.serialno_id.category_id.name).replace(/\s/g, '').toLowerCase()
+            ajaxGetRequest(`/${categoryname13}/getqty/${elem.serialno_id.itemname}`)
+        })
+    } catch (error) {
+        console.log(error);
+    }
+
     printInvoice(serverResponse11)
         inputCustomerName.value = ''
     inputCustomerContact.value = ''
@@ -651,6 +702,7 @@ const printInvoice = (response) => {
             newWindow.close();
         }, 250);
     };
+
 }
 
 // const printInvoice1 = () => {
@@ -750,14 +802,14 @@ const getRepairNoUItems = (rowOb)=>{
 const getSerialRepairUItems = (rowOb)=>{
         let getSerial = ''
     rowOb?.due_to_repairitem_id?.usedItems.forEach(elem => {
-         getSerial = getSerial + elem?.serialno
+         getSerial = getSerial + `<p>${elem?.serialno}</p>`
         })
     return getSerial
 }
 const getCategoryRepairUItems = (rowOb)=>{
       let cat = ""
     rowOb?.due_to_repairitem_id?.usedItems?.forEach(elem => {
-        cat = cat + elem?.category
+        cat = cat + `<p>${elem?.category}</p>`
 
     })
     return cat
@@ -765,7 +817,7 @@ const getCategoryRepairUItems = (rowOb)=>{
 const getItemUItems = (rowOb)=>{
     let catItems = ""
     rowOb?.due_to_repairitem_id?.usedItems?.forEach(elem => {
-        catItems = catItems + elem?.itemname
+        catItems = catItems + `<p> ${elem?.itemname}</p>`
 
     })
     return catItems
@@ -793,7 +845,7 @@ const getItemorServiceWarrantyRepairUItems = (rowOb)=>{
 const getItemorServicePriceRepairUItems = (rowOb)=>{
     let catItemsPrice = ""
     rowOb?.due_to_repairitem_id?.usedItems?.forEach(elem => {
-        catItemsPrice = catItemsPrice + elem?.unitprice
+        catItemsPrice = catItemsPrice +  `<p>${elem?.unitprice}</p>`
 
     })
     return catItemsPrice
@@ -1175,11 +1227,16 @@ const handleClick = (elem) => {
     let totalUnitPrice = 0;
 
         // Loop through diagnosed items and fetch their prices
-        for (const item of diagnosistable.diagnosedItems) {
-            const priceResponse = ajaxGetRequest(`serialno/getitemprice/${item?.itemname}`);
-            const price = parseFloat(priceResponse);
+        // for (const item of diagnosistable.diagnosedItems) {
+        //     const priceResponse = ajaxGetRequest(`serialno/getitemprice/${item?.itemname}`);
+        //     const price = parseFloat(priceResponse);
+        //     totalUnitPrice += price;
+        // }
+        diagnosistable.diagnosedItems.forEach(item => {
+            let priceResponse = ajaxGetRequest(`serialno/getitemprice/${item?.itemname}`);
+            let price = parseFloat(priceResponse);
             totalUnitPrice += price;
-        }
+        });
     // let tots = diagnosistable.diagnosedItems.forEach(data => {
 
     //      calculateTotalPrice(data).then(totalPrice => {
@@ -1198,6 +1255,9 @@ const handleClick = (elem) => {
         // console.log('edit', item.id, index);
         handleApprove(elem)
         button.setAttribute('data-bs-dismiss', 'modal');
+        $("#staticBackdrop00").on('hide.bs.modal', function() { 
+            alert('Confirm Approve'); 
+        }); 
         // $("staticBackdrop00").model('hide')
     }
 

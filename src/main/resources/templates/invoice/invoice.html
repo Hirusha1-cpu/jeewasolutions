@@ -73,7 +73,7 @@
                                             <div class="col-6 form-floating  p-1">
                                                 <input type="text" class="form-control" id="lblItemWarrentyName"
                                                     placeholder="NVIDIA GeForce RTX 4090"
-                                                     onchange="textValidation(lblItemWarrentyName,'', 'warrentyItem', 'itemname'); ">
+                                                     onchange="textValidation(lblItemWarrentyName,'^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'warrentyItem', 'itemname'); ">
                                                 <label for="lblItemWarrentyName">Item name</label>
 
                                             </div>

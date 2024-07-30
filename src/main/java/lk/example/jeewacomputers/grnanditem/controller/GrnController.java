@@ -183,11 +183,12 @@ public class GrnController {
                         SerialNo serialNo = new SerialNo();
                         serialNo.setItemcode("ITEMCODE" + (i + 1));
                         serialNo.setItemprice(grnHasCategory.getItem_price());
-                        serialNo.setAvailability(true);
+                        serialNo.setAvailability(Boolean.TRUE);
                         serialNo.setCategory_id(categoryDao.getReferenceById(1));
                         serialNo.setBarcode(serialNoDao.getItemBarcode(k));
                         // serialNo.setGrn_has_category_id();
                         serialNoDao.save(serialNo);
+                        
                         System.out.println("OK");
                         k++;
 

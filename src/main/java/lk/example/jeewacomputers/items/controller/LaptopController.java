@@ -47,17 +47,19 @@ public class LaptopController {
         return laptopDao.getSellRatio(name);
     }
 
-
-    @GetMapping(value = "/laptop/getqty", produces = "application/json")
-    public String findQtyByName() {
-        List<Laptop> laps =  findAllLaps();
+    @GetMapping(value = "/laptop/getqty/{name}", produces = "application/json")
+    public String findQtyByName(@PathVariable("name") String name) {
+        List<Laptop> laps = findAllLaps();
         for (Laptop lap : laps) {
-           Integer qty = laptopDao.getQtyFromName(lap.getName());
-           System.out.println(qty);
-           lap.setQty(qty);
-           laptopDao.save(lap);
+            if (lap.getName().equals(name)) { // Check if the laptop name matches
+                Integer qty = laptopDao.getQtyFromName(name);
+                System.out.println(qty);
+                lap.setQty(qty);
+                laptopDao.save(lap);
+                return "OK"; // Exit the method after updating the matching laptop
+            }
         }
-        return "OK";
+        return "Laptop not found";
     }
 
     @GetMapping(value = "/laptop/getreorderppoint/{name}", produces = "application/json")
@@ -66,8 +68,7 @@ public class LaptopController {
         return laptopDao.getReorderPoint(name);
     }
 
-
-     @RequestMapping(value = "/laptop")
+    @RequestMapping(value = "/laptop")
     public ModelAndView employeeUI() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(auth);

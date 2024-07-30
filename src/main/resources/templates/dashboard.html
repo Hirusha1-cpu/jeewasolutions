@@ -28,19 +28,20 @@
           <h3>DASHBOARD</h3>
         </div>
         <div class="col">
-       
+
           <div id="" class="row ms-2 ps-4 me-2 pe-4 d-flex justify-content-center align-items-center">
-  
+
 
             <!-- customer start -->
-            <div class="col-2 d-none" id="customerDashboard">
+            <div class="col-3 d-none" id="customerDashboard">
               <div class="card card-hover border-success cuscard cuscard-hover" style="width: 18rem;">
                 <div class="card-body">
-                  <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(8, 118, 24)">
+                  <div class="d-flex justify-content-center align-items-center"
+                    style="background-color: rgb(8, 118, 24)">
                     <h5 class="card-title" style="color: white; font-weight: bolder;">Customers</h5>
                   </div>
                   <div class="cardbody">
-  
+
                     <table class="table " id="customerTypeTable">
                       <thead>
                         <tr>
@@ -51,18 +52,19 @@
                         </tr>
                       </thead>
                       <tbody>
-  
+
                       </tbody>
                     </table>
                   </div>
                 </div>
-                <button class="btn btn-success" style="color: white; border-radius: 5px;" onclick="handleCustomer()"> View
+                <button class="btn btn-success" style="color: white; border-radius: 5px;" onclick="handleCustomer()">
+                  View
                   Customers</button>
               </div>
             </div>
             <!-- customer end -->
-  
-            <!-- for employee segment start-->
+
+            <!-- for repair segment start-->
             <div class="col-3 d-none" id="repairDashboard">
               <!-- <canvas id="myChart"></canvas> -->
               <div class="card card-hover border-info empcard empcard-hover" style="width: 18rem;">
@@ -72,7 +74,7 @@
                     <h5 class="card-title" style="color: white; font-weight: bolder;">Due Repairs</h5>
                   </div>
                   <div class="cardbody">
-  
+
                     <table class="table " id="dueRepId">
                       <thead>
                         <th scope="col">#</th>
@@ -83,12 +85,12 @@
                         <tr>
                           <td>Diagnosed</td>
                           <td>23</td>
-  
+
                         </tr>
                         <tr>
                           <td>Processing</td>
                           <td>20</td>
-  
+
                         </tr>
                       </tbody>
                     </table>
@@ -97,10 +99,10 @@
                 <button class="btn btn-info" style="color: white; border-radius: 5px;" onclick="handleDue()">View
                   Repairs</button>
               </div>
-  
+
             </div>
-            <!-- for employee segment end -->
-  
+            <!-- for repair segment end -->
+
             <!-- for Reorder items segment start -->
             <div class="col-3 d-none" id="reorderDashboard">
               <div class="card card-hover border-warning itemcard itemcard-hover" style="width: 18rem;">
@@ -110,7 +112,7 @@
                     <h5 class="card-title" style="color: white; font-weight: bolder;">Reorder Items</h5>
                   </div>
                   <div class="cardbody">
-  
+
                     <table class="table " id="reorderId">
                       <thead>
                         <tr>
@@ -120,8 +122,8 @@
                         </tr>
                       </thead>
                       <tbody>
-  
-  
+
+
                       </tbody>
                     </table>
                   </div>
@@ -131,8 +133,8 @@
               </div>
             </div>
             <!-- for Reorder items segment end -->
-  
-  
+
+
             <!-- for company return items segment start -->
             <div class="col-3 d-none" id="returnDashboard">
               <div class="card card-hover border-danger returncard returncard-hover" style="width: 18rem;">
@@ -169,16 +171,17 @@
                   Return Items</button>
               </div>
             </div>
-  
+
             <!-- for company return items segment end -->
           </div>
-          <div  class="row ms-2 ps-4 me-2 pe-4 d-flex justify-content-center align-items-center">
+          <div class="row ms-2 ps-4 me-2 pe-4 d-flex justify-content-center align-items-center">
 
             <!-- customer start -->
             <div class="col-3 d-none" id="gotosalesId">
               <div class="card card-hover border-success cuscard cuscard-hover" style="width: 20rem;">
                 <div class="card-body">
-                  <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(8, 118, 24)">
+                  <div class="d-flex justify-content-center align-items-center"
+                    style="background-color: rgb(8, 118, 24)">
                     <h5 class="card-title" style="color: white; font-weight: bolder;">Go To Sales</h5>
                   </div>
                   <div class="">
@@ -189,7 +192,7 @@
               </div>
             </div>
             <!-- customer end -->
-  
+
             <!-- for employee segment start-->
             <div class="col-3 d-none" id="addarepairId">
               <!-- <canvas id="myChart"></canvas> -->
@@ -205,10 +208,10 @@
                 </div>
                 <!-- <button class="btn btn-info" style="color: white; border-radius: 5px;">View Repairs</button> -->
               </div>
-  
+
             </div>
             <!-- for employee segment end -->
-  
+
             <!-- for Reorder items segment start -->
             <div class="col-3 d-none" id="viewItemsId">
               <!-- <canvas id="myChart"></canvas> -->
@@ -227,34 +230,35 @@
                         </tr>
                       </thead>
                       <tbody>
-  
+
                       </tbody>
                     </table>
                   </div>
                 </div>
                 <!-- <button class="btn btn-info" style="color: white; border-radius: 5px;">View Repairs</button> -->
               </div>
-  
+
             </div>
-  
+
             <!-- for Reorder items segment end -->
           </div>
           <div id="dashboardCashier11" class="row ms-2 ps-4 me-2 pe-4 d-flex justify-content-center align-items-center">
-  
-  
+
+
           </div>
-  
+
           <!--View not added Grn Start  -->
-          <div class="row  mb-2 mt-5 d-flex justify-content-center align-items-center">
-  
+          <div class="row mb-2 mt-5 d-flex justify-content-center align-items-center">
+
             <div class="col-3 mt-2 d-none" id="grnDashboard1">
               <div class=" card card-hover border-success cuscard cuscard-hover">
                 <div class="card-body">
-                  <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(8, 118, 24)">
+                  <div class="d-flex justify-content-center align-items-center"
+                    style="background-color: rgb(8, 118, 24)">
                     <h5 class="card-title" style="color: white; font-weight: bolder;">Not Added to GRN</h5>
                   </div>
                   <div class="cardbody">
-  
+
                     <table class="table " id="">
                       <thead>
                         <tr>
@@ -277,7 +281,7 @@
                           <td>34</td>
                           <td><button class="btn btn-outline-success">View</button></td>
                         </tr>
-  
+
                       </tbody>
                     </table>
                   </div>
@@ -285,16 +289,17 @@
                 <button class="btn btn-success" style="color: white; border-radius: 5px;">View GRNS</button>
               </div>
             </div>
-  
+
             <!-- porder start -->
             <div class="col-3 mt-2 d-none" id="requestOrderDashboard">
               <div class="card card-hover border-success cuscard cuscard-hover" style="width: 18rem;">
                 <div class="card-body">
-                  <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(8, 118, 24)">
+                  <div class="d-flex justify-content-center align-items-center"
+                    style="background-color: rgb(8, 118, 24)">
                     <h5 class="card-title" style="color: white; font-weight: bolder;">Purchase Orders</h5>
                   </div>
                   <div class="cardbody">
-  
+
                     <table class="table " id="requestOrderTable">
                       <thead>
                         <th scope="col">#</th>
@@ -306,33 +311,34 @@
                           <td>Diagnosed</td>
                           <td>23</td>
                           <td>23</td>
-  
+
                         </tr>
                         <tr>
                           <td>Processing</td>
                           <td>20</td>
                           <td>20</td>
-  
+
                         </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
-                <button class="btn btn-success" style="color: white; border-radius: 5px;" onclick="handleCustomer()"> View
+                <button class="btn btn-success" style="color: white; border-radius: 5px;" onclick="handleCustomer()">
+                  View
                   Customers</button>
               </div>
             </div>
             <!-- porder end -->
           </div>
           <!-- View not added Grn End -->
-  
+
           <!-- sales graph start-->
           <div id="saleDashboard" class="row d-none mb-2 mt-5 d-flex justify-content-center align-items-center">
             <div class="row d-flex mb-3 justify-content-center align-items-center">
-  
+
               <div class="col-3 d-flex mb-3 justify-content-center align-items-center "
                 style=" background: linear-gradient(to right, #ea4a21, #feb47b); font-weight: bolder; color: white;">
-  
+
                 <h5>Sales Statistics</h5>
                 <select name="" id="valueOfMonthOrWeek" onchange="selectFieldValidation9(this);">
                   <option value="1">Monthly</option>
@@ -353,21 +359,105 @@
             </div>
           </div>
           <!-- sales graph end -->
+           <!-- technician dashboard row start -->
+           <div class="row ms-2 ps-4 me-2 pe-4 d-flex justify-content-center align-items-center" style=" gap: 20px;">
+            <div class="col-3 d-none " id="viewItemsIdForTechnician">
+              <!-- <canvas id="myChart"></canvas> -->
+              <div class="card card-hover border-info empcard itemcard-hover" style="width: 20rem;">
+                <div class="card-body ">
+                  <div class="d-flex justify-content-center align-items-center"
+                    style="background-color: rgb(234, 177, 71);">
+                    <h5 class="card-title" style="color: white; font-weight: bolder;">View Items</h5>
+                  </div>
+                  <div class="" style=" height: 180px; overflow-y: auto;">
+                    <table class="table" id="viewItemsIdTableForTechnician">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Category</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- <button class="btn btn-info" style="color: white; border-radius: 5px;">View Repairs</button> -->
+              </div>
+
+            </div>
+             <!-- for repair segment start-->
+             <div class="col-3 d-none" id="repairDashboardForTechnician">
+              <!-- <canvas id="myChart"></canvas> -->
+              <div class="card card-hover border-info empcard empcard-hover" style="width: 18rem;">
+                <div class="card-body ">
+                  <div class="d-flex justify-content-center align-items-center"
+                    style="background-color: rgb(12, 168, 246);">
+                    <h5 class="card-title" style="color: white; font-weight: bolder;">Due Repairs</h5>
+                  </div>
+                  <div class="cardbody">
+
+                    <table class="table " id="dueRepIdForTechnician">
+                      <thead>
+                        <!-- <th scope="col">#</th> -->
+                        <th scope="col">Repair Type</th>
+                        <th scope="col">Count</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Diagnosed</td>
+                          <td>23</td>
+
+                        </tr>
+                        <tr>
+                          <td>Processing</td>
+                          <td>20</td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <button class="btn btn-info" style="color: white; border-radius: 5px;" onclick="handleDue()">View
+                  Repairs</button>
+              </div>
+
+            </div>
+       
+          </div>
+          <!-- technician dashboard row end -->
 
           <!-- cashierCatetable start -->
           <div id="cashierCateDashboard" class="row d-none mb-2 mt-5 d-flex justify-content-center align-items-center">
-            <table class="table " id="cashierCateTable">
-              <thead>
-                <th scope="col">#</th>
-                <th scope="col">Category</th>
-                <th scope="col">Item</th>
-              </thead>
-              <tbody>
-          
-              </tbody>
-            </table>
+            <div class="card card-hover border-success cuscard cuscard-hover" style="width: 30rem;">
+              <div class="card-body">
+                <div class="d-flex justify-content-center align-items-center" style="background-color: rgb(8, 118, 24)">
+                  <h5 class="card-title" style="color: white; font-weight: bolder;" id="cateH5">Category</h5>
+                </div>
+                <div class="">
+
+                  <table class="table" id="cashierCateTable">
+                    <thead>
+                      <th scope="col">#</th>
+                      <th scope="col">Item</th>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                  </table>
+                </div>
+              </div>
+              <button class="btn btn-success" style="color: white; border-radius: 5px;" onclick="handleCateH5()"> View
+                Category</button>
+            </div>
+
           </div>
-           <!-- cashierCatetable end -->
+          <!-- cashierCatetable end -->
+
+         
+
         </div>
       </main>
       <!-- main component end -->

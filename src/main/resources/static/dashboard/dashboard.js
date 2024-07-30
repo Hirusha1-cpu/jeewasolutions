@@ -15,6 +15,8 @@ const refreshDashboard = () => {
   fillDataIntoReturnTable()
 
   fillDataIntoItemCateTable()
+
+  fillDateIntoTechnicianTable()
   // $('#empAttendence').DataTable({
   //   responsive: true
   // });
@@ -56,119 +58,12 @@ const refreshDashboard = () => {
     addarepairId.classList.remove("d-none")
     viewItemsId.classList.remove("d-none")
 
+  }else if(cleanString === "Technician") {
+    viewItemsIdForTechnician.classList.remove("d-none")
+    repairDashboardForTechnician.classList.remove("d-none")
 
   }
-  // if (cleanString === "Technician") {
-  //   customerDashboard.classList.add("d-none")
-  //   repairDashboard.classList.add("d-none")
-  //   reorderDashboard.classList.add("d-none")
-  //   returnDashboard.classList.add("d-none")
-  // } else {
-  //   customerDashboard.classList.remove("d-none")
-  //   repairDashboard.classList.remove("d-none")
-  //   reorderDashboard.classList.remove("d-none")
-  //   returnDashboard.classList.remove("d-none")
-  // }
-  // if (cleanString === "Cashier") {
-  //   customerDashboard.classList.add("d-none")
-  //   repairDashboard.classList.add("d-none")
-  //   reorderDashboard.classList.add("d-none")
-  //   returnDashboard.classList.add("d-none")
-  // } else {
-  //   customerDashboard.classList.remove("d-none")
-  //   repairDashboard.classList.remove("d-none")
-  //   reorderDashboard.classList.remove("d-none")
-  //   returnDashboard.classList.remove("d-none")
-  // }
-  // if (cleanString === "Data Entry Operator") {
-  //   customerDashboard.classList.add("d-none")
-  //   repairDashboard.classList.add("d-none")
-  //   reorderDashboard.classList.add("d-none")
-  //   returnDashboard.classList.add("d-none")
-  // } else {
-  //   customerDashboard.classList.remove("d-none")
-  //   repairDashboard.classList.remove("d-none")
-  //   reorderDashboard.classList.remove("d-none")
-  //   returnDashboard.classList.remove("d-none")
-  // }
-
-  // Prepare data for the chart
-
-
-
-
-  // for (const invoice of invoices) {
-  //   customerNames.push(invoice.customer_id.name); // Extract customer name
-  //   itemCounts.push(invoice.salesHasSerials.length); // Count serial numbers
-  // }
-
-
-  // for (const invoice of weeklysale) {
-  //   customerNames.push(invoice.itemcount); // Extract customer name
-  //   itemCounts.push(invoice.categoryname); // Count serial numbers    
-  // }
-  // console.log(time.type);
-
-  // if (time.type === "1") {
-
-  //   for (const invoice of monthlysale) {
-  //   customerNames.push(invoice.itemcount); // Extract customer name
-  //   itemCounts.push(invoice.categoryname); // Count serial numbers
-  //   }
-  // }else{
-  //   for (const invoice of weeklysale) {
-  //     customerNames.push(invoice.itemcount); // Extract customer name
-  //     itemCounts.push(invoice.categoryname); // Count serial numbers    
-  //     }
-  // }
-
-
-
-  // Create the chart with the prepared data
-  // const updateChart = (data) => {
-  //   if (data === 1) {
-  //     for (const invoice of monthlysale) {
-  //       customerNames.push(invoice.itemcount); // Extract customer name
-  //       itemCounts.push(invoice.categoryname); // Count serial numbers
-  //       }
-  //   } else {
-  //     for (const invoice of weeklysale) {
-  //       customerNames.push(invoice.itemcount); // Extract customer name
-  //       itemCounts.push(invoice.categoryname); // Count serial numbers    
-  //       }
-  //   }
-  //   if (chartInstance) {
-  //     chartInstance.destroy();
-  //   }
-  //   chartInstance =  new Chart(ctx, {
-  //      type: 'bar',
-  //      data: {
-  //        labels: customerNames,
-  //        datasets: [{
-  //          label: 'Item Count',
-  //          data: itemCounts,
-  //          borderWidth: 1
-  //        }]
-  //      },
-  //      options: {
-  //        scales: {
-  //          y: {
-  //            beginAtZero: true,
-  //            title: {
-  //              display: true,
-  //              text: 'Sales'
-  //            }
-  //          },
-  //          x: {
-  //            title: {
-  //              display: true,
-  //              text: 'Time'
-  //            }
-  //          }
-  //        }
-  //      }
-  //    });
-  // }
+ 
 
   updateChart(monthlysale, '', 'doughnut');
 
@@ -442,10 +337,14 @@ const fillDataIntoItemCateTable = () => {
 }
 const getCatName = (rowOb) =>{
   // return  `<p class="yellow-status" onclick="handleCate()">${rowOb?.name}</p>`
-  return `<button class="btn yellow-status" data-category-name="${rowOb.name}" data-category-id="${rowOb.id}">${rowOb.name}</button>`
+  return `<button onclick="handleObj(${rowOb.id})" class="btn yellow-status" data-category-name="${rowOb.name}" data-category-id="${rowOb.id}">${rowOb.name}</button>`
 }
 const editEmployeeBtnCash = () => {
   
+}
+const handleObj = (rowOb)=>{
+  console.log("created -1");
+  console.log(rowOb);
 }
 
 // Call this function after the table is populated
@@ -460,12 +359,44 @@ const addCategoryClickListeners = () => {
 }
 
 const handleCate = (name, id) => {
+  cashierCateDashboard.classList.remove("d-none")
   console.log('Category Name:', name);
   console.log('Category ID:', id);
   const cat = ajaxGetRequest(`${name}/getlist`)
   console.log(cat);
+  handleCateTable(cat)
 }
 
+const handleCateTable = (cat) => {
+  const displayProperties = [
+    // { property: getCatNameForCate, dataType: 'function' },
+    { property: getItemNamesForCate, dataType: 'function' },
+  ]
+  fillDataIntoDashBoardTable(cashierCateTable, cat, displayProperties, editEmployeeBtnCash, false)
+}
+
+// const getCatNameForCate = (rowOb)=>{
+//   console.log(rowOb);
+//   return `<p class="working-status" onclick="window.location.href='/${rowOb.category_id.name}/getlist''>${rowOb?.category_id.name}</p>`
+// }
+const getItemNamesForCate = (rowOb)=>{
+  cateH5.innerHTML = rowOb.category_id.name
+  return `<p class="working-status" onclick="window.location.href='/${rowOb.category_id.name}'">${rowOb?.name}</p>`
+  
+}
+
+const handleCateH5 = ()=>{
+  window.location.href=`/${cateH5.innerHTML}`
+}
+
+const fillDateIntoTechnicianTable = ()=>{
+  const categoriesforTechnician = ajaxGetRequest("category/getlist")
+  const displayProperties = [
+    { property: getCatName, dataType: 'function' },
+  ]
+  fillDataIntoDashBoardTable(viewItemsIdTableForTechnician, categoriesforTechnician, displayProperties, editEmployeeBtnCash, false)
+  addCategoryClickListeners()
+}
 
 const refreshProfileEdit = () => {
   loggedUser = ajaxGetRequest("/loggeduser")

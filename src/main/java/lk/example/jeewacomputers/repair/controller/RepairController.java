@@ -18,6 +18,7 @@ import java.util.*;
 import lk.example.jeewacomputers.customer.dao.CustomerDao;
 import lk.example.jeewacomputers.customer.entity.Customer;
 import lk.example.jeewacomputers.grnanditem.dao.SerialNoDao;
+import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
 import lk.example.jeewacomputers.payment.dao.IncomePaymentDao;
 import lk.example.jeewacomputers.payment.entity.IncomePayment;
 import lk.example.jeewacomputers.repair.dao.DuetoRepairDao;
@@ -128,15 +129,20 @@ public class RepairController {
                 // purchaseHasCategory.setPurchase_id(purchase);
 
                 // metana error ekk thyeee
-                String s = duetoRepairDao.getItemNextBarcode(duetoRepairDao
-                        .getExistItemBarcode(duetoRepairDao.getReferenceById(duetoRepairDao.getMaxId()).getBarcode()));
-                System.out.println(s);
-                if (s != null) {
+                try {
+                    
+                    String s = duetoRepairDao.getItemNextBarcode((duetoRepairDao.getExistItemBarcode(duetoRepairDao.getMaxId())));
+                    System.out.println(s);
+    
+                    if (s == null) {
+                        duetoRepair.setBarcode("brcode00001");
+    
+                    } else {
+    
+                        duetoRepair.setBarcode(s);
+                    }
+                } catch (Exception e) {
                     duetoRepair.setBarcode("brcode00001");
-
-                } else {
-
-                    duetoRepair.setBarcode(s);
                 }
                 duetoRepair.setTakendate(LocalDateTime.now().toLocalDate());
                 // duetoRepair.setStatusofrepair("pending diagnosis");
@@ -171,7 +177,7 @@ public class RepairController {
 
     @PutMapping(value = "/repair/{id}")
     // @Transactional
-    public String saveUpdate(@PathVariable Integer id, @RequestBody Repair exRepair1) {
+    public Repair saveUpdate(@PathVariable Integer id, @RequestBody Repair exRepair1) {
 
         Repair existingRepair = repairDao.getReferenceById(id);
 
@@ -205,7 +211,10 @@ public class RepairController {
                             usedItem.setSerialno(newUsedItem.getSerialno());
                             usedItem.setItemname(newUsedItem.getItemname());
                             usedItem.setUnitprice(newUsedItem.getUnitprice());
+                            SerialNo serialNo = serialNoDao.getItemsBySerialNo(newUsedItem.getSerialno());
+                            serialNo.setAvailability(Boolean.FALSE);
                             usedItemDao.save(usedItem);
+                            
                         }
                         // If the UsedItem has an id, it already exists, so we don't need to do anything
                     }
@@ -225,10 +234,10 @@ public class RepairController {
 
             // exRepair.setIncomePayments(repair.getIncomePayments());
 
-            repairDao.save(existingRepair);
-            return "OK";
+            Repair r = repairDao.save(existingRepair);
+            return r;
         } catch (Exception e) {
-            return "Error: " + e.getMessage();
+            return null;
         }
     }
 }

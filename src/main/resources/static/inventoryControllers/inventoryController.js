@@ -5,6 +5,7 @@ window.addEventListener('load', () => {
 
 const refreshInventoryTable = () => {
     getCountsCategory()
+    searchInInventoryTable()
     // itemGraphicList = ajaxGetRequest('/inventory?name=graphiccard')
     // itemRamList = ajaxGetRequest('/inventory?name=ram')
     // itemCasingList = ajaxGetRequest('/inventory?name=casing')
@@ -81,6 +82,29 @@ const refreshInventoryTable = () => {
 
     // fillDataIntoTable(inventoryTab, allItemsList, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, false)
 
+}
+
+const searchInInventoryTable = ()=>{
+    const searchInput = document.getElementById('searchInput');
+    const table = document.getElementById('inventoryTab');
+    const tbody = table.getElementsByTagName('tbody')[0];
+    const rows = tbody.getElementsByTagName('tr');
+
+    searchInput.addEventListener('keyup', function() {
+        const filter = searchInput.value.toLowerCase();
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            let rowContainsFilter = false;
+
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j].innerText.toLowerCase().includes(filter)) {
+                    rowContainsFilter = true;
+                    break;
+                }
+            }
+            rows[i].style.display = rowContainsFilter ? '' : 'none';
+        }
+    });
 }
 
 const editEmployeeBtn = () => {
