@@ -90,28 +90,29 @@
                                     <div class="input-group mb-3 col-10">
 
                                         <div class="form-floating select-form col-10">
-                                            <select class="form-select" id="floatingSelect"
-                                                aria-label="Floating label select example">
+                                            <select class="form-select" id="selectBrandInRam"
+                                                aria-label="Floating label select example"
+                                                onchange="selectDFieldValidation(selectBrandInRam,'', 'ram', 'brand_id')">
                                                 <option selected>Select Brand</option>
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
                                             </select>
-                                            <label for="floatingSelect">Graphic Brand</label>
+                                            <label for="selectBrandInRam">Graphic Brand</label>
                                         </div>
-                                        <button class="btn btn-outline-primary">Add Brand</button>
+                                        <!-- <button class="btn btn-outline-primary">Add Brand</button> -->
                                     </div>
 
                                     <div class="col-6">
                                         <div class="form-floating mb-3">
-                                            <select class="form-select select-form" id="floatingSelect"
+                                            <select class="form-select select-form" id="ramCardPcPartStatus"
                                                 aria-label="Floating label select example">
                                                 <option selected>PC/Desktop status</option>
                                                 <option value="1">PC</option>
                                                 <option value="2">Desktop</option>
 
                                             </select>
-                                            <label for="floatingSelect">PC/Desktop status</label>
+                                            <label for="ramCardPcPartStatus">PC/Desktop status</label>
                                         </div>
                                     </div>
                                 </div>
@@ -130,8 +131,9 @@
                                         <div class=" form-floating mt-1 d-flex">
                                             <input type="text" class="form-control" placeholder="Enter Ram Capacity"
                                                 aria-label="Ram's capacity" id="ramCapacity"
-                                                aria-describedby="basic-addon2">
-                                            <label for="floatingInput">Capacity</label>
+                                                aria-describedby="basic-addon2"
+                                                onkeyup="textValidation(ramCapacity, '', 'ram', 'capacity');">
+                                            <label for="ramCapacity">Capacity</label>
                                             <span class="input-group-text" id="basic-addon2">GB</span>
 
                                         </div>
@@ -140,10 +142,11 @@
 
 
                                         <div class="form-floating mt-1 d-flex">
-                                            <input type="text" id="memType" class="form-control"
+                                            <input type="text" id="ramMemType" class="form-control"
                                                 placeholder="Ram's memory type" aria-label="Recipient's username"
-                                                aria-describedby="basic-addon2">
-                                            <label for="floatingInput">Memory Type</label>
+                                                aria-describedby="basic-addon2"
+                                                onkeyup="textValidation(ramMemType, '', 'ram', 'ddr');">
+                                            <label for="ramMemType">Memory Type</label>
                                             <span class="input-group-text" id="basic-addon2">DDR</span>
                                         </div>
                                     </div>
@@ -152,8 +155,10 @@
 
                                         <div class="form-floating mt-1 d-flex">
                                             <input type="text" class="form-control" placeholder="Ram's speed"
-                                                aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                            <label for="floatingInput">Memory Speed</label>
+                                                aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                                id="ramMemSpeed"
+                                                onkeyup="textValidation(ramMemSpeed, '', 'ram', 'speed');">
+                                            <label for="ramMemSpeed">Memory Speed</label>
 
                                             <span class="input-group-text" id="basic-addon2">GHz</span>
                                         </div>
@@ -166,46 +171,67 @@
 
                             <!-- Ram Name Auto generated start -->
                             <div class="form-floating mb-3 mt-3">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="Item Name"
-                                    value="">
+                                <input type="text" class="form-control" id="ramName" placeholder="Item Name" value=""
+                                    onkeyup="textValidation(ramName, '', 'ram', 'name');">
                                 <label for="floatingInputValue">Name</label>
                             </div>
                             <!-- Ram Name Auto generated end -->
 
                             <!-- selling price/ purchase price / qty start -->
                             <div class="row mt-3 p-2 d-flex justify-content-center align-items-center ">
-                                <div class="col-4 form-floating mb-3 p-1">
-                                    <input type="text" class="form-control" id="floatingInput"
-                                        placeholder="Selling Price">
-                                    <label for="floatingInput" class="pl-2">Selling Price</label>
+                                <div class="col-6 form-floating mb-3 p-1">
+                                    <input type="number" class="form-control" id="ramPurchasePrice"
+                                        placeholder="Purchase Price"
+                                        onkeyup="textValidation(ramPurchasePrice, '^[1-9][0-9]{0,7}[.][0-9]{2}$', 'ram', 'purchase_price');">
+                                    <label for="ramPurchasePrice">Purchase Price</label>
                                 </div>
-                                <div class="col-4 form-floating mb-3 p-1">
-                                    <input type="text" class="form-control" id="floatingInput"
-                                        placeholder="Purchase Price">
-                                    <label for="floatingInput">Purchase Price</label>
+                                <div class="col-3 form-floating mb-3 p-1">
+                                    <input type="number" class="form-control" id="ramSellRatio"
+                                        placeholder="Selling Price"
+                                        onkeyup="textValidation(ramSellRatio, '', 'ram', 'sales_rate'); handleSalePrice(this.value)">
+                                    <label for="ramSellRatio" class="pl-2">Selling Ratio</label>
                                 </div>
-                                <div class="col-4 form-floating mb-3 p-1">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="QTY">
-                                    <label for="floatingInput">Quantity</label>
+                                <div class="col-3 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="ramSellPrice"
+                                        placeholder="Selling Price"
+                                        onkeyup="textValidation(ramSellPrice, '', 'ram', 'sales_rate1');">
+                                    <label for="ramSellPrice" class="pl-2">Selling Price</label>
                                 </div>
 
+                                <!-- <div class="col-4 form-floating mb-3 p-1">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="QTY">
+                                        <label for="floatingInput">Quantity</label>
+                                    </div> -->
+
                             </div>
-                            <!-- selling price/ purchase price / qty end -->
+
 
                             <!-- max discount ratio / min discount ratio strat -->
                             <div class="row  d-flex justify-content-center align-items-center ">
-                                <div class="col-4 form-floating mb-3 p-1">
-                                    <input type="text" class="form-control" id="floatingInput"
-                                        placeholder="Max discount ratio">
-                                    <label for="floatingInput" class="pl-2">Max discount ratio</label>
+                                <div class="col-2 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="ramMaxDiscount"
+                                        placeholder="Max discount ratio"
+                                        onkeyup="(textValidationramdMaxDiscount, '', 'ram', 'max_discount_price');handleMaxPrice(this.value)">
+                                    <label for="ramMaxDiscount" class="pl-2">Max discount ratio</label>
                                 </div>
                                 <div class="col-4 form-floating mb-3 p-1">
-                                    <input type="text" class="form-control" id="floatingInput"
-                                        placeholder="Min discount ratio">
-                                    <label for="floatingInput">Min discount ratio</label>
+                                    <input type="text" class="form-control" id="ramMaxDiscount1"
+                                        placeholder="Max discount ratio"
+                                        onkeyup="textValidation(ramMaxDiscount1, '', 'ram1', 'max_discount_price'); ">
+                                    <label for="ramMaxDiscount1" class="pl-2">Max discount price</label>
                                 </div>
-
-
+                                <div class="col-2 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="ramMinDiscount"
+                                        placeholder="Min discount ratio"
+                                        onkeyup="textValidation(ramMinDiscount, '', 'ram', 'min_discount_price'); handleMinPrice(this.value)">
+                                    <label for="ramMinDiscount">Min discount ratio</label>
+                                </div>
+                                <div class="col-4 form-floating mb-3 p-1">
+                                    <input type="text" class="form-control" id="ramMinDiscount1"
+                                        placeholder="Min discount ratio"
+                                        onkeyup="textValidation(ramMinDiscount1, '', 'ram1', 'min_discount_price');">
+                                    <label for="ramMinDiscount1">Min discount ratio</label>
+                                </div>
                             </div>
 
                             <!-- max discount ratio / min discount ratio end -->
@@ -214,25 +240,24 @@
                             <div class="row p-2 d-flex justify-content-center align-items-center ">
                                 <div class="col-4 form-floating  p-1">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select select-form" id="floatingSelect"
-                                            aria-label="Floating label select example">
-                                            <option selected>PC part status</option>
-                                            <option value="1">Available</option>
-                                            <option value="2">Not Available</option>
-
+                                        <select class="form-select select-form" id="ramPcPartStatus"
+                                            aria-label="Floating label select example"
+                                            onchange="selectDFieldValidation(ramPcPartStatus,'', 'ram', 'pc_part_status_id')">
                                         </select>
-                                        <label for="floatingSelect">PC part status</label>
+                                        <label for="ramPcPartStatus">PC part status</label>
                                     </div>
                                 </div>
                                 <div class="col-4 form-floating mb-3 p-1">
-                                    <input type="text" class="form-control" id="floatingInput"
-                                        placeholder="Warrenty Period">
-                                    <label for="floatingInput">Warrenty Period</label>
+                                    <input type="number" class="form-control" id="ramWarrenty"
+                                        placeholder="Warrenty Period"
+                                        onkeyup="textValidation(ramWarrenty, '', 'ram', 'warrenty');">
+                                    <label for="ramWarrenty">Warrenty Period</label>
                                 </div>
                                 <div class="col-4 form-floating mb-3 p-1">
-                                    <input type="text" class="form-control" id="floatingInput"
-                                        placeholder="Reorder point">
-                                    <label for="floatingInput">Reorder point</label>
+                                    <input type="text" class="form-control" id="ramReorder"
+                                        placeholder="Reorder point"
+                                        onkeyup="textValidation(ramReorder, '', 'ram', 'reorder_point'); showObject()">
+                                    <label for="ramReorder">Reorder point</label>
                                 </div>
 
                             </div>
@@ -285,7 +310,7 @@
                                         <div class="row p-2 d-flex justify-content-end align-items-center"
                                             style="display: flex; flex-direction: row; gap:10px;">
                                             <button class="col-3 btn btn-warning">UPDATE</button>
-                                            <button class="col-3 btn btn-primary">ADD</button>
+                                            <button class="col-3 btn btn-primary" onclick="addramCardDetails()">ADD</button>
 
                                         </div>
                                     </footer>

@@ -149,6 +149,65 @@ const selectFieldValidation = (fieldId, Pattern, object, property) => {
         }
     }
 }
+// data list validation
+const selectDataListValidation = (fieldId, dataListName, object, property, oldObject, propertyone, propertyTwo,property3) => {
+    const fieldValue = fieldId.value;
+
+
+    if (fieldValue !== '') {
+        let dataList = window[dataListName];
+        let existingIndex = -1
+        // mekedi fieldValue.split(" ")[0] meken space wilin wen karama ena palaweni value eka gnnw, 
+        //eka check karanwa data[displayProperty] ehekata samanada kiyla dataList.map eken, ita passe
+        // e index eka return krnwa
+
+        // let existingIndex = dataList.map(data => data[displayProperty]).indexOf(fieldValue.split(" ")[0])
+
+        // me list eke thyenwda kiyla existingIndex != -1 meken check wenwa
+        // for (const data of dataList) {
+        for (const index in dataList) {
+            console.log(fieldValue);
+            if (property3 == "") {
+                // if (fieldValue == data[index][propertyone] + " " + data[index][propertyTwo]) {
+                if (fieldValue == dataList[index][propertyone] + " " + dataList[index][propertyTwo]) {
+                    // existingIndex = true
+                    existingIndex = index
+                    break;
+                }
+                
+            } else {
+                     // if (fieldValue == data[index][propertyone] + " " + data[index][propertyTwo]) {
+                        if (fieldValue == dataList[index][propertyone] + " " + dataList[index][propertyTwo] + " " + dataList[index][property3] ) {
+                            // existingIndex = true
+                            existingIndex = index
+                            break;
+                        }
+            }
+        }
+        if (existingIndex != -1) {
+
+            fieldId.style.border = '2px solid green';
+            if (property != '') {
+                
+                window[object][property] = dataList[existingIndex];
+            }
+        } else {
+            fieldId.style.border = '2px solid green';
+            if (property != '') {
+
+                window[object][property] = null;
+            }
+        }
+
+    } else {
+
+        if (fieldId.required) {
+            fieldId.style.border = '2px solid red';
+        } else {
+            fieldId.style.border = '2px solid #ced4da';
+        }
+    }
+}
 //create select field validation function
 const selectDFieldValidation = (fieldId, Pattern, object, property) => {
     const fieldValue = fieldId.value;
@@ -274,3 +333,4 @@ const sweetalert = () => {
         }
     });
 }
+

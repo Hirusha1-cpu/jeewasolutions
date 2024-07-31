@@ -41,6 +41,9 @@ public interface CustomerDao extends JpaRepository<Customer, Integer>{
     @Query("SELECT ct FROM CustomerType ct WHERE ct.id IN (SELECT c.customerType.id FROM Customer c WHERE c.name = ?1)")
     public CustomerType getCustomerTypeByName(String name);
 
+    @Query("SELECT ct FROM CustomerType ct WHERE ct.id IN (SELECT c.customerType.id FROM Customer c WHERE c.phone = ?1)")
+    public CustomerType getCustomerTypeByPhone(String phone);
+
     // SELECT * FROM jeewacomputersproject.customertype where id in (SELECT customertype_id FROM jeewacomputersproject.customer where name ="Elon Musk");
     @Query(value = "SELECT count(*) FROM jeewacomputersproject.customer where customertype_id IN (SELECT id FROM jeewacomputersproject.customertype where customertypes =?1 );", nativeQuery = true)
     public Integer getCustomerCount(String customertypes);

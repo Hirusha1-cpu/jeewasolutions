@@ -125,6 +125,8 @@ public class DuetoRepairController {
                     diagnosedItemsDao.save(diagnosticItems);
                     
                 }
+                extduetoRepair.setCharges(new BigDecimal("400.00") );
+                extduetoRepair.setTotal(total.add(new BigDecimal("400.00")));
             }
             if (duetoRepair.getUsedItems() != null) {
                 
@@ -144,11 +146,14 @@ public class DuetoRepairController {
                 }
             }
             extduetoRepair.setStatusofrepair(duetoRepair.getStatusofrepair());
-            extduetoRepair.setCharges(new BigDecimal("400.00") );
+
+            // extduetoRepair.setCharges(new BigDecimal("400.00") );
+            // extduetoRepair.setCharges(new BigDecimal("0") );
 
             // duetoRepair.setRepair_id(repairDao.getReferenceById(duetoRepair.getRepairid()));
 
-            extduetoRepair.setTotal(total.add(new BigDecimal("400.00")));
+            // extduetoRepair.setTotal(total.add(new BigDecimal("400.00")));
+            // extduetoRepair.setTotal(total);
             duetoRepairDao.save(extduetoRepair);
             return "OK";
         } catch (Exception e) {

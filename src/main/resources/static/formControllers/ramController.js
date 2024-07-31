@@ -1,7 +1,42 @@
 window.addEventListener('load', () => {
     refreshRamTable();
-    // refreshGraphicForm();
+    refreshRamForm();
 })
+const refreshRamForm = ()=>{
+    ram = {}
+    brands = ajaxGetRequest("brand/getlist")
+    fillDataIntoSelect(selectBrandInRam, "Select brands", brands, 'name')
+
+    pcpart = ajaxGetRequest("pcstatus/getlist")
+    fillDataIntoSelect(ramCardPcPartStatus, "Select pcpart", pcpart, 'status')
+
+}
+const handleSalePrice = (value) =>{
+    graphicCardSellPrice.value = parseFloat(value) * parseFloat(graphicCardPurchasePrice.value)
+}
+const handleMaxPrice = (value) =>{
+    graphicCardMaxDiscount1.value = parseFloat(value) * parseFloat(graphicCardPurchasePrice.value)
+}
+const handleMinPrice = (value) =>{
+    graphicCardMinDiscount1.value = parseFloat(value) * parseFloat(graphicCardPurchasePrice.value)
+}
+const addramCardDetails = () => {
+
+    console.log(ram);
+    // graphicCard.sales_rate = parseFloat(graphicCardSellRatio.value)
+    if (ram1.sales_rate != "") {
+        console.log(graphicCard1);
+        // let sellPrice = parseFloat(graphicCard1.sales_rate1)
+        // let purchasePrice = parseFloat(graphicCard.purchase_price)
+        // graphicCard.sales_rate = parseFloat(sellPrice / purchasePrice)
+        let serverGrphicResponse = ajaxRequestBodyMethod("/ram", "POST", ram);
+        console.log(serverGrphicResponse);
+    }else{
+        let serverGrphicResponse = ajaxRequestBodyMethod("/ram", "POST", ram);
+        console.log(serverGrphicResponse);
+    }
+}
+
 const refreshRamTable = () => {
     motherBoards = ajaxGetRequest('/ram/getlist')
     const displayProperties = [

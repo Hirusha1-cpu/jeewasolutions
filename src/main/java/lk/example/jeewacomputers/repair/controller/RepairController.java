@@ -130,15 +130,16 @@ public class RepairController {
 
                 // metana error ekk thyeee
                 try {
-                    
-                    String s = duetoRepairDao.getItemNextBarcode((duetoRepairDao.getExistItemBarcode(duetoRepairDao.getMaxId())));
+
+                    String s = duetoRepairDao
+                            .getItemNextBarcode((duetoRepairDao.getExistItemBarcode(duetoRepairDao.getMaxId())));
                     System.out.println(s);
-    
+
                     if (s == null) {
                         duetoRepair.setBarcode("brcode00001");
-    
+
                     } else {
-    
+
                         duetoRepair.setBarcode(s);
                     }
                 } catch (Exception e) {
@@ -194,9 +195,9 @@ public class RepairController {
                 existingDuetoRepair.setStatusofrepair("Completed");
                 existingDuetoRepair.setTechnicalnote(duetoRepair.getTechnicalnote());
 
-                if (duetoRepair.getTotal() != null) {
-                    total1 = total1.add(duetoRepair.getTotal());
-                }
+                // if (duetoRepair.getTotal() != null) {
+                // total1 = total1.add(duetoRepair.getTotal());
+                // }
                 if (duetoRepair.getCharges() != null) {
                     charges = charges.add(duetoRepair.getCharges());
                 }
@@ -205,6 +206,10 @@ public class RepairController {
                     for (UsedItems newUsedItem : duetoRepair.getUsedItems()) {
                         if (newUsedItem.getId() == null) {
                             // This is a new UsedItem, so create and save it
+                            if (newUsedItem.getUnitprice() != null) {
+                                total1 = total1.add(newUsedItem.getUnitprice());
+
+                            }
                             UsedItems usedItem = new UsedItems();
                             usedItem.setDue_to_repairitem_id(existingDuetoRepair);
                             usedItem.setCategory(newUsedItem.getCategory());
@@ -214,12 +219,31 @@ public class RepairController {
                             SerialNo serialNo = serialNoDao.getItemsBySerialNo(newUsedItem.getSerialno());
                             serialNo.setAvailability(Boolean.FALSE);
                             usedItemDao.save(usedItem);
-                            
+
                         }
                         // If the UsedItem has an id, it already exists, so we don't need to do anything
                     }
+                    if (duetoRepair.getTotal() != null) {
+                        total1 = total1.add(duetoRepair.getTotal());
+                    }
+                    charges = BigDecimal.ZERO;
+                    total1 = total1.subtract(charges);
+
+                } else {
+                    // charges = new BigDecimal(400.00);
+                    if (duetoRepair.getTotal() != null) {
+                        total1 = total1.add((duetoRepair.getTotal()));
+                        total1 = total1.subtract(charges);
+                        charges = BigDecimal.ZERO;
+                    }else{
+
+                        total1 = charges;
+                    }
                 }
 
+                existingDuetoRepair.setTotal(total1);
+                existingDuetoRepair.setCharges(charges);
+                duetoRepairDao.save(existingDuetoRepair);
             }
             // exRepair.setRepairstatus("Completed");
             existingRepair.setCharges(charges);

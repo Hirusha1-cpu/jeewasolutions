@@ -146,3 +146,21 @@ const fillDataIntoSelectMulProp = (fieldId,message, dataList, property,property2
 
 }
 
+const fillDataIntoDataList = (fieldId, dataList, property, propertyTwo, property3)=>{
+    fieldId.innerHTML = '';
+    for(const ob of dataList){
+        let option = document.createElement('option');
+        if (propertyTwo != null && property3 == null) {
+            option.value =`${ob[property]} ${ob[propertyTwo]}`
+            
+        }else if(property3 != null){
+            option.value =`${ob[property]} ${ob[propertyTwo]} ${ob[property3]}`
+        }
+        else{
+            option.value =`${ob[property]}`
+
+        }
+        fieldId.appendChild(option)
+    }
+   
+}

@@ -6,7 +6,7 @@
 </head>
 
 <head th:replace="~{ layouts/head :: headInvoiceFragment}">
-   
+
 </head>
 
 
@@ -59,12 +59,20 @@
                                         <div class="row mt-2">
 
                                             <div class="col-6 form-floating  p-1">
-                                                <select class="form-select" id="warrentySerialId"
-                                                aria-label="Default select example"
-                                                onchange="getWarrentyItemDetails()">
-                                              
-                                            </select>
-                                            <label for="warrentySerialId" class="pl-2">Serial No</label>
+                                                <!-- <select class="form-select" id="warrentySerialId"
+                                                    aria-label="Default select example"
+                                                    onchange="getWarrentyItemDetails()">
+
+                                                </select> -->
+                                                <input type="text" class="form-control " id="warrentySerialId"
+                                                placeholder="" list = "dataListItemsForSerialNo"
+                                                onkeyup="selectDataListValidation(this,dataListItemsForSerialNo,'','','','serialno','itemname');
+                                                 getWarrentyItemDetails(this.value)"
+                                                >
+                                                <datalist id="dataListItemsForSerialNo">
+
+                                                </datalist>
+                                                <label for="warrentySerialId" class="pl-2">Serial No</label>
 
                                             </div>
                                         </div>
@@ -73,7 +81,7 @@
                                             <div class="col-6 form-floating  p-1">
                                                 <input type="text" class="form-control" id="lblItemWarrentyName"
                                                     placeholder="NVIDIA GeForce RTX 4090"
-                                                     onchange="textValidation(lblItemWarrentyName,'^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'warrentyItem', 'itemname'); ">
+                                                    onchange="textValidation(lblItemWarrentyName,'^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'warrentyItem', 'itemname'); ">
                                                 <label for="lblItemWarrentyName">Item name</label>
 
                                             </div>
@@ -82,7 +90,8 @@
 
                                             <div class="col-6 form-floating  p-1">
                                                 <input type="text" class="form-control" id="lblItemWarrentyCategory"
-                                                    placeholder=""  onchange="textValidation(lblItemWarrentyCategory,'', 'warrentyItem', 'category'); ">
+                                                    placeholder=""
+                                                    onchange="textValidation(lblItemWarrentyCategory,'', 'warrentyItem', 'category'); ">
                                                 <label for="lblItemWarrentyCategory">Item Category</label>
 
                                             </div>
@@ -185,7 +194,8 @@
                                                         <div class="row">
 
                                                             <label for="" class="fw-bolder">Expire On <span
-                                                                    style="color: red;" id="toBeExpier">2023-09-08</span></label>
+                                                                    style="color: red;"
+                                                                    id="toBeExpier">2023-09-08</span></label>
 
                                                         </div>
 
@@ -195,9 +205,11 @@
                                             </div>
                                             <div class="row mt-2">
                                                 <div class=" form-floating p-1">
-                                                    <button id="returnId" class="btn btn-success" onclick="returnCompany()">Return Company</button>
-                                                    <button id="readyRepairId" class="btn btn-danger" style="color: white;"
-                                                        onclick="readyRepair()">Ready Repair</button>
+                                                    <button id="returnId" class="btn btn-success"
+                                                        onclick="returnCompany()">Return Company</button>
+                                                    <button id="readyRepairId" class="btn btn-danger"
+                                                        style="color: white;" onclick="readyRepair()">Ready
+                                                        Repair</button>
                                                 </div>
 
                                             </div>
@@ -247,8 +259,8 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer" id="diagnosedItemFooter">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal" onclick="handleClose()">Close</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                                onclick="handleClose()">Close</button>
                                             <!-- <button type="button" class="btn btn-danger" onclick="handleApprove()">Approved</button> -->
                                         </div>
                                     </div>
@@ -425,10 +437,12 @@
                                             <ul class="nav nav-underline">
 
                                                 <li class="nav-item">
-                                                    <p class="nav-link fw-bolder" onclick="handleItem()" style="color: rgb(0, 0, 255);">Item Payment</p>
+                                                    <p class="nav-link fw-bolder" onclick="handleItem()"
+                                                        style="color: rgb(0, 0, 255);">Item Payment</p>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <p class="nav-link fw-bolder" onclick="handleRepair()" style="color: rgb(32, 69, 3);">Repair Payment</p>
+                                                    <p class="nav-link fw-bolder" onclick="handleRepair()"
+                                                        style="color: rgb(32, 69, 3);">Repair Payment</p>
                                                 </li>
                                             </ul>
                                         </div>
@@ -443,12 +457,22 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-6 form-floating p-1 ms-2">
-                                                    <select class="form-select" id="barcodeNo"
-                                                    aria-label="Default select example" onchange="getSerialItemDetails(JSON.parse(this.value))">
+                                                    <!-- <select class="form-select" id="barcodeNo"
+                                                        aria-label="Default select example"
+                                                        onchange="getSerialItemDetails(JSON.parse(this.value))">
 
-                                                </select>
-                                                <label for="barcodeNo" class="pl-2">Barcode</label>
-                                                 
+
+                                                    </select> -->
+                                                    <input type="text" class="form-control " id="barcodeNo"
+                                                    placeholder="" list = "dataListItemsForItemBarcode"
+                                                    onkeyup="selectDataListValidation(this,dataListItemsForItemBarcode,'','','','barcode','itemname');
+                                                     getSerialItemDetails((this.value))"
+                                                    >
+                                                    <datalist id="dataListItemsForItemBarcode">
+
+                                                    </datalist>
+                                                    <label for="barcodeNo" class="pl-2">Barcode</label>
+
                                                 </div>
 
                                                 <!-- <div class="row">
@@ -516,18 +540,27 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                               
-                                                <div class="col-6 form-floating p-1 ms-2">
-                                                    <select class="form-select" id="barcodeNoRepair"
-                                                        aria-label="Default select example" onchange="getRepairItemDetails(JSON.parse(this.value))">
 
-                                                    </select>
+                                                <div class="col-6 form-floating p-1 ms-2">
+                                                    <!-- <select class="form-select" id="barcodeNoRepair"
+                                                        aria-label="Default select example"
+                                                        onchange="getRepairItemDetails(JSON.parse(this.value))">
+
+                                                    </select> -->
+                                                    <input type="text" class="form-control " id="barcodeNoRepair"
+                                                    placeholder="" list = "dataListItemsForRepairBarcode"
+                                                    onkeyup="selectDataListValidation(this,dataListItemsForRepairBarcode,'','','','barcode','itemname');
+                                                     getRepairItemDetails((this.value))"
+                                                    >
+                                                    <datalist id="dataListItemsForRepairBarcode">
+
+                                                    </datalist>
                                                     <label for="barcodeNoRepair" class="pl-2">Barcode</label>
-                                                   
+
                                                 </div>
 
                                             </div>
-        
+
                                             <div class="row mt-2">
                                                 <div class="col-6 form-floating p-1 ms-2">
                                                     <input type="text" class="form-control " id="lblItemCate1Repair"
@@ -544,17 +577,18 @@
                                                 </div>
 
                                             </div>
-               
+
                                             <div class="row mt-3">
                                                 <div class="col-6 form-floating p-1 ms-2">
-                                                    
+
                                                     <select class="form-select" id="invoiceRepairFor"
-                                                        aria-label="Default select example" >
+                                                        aria-label="Default select example">
                                                         <option selected>Select Repair Payement</option>
                                                         <option value="Diagnosed">Diagnosed Payment</option>
                                                         <option value="Full Repair">Full Repair Payment</option>
                                                     </select>
-                                                    <label for="invoiceRepairFor" class="pl-2">Repair Payment For</label>
+                                                    <label for="invoiceRepairFor" class="pl-2">Repair Payment
+                                                        For</label>
                                                 </div>
 
                                             </div>
@@ -784,7 +818,8 @@
                                                 <label for="paymentMethod" class="pl-2">Payment Method</label>
 
                                             </div>
-                                            <div class="col-3 d-none form-floating p-1 ms-2" id="invoiceCustomerPaymentRefference1">
+                                            <div class="col-3 d-none form-floating p-1 ms-2"
+                                                id="invoiceCustomerPaymentRefference1">
                                                 <input type="text" class="form-control "
                                                     id="invoiceCustomerPaymentRefference" placeholder="Referrance No:"
                                                     oninput="textValidation(invoiceCustomerPaymentRefference,'', 'invoice', 'referenceno');">
@@ -828,8 +863,7 @@
                                     <!-- item details end -->
                                     <!-- invoice start -->
                                     <!-- d-none danna -->
-                                    <div class="background-color d-none" id="printingModalPrint1"
-                                        style="margin: 0; background-image: url('resourcesT/assets/blue-toned-set-triangular-paper-sheets-with-copy-space.jpg');
+                                    <div class="background-color d-none" id="printingModalPrint1" style="margin: 0; background-image: url('resourcesT/assets/blue-toned-set-triangular-paper-sheets-with-copy-space.jpg');
                                         background-repeat: no-repeat;
                                         background-position: center bottom;
                                         background-size: cover;">
@@ -941,7 +975,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-group-divider">
-                                              
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -960,12 +994,13 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-group-divider">
-                                                 
+
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div class="row p-4 d-none" id="cusRepairUsedItemTablePrintDiv">
-                                            <table class="table table-secondary table-lg" id="cusRepairUsedItemTablePrint">
+                                            <table class="table table-secondary table-lg"
+                                                id="cusRepairUsedItemTablePrint">
                                                 <thead class="table table-striped-columns">
                                                     <tr>
                                                         <th scope="col">#</th>
@@ -978,7 +1013,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-group-divider">
-                                                 
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -1058,8 +1093,8 @@
                                         <div class="row mt-3">
                                             <div
                                                 class="col-12 pr-0 pl-0 d-flex justify-content-center align-items-center">
-                                                <img src="resourcesT/assets/invoicelogo/hp.png" alt=""
-                                                    class="icon-size" style="max-height: 0.95rem; padding-left: 9px;">
+                                                <img src="resourcesT/assets/invoicelogo/hp.png" alt="" class="icon-size"
+                                                    style="max-height: 0.95rem; padding-left: 9px;">
                                                 <img src="resourcesT/assets/invoicelogo/asus.png" alt=""
                                                     class="icon-size" style="max-height: 0.95rem; padding-left: 9px;">
                                                 <img src="resourcesT/assets/invoicelogo/dell.png" alt=""
@@ -1108,7 +1143,8 @@
                                                 <div class="row">
                                                     <div class="col-11 input-group">
                                                         <label class="mr-2 mb-2 ml-2 pl-1 inv-cus-info-lable"
-                                                            for="txtAssignByView" style=" font-size: 12px !important;">Assign By :</label>
+                                                            for="txtAssignByView"
+                                                            style=" font-size: 12px !important;">Assign By :</label>
                                                         <input type="text" id="txtAssignByView" disabled
                                                             class="form-control inv-cus-info p-0" value="">
                                                     </div>
@@ -1118,10 +1154,12 @@
                                             <div class="col-6"></div>
                                         </div>
                                         <div class="row mt-4 p-2">
-                                            <div class="col-3 pl-5 signature-info"  style="font-size: 12px;text-decoration:overline dotted black;">
+                                            <div class="col-3 pl-5 signature-info"
+                                                style="font-size: 12px;text-decoration:overline dotted black;">
                                                 <p>Jeewa Compuers</p>
                                             </div>
-                                            <div class="col-3 pl-2 signature-info" style="font-size: 12px;text-decoration:overline dotted black;">
+                                            <div class="col-3 pl-2 signature-info"
+                                                style="font-size: 12px;text-decoration:overline dotted black;">
                                                 <p>Customer Signature</p>
                                             </div>
                                             <div class="col-6" style="text-align: center; font-size: 13px">
@@ -1144,7 +1182,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <!-- invoice start -->
-                                                   
+
                                                     <!-- invoice start -->
                                                 </div>
 

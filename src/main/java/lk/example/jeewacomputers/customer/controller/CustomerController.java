@@ -55,6 +55,11 @@ public class CustomerController {
         return customerDao.getCustomerTypeByName(name);
     }
 
+    @GetMapping(value = "/customer/getdiscountbyphone/{phone}", produces = "application/json")
+    public CustomerType getCustomerTypeByPhone(@PathVariable("phone") String phone) {
+        return customerDao.getCustomerTypeByPhone(phone);
+    }
+
     @GetMapping(value = "/customer/getcustomerbytype/{name}", produces = "application/json")
     public List<Customer> getCustomerByType(@PathVariable("name") String name) {
         return customerDao.getCustomersByCustomerType(name);

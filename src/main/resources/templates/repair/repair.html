@@ -80,7 +80,8 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title fw-bolder" style="color: red;">Urgent Repairs</h5>
-                                            <p class="card-text"><span class="fw-bolder me-2" id="selectUrgentRepairsSpan">23</span>Repairs</p>
+                                            <p class="card-text"><span class="fw-bolder me-2"
+                                                    id="selectUrgentRepairsSpan">23</span>Repairs</p>
                                             <select class="form-select col-5" aria-label="Default select example"
                                                 id="selectUrgentRepairs" onchange="getSelectedRepair(this.value)">
                                             </select>
@@ -92,7 +93,8 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title fw-bolder" style="color: red;">Shop Repairs</h5>
-                                            <p class="card-text"><span class="fw-bolder me-2" id="selectShopRepairsSpan">23</span>Repairs</p>
+                                            <p class="card-text"><span class="fw-bolder me-2"
+                                                    id="selectShopRepairsSpan">23</span>Repairs</p>
                                             <select class="form-select col-5" aria-label="Default select example"
                                                 id="selectShopRepairs" onchange="getSelectedRepair(this.value)">
                                             </select>
@@ -105,7 +107,8 @@
                                         <div class="card-body">
                                             <h5 class="card-title fw-bolder" style="color: red;">Out Of Shop Repairs
                                             </h5>
-                                            <p class="card-text"><span class="fw-bolder me-2" id="selectOutShopRepairsSpan">23</span>Repairs</p>
+                                            <p class="card-text"><span class="fw-bolder me-2"
+                                                    id="selectOutShopRepairsSpan">23</span>Repairs</p>
                                             <select class="form-select col-5" aria-label="Default select example"
                                                 id="selectOutShopRepairs" onchange="getSelectedRepair(this.value)">
                                             </select>
@@ -117,7 +120,8 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title fw-bolder" style="color: red;">Processing Repairs</h5>
-                                            <p class="card-text"><span class="fw-bolder me-2" id="selectPurchaseOrderProcessSpan">23</span>Repairs</p>
+                                            <p class="card-text"><span class="fw-bolder me-2"
+                                                    id="selectPurchaseOrderProcessSpan">23</span>Repairs</p>
                                             <select class="form-select col-5" aria-label="Default select example"
                                                 id="selectPurchaseOrderProcess"
                                                 onchange="getSelectedRepair(this.value)">
@@ -219,14 +223,22 @@
                             </div>
                             <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                                 <div class="col-4 form-floating p-1">
-                                    <select class="form-select col-5" aria-label="Default select example"
-                                    id="repairItemBarcode" onchange="getSelectedBarcodeRepair(this.value)">
-                                </select>
-                                <label for="repairItemBarcode" class="pl-2">Barcode</label>
-                                   
+                                    <!-- <select class="form-select col-5" aria-label="Default select example"
+                                        id="repairItemBarcode" onchange="getSelectedBarcodeRepair(this.value)">
+                                    </select> -->
+                                    <input type="text" class="form-control " id="repairItemBarcode"
+                                    placeholder="" list = "dataListItemsForRepairs"
+                                    onkeyup="selectDataListValidation(this,dataListItemsForRepairs,'','','','barcode','itemname','statusofrepair');
+                                     getSelectedBarcodeRepair(this.value)"
+                                    >
+                                    <datalist id="dataListItemsForRepairs">
+
+                                    </datalist>
+                                    <label for="repairItemBarcode" class="pl-2">Barcode</label>
+
                                 </div>
                             </div>
-    
+
                             <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                                 <div class="col-4 form-floating p-1">
                                     <input type="text" class="form-control" id="repairItemName1" placeholder="">
@@ -236,8 +248,8 @@
                                     <input type="text" class="form-control" id="repairItemCategory" placeholder="">
                                     <label for="repairItemCategory">Category</label>
                                 </div>
-    
-    
+
+
                             </div>
                             <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                                 <div class="col-4 form-floating p-1">
@@ -268,10 +280,10 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bolder" style="color: red;">Approved Repairs</h5>
-                                    <p class="card-text"><span class="fw-bolder me-2" id="selectApprovedRepairsSpan">23</span>Repairs</p>
+                                    <p class="card-text"><span class="fw-bolder me-2"
+                                            id="selectApprovedRepairsSpan">23</span>Repairs</p>
                                     <select class="form-select col-5" aria-label="Default select example"
-                                        id="selectApprovedRepairs"
-                                        onchange="getSelectedRepair(this.value)">
+                                        id="selectApprovedRepairs" onchange="getSelectedRepair(this.value)">
                                     </select>
                                 </div>
                             </div>
@@ -279,7 +291,7 @@
                     </div>
                     <!-- Item details add model start -->
                     <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal" disabled id="addItemDetailsId" >
+                        data-bs-target="#exampleModal" disabled id="addItemDetailsId">
                         Add Item Details
                     </button>
                     <!-- diagnosis -->
@@ -397,8 +409,8 @@
                                     <div class="d-flex justify-content-end gap-3">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary"
-                                            onclick="handleUsedSubmit()"  data-bs-dismiss="modal">Submit</button>
+                                        <button type="button" class="btn btn-primary" onclick="handleUsedSubmit()"
+                                            data-bs-dismiss="modal">Submit</button>
 
                                     </div>
 
@@ -465,8 +477,8 @@
                                     <div class="d-flex justify-content-end gap-3">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary"
-                                            onclick="submitDiagnosis()" data-bs-dismiss="modal">Submit</button>
+                                        <button type="button" class="btn btn-primary" onclick="submitDiagnosis()"
+                                            data-bs-dismiss="modal">Submit</button>
 
                                     </div>
 
@@ -588,7 +600,7 @@
                         </div>
                     </div> -->
 
-                    <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
+                    <div class="row d-none py-1 p-2 d-flex justify-content-start align-items-center ">
                         <div class="col-4 form-floating p-1">
                             <input type="text" class="form-control" id="repairItemName" placeholder="">
                             <label for="repairItemName">Item Name</label>
@@ -598,10 +610,10 @@
                             <input type="text" class="form-control" id="repairCategoryName" placeholder="">
                             <label for="repairCategoryName">Category</label>
                         </div>
-                        <div class="col-4 form-floating p-1" >
+                        <div class="col-4 form-floating p-1">
                             <select class="form-select col-5 p-3" disabled aria-label="Default select example"
                                 id="selectRepairStatus">
-                                
+
                             </select>
                         </div>
 
@@ -613,6 +625,13 @@
                             <label for="repairTechnicalNote">Repair Description</label>
                         </div>
 
+                    </div>
+                    <div class="row  py-1 p-2 d-flex justify-content-start align-items-center ">
+                        <div class="col-4 form-floating p-1">
+                            <input type="text" class="form-control" id="repairPrice" placeholder="">
+                            <label for="repairPrice">Price</label>
+
+                        </div>
                     </div>
 
 

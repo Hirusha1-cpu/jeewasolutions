@@ -1,6 +1,6 @@
 window.addEventListener('load', () => {
     refreshGraphicTable();
-    refreshGraphicForm();
+            
 })
 const refreshGraphicTable = () => {
     graphic_Cards = ajaxGetRequest('/graphiccard/getlist')

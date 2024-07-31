@@ -10,9 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener('load', () => {
   refreshRepairForm();
-  refreshRepairTable()
+  refreshRepairTable1()
 })
 const refreshRepairForm = () => {
+  matchingRepairBarcode = ''
   repairUpdate = new Object();
   repairUpdate1 = new Object();
   duetoRepair = new Object();
@@ -40,7 +41,7 @@ const refreshRepairForm = () => {
   const duerepairApproved = ajaxGetRequest("/duerepair/getduebystatusapproved")
   const duerepairProcessing = ajaxGetRequest("duerepair/getduebystatusforprocess")
   const availableSerials = ajaxGetRequest("serialno/getavailablelist")
-  const availableBarcodes = ajaxGetRequest("duerepair/getrepairbybarcode")
+  availableBarcodes = ajaxGetRequest("duerepair/getrepairbybarcode")
   const categories = ajaxGetRequest("/category/getlist")
   selectUrgentRepairsSpan.innerHTML = duerepairUrgent.length
   selectShopRepairsSpan.innerHTML = duerepairShop.length
@@ -56,10 +57,11 @@ const refreshRepairForm = () => {
   selectApprovedRepairsSpan.innerHTML = duerepairApproved.length
   serialNoListCountForRepair = ajaxGetRequest("/serialno/getlistwithoutnotnull")
   fillDataIntoSelect(selectRepairCategory, "Select Category", categories, 'name')
-  fillDataIntoSelect(repairItemBarcode, "Select Barcode", availableBarcodes, 'barcode')
+  // fillDataIntoSelect(repairItemBarcode, "Select Barcode", availableBarcodes, 'barcode')
+  fillDataIntoDataList(dataListItemsForRepairs, availableBarcodes,'barcode','itemname','statusofrepair')
 }
 
-const refreshRepairTable = () => {
+const refreshRepairTable1 = () => {
   const repairDetails = ajaxGetRequest("/repair/getlist")
   // <th scope="col">#</th>
   // <th scope="col">Repair No</th>
@@ -248,9 +250,16 @@ const getSelectedRepair = (value) => {
 }
 
 const getSelectedBarcodeRepair = (value2) => {
+  console.log(value2);
+    
+    // Find the matching item in getAvailableBarcodes
+     matchingRepairBarcode = availableBarcodes.find(item => 
+        `${item.barcode} ${item.itemname} ${item.statusofrepair}` === value2
+    );
   addItemDetailsId.disabled = false
   diagnosisId.disabled = false
-  duetoRepair1 = JSON.parse(value2)
+  // duetoRepair1 = JSON.parse(value2)
+  duetoRepair1 = matchingRepairBarcode
   const repairforDueRepair1 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair1.repairid))
   console.log(repairforDueRepair1);
   // diagnosisDueUpdate.repair_id = repairforDueRepair
@@ -409,16 +418,23 @@ const submitRepair = () => {
   // Update the existing DuetoRepair
   let existingDuetoRepair = repairDetail2.duetoRepair.find(dr => dr.id === duetoRepair.id);
   if (existingDuetoRepair) {
+    if (repairPrice.value != null) {
+      existingDuetoRepair.total = parseFloat(repairPrice.value)
+    }
     existingDuetoRepair.statusofrepair = "Completed";
     existingDuetoRepair.technicalnote = repairTechnicalNote.value;
     // Add new UsedItems to the existing DuetoRepair
     existingDuetoRepair.usedItems.push(...duetoRepair.usedItems);
   } else {
     // If not found, add the new DuetoRepair
+    if (repairPrice.value != null) {
+      duetoRepair.total = parseFloat(repairPrice.value).toFixed(2);
+    }
     repairUpdate.duetoRepair.push(duetoRepair);
   }
 
   repairUpdate.repairstatus = selectRepairStatus.value;
+
 
   // repairUpdate.incomePayments = {
   //     payment: parseInt(1000),
@@ -431,11 +447,11 @@ const submitRepair = () => {
   let serverResponse2 = ajaxRequestBodyMethod(`/repair/${idr3}`, "PUT", repairUpdate);
   console.log("serverResponse", serverResponse2);
 
-  serverResponse2.duetoRepair.forEach(elem => {
-    elem.usedItems.forEach(item => {
+  serverResponse2?.duetoRepair?.forEach(elem => {
+    elem?.usedItems?.forEach(item => {
 
-      let categoryname3 = (item.category).replace(/\s/g, '').toLowerCase()
-      ajaxGetRequest(`/${categoryname3}/getqty/${item.itemname}`)
+      let categoryname3 = (item?.category).replace(/\s/g, '').toLowerCase()
+      ajaxGetRequest(`/${categoryname3}/getqty/${item?.itemname}`)
     })
   })
   repairItemName1.value = ""

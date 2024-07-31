@@ -36,7 +36,7 @@ public interface DuetoRepairDao extends JpaRepository<DuetoRepair, Integer>{
     @Query(value = "select d from DuetoRepair d where  d.statusofrepair ='Diagnoesed'")
     public List<DuetoRepair> getDueRepairByStatusForProcessing();
 
-    @Query(value = "select d from DuetoRepair d where  d.statusofrepair !='pending diagnosis' and d.statusofrepair !='Return To Company' and d.statusofrepair !='Paid' ")
+    @Query(value = "select d from DuetoRepair d where  d.statusofrepair !='pending diagnosis' and d.statusofrepair !='Return To Company' and d.statusofrepair !='Approved' ")
     public List<DuetoRepair> getDueRepairBywithoutreturnCompanyandpending();
 
     @Query(value = "select ui from UsedItems ui where ui.due_to_repairitem_id.id in (select d.id from DuetoRepair d where d.repairid = ?1)")

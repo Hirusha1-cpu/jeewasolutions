@@ -1,9 +1,30 @@
 window.addEventListener('load', () => {
     refreshHardDiskTable();
-    // refreshGraphicForm();
+    refreshHardForm();
 })
+
+const refreshHardForm = ()=>{
+    hardisk = {}
+    
+}
+const addHardDetails = () => {
+
+    console.log(graphicCard);
+    // graphicCard.sales_rate = parseFloat(graphicCardSellRatio.value)
+    if (hard1.sales_rate != "") {
+        console.log(hard1);
+        // let sellPrice = parseFloat(graphicCard1.sales_rate1)
+        // let purchasePrice = parseFloat(graphicCard.purchase_price)
+        // graphicCard.sales_rate = parseFloat(sellPrice / purchasePrice)
+        let serverGrphicResponse = ajaxRequestBodyMethod("/harddisk", "POST", graphicCard);
+        console.log(serverGrphicResponse);
+    }else{
+        let serverGrphicResponse = ajaxRequestBodyMethod("/harddisk", "POST", graphicCard);
+        console.log(serverGrphicResponse);
+    }
+}
 const refreshHardDiskTable = () => {
-    graphic_Cards = ajaxGetRequest('/graphiccard/getlist')
+    graphic_Cards = ajaxGetRequest('/harddisk/getlist')
     const displayProperties = [
         { property: 'name', dataType: 'string' },
         { property: 'memory', dataType: 'string' },
