@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 window.addEventListener('load', () => {
   refreshRepairForm();
   refreshRepairTable1()
+  searchInRepairMainTable()
 })
 const refreshRepairForm = () => {
   purchRequest = new Object();
@@ -44,13 +45,13 @@ const refreshRepairForm = () => {
   const availableSerials = ajaxGetRequest("serialno/getavailablelist")
   availableBarcodes = ajaxGetRequest("duerepair/getrepairbybarcode")
   const categories = ajaxGetRequest("/category/getlist")
-  selectUrgentRepairsSpan.innerHTML = duerepairUrgent.length
+  // selectUrgentRepairsSpan.innerHTML = duerepairUrgent.length
   selectShopRepairsSpan.innerHTML = duerepairShop.length
   selectOutShopRepairsSpan.innerHTML = duerepairNonShop.length
   selectPurchaseOrderProcessSpan.innerHTML = duerepairProcessing.length
   console.log(repairs);
   fillDataIntoSelect(repairUsedItemCode, "Select Serial No", availableSerials, 'barcode')
-  fillDataIntoSelect(selectUrgentRepairs, "Select Uregent Repairs", duerepairUrgent, 'fault')
+  // fillDataIntoSelect(selectUrgentRepairs, "Select Uregent Repairs", duerepairUrgent, 'fault')
   fillDataIntoSelect(selectShopRepairs, "Select Shop Repairs", duerepairShop, 'fault')
   fillDataIntoSelect(selectOutShopRepairs, "Select Non Shop Repairs", duerepairNonShop, 'fault')
   fillDataIntoSelect(selectPurchaseOrderProcess, "Select Processing", duerepairProcessing, 'fault')
@@ -259,7 +260,7 @@ const getSelectedBarcodeRepair = (value2) => {
     `${item.barcode} ${item.itemname} ${item.statusofrepair}` === value2
   );
   addItemDetailsId.disabled = false
-  diagnosisId.disabled = false
+  
   // duetoRepair1 = JSON.parse(value2)
   duetoRepair1 = matchingRepairBarcode
   const repairforDueRepair1 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair1.repairid))
@@ -271,6 +272,10 @@ const getSelectedBarcodeRepair = (value2) => {
   repairItemFault.value = duetoRepair1.fault
   repairCustomerName.value = repairforDueRepair1.customer_id.name
   repairCustomerPhone.value = repairforDueRepair1.customer_id.phone
+  if (duetoRepair1.diagnoserequire === "Require Diagnose") {
+    requireDiagnosedId.innerHTML = "Require Diagnose"
+    diagnosisId.disabled = false
+  }
 
   getOtherRepairs()
 
@@ -478,7 +483,7 @@ const submitRepair = () => {
   repairCategoryName.value = ""
   selectRepairStatus.value = ""
   repairTechnicalNote.value = ""
-  selectUrgentRepairs.value = ""
+  // selectUrgentRepairs.value = ""
   selectShopRepairs.value = ""
   selectOutShopRepairs.value = ""
   selectPurchaseOrderProcess.value = ""
@@ -489,6 +494,8 @@ const submitRepair = () => {
     repairPrice.value = ""
   // }
   refreshRepairForm();
+  refreshRepairTable1()
+
 
 }
 
@@ -559,7 +566,7 @@ const submitDiagnosis = () => {
   repairCategoryName.value = ""
   selectRepairStatus.value = ""
   repairTechnicalNote.value = ""
-  selectUrgentRepairs.value = ""
+  // selectUrgentRepairs.value = ""
   selectShopRepairs.value = ""
   selectOutShopRepairs.value = ""
   selectPurchaseOrderProcess.value = ""
@@ -576,4 +583,27 @@ const submitDiagnosis = () => {
 const handlePRequestSubmit = () => {
   let serverResponse = ajaxRequestBodyMethod("/purchaseorderrequest", "POST", purchRequest);
   console.log(serverResponse);
+}
+
+const searchInRepairMainTable = ()=>{
+  const searchInput = document.getElementById('searchRepairMainInput');
+  const table = document.getElementById('repairTab');
+  const tbody = table.getElementsByTagName('tbody')[0];
+  const rows = tbody.getElementsByTagName('tr');
+
+  searchInput.addEventListener('keyup', function() {
+      const filter = searchInput.value.toLowerCase();
+      for (let i = 0; i < rows.length; i++) {
+          const cells = rows[i].getElementsByTagName('td');
+          let rowContainsFilter = false;
+
+          for (let j = 0; j < cells.length; j++) {
+              if (cells[j].innerText.toLowerCase().includes(filter)) {
+                  rowContainsFilter = true;
+                  break;
+              }
+          }
+          rows[i].style.display = rowContainsFilter ? '' : 'none';
+      }
+  });
 }

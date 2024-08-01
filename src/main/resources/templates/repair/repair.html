@@ -33,7 +33,11 @@
                         <button id="empaddbtn" class="btn btn-success mb-2">Add Repair</button>
                     </div>
                     <div class="container-fluid">
-                        <div class="mb-3 table-responsive">
+                        <div class="col-4">
+
+                            <input class="form-control  mb-2" id="searchRepairMainInput" type="text" placeholder="Search..">
+                        </div>
+                        <div class="mb-3 table-responsive" style="max-height: 600px; overflow-y: auto;">
                             <table class="table table-dark table-bordered border-primary" id="repairTab">
                                 <thead>
 
@@ -42,7 +46,7 @@
                                     <th scope="col">Itemname</th>
                                     <th scope="col">Repair Status</th>
                                     <th scope="col">Customer</th>
-                                    <th scope="col">Complete Status</th>
+                                    <th scope="col">Repair Type</th>
                                     <th scope="col">Paid Status</th>
                                     <th scope="col">Button</th>
                                 </thead>
@@ -75,7 +79,7 @@
                             <!-- date end -->
                             <!-- purchase order start -->
                             <div class="row p-2 d-flex justify-content-center align-items-center me-3">
-                                <div class="col-3">
+                                <!-- <div class="col-3">
 
                                     <div class="card">
                                         <div class="card-body">
@@ -87,7 +91,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-3">
 
                                     <div class="card">
@@ -125,6 +129,18 @@
                                             <select class="form-select col-5" aria-label="Default select example"
                                                 id="selectPurchaseOrderProcess"
                                                 onchange="getSelectedRepair(this.value)">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title fw-bolder" style="color: red;">Approved Repairs</h5>
+                                            <p class="card-text"><span class="fw-bolder me-2"
+                                                    id="selectApprovedRepairsSpan">23</span>Repairs</p>
+                                            <select class="form-select col-5" aria-label="Default select example"
+                                                id="selectApprovedRepairs" onchange="getSelectedRepair(this.value)">
                                             </select>
                                         </div>
                                     </div>
@@ -219,7 +235,7 @@
                         <div class="col-8">
 
                             <div class="row fw-semibold  " style="padding-left: 16px; color: green;">
-                                Item Details
+                                Item Details  <span id="requireDiagnosedId"></span>
                             </div>
                             <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                                 <div class="col-4 form-floating p-1">
@@ -277,7 +293,7 @@
                         </div>
 
                         <div class="col-4">
-                            <div class="card">
+                            <!-- <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bolder" style="color: red;">Approved Repairs</h5>
                                     <p class="card-text"><span class="fw-bolder me-2"
@@ -286,7 +302,7 @@
                                         id="selectApprovedRepairs" onchange="getSelectedRepair(this.value)">
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <!-- Item details add model start -->

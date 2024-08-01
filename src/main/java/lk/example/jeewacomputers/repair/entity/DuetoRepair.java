@@ -62,6 +62,9 @@ public class DuetoRepair {
     @Column(name = "technicalnote")
     private String technicalnote;
 
+    @Column(name = "diagnoserequire")
+    private String diagnoserequire;
+
     @Column(name = "repairid")
     private Integer repairid;
 

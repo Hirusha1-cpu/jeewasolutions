@@ -36,6 +36,7 @@ window.addEventListener('load', () => {
     refreshInvoiceForm();
     // refreshGrnTable();
     refreshRepairTable();
+    searchInRepairTable()
 })
 
 
@@ -1520,6 +1521,11 @@ const readyRepair = () => {
     }
     warrentyItem.statusofrepair = "pending diagnosis"
     warrentyItem.fault = warrentyFault.value
+    if (flexCheckCheckedForDiagnose.checked = true) {
+        warrentyItem.diagnoserequire = "Require Diagnose"
+    }else{
+        warrentyItem.diagnoserequire = ""
+    }
     
 
     warrentyItem.usedItems.push(usedItemsObj)
@@ -1651,7 +1657,7 @@ const checkIstheCustomerExisting = (cusvalue)=>{
     }else{
         inputCustomerContact.value = ''
     }
-
+}
 //    getExistCustomerByPhone = ajaxGetRequest(`/customer/getexistingcustomerbyphone?phone=${inputCustomerContact.value}`)
 //    console.log(getExistCustomerByPhone);
 //    if (getExistCustomerByPhone != '') {
@@ -1669,5 +1675,25 @@ const checkIstheCustomerExisting = (cusvalue)=>{
 //     inputCustomerName.style.border = '2px solid #ced4da';
 //     inputCustomerContact.style.border = '2px solid #ced4da';
 //    }
+const searchInRepairTable = ()=>{
+    const searchInput = document.getElementById('searchRepairInput');
+    const table = document.getElementById('repairItemTable');
+    const tbody = table.getElementsByTagName('tbody')[0];
+    const rows = tbody.getElementsByTagName('tr');
 
+    searchInput.addEventListener('keyup', function() {
+        const filter = searchInput.value.toLowerCase();
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            let rowContainsFilter = false;
+
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j].innerText.toLowerCase().includes(filter)) {
+                    rowContainsFilter = true;
+                    break;
+                }
+            }
+            rows[i].style.display = rowContainsFilter ? '' : 'none';
+        }
+    });
 }
