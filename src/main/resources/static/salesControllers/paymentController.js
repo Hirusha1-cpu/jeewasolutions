@@ -62,7 +62,7 @@ const refreshGRNTable = () => {
         { property: getQtyGrn, dataType: 'function' },
         { property: getGrnPayment, dataType: 'function' },
     ]
-    fillDataIntoDashBoardTable(grnExpenseTab, grnTable, displayProperties, editEmployeeBtn2, true)
+    fillDataIntoDashBoardTable(grnExpenseTab, grnTable, displayProperties, editEmployeeBtn2, false)
 
 }
 

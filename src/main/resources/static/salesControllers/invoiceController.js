@@ -898,8 +898,8 @@ const setDataIntInvoicePrint = (invoiceP) => {
     cusPayMethodPrint.innerHTML = invoiceP?.paymentmethod ? invoiceP?.paymentmethod : "cash"
     if (invoiceP?.paymentmethod == "card") {
         printReffer.classList.remove("d-none")
-        cusPaidPrintDiv.add("d-none")
-cusBalancePrintDiv.add("d-none")
+        cusPaidPrintDiv.classList.add("d-none")
+cusBalancePrintDiv.classList.add("d-none")
     }else{
         printReffer.classList.add("d-none")
     }
