@@ -13,12 +13,12 @@ const refreshIncomeTable = () => {
         { property: getCustomerOfSales, dataType: 'function' },
         { property: getTotalOfSales, dataType: 'function' },
     ]
-    fillDataIntoDashBoardTable(incomePaymentTable, incomeTable, displayProperties, editEmployeeBtn2, true)
+    fillDataIntoDashBoardTable(incomePaymentTable, incomeTable, displayProperties, editEmployeeBtn2, false)
 
 }
 
 const getInvoice = (rowOb) => {
-    return rowOb.invoiceno ? rowOb.invoice : "-"
+    return rowOb.invoiceno ? rowOb.invoiceno : "-"
 }
 const getDateOfSales = (rowOb) => {
     return rowOb.date ? rowOb.date : "-"

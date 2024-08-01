@@ -13,6 +13,7 @@ window.addEventListener('load', () => {
   refreshRepairTable1()
 })
 const refreshRepairForm = () => {
+  purchRequest = new Object();
   matchingRepairBarcode = ''
   repairUpdate = new Object();
   repairUpdate1 = new Object();
@@ -58,7 +59,7 @@ const refreshRepairForm = () => {
   serialNoListCountForRepair = ajaxGetRequest("/serialno/getlistwithoutnotnull")
   fillDataIntoSelect(selectRepairCategory, "Select Category", categories, 'name')
   // fillDataIntoSelect(repairItemBarcode, "Select Barcode", availableBarcodes, 'barcode')
-  fillDataIntoDataList(dataListItemsForRepairs, availableBarcodes,'barcode','itemname','statusofrepair')
+  fillDataIntoDataList(dataListItemsForRepairs, availableBarcodes, 'barcode', 'itemname', 'statusofrepair')
 }
 
 const refreshRepairTable1 = () => {
@@ -160,7 +161,8 @@ const filterByCategoryInDiagnosis = () => {
         selectedCategoryBrand.category_id = JSON.parse(selectRepairCategory.value);
         selectedCategoryBrand.brand_id = element
         diagnosisUpdate.itemname = element.name
-        let uprice = ajaxGetRequest("serialno/getitemprice/" + element?.name)
+        // let uprice = ajaxGetRequest("serialno/getitemprice/" + element?.name)
+        let uprice = ajaxGetRequest("serialno/getitempriceforserial/" + element?.name)
         diagnosisUpdate.unitprice = uprice
 
         diagnosisUpdate.category = categorynamefordiagnos
@@ -251,11 +253,11 @@ const getSelectedRepair = (value) => {
 
 const getSelectedBarcodeRepair = (value2) => {
   console.log(value2);
-    
-    // Find the matching item in getAvailableBarcodes
-     matchingRepairBarcode = availableBarcodes.find(item => 
-        `${item.barcode} ${item.itemname} ${item.statusofrepair}` === value2
-    );
+
+  // Find the matching item in getAvailableBarcodes
+  matchingRepairBarcode = availableBarcodes.find(item =>
+    `${item.barcode} ${item.itemname} ${item.statusofrepair}` === value2
+  );
   addItemDetailsId.disabled = false
   diagnosisId.disabled = false
   // duetoRepair1 = JSON.parse(value2)
@@ -271,6 +273,7 @@ const getSelectedBarcodeRepair = (value2) => {
   repairCustomerPhone.value = repairforDueRepair1.customer_id.phone
 
   getOtherRepairs()
+
 }
 
 
@@ -341,16 +344,22 @@ const editEmployeeBtn2 = () => {
 const handleUsedSubmit = () => {
 
 }
+
 const getOtherRepairs = () => {
 
-  // const getRepairsByCustomer = ajaxGetRequest(`/repair/getrepairbycustomer/${repairCustomerName.value}`)
-  const getRepairsByCustomer = ajaxGetRequest(`/repair/getrepairbycustomer?name=${repairCustomerName.value}&iddue=${duetoRepair1.id}`)
-  //employees4 = ajaxGetRequest(`/reportdataworkingemployeechart/datevisesale?startdate=${selectDesignation1}&enddate=${selectEStatus1}`)
+  try {
+    // const getRepairsByCustomer = ajaxGetRequest(`/repair/getrepairbycustomer/${repairCustomerName.value}`)
+    const getRepairsByCustomer = ajaxGetRequest(`/repair/getrepairbycustomer?phone=${repairCustomerPhone.value}&iddue=${duetoRepair1.id}`)
+    //employees4 = ajaxGetRequest(`/reportdataworkingemployeechart/datevisesale?startdate=${selectDesignation1}&enddate=${selectEStatus1}`)
 
-  if (getRepairsByCustomer.length > 0) {
-    selectRepairsByCustomer.disabled = false
-    fillDataIntoSelect(selectRepairsByCustomer, `Select ${repairCustomerName.value}'s Repairs`, getRepairsByCustomer, 'id')
-  } else {
+    if (getRepairsByCustomer.length > 0) {
+      selectRepairsByCustomer.disabled = false
+      fillDataIntoSelect(selectRepairsByCustomer, `Select ${repairCustomerName.value}'s Repairs`, getRepairsByCustomer, 'id')
+    } else {
+      selectRepairsByCustomer.value = null
+    }
+
+  } catch (error) {
     selectRepairsByCustomer.value = null
   }
 
@@ -474,6 +483,11 @@ const submitRepair = () => {
   selectOutShopRepairs.value = ""
   selectPurchaseOrderProcess.value = ""
   selectApprovedRepairs.value = ""
+  // if (selectRepairsByCustomer.value == null) {
+    repairCustomerName.value = ""
+    repairCustomerPhone.value = ""
+    repairPrice.value = ""
+  // }
   refreshRepairForm();
 
 }
@@ -530,5 +544,36 @@ const submitDiagnosis = () => {
   let id7 = duetoRepair1.id
   let serverResponse3 = ajaxRequestBodyMethod(`/duerepair/${id7}`, "PUT", diagnosisDueUpdate);
   console.log(serverResponse3);
+  repairItemName1.value = ""
+  repairItemCategory.value = ""
+  repairItemStatus.value = ""
+  repairItemFault.value = ""
+  // selectPurchaseOrder1.value = ""
+  repairItemFault.value = ""
+  selectRepairStatus.value = ""
+  repairTechnicalNote.value = ""
+  repairUsedItemCode.value = ""
+  repairUsedItemCategory.value = ""
+  repairUsedItemItemName.value = ""
+  repairItemName.value = ""
+  repairCategoryName.value = ""
+  selectRepairStatus.value = ""
+  repairTechnicalNote.value = ""
+  selectUrgentRepairs.value = ""
+  selectShopRepairs.value = ""
+  selectOutShopRepairs.value = ""
+  selectPurchaseOrderProcess.value = ""
+  selectApprovedRepairs.value = ""
+  // if (selectRepairsByCustomer.value == null) {
+    repairCustomerName.value = ""
+    repairCustomerPhone.value = ""
+    repairPrice.value = ""
+  // }
+  refreshRepairForm();
 
+}
+
+const handlePRequestSubmit = () => {
+  let serverResponse = ajaxRequestBodyMethod("/purchaseorderrequest", "POST", purchRequest);
+  console.log(serverResponse);
 }

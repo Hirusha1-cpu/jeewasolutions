@@ -74,7 +74,7 @@ public class Laptop {
     private BigDecimal max_discounted_ratio;
 
     @Column(name = "min_discounted_ratio")
-    @NotNull
+    // @NotNull
     private BigDecimal min_discounted_ratio;
 
     @Column(name = "sales_rate")

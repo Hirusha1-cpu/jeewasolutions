@@ -43,6 +43,10 @@ public class SerialNoController {
     public BigDecimal getItemPriceFromDiag(@PathVariable("name") String name) {
         return serialNoDao.getItemPriceForDiagnose(name);
     }
+    @GetMapping(value = "/serialno/getitempriceforserial/{name}",produces = "application/json")
+    public BigDecimal getItemPriceFromSerial(@PathVariable("name") String name) {
+        return serialNoDao.getItemPriceForSerialNo(name);
+    }
 
 
 }

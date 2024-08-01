@@ -586,6 +586,7 @@ const supplierUpdate = () => {
     let serverResponse = ajaxRequestBodyMethod("/supplier", "PUT", supplier);
     alert(serverResponse)
     refreshSupplyTable();
+    refreshSupplyForm();
     console.log("serverResponse==>", serverResponse);
     console.log("supplier===>", supplier);
 

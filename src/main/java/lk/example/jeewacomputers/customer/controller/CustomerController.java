@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort.Direction;
 import lk.example.jeewacomputers.customer.dao.CustomerDao;
 import lk.example.jeewacomputers.customer.entity.Customer;
 import lk.example.jeewacomputers.customer.entity.CustomerType;
+import lk.example.jeewacomputers.repair.entity.Repair;
 import lk.example.jeewacomputers.report.entity.ReportCategoryViseCount;
 
 import java.util.*;
@@ -64,6 +65,26 @@ public class CustomerController {
     public List<Customer> getCustomerByType(@PathVariable("name") String name) {
         return customerDao.getCustomersByCustomerType(name);
     }
+
+     @GetMapping(value = "/customer/getexistingcustomer", params = { "name", "phone" }, produces = "application/json")
+    public Customer findExistCustomer(@RequestParam("name") String name, @RequestParam("phone") String phone) {
+        // login user authentication and authorization
+        return customerDao.getExistCustomer(name, phone);
+    }
+
+     @GetMapping(value = "/customer/getexistingcustomerbyphone", params = { "phone" }, produces = "application/json")
+    public Customer findExistCustomerByPhone(@RequestParam("phone") String phone) {
+        // login user authentication and authorization
+        return customerDao.getCustomerByPhone(phone);
+    }
+
+     @GetMapping(value = "/customer/getexistingcustomerbyname", params = { "name" }, produces = "application/json")
+    public Customer findExistCustomerByName(@RequestParam("name") String name) {
+        // login user authentication and authorization
+        return customerDao.getCustomerByName(name);
+    }
+
+
 
     @GetMapping(value = "/customer/count/{name}", produces = "application/json")
     public Integer getCustomerCount(@PathVariable("name") String name) {

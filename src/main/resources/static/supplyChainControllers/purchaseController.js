@@ -22,8 +22,37 @@ const refreshPurchaseForm = () => {
     categoryItemCheckBoxes.innerHTML = " "
     purchaseQty.value = ""
     purchaseItemPrice.value = ""
+    fillDataIntoTablePurchRequestTable()
 }
+const fillDataIntoTablePurchRequestTable =()=>{
+    purchases1 = ajaxGetRequest('/purchaseorderrequest/getlist')
+    const displayProperties = [
+        { property: getPurchRItemName, dataType: 'function' },
+        { property: getPurchRCategoryName, dataType: 'function' },
+        { property: getPurchRItemQty, dataType: 'function' },
+    ]
 
+    fillDataIntoTable(repairUsedItemTablePurch, purchases1, displayProperties, refillPurchBtn1, updateEmployeeBtn1, deleteEmployeeBtn1, false, null)
+
+}
+const refillPurchBtn1 = ()=>{
+
+}
+const updateEmployeeBtn1 = ()=>{
+
+}
+const deleteEmployeeBtn1 = ()=>{
+
+}
+const getPurchRItemName = (rowOb)=>{
+    return rowOb?.name
+}
+const getPurchRCategoryName = (rowOb)=>{
+    return rowOb?.category
+}
+const getPurchRItemQty = (rowOb)=>{
+    return rowOb?.qty
+}
 //refresh the purchase table
 const refreshPurchaseTable = () => {
 

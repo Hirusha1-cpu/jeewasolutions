@@ -62,10 +62,11 @@ public class InvoiceController {
         return invoiceDao.findAll(Sort.by(Direction.DESC, "id"));
     }
 
-    // @GetMapping(value = "/invoice/getinvoicesnotindue", produces = "application/json")
+    // @GetMapping(value = "/invoice/getinvoicesnotindue", produces =
+    // "application/json")
     // public List<Invoice> findAllsForInvoice() {
-    //     // login user authentication and authorization
-    //     return invoiceDao.getInvoiceNo1();
+    // // login user authentication and authorization
+    // return invoiceDao.getInvoiceNo1();
     // }
     @GetMapping(value = "/invoice/getinvoicesnotindueandinsaleserial", produces = "application/json")
     public List<SerialNo> findAllsForInvoice1() {
@@ -114,28 +115,91 @@ public class InvoiceController {
             if (existingcs == null) {
                 System.out.println("executed");
                 customerdao.save(newCustomer);
-                Customer existingcs1 = customerdao.getCustomerByPhone(invoice.getCustomer_id().getPhone());
+                // Customer existingcs1 =
+                // customerdao.getCustomerByPhone(invoice.getCustomer_id().getPhone());
 
-                existingcs1.setBuyrounds(1);
-                existingcs1.setCustomerType(customerdao.getNormalBuyRounds());
-                invoice.setCustomer_id(existingcs1);
+                if (invoice.getSalesHasDues() != null) {
+                    newCustomer.setRepairs(1);
+                } else if (invoice.getSalesHasDues() != null && invoice.getSalesHasDues() != null) {
+                    newCustomer.setRepairs(1);
+                    newCustomer.setBuyrounds(1);
+                } else {
+                    newCustomer.setBuyrounds(1);
+                }
+                newCustomer.setCustomerType(customerdao.getNormalBuyRounds());
+                invoice.setCustomer_id(newCustomer);
                 System.out.println("executed-1");
             } else {
                 // Customer existingcs1 =
                 // customerdao.getCustomerByPhone(invoice.getCustomer_id().getPhone());
 
                 System.out.println("executed-2");
-                existingcs.setBuyrounds(existingcs.getBuyrounds() + 1);
-                existingcs.setCustomerType(null);
-                if ((existingcs.getBuyrounds() + 1) > customerdao.getPremiumBuyRounds().getBuyrounds()) {
-                    existingcs.setCustomerType(customerdao.getPremiumBuyRounds());
-                } else if ((existingcs.getBuyrounds() + 1) > customerdao.getFirstStageBuyRounds().getBuyrounds()) {
-                    existingcs.setCustomerType(customerdao.getFirstStageBuyRounds());
-                } else if ((existingcs.getBuyrounds() + 1) > customerdao.getSecondStageBuyRounds().getBuyrounds()) {
-                    existingcs.setCustomerType(customerdao.getSecondStageBuyRounds());
+                if (invoice.getSalesHasDues() != null) {
+                    if (existingcs.getRepairs() == null) {
+                        existingcs.setRepairs(1);
+                    } else {
+                        existingcs.setRepairs(existingcs.getRepairs() + 1);
+                    }
+
+                } else if (invoice.getSalesHasDues() != null && existingcs.getBuyrounds() != null) {
+                    if (existingcs.getRepairs() == null) {
+                        existingcs.setRepairs(1);
+                    } else if (existingcs.getRepairs() == null && existingcs.getBuyrounds() == null) {
+                        existingcs.setRepairs(1);
+                        existingcs.setBuyrounds(1);
+                    } else if (existingcs.getBuyrounds() == null) {
+                        existingcs.setBuyrounds(1);
+                    } else {
+                        existingcs.setRepairs(existingcs.getRepairs() + 1);
+                        existingcs.setBuyrounds(existingcs.getBuyrounds() + 1);
+                    }
                 } else {
+
+                    if (existingcs.getBuyrounds() == null) {
+                        existingcs.setBuyrounds(1);
+                    } else {
+                        existingcs.setBuyrounds(existingcs.getBuyrounds() + 1);
+
+                    }
+                }
+               
+
+                System.out.println("executed-2-1");
+                if (invoice.getSalesHasSerials() != null) {
+                    existingcs.setCustomerType(null);
+                    
+                    if (((existingcs.getBuyrounds() + 1) > customerdao.getSecondStageBuyRounds().getBuyrounds())) {
+                        existingcs.setCustomerType(customerdao.getSecondStageBuyRounds());
+                    } else if (((existingcs.getBuyrounds() + 1) > customerdao.getFirstStageBuyRounds().getBuyrounds())) {
+                        existingcs.setCustomerType(customerdao.getFirstStageBuyRounds());
+                    } else if (((existingcs.getBuyrounds() + 1) > customerdao.getPremiumBuyRounds().getBuyrounds())) {
+                        existingcs.setCustomerType(customerdao.getPremiumBuyRounds());
+                    } else {
+                        existingcs.setCustomerType(customerdao.getNormalBuyRounds());
+                    }
+                }else{
                     existingcs.setCustomerType(customerdao.getNormalBuyRounds());
                 }
+                // if (((existingcs.getBuyrounds() + 1) >
+                // customerdao.getPremiumBuyRounds().getBuyrounds())
+                // || ((existingcs.getRepairs() + 1) >
+                // customerdao.getPremiumBuyRounds().getBuyrounds())) {
+                // existingcs.setCustomerType(customerdao.getPremiumBuyRounds());
+                // } else if (((existingcs.getBuyrounds() + 1) >
+                // customerdao.getFirstStageBuyRounds().getBuyrounds())
+                // || ((existingcs.getRepairs() + 1) >
+                // customerdao.getFirstStageBuyRounds().getBuyrounds())) {
+                // existingcs.setCustomerType(customerdao.getFirstStageBuyRounds());
+                // } else if (((existingcs.getBuyrounds() + 1) >
+                // customerdao.getSecondStageBuyRounds().getBuyrounds())
+                // || ((existingcs.getRepairs() + 1) >
+                // customerdao.getSecondStageBuyRounds().getBuyrounds())) {
+                // existingcs.setCustomerType(customerdao.getSecondStageBuyRounds());
+                // } else {
+                // existingcs.setCustomerType(customerdao.getNormalBuyRounds());
+
+                // }
+                System.out.println("executed-3-1");
                 customerdao.save(existingcs);
                 invoice.setCustomer_id(existingcs);
                 System.out.println("executed-3");
@@ -174,15 +238,14 @@ public class InvoiceController {
                     salesHasDue.setSales_id(invoice);
                 }
                 // meke sale ekat ekka sale eke many to one ekak due ekata thye nm
-                
+
                 System.out.println("executed-5");
-                
+
             } else {
                 System.out.println("No SalesHasSerial entries found for this invoice.");
-                
+
             }
-           
-            
+
             IncomePayment existingIncomePayment = invoice.getIncomePayments();
             existingIncomePayment.setSales_id(invoice);
             existingIncomePayment.setDate(LocalDateTime.now());

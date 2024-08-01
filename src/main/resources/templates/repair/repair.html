@@ -359,29 +359,40 @@
 
                                             <div class="col-2">Item name</div>
                                             <div class="col-6">
-                                                <input type="text" class="form-control" id="floatingInput"
-                                                    placeholder=" GeForce RTX 4090">
+                                                <input type="text" class="form-control" id="floatingInputForPurchItem"
+                                                    placeholder=" GeForce RTX 4090"
+                                                    onchange="textValidation(floatingInputForPurchItem,'','purchRequest','name')">
+
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+
+                                            <div class="col-2">Item Category</div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" id="floatingInputFroPurchCategory"
+                                                onchange="textValidation(floatingInputFroPurchCategory,'','purchRequest','category')">
 
                                             </div>
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-2 mt-1">Item Qty</div>
                                             <div class="col-2">
-                                                <input type="text" class="form-control" id="floatingInput"
-                                                    placeholder="">
+                                                <input type="text" class="form-control" id="floatingInputForPurchQty"
+                                                    placeholder=""
+                                                    onchange="textValidation(floatingInputForPurchQty,'','purchRequest','qty')" >
                                             </div>
                                         </div>
-                                        <div class="row mt-2">
+                                        <!-- <div class="row mt-2">
                                             <div class="col-2 mt-1">Total price</div>
                                             <div class="col-2">
                                                 <input type="text" class="form-control" id="floatingInput"
                                                     placeholder="">
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="row mb-2 mt-2 d-flex justify-content-end">
                                             <div class="col-2">
 
-                                                <button type="button" class="btn btn-primary">Add Item</button>
+                                                <button type="button" onclick="handlePRequestSubmit()" class="btn btn-primary">Request For Purchase</button>
                                             </div>
 
                                         </div>
@@ -720,67 +731,70 @@
 
                     <!-- Repaire detail end -->
 
-                    <!-- add more details modal start-->
-                    <button onclick="document.getElementById('moreSpecModal').style.display='block'"
-                        class="w3-button w3-green">
-                        Add More Specifications</button>
-                    <div id="moreSpecModal" class="w3-modal">
-                        <div class="w3-modal-content w3-animate-top w3-animate-fade w3-card-4">
-                            <header class="w3-container w3-blue">
-                                <span onclick="document.getElementById('moreSpecModal').style.display='none'"
-                                    class="w3-button w3-display-topright">&times;</span>
-                                <h4>Add More Specs</h4>
-                            </header>
-                            <div class="w3-container">
-                                <table class="w3-table-all w3-hoverable mt-3 mb-3">
-                                    <thead>
-                                        <tr class="w3-light-grey">
-                                            <th>Specification</th>
-                                            <th>Details</th>
-                                            <th>Delete Status</th>
+                    <div class="d-none">
+
+                        <!-- add more details modal start-->
+                        <button onclick="document.getElementById('moreSpecModal').style.display='block'"
+                            class="w3-button w3-green">
+                            Add More Specifications</button>
+                        <div id="moreSpecModal" class="w3-modal">
+                            <div class="w3-modal-content w3-animate-top w3-animate-fade w3-card-4">
+                                <header class="w3-container w3-blue">
+                                    <span onclick="document.getElementById('moreSpecModal').style.display='none'"
+                                        class="w3-button w3-display-topright">&times;</span>
+                                    <h4>Add More Specs</h4>
+                                </header>
+                                <div class="w3-container">
+                                    <table class="w3-table-all w3-hoverable mt-3 mb-3">
+                                        <thead>
+                                            <tr class="w3-light-grey">
+                                                <th>Specification</th>
+                                                <th>Details</th>
+                                                <th>Delete Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tr>
+                                            <td>Read/Write Speeds</td>
+                                            <td>7,000/5,100 MB/s</td>
+                                            <td>No</td>
                                         </tr>
-                                    </thead>
-                                    <tr>
-                                        <td>Read/Write Speeds</td>
-                                        <td>7,000/5,100 MB/s</td>
-                                        <td>No</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cache Memory
-                                        </td>
-                                        <td>Samsung 2GB Low Power DDR4 SDRAM
-                                        </td>
-                                        <td>No</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Security</td>
-                                        <td>AES 256-bit Full Disk Encryption, TCG/Opal V2.0, Encrypted Drive (IEEE1667)
-                                        </td>
-                                        <td>No</td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <footer class="w3-container ">
-                                <div class="row p-2 d-flex justify-content-end align-items-center"
-                                    style="display: flex; flex-direction: row; gap:10px;">
-                                    <button class="col-3 btn btn-warning">UPDATE</button>
-                                    <button class="col-3 btn btn-primary">ADD</button>
-
+                                        <tr>
+                                            <td>Cache Memory
+                                            </td>
+                                            <td>Samsung 2GB Low Power DDR4 SDRAM
+                                            </td>
+                                            <td>No</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Security</td>
+                                            <td>AES 256-bit Full Disk Encryption, TCG/Opal V2.0, Encrypted Drive (IEEE1667)
+                                            </td>
+                                            <td>No</td>
+                                        </tr>
+                                    </table>
                                 </div>
-                            </footer>
+                                <footer class="w3-container ">
+                                    <div class="row p-2 d-flex justify-content-end align-items-center"
+                                        style="display: flex; flex-direction: row; gap:10px;">
+                                        <button class="col-3 btn btn-warning">UPDATE</button>
+                                        <button class="col-3 btn btn-primary">ADD</button>
+    
+                                    </div>
+                                </footer>
+                            </div>
                         </div>
+                        <!-- add more details modal end-->
+    
+    
+                        <!-- button gruop start -->
+                        <div class="row p-2 d-flex justify-content-end align-items-center"
+                            style="display: flex; flex-direction: row; gap:10px;">
+                            <button class="col-3 btn btn-warning">UPDATE</button>
+                            <button class="col-3 btn btn-primary">ADD</button>
+    
+                        </div>
+                        <!-- button gruop end -->
                     </div>
-                    <!-- add more details modal end-->
-
-
-                    <!-- button gruop start -->
-                    <div class="row p-2 d-flex justify-content-end align-items-center"
-                        style="display: flex; flex-direction: row; gap:10px;">
-                        <button class="col-3 btn btn-warning">UPDATE</button>
-                        <button class="col-3 btn btn-primary">ADD</button>
-
-                    </div>
-                    <!-- button gruop end -->
 
 
                     </form>

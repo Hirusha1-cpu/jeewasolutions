@@ -40,12 +40,16 @@ window.addEventListener('load', () => {
 
 
 const refreshInvoiceForm = () => {
+    serverResponseForIsExisting = ''
     customerVal = null
     button = ''
+    getExistCustomer = ''
+    diagnosistable = ''
     matchingItem = ''
     matchingRepair = ''
     matchingSeral = ''
     price = 0
+    totalUnitPrice = 0;
     totalPrice = 0;
     invoice = new Object();
     duetoRepair = new Object();
@@ -68,6 +72,8 @@ const refreshInvoiceForm = () => {
     saleSerial = new Object();
     salesHasDue = new Object();
     serialwarrentyObject = new Object();
+    itemRepairTableDetail = new Object();
+    itemTableDetail = new Object();
     serialNumbers = new Object();
     // serialNoListCount = ajaxGetRequest("/serialno/getlist")
     serialNoListCount = ajaxGetRequest("/serialno/getlistwithoutnotnull")
@@ -226,7 +232,7 @@ const getItemDetails = (serialObject) => {
 
     console.log(warrentyPeriod);
     if (!isNaN(warrentyPeriod)) {
-        inputWarrentyItemName.value = lblItemName1.itemname
+        inputWarrentyItemName.value = lblItemName1.value
         inputWarPeriod.value = warrentyPeriod + " Days"
         inputWarStartDate.value = new Date().toISOString().slice(0, 10);
         saleSerial.warrentystartdate = date(inputWarStartDate.value)
@@ -457,7 +463,7 @@ function selectElement(id, valueToSelect) {
 }
 
 const addToRepairTable = () => {
-    itemRepairTableDetail = new Object();
+    // itemRepairTableDetail = new Object();
     itemRepairTableDetail.itemCategory = lblItemCate1Repair.value
     itemRepairTableDetail.itemName = lblItemName1Repair.value
     itemRepairTableDetail.repairFor = invoiceRepairFor.value
@@ -482,7 +488,7 @@ const addToTable = () => {
     }
     console.log(customer_id1);
 
-    itemTableDetail = new Object();
+    // itemTableDetail = new Object();
     //me tika wadagath item table eke data tika penna gnna
     itemTableDetail.itemname = lblItemName1.value;
     // itemTableDetail.serialno = invoiceSerialId.value
@@ -516,8 +522,11 @@ const addSubRepair = () =>{
  inputWarrentyItemStart.value = ""
  inputWarrentyItemPeriod.value = ""
  inputWarrentyItemEnd.value = ""
- inputWarrentyCustomerName.value =""
- inputWarrentyCustomerContact.value =""
+ if (flexCheckCheckedForCus.checked = false) {
+    
+     inputWarrentyCustomerName.value =""
+     inputWarrentyCustomerContact.value =""
+ }
 }
 const selectCustomerType = () => {
 
@@ -775,6 +784,7 @@ const submitInvoice = () => {
     irepairtable = []
     itable = []
     refreshInvoiceForm()
+refreshRepairTable();
 }
 const printInvoice = (response) => {
     setDataIntInvoicePrint(response)
@@ -847,11 +857,18 @@ const printInvoice = (response) => {
 // }
 
 const setDataIntInvoicePrint = (invoiceP) => {
-    createTable(invoiceP)
+    if (invoiceP?.salesHasSerials?.length>0) {
+        
+        createTable(invoiceP)
+        cusTablePrintDiv.classList.remove("d-none")
+
+    }
     console.log(invoiceP);
-    if (invoiceP.salesHasDues.length > 0) {
+    if (invoiceP?.salesHasDues?.length > 0) {
         
         createRepairTable(invoiceP)
+        createTechNoteTable(invoiceP)
+        cusRepairTechTablePrintDiv.classList.remove("d-none")
     
         // if (invoiceP.salesHasDues.due_to_repairitem_id.usedItems.length > 0)  {
             cusRepairUsedItemTablePrintDiv.classList.remove("d-none")
@@ -881,6 +898,8 @@ const setDataIntInvoicePrint = (invoiceP) => {
     cusPayMethodPrint.innerHTML = invoiceP?.paymentmethod ? invoiceP?.paymentmethod : "cash"
     if (invoiceP?.paymentmethod == "card") {
         printReffer.classList.remove("d-none")
+        cusPaidPrintDiv.add("d-none")
+cusBalancePrintDiv.add("d-none")
     }else{
         printReffer.classList.add("d-none")
     }
@@ -975,7 +994,24 @@ const createRepairTable = (invoiceCR) => {
     fillDataIntoTable(cusRepairTablePrint, invoiceCR.salesHasDues, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
 
 }
+const createTechNoteTable = (invoiceCPT) => {
+    console.log(invoiceCPT);
+    displayProperties = [
+        { property: getRepairNoForT, dataType: 'function' },
+        { property: getTechnote, dataType: 'function' },
+      
+        // { property: getItemorServicePriceRepair, dataType: 'function' },
+    ]
+    fillDataIntoTable(cusRepairTechTablePrintTabel, invoiceCPT.salesHasDues, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
 
+}
+const getRepairNoForT = (elem1)=>{
+    return elem1.due_to_repairitem_id?.repairid;
+}
+const getTechnote = (elem1)=>{
+    return elem1.due_to_repairitem_id?.technicalnote;
+
+}
 
 
 const getRepairNo = (elem) => {
@@ -1259,9 +1295,31 @@ const repairItemIntoTable = () => {
         { property: getRepairItemCustomer, dataType: 'function' },
         { property: getRepairItemTakenDate, dataType: 'function' },
     ]
-    fillDataIntoPurcahseTable(repairItemTable, repairtable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
+    fillDataIntoPurcahseTable(repairItemTable, repairtable, displayProperties, viewBtnForWarranty, deleteBtnForWarranty, printBtnForWarranty, true)
 
 }
+const viewBtnForWarranty =(rowOb)=>{
+    repairNoId.innerHTML = rowOb.repairno 
+    inputWarrentyCustName.value = rowOb.customer_id.name 
+    inputWarrentyCustPhone.value =  rowOb.customer_id.phone
+    rowOb.duetoRepair.forEach(elem=>{
+    inputWarrentyCustDueserial.value = elem?.serialno
+    inputWarrentyCustDueCategory.value = elem?.category
+    inputWarrentyCustDueItemname.value = elem?.itemname    
+    inputWarrentyCustDueFault.value = elem?.fault
+    inputWarrentyCustDueTechNote.value = elem?.technicalnote
+    })
+    $('#staticBackdropforRepair').modal('show');
+    console.log(rowOb);
+    // staticBackdropforRepair.setAttribute('data-bs-toggle','modal')
+    // staticBackdropforRepair.setAttribute('data-bs-target','staticBackdropforRepair')
+
+
+
+}
+const deleteBtnForWarranty =()=>{}
+const printBtnForWarranty =()=>{}
+
 const getRepairItemCustomer = (rowOb)=>{
     return rowOb?.customer_id?.name
 }
@@ -1330,7 +1388,7 @@ const handleClick = (elem) => {
     let iddue = elem
     console.log(iddue);
 
-    const diagnosistable = ajaxGetRequest(`/duerepair/getlist/${iddue}`)
+    diagnosistable = ajaxGetRequest(`/duerepair/getlist/${iddue}`)
     console.log(diagnosistable);
 
     displayProperties = [
@@ -1340,7 +1398,7 @@ const handleClick = (elem) => {
     ]
     fillDataIntoPurcahseTable(repairItemTableDig, diagnosistable.diagnosedItems, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
 
-    let totalUnitPrice = 0;
+    // let totalUnitPrice = 0;
 
         // Loop through diagnosed items and fetch their prices
         // for (const item of diagnosistable.diagnosedItems) {
@@ -1349,7 +1407,8 @@ const handleClick = (elem) => {
         //     totalUnitPrice += price;
         // }
         diagnosistable.diagnosedItems.forEach(item => {
-            let priceResponse = ajaxGetRequest(`serialno/getitemprice/${item?.itemname}`);
+            //wenas kara mekata getitempriceforserial
+            let priceResponse = ajaxGetRequest(`serialno/getitempriceforserial/${item?.itemname}`);
             let price = parseFloat(priceResponse);
             totalUnitPrice += price;
         });
@@ -1370,11 +1429,10 @@ const handleClick = (elem) => {
     button.onclick = () => {
         // console.log('edit', item.id, index);
         handleApprove(elem)
-        button.setAttribute('data-bs-dismiss', 'modal');
-        $("#staticBackdrop00").on('hide.bs.modal',function() {
-            alert("Confirm Approve")
-        }); 
+        // button.setAttribute('data-bs-dismiss', 'modal');
+        $("#staticBackdrop00").on('hide.bs.modal'); 
         repairItemIntoTable()
+        handleClose()
         // $("staticBackdrop00").model('hide')
     }
 
@@ -1414,6 +1472,8 @@ const handleApprove = (elem)=>{
     // console.log(dueRepair);
     let serverResponse2 = ajaxRequestBodyMethod(`/duerepair/${elem}`, "PUT", getDueRepair);
     console.log(serverResponse2);
+    handleClose()
+
 }
 const getDiagItemCategory = (rowObject) => {
     // console.log(rowObject);
@@ -1471,9 +1531,46 @@ const readyRepair = () => {
     // repair.usedItems.push(useItem)
 
     console.log(repair);
+    let phone = inputWarrentyCustomerContact.value
 
-    let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
-    console.log("serverResponse", serverResponse1);
+        try {
+            serverResponseForIsExisting = ajaxRequestBodyMethod(`repair/getrepairbycustomerphone/${phone}`)
+            console.log(serverResponseForIsExisting);
+            
+        } catch (error) {
+            serverResponseForIsExisting = null
+            console.log(serverResponseForIsExisting);
+        }
+        if (serverResponseForIsExisting.length >0 || serverResponseForIsExisting != '') {
+            
+         
+            // idForNext = serverResponse1.id
+                let idForNext = serverResponseForIsExisting.id
+                // inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
+                // inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
+                console.log(repair);
+                let serverResponse1Updated = ajaxRequestBodyMethod(`/repair/${idForNext}`, "PUT", repair);
+                if (flexCheckCheckedForCus.checked = true) {
+                    inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
+                    inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
+                }
+                console.log(serverResponse1Updated);
+        }else{
+    
+            let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
+            console.log("serverResponse", serverResponse1);
+            if (flexCheckCheckedForCus.checked = true) {
+                // idForNext = serverResponse1.id
+                inputWarrentyCustomerName.value = serverResponse1.customer_id.name
+                inputWarrentyCustomerContact.value = serverResponse1.customer_id.phone
+            }
+        }
+        if (flexCheckCheckedForCus.checked = false) {
+
+            refreshInvoiceForm()
+        }
+ 
+    
     repairItemIntoTable()
     addSubRepair()
    
@@ -1544,3 +1641,33 @@ const getPaymentMethod = (paymentMethod) => {
 //     }
    
 // }
+
+const checkIstheCustomerExisting = (cusvalue)=>{
+    getExistCustomerByName = ajaxGetRequest(`/customer/getexistingcustomerbyname?name=${inputCustomerName.value}`)
+    console.log(getExistCustomerByName);
+    if (getExistCustomerByName != '') {
+        
+        inputCustomerContact.value = getExistCustomerByName.phone
+    }else{
+        inputCustomerContact.value = ''
+    }
+
+//    getExistCustomerByPhone = ajaxGetRequest(`/customer/getexistingcustomerbyphone?phone=${inputCustomerContact.value}`)
+//    console.log(getExistCustomerByPhone);
+//    if (getExistCustomerByPhone != '') {
+//        if (getExistCustomerByPhone.name == inputWarrentyCustName.value) {
+//            inputCustomerName.style.border = '2px solid orange';
+//            inputCustomerContact.style.border = '2px solid orange';
+           
+//        }else{
+//            inputCustomerName.style.border = '2px solid red';
+//            inputCustomerContact.style.border = '2px solid red';
+//        }
+      
+    
+//    }else{
+//     inputCustomerName.style.border = '2px solid #ced4da';
+//     inputCustomerContact.style.border = '2px solid #ced4da';
+//    }
+
+}

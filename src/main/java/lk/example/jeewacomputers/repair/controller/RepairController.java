@@ -67,10 +67,16 @@ public class RepairController {
         return repairDao.getReferenceById(id);
     }
 
-    @GetMapping(value = "/repair/getrepairbycustomer", params = { "name", "iddue" }, produces = "application/json")
-    public List<Repair> findRepairByName(@RequestParam("name") String name, @RequestParam("iddue") Integer iddue) {
+    @GetMapping(value = "/repair/getrepairbycustomer", params = { "phone", "iddue" }, produces = "application/json")
+    public List<Repair> findRepairByName(@RequestParam("phone") String phone, @RequestParam("iddue") Integer iddue) {
         // login user authentication and authorization
-        return repairDao.getRepairByCustomerName(name, iddue);
+        return repairDao.getRepairByCustomerName(phone, iddue);
+    }
+
+    @GetMapping(value = "/repair/getrepairbycustomerphone/{phone}", produces = "application/json")
+    public Repair findRepairByName(@PathVariable("phone") String phone) {
+        // login user authentication and authorization
+        return repairDao.getRepairByCustomerPhone(phone);
     }
 
     @RequestMapping(value = "/repair")
@@ -86,7 +92,7 @@ public class RepairController {
 
     @PostMapping(value = "/repair")
     // @Transactional
-    public String save(@RequestBody Repair repair) {
+    public Repair save(@RequestBody Repair repair) {
         System.out.println(repair);
         try {
             repair.setRepairno(repairDao.getNextRepairno());
@@ -166,12 +172,13 @@ public class RepairController {
             // repair.setRepairno(newRcode);
 
             // repair.setRepairstatus("pending diagnosis");
-            repairDao.save(repair);
-            return "OK";
+            Repair Re = repairDao.save(repair);
+            // return "OK";
+            return Re;
 
         } catch (Exception e) {
 
-            return "Save not completed :" + e.getMessage();
+            return null;
         }
 
     }
@@ -188,10 +195,14 @@ public class RepairController {
             BigDecimal charges = BigDecimal.ZERO;
             for (DuetoRepair duetoRepair : exRepair1.getDuetoRepair()) {
                 // Find the existing DuetoRepair by id
+                if (duetoRepair.getId() == null) {
+                    // This is a new DuetoRepair item
+                    addNewDuetoRepair(duetoRepair, existingRepair);
+                }
+                // Update the existing DuetoRepair
                 DuetoRepair existingDuetoRepair = duetoRepairDao.findById(duetoRepair.getId())
                         .orElseThrow(() -> new RuntimeException("DuetoRepair not found"));
 
-                // Update the existing DuetoRepair
                 existingDuetoRepair.setStatusofrepair("Completed");
                 existingDuetoRepair.setTechnicalnote(duetoRepair.getTechnicalnote());
 
@@ -235,7 +246,7 @@ public class RepairController {
                         total1 = total1.add((duetoRepair.getTotal()));
                         total1 = total1.subtract(charges);
                         charges = BigDecimal.ZERO;
-                    }else{
+                    } else {
 
                         total1 = charges;
                     }
@@ -263,5 +274,19 @@ public class RepairController {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    private void addNewDuetoRepair(DuetoRepair duetoRepair, Repair existingRepair) {
+        try {
+            String barcode = duetoRepairDao.getItemNextBarcode(duetoRepairDao.getExistItemBarcode(duetoRepairDao.getMaxId()));
+            duetoRepair.setBarcode(barcode != null ? barcode : "brcode00001");
+        } catch (Exception e) {
+            duetoRepair.setBarcode("brcode00001");
+        }
+        duetoRepair.setTakendate(LocalDateTime.now().toLocalDate());
+        duetoRepair.setStatusofrepair("pending diagnosis");
+        duetoRepair.setRepairid(repairDao.getMaxRepairId());
+        duetoRepair.setRepair_id(existingRepair);
+        duetoRepairDao.save(duetoRepair);
     }
 }

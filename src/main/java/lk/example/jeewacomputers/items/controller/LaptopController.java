@@ -7,18 +7,35 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+import lk.example.jeewacomputers.categorypcpartandbrand.dao.CategoryDao;
+import lk.example.jeewacomputers.grnanditem.dao.GrnDao;
 import lk.example.jeewacomputers.items.dao.LaptopDao;
 import lk.example.jeewacomputers.items.entity.Laptop;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 public class LaptopController {
     @Autowired
     private LaptopDao laptopDao;
+
+    @Autowired
+    private CategoryDao categoryDao;
+
+      @Autowired
+    // create dao object
+    private GrnDao grndao;
+
+
 
     @GetMapping(value = "/laptop/getlist", produces = "application/json")
     public List<Laptop> findAllLaps() {
@@ -79,6 +96,30 @@ public class LaptopController {
         viewEmp.addObject("title", "Laptop");
         viewEmp.setViewName("forms/laptop_form.html");
         return viewEmp;
+    }
+
+        @PostMapping(value = "/laptop")
+    public String save(@RequestBody Laptop laptop) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        try {
+            laptop.setCategory_id(categoryDao.getReferenceById(1));
+            laptop.setUser_id(grndao.getUsersByUsername(auth.getName()));
+            laptop.setAdded_datetime(LocalDateTime.now().toLocalDate());
+            laptopDao.save(laptop);
+            return "OK";
+
+        } catch (Exception e) {
+
+            return "Save not completed :" + e.getMessage();
+        }
+
+    }
+
+    @PutMapping("/laptop")
+    public String updateLap( @RequestBody String entity) {
+   
+        return entity;
     }
 
 }

@@ -637,6 +637,12 @@ const addGrn = () => {
     inputPurchaseLinePrice.value = ""
     // inputPurchaseDiscount.value = ""
     // inputSerialNo.value = ""
+
+    inputGrnTotalAmount.value = inputPurchaseLinePrice.value
+     grn.totalamount = inputGrnTotalAmount.value
+    inputGrnNetAmount.value = parseFloat(inputPurchaseLinePrice.value)*parseFloat(inputGrnDiscount.value)
+     grn.netamount = inputGrnNetAmount.value
+
 }
 
 const generateNetAmount = () => {
@@ -667,6 +673,7 @@ const addGrnMain = () => {
     })
 
     refreshGrnTable();
+    refreshGrnForm()
 
     inputSupplierInvoice.value = ""
     inputGrnTotalAmount.value = ""

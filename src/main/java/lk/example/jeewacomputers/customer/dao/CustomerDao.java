@@ -10,6 +10,12 @@ public interface CustomerDao extends JpaRepository<Customer, Integer>{
     @Query(value = "SELECT c FROM Customer c where c.phone = ?1")
     public Customer getCustomerByPhone(String phone);
 
+    @Query(value = "SELECT c FROM Customer c where c.name = ?1")
+    public Customer getCustomerByName(String name);
+
+    @Query(value = "SELECT c FROM Customer c where c.name = ?1 and c.phone = ?2")
+    public Customer getExistCustomer(String name, String phone);
+
     @Query(value = "SELECT * FROM jeewacomputersproject.customer where buyrounds > ?1", nativeQuery = true)
     public Customer getCustomerBuyRounds(Integer buyrounds);
 
