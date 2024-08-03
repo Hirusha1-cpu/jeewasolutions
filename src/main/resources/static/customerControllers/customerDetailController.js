@@ -90,10 +90,13 @@ const customerTableShow = () => {
     const displayProperties = [
         { property: 'name', dataType: 'string' },
         { property: 'phone', dataType: 'string' },
-        { property: 'buyrounds', dataType: 'integer' },
+        { property: getBuyRounds, dataType: 'function' },
     ]
-    fillDataIntoPurcahsechkTable(customerDetailTable, customerDetailsbytype, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, checkBoxButton, true)
+    fillDataIntoPurcahsechkTable(customerDetailTable, customerDetailsbytype, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, checkBoxButton, false)
 
+}
+const getBuyRounds = (rowOb)=>{
+   return rowOb?.buyrounds
 }
 const customerTableShowfStage = () => {
     const customerDetailsbytypefStage = ajaxGetRequest("/customer/getcustomerbytype/" + "silver")
@@ -102,9 +105,9 @@ const customerTableShowfStage = () => {
     const displayProperties = [
         { property: 'name', dataType: 'string' },
         { property: 'phone', dataType: 'string' },
-        { property: 'buyrounds', dataType: 'integer' },
+        { property: getBuyRounds, dataType: 'function' },
     ]
-    fillDataIntoPurcahsechkTable(customerDetailTablefStage, customerDetailsbytypefStage, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, checkBoxButtonfStage, true)
+    fillDataIntoPurcahsechkTable(customerDetailTablefStage, customerDetailsbytypefStage, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, checkBoxButtonfStage, false)
 
 }
 const customerTableShowsStage = () => {
@@ -114,9 +117,9 @@ const customerTableShowsStage = () => {
     const displayProperties = [
         { property: 'name', dataType: 'string' },
         { property: 'phone', dataType: 'string' },
-        { property: 'buyrounds', dataType: 'integer' },
+        { property: getBuyRounds, dataType: 'function' },
     ]
-    fillDataIntoPurcahsechkTable(customerDetailTablesStage, customerDetailsbytypesStage, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, checkBoxButtonsStage, true)
+    fillDataIntoPurcahsechkTable(customerDetailTablesStage, customerDetailsbytypesStage, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, checkBoxButtonsStage, false)
 
 }
 

@@ -41,7 +41,7 @@ window.addEventListener('load', () => {
 
 
 const refreshInvoiceForm = () => {
-
+    saleSerial22 = new Object();
     customerVal = null
     button = ''
     serverResponse11 = ''
@@ -340,68 +340,7 @@ const getSerialItemDetails = (inputValue) => {
 
 const getRepairItemDetails = (value1) => {
     console.log(value1);
-    // if (inputCustomerName.value !="" ) {
-    //     inputCustomerName.disabled = true
-    //     inputCustomerContact.disabled = true
-    //     customerVal = ajaxGetRequest("duerepair/getrepairbydue/" + value1.repairid)
-    //     console.log(customerVal);
 
-    //     if (inputCustomerContact.value === customerVal.customer_id.phone) {
-    //         console.log(value1);
-    //         lblItemCate1Repair.value = value1.category
-    //         lblItemName1Repair.value = value1.itemname
-
-    //         totalForRepair += value1.total
-    //        console.log(totalForRepair);
-    //      if (value1.statusofrepair === "Diagnoesed") {
-    //             selectElement('invoiceRepairFor','Diagnosed')
-    //         } else {
-    //             selectElement('invoiceRepairFor','Full Repair')
-
-    //         }
-    //       checkdiscount()
-    //     }else{
-    //         alert(`This Repair is not owe to ${inputCustomerName.value} `)
-    //     }
-    // }else{
-
-    //     console.log(value1);
-    //     lblItemCate1Repair.value = value1.category
-    //     lblItemName1Repair.value = value1.itemname
-
-    //     totalForRepair += value1.total
-
-    //     // lblItemName1Repair.value = value1.itemname
-    //     console.log(totalForRepair);
-
-    //     // invoiceTotalPrice.value = totalForRepair
-    //     // function isNumeric(value) {
-    //     //     return !isNaN(parseFloat(value)) && isFinite(value);
-    //     //   }     
-    //     // if (isNumeric(invoiceTotalPrice.value)) {
-    //     //     invoiceTotalPrice.value = parseFloat(invoiceTotalPrice.value) + parseFloat(value1.total)
-    //     // }else{
-    //     //     invoiceTotalPrice.value = parseFloat(value1.total)
-    //     // }
-    //     // invoiceTotalPrice.value = value1.total
-    //     // const selectElement = document.getElementById('invoiceRepairFor');
-    //     // const diagnosedOption = Array.from(selectElement.options).find(option => option.value === 'Diagnosed');
-    //     // const fullRepairOption = Array.from(selectElement.options).find(option => option.value === 'Full Repair');
-
-    //     if (value1.statusofrepair === "Diagnoesed") {
-    //         selectElement('invoiceRepairFor','Diagnosed')
-    //     } else {
-    //         selectElement('invoiceRepairFor','Full Repair')
-
-    //     }
-    //     // selectElement.value = value1.statusofrepair
-    //     customerVal = ajaxGetRequest("duerepair/getrepairbydue/" + value1.repairid)
-    //     console.log(customerVal);
-    //     inputCustomerName.value = customerVal.customer_id.name
-    //     inputCustomerContact.value = customerVal.customer_id.phone
-
-    //     checkdiscount()
-    // }
     salesHasDue = new Object();
     saleSerial = new Object();
     matchingRepair = dueRepairsList.find(item =>
@@ -769,7 +708,20 @@ const checkInnerItemFormError = () => {
     if (invoiceTotalPrice.value == '') {
         errors = errors + "Total Not available ...!"
     }
-    if (invoiceCustomerPayment.value == '') {
+    if (cusObject.phone == '') {
+        errors = errors + "Total Not available ...!"
+    }
+
+    if ( invoice.balance < 0) {
+        errors = errors + "Total Not available ...!"
+    }
+    if (  parseInt(invoice.total) < 0) {
+        errors = errors + "Total Not available ...!"
+    }
+    if ((parseInt(invoice.customerpaidamount) < parseInt(invoice.total))) {
+        errors = errors + "Total Not available ...!"
+    }
+    if (invoiceCustomerPayment.value == '' ) {
         errors = errors + "Customer payment not available...!"
     }
     return errors
@@ -805,9 +757,9 @@ const submitInvoice = () => {
 
 
 
-      serverResponse11 = ajaxRequestBodyMethod("/invoice", "POST", invoice);
+        serverResponse11 = ajaxRequestBodyMethod("/invoice", "POST", invoice);
         // let serverResponse11 = ajaxRequestBodyMethod("/invoice", "POST", invoice);
-        
+
     }
     else {
         // alert("Form Has following errors..." + errors)
@@ -816,7 +768,7 @@ const submitInvoice = () => {
             text: "Plase check the details and retry",
             icon: "error"
         });
-  
+
     }
 
     console.log("serverResponse", serverResponse11);
@@ -1206,7 +1158,7 @@ const getSerialNoSaleName = (rowOb) => {
     // rowOb.forEach(elem => {
     //      itemName1 = itemName1 + elem.serialno_id.itemname
     //     })
-    return rowOb.serialno_id.itemname;
+    return rowOb.serialno_id.serialno;
 
 }
 const getCateName = (rowOb) => {
@@ -1224,8 +1176,23 @@ const getItemorService = (rowOb) => {
     // if (boolIsService) {       
     //     return "Serivice";
     // }else{
-    return "Item"
+    return rowOb.serialno_id?.itemname;
     // }
+}
+function formatDate(dateString) {
+    // Remove the 'T' and everything after it
+    return dateString.split('T')[0];
+}
+function daysToMonths(days) {
+    const months = Math.floor(days / 30);
+    const remainingDays = days % 30;
+    if (months > 0) {
+        if (remainingDays > 0) {
+            return `${months} month${months > 1 ? 's' : ''} ${remainingDays} day${remainingDays > 1 ? 's' : ''}`;
+        }
+        return `${months} month${months > 1 ? 's' : ''}`;
+    }
+    return `${days} day${days > 1 ? 's' : ''}`;
 }
 
 const getItemorServiceWarranty = (elem) => {
@@ -1234,7 +1201,12 @@ const getItemorServiceWarranty = (elem) => {
     // rowOb.forEach(elem => {
     //      itemWar = itemWar + `<p>${elem?.warrentystartdate}-${elem?.warrentyexpire}<span>(${elem?.warrentyperiod})Days</span></p>`
     //     })
-    return `<p>${(elem?.warrentystartdate)}-${(elem?.warrentyexpire)}<span>(${elem?.warrentyperiod})Days</span></p>`;
+    let startDate = formatDate(elem?.warrentystartdate);
+    let endDate = formatDate(elem?.warrentyexpire);
+    let period = elem?.warrentyperiod;
+    let formattedPeriod = daysToMonths(period);
+    return `<p>${startDate}-${endDate}<span>(${formattedPeriod})</span></p>`;
+    // return `<p>${(elem?.warrentystartdate)}-${(elem?.warrentyexpire)}<span>(${elem?.warrentyperiod})Days</span></p>`;
 }
 const getItemorServicePrice = (elem) => {
     // ajax
@@ -1601,148 +1573,213 @@ const getDiagItemPrice = (rowObject) => {
     return getprice
 }
 
+function checknonshop() {
+    const warrentyStatus = document.getElementById('warrentyStatus');
+    const selectedValue = warrentyStatus.value;
 
-const readyRepair = () => {
-    warrentyItem.serialno = serialwarrentyObject.serialno
-    if (warrentyItem.serialno) {
-
-        warrentyItem.itemname = serialwarrentyObject.itemname
-        warrentyItem.category = serialwarrentyObject.category_id.name
-    }
-    warrentyItem.statusofrepair = "pending diagnosis"
-    warrentyItem.fault = warrentyFault.value
-    if (flexCheckCheckedForDiagnose.checked) {
-        warrentyItem.diagnoserequire = "Require Diagnose"
+    // Your logic here
+    if (selectedValue === 'non shop item') {
+        // Do something for non-shop items
+        readyRepairId.disabled = false
+        // Add your specific logic here
     } else {
-        warrentyItem.diagnoserequire = ""
+        // Do something for shop items
+        console.log('Shop item selected');
+        // Add your specific logic here
     }
 
+    // If you still want to call selectFieldValidation, you can do it here
+    selectFieldValidation(warrentyStatus, '', 'warrentyItem', 'repairtype');
+}
+const readyRepair = () => {
+    let errorsofrepair = checkErrorsOfInsertARepair()
+    if (errorsofrepair == '') {
+        warrentyItem.serialno = serialwarrentyObject.serialno
+        if (warrentyItem.serialno) {
 
-    warrentyItem.usedItems.push(usedItemsObj)
-    customerObj.name = inputWarrentyCustomerName.value
-    customerObj.phone = inputWarrentyCustomerContact.value
-    repair.customer_id = customerObj
-
-    // repair.usedItems.push(useItem)
-
-    repair.duetoRepair.push(warrentyItem);
-    console.log(repair);
-    let phone = inputWarrentyCustomerContact.value
-    // let serverResponseForIsExisting = ''
-    // try {
-    //     serverResponseForIsExisting = ajaxRequestBodyMethod(`repair/getrepairbycustomerphone/${phone}`)
-    //     console.log(serverResponseForIsExisting);
-
-    // } catch (error) {
-    //     serverResponseForIsExisting = null
-    //     console.log(serverResponseForIsExisting);
-    // }
-    // if (serverResponseForIsExisting.length > 0 || serverResponseForIsExisting != '') {
+            warrentyItem.itemname = serialwarrentyObject.itemname
+            warrentyItem.category = serialwarrentyObject.category_id.name
+        }
+        warrentyItem.statusofrepair = "pending diagnosis"
+        warrentyItem.fault = warrentyFault.value
+        if (flexCheckCheckedForDiagnose.checked) {
+            warrentyItem.diagnoserequire = "Require Diagnose"
+        } else {
+            warrentyItem.diagnoserequire = ""
+        }
 
 
-    //     // idForNext = serverResponse1.id
-    //     let idForNext = serverResponseForIsExisting.id
-    //     // inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
-    //     // inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
-    //     console.log(repair);
+        warrentyItem.usedItems.push(usedItemsObj)
+        customerObj.name = inputWarrentyCustomerName.value
+        customerObj.phone = inputWarrentyCustomerContact.value
+        repair.customer_id = customerObj
 
-    //     let serverResponse1Updated = ajaxRequestBodyMethod(`/repair/${idForNext}`, "PUT", repair);
-    //     // if (flexCheckCheckedForCus.checked = true) {
-    //         //     inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
-    //     //     inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
-    //     //     readyRepairId.disabled = false
-    //     // }
-    //     console.log(serverResponse1Updated);
-    // } else {
+        // repair.usedItems.push(useItem)
 
-    //     let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
-    //     console.log("serverResponse", serverResponse1);
-    //     // if (flexCheckCheckedForCus.checked = true) {
-    //     //     // idForNext = serverResponse1.id
-    //     //     inputWarrentyCustomerName.value = serverResponse1.customer_id.name
-    //     //     inputWarrentyCustomerContact.value = serverResponse1.customer_id.phone
-    //     //     readyRepairId.disabled = false
-    //     // }
-    // }
-    let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
-    console.log("serverResponse", serverResponse1);
-    if (flexCheckCheckedForCus.checked = false) {
+        repair.duetoRepair.push(warrentyItem);
+        console.log(repair);
+        let phone = inputWarrentyCustomerContact.value
+        // let serverResponseForIsExisting = ''
+        // try {
+        //     serverResponseForIsExisting = ajaxRequestBodyMethod(`repair/getrepairbycustomerphone/${phone}`)
+        //     console.log(serverResponseForIsExisting);
 
+        // } catch (error) {
+        //     serverResponseForIsExisting = null
+        //     console.log(serverResponseForIsExisting);
+        // }
+        // if (serverResponseForIsExisting.length > 0 || serverResponseForIsExisting != '') {
+
+
+        //     // idForNext = serverResponse1.id
+        //     let idForNext = serverResponseForIsExisting.id
+        //     // inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
+        //     // inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
+        //     console.log(repair);
+
+        //     let serverResponse1Updated = ajaxRequestBodyMethod(`/repair/${idForNext}`, "PUT", repair);
+        //     // if (flexCheckCheckedForCus.checked = true) {
+        //         //     inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
+        //     //     inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
+        //     //     readyRepairId.disabled = false
+        //     // }
+        //     console.log(serverResponse1Updated);
+        // } else {
+
+        //     let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
+        //     console.log("serverResponse", serverResponse1);
+        //     // if (flexCheckCheckedForCus.checked = true) {
+        //     //     // idForNext = serverResponse1.id
+        //     //     inputWarrentyCustomerName.value = serverResponse1.customer_id.name
+        //     //     inputWarrentyCustomerContact.value = serverResponse1.customer_id.phone
+        //     //     readyRepairId.disabled = false
+        //     // }
+        // }
+        let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
+        console.log("serverResponse", serverResponse1);
+        if (flexCheckCheckedForCus.checked = false) {
+
+            refreshInvoiceForm()
+        }
+
+
+        repairItemIntoTable()
         refreshInvoiceForm()
+        addSubRepair()
+
+    } else {
+
+        // alert("Form Has following errors..." + errors)
+        Swal.fire({
+            title: "Required Details Are Missing",
+            text: "Plase check the details and retry",
+            icon: "error"
+        });
+
+
     }
 
+}
+const checkErrorsOfInsertARepair = () => {
 
-    repairItemIntoTable()
-    refreshInvoiceForm()
-    addSubRepair()
-
-
+    let errorsofrepair = ""
+    if (lblItemWarrentyName.value == '') {
+        errorsofrepair = errorsofrepair + "Please enter Name ...!"
+    }
+    if (lblItemWarrentyCategory.value == '') {
+        errorsofrepair = errorsofrepair + "Please Enter category ...!"
+    }
+    if (warrentyFault.value == '') {
+        errorsofrepair = errorsofrepair + "Repair Fault Not available ...!"
+    }
+    if (inputWarrentyCustomerName.value == '') {
+        errorsofrepair = errorsofrepair + "Customer name not available...!"
+    }
+    if (inputWarrentyCustomerContact.value == '') {
+        errorsofrepair = errorsofrepair + "Customer phone not available...!"
+    }
+    return errorsofrepair
 
 }
 const returnCompany = () => {
-    warrentyItem.serialno = serialwarrentyObject.serialno
-    warrentyItem.itemname = serialwarrentyObject.itemname
-    warrentyItem.category = serialwarrentyObject.category_id.name
 
-    warrentyItem.statusofrepair = "Return To Company"
-    warrentyItem.fault = warrentyFault.value
-    warrentyItem.repairtype = "shop item"
+    let errorsofrepair = checkErrorsOfInsertARepair()
+    if (errorsofrepair == '') {
+        warrentyItem.serialno = serialwarrentyObject.serialno
+        warrentyItem.itemname = serialwarrentyObject.itemname
+        warrentyItem.category = serialwarrentyObject.category_id.name
 
-    warrentyItem.usedItems.push(usedItemsObj)
-    customerObj.name = inputWarrentyCustomerName.value
-    customerObj.phone = inputWarrentyCustomerContact.value
-    repair.customer_id = customerObj
-    // warrentyItem.statusofrepair = "pending diagnosis"
-    repair.duetoRepair.push(warrentyItem);
+        warrentyItem.statusofrepair = "Return To Company"
+        warrentyItem.fault = warrentyFault.value
+        warrentyItem.repairtype = "shop item"
 
-    // repair.usedItems.push(useItem)
+        warrentyItem.usedItems.push(usedItemsObj)
+        customerObj.name = inputWarrentyCustomerName.value
+        customerObj.phone = inputWarrentyCustomerContact.value
+        repair.customer_id = customerObj
+        // warrentyItem.statusofrepair = "pending diagnosis"
+        repair.duetoRepair.push(warrentyItem);
 
-    console.log(repair);
-    // let phone = inputWarrentyCustomerContact.value
-    // let serverResponseForIsExisting = ''
-    // try {
-    //     serverResponseForIsExisting = ajaxRequestBodyMethod(`repair/getrepairbycustomerphone/${phone}`)
-    //     console.log(serverResponseForIsExisting);
+        // repair.usedItems.push(useItem)
 
-    // } catch (error) {
-    //     serverResponseForIsExisting = null
-    //     console.log(serverResponseForIsExisting);
-    // }
-    // if (serverResponseForIsExisting.length > 0 || serverResponseForIsExisting != '') {
+        console.log(repair);
+        // let phone = inputWarrentyCustomerContact.value
+        // let serverResponseForIsExisting = ''
+        // try {
+        //     serverResponseForIsExisting = ajaxRequestBodyMethod(`repair/getrepairbycustomerphone/${phone}`)
+        //     console.log(serverResponseForIsExisting);
+
+        // } catch (error) {
+        //     serverResponseForIsExisting = null
+        //     console.log(serverResponseForIsExisting);
+        // }
+        // if (serverResponseForIsExisting.length > 0 || serverResponseForIsExisting != '') {
 
 
-    //     // idForNext = serverResponse1.id
-    //     let idForNext = serverResponseForIsExisting.id
-    //     // inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
-    //     // inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
-    //     console.log(repair);
-    //     let serverResponse1Updated = ajaxRequestBodyMethod(`/repair/${idForNext}`, "PUT", repair);
-    //     // if (flexCheckCheckedForCus.checked = true) {
-    //     //     inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
-    //     //     inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
+        //     // idForNext = serverResponse1.id
+        //     let idForNext = serverResponseForIsExisting.id
+        //     // inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
+        //     // inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
+        //     console.log(repair);
+        //     let serverResponse1Updated = ajaxRequestBodyMethod(`/repair/${idForNext}`, "PUT", repair);
+        //     // if (flexCheckCheckedForCus.checked = true) {
+        //     //     inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
+        //     //     inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
 
-    //     //     readyRepairId.disabled = false
-    //     // }
-    //     console.log(serverResponse1Updated);
-    // } else {
+        //     //     readyRepairId.disabled = false
+        //     // }
+        //     console.log(serverResponse1Updated);
+        // } else {
 
-    //     let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
-    //     console.log("serverResponse", serverResponse1);
-    //     // if (flexCheckCheckedForCus.checked = true) {
-    //     //     // idForNext = serverResponse1.id
-    //     //     inputWarrentyCustomerName.value = serverResponse1.customer_id.name
-    //     //     inputWarrentyCustomerContact.value = serverResponse1.customer_id.phone
-    //     //     readyRepairId.disabled = false
-    //     // }
-    // }
-    let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
-    console.log("serverResponse", serverResponse1);
+        //     let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
+        //     console.log("serverResponse", serverResponse1);
+        //     // if (flexCheckCheckedForCus.checked = true) {
+        //     //     // idForNext = serverResponse1.id
+        //     //     inputWarrentyCustomerName.value = serverResponse1.customer_id.name
+        //     //     inputWarrentyCustomerContact.value = serverResponse1.customer_id.phone
+        //     //     readyRepairId.disabled = false
+        //     // }
+        // }
+        let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
+        console.log("serverResponse", serverResponse1);
 
-    // let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
-    // console.log("serverResponse", serverResponse1);
-    repairItemIntoTable()
-    addSubRepair()
-    refreshInvoiceForm()
+        // let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
+        // console.log("serverResponse", serverResponse1);
+        repairItemIntoTable()
+        addSubRepair()
+        refreshInvoiceForm()
+
+    } else {
+
+        // alert("Form Has following errors..." + errors)
+        Swal.fire({
+            title: "Required Details Are Missing",
+            text: "Plase check the details and retry",
+            icon: "error"
+        });
+
+
+    }
 
 }
 
