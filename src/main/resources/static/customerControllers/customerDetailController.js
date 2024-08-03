@@ -11,7 +11,7 @@ const refreshCustomerTable = () =>{
         { property: 'name', dataType: 'string' },
         { property: 'phone', dataType: 'string' },
         { property: customertypes, dataType: 'function' },
-        { property: 'buymode', dataType: 'integer' },
+        // { property: 'buymode', dataType: 'integer' },
     ]
     fillDataIntoTable(customerDetailsId, customerDetails, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn,  true)
 
@@ -27,43 +27,43 @@ const refreshCustomerForm = () => {
     fStagecusItemArry = []
     sStageCusType = {}
     sStagecusItemArry = []
-    const customerDetails = ajaxGetRequest("/customertype/getlist/" + "premium")
+    const customerDetails = ajaxGetRequest("/customertype/getlist/" + "gold")
     discountLabel.innerHTML = customerDetails.discount
     discountRounds.innerHTML = customerDetails.buyrounds
     discountMinCash.innerHTML = customerDetails.mincash
-    customerCount.innerHTML = ajaxGetRequest("/customer/count/" + "premium")
+    customerCount.innerHTML = ajaxGetRequest("/customer/count/" + "gold")
 
-    const fStagecustomerDetails = ajaxGetRequest("/customertype/getlist/" + "1st stage")
+    const fStagecustomerDetails = ajaxGetRequest("/customertype/getlist/" + "silver")
     discountLabelfStage.innerHTML = fStagecustomerDetails.discount
     discountRoundsfStage.innerHTML = fStagecustomerDetails.buyrounds
     discountMinCashfStage.innerHTML = fStagecustomerDetails.mincash
-    customerCountfStage.innerHTML = ajaxGetRequest("/customer/count/" + "1st stage")
+    customerCountfStage.innerHTML = ajaxGetRequest("/customer/count/" + "silver")
 
-    const sStagecustomerDetails = ajaxGetRequest("/customertype/getlist/" + "2nd stage")
+    const sStagecustomerDetails = ajaxGetRequest("/customertype/getlist/" + "bronze")
     discountLabelsStage.innerHTML = sStagecustomerDetails.discount
     discountRoundssStage.innerHTML = sStagecustomerDetails.buyrounds
     discountMinCashsStage.innerHTML = sStagecustomerDetails.mincash
-    customerCountsStage.innerHTML = ajaxGetRequest("/customer/count/" + "2nd stage")
+    customerCountsStage.innerHTML = ajaxGetRequest("/customer/count/" + "bronze")
 
 
 }
 
 const submitCustype = () => {
     console.log(custype);
-    custype.customertypes = "premium"
+    custype.customertypes = "gold"
     let serverResponseCustype = ajaxRequestBodyMethod("/customertype", "PUT", custype);
     console.log(serverResponseCustype);
 }
 const submitCustypefStage = () => {
     console.log(fStageCusType);
-    fStageCusType.customertypes = "1st stage"
+    fStageCusType.customertypes = "silver"
     console.log(fStageCusType);
     let serverResponseCustypefStage = ajaxRequestBodyMethod("/customertype", "PUT", fStageCusType);
     console.log(serverResponseCustypefStage);
 }
 const submitCustypesStage = () => {
     console.log(sStageCusType);
-    sStageCusType.customertypes = "2nd stage"
+    sStageCusType.customertypes = "bronze"
     console.log(sStageCusType);
     let serverResponseCustypesStage = ajaxRequestBodyMethod("/customertype", "PUT", sStageCusType);
     console.log(serverResponseCustypesStage);
@@ -85,7 +85,7 @@ const showCustomerssStage = () => {
 
 }
 const customerTableShow = () => {
-    const customerDetailsbytype = ajaxGetRequest("/customer/getcustomerbytype/" + "premium")
+    const customerDetailsbytype = ajaxGetRequest("/customer/getcustomerbytype/" + "gold")
     console.log(customerDetailsbytype);
     const displayProperties = [
         { property: 'name', dataType: 'string' },
@@ -96,7 +96,7 @@ const customerTableShow = () => {
 
 }
 const customerTableShowfStage = () => {
-    const customerDetailsbytypefStage = ajaxGetRequest("/customer/getcustomerbytype/" + "1st stage")
+    const customerDetailsbytypefStage = ajaxGetRequest("/customer/getcustomerbytype/" + "silver")
 
     console.log(customerDetailsbytypefStage);
     const displayProperties = [
@@ -108,7 +108,7 @@ const customerTableShowfStage = () => {
 
 }
 const customerTableShowsStage = () => {
-    const customerDetailsbytypesStage = ajaxGetRequest("/customer/getcustomerbytype/" + "2nd stage")
+    const customerDetailsbytypesStage = ajaxGetRequest("/customer/getcustomerbytype/" + "bronze")
 
     console.log(customerDetailsbytypesStage);
     const displayProperties = [

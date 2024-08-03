@@ -1,29 +1,29 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const uploadForm = document.getElementById('uploadForm');
+// document.addEventListener('DOMContentLoaded', function () {
+//     const uploadForm = document.getElementById('uploadForm');
 
-    uploadForm.addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent the default form submission
-        console.log("ssss");
-        const formData = new FormData();
-        formData.append('qrCodeImage', document.getElementById('qrCodeImage').files[0]);
+//     uploadForm.addEventListener('submit', function (event) {
+//         event.preventDefault(); // Prevent the default form submission
+//         console.log("ssss");
+//         const formData = new FormData();
+//         formData.append('qrCodeImage', document.getElementById('qrCodeImage').files[0]);
 
-        fetch('/invoice/read-qr-code', {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.text())
-            .then(data => {
-                console.log('QR code content:', data);
-                // Do something with the QR code content (e.g., display it on the page)
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // Handle errors
-            });
-    })
-});
+//         fetch('/invoice/read-qr-code', {
+//             method: 'POST',
+//             body: formData
+//         })
+//             .then(response => response.text())
+//             .then(data => {
+//                 console.log('QR code content:', data);
+//                 // Do something with the QR code content (e.g., display it on the page)
+//             })
+//             .catch(error => {
+//                 console.error('Error:', error);
+//                 // Handle errors
+//             });
+//     })
+// });
 window.addEventListener('load', () => {
-   
+
     const date = new Date();
 
     let day = date.getDate();
@@ -41,9 +41,10 @@ window.addEventListener('load', () => {
 
 
 const refreshInvoiceForm = () => {
-    serverResponseForIsExisting = ''
+
     customerVal = null
     button = ''
+    serverResponse11 = ''
     getExistCustomer = ''
     diagnosistable = ''
     matchingItem = ''
@@ -56,6 +57,8 @@ const refreshInvoiceForm = () => {
     duetoRepair = new Object();
     duetoRepair2 = new Object();
     itable = []
+    itable1 = {}
+    itable1.fillIntotable = []
     irepairtable = []
     totalForRepair = 0
     totalForItem = 0
@@ -70,8 +73,8 @@ const refreshInvoiceForm = () => {
     invoice.serialnolist_id = new Array();
     invoice.salesHasSerials = new Array();
     invoice.salesHasDues = new Array();
-    saleSerial = new Object();
-    salesHasDue = new Object();
+    // saleSerial = new Object();
+    // salesHasDue = new Object();
     serialwarrentyObject = new Object();
     itemRepairTableDetail = new Object();
     itemTableDetail = new Object();
@@ -81,14 +84,14 @@ const refreshInvoiceForm = () => {
     dueRepairsList = ajaxGetRequest("/duerepair/getduebystatusfordiagnoesedcompleted")
     getAvailableBarcodes = ajaxGetRequest("/serialno/getavailablelist")
 
-   // getInvoiceNumbersNotInDueRepairInSales = ajaxGetRequest("/serialno/getlist")
+    // getInvoiceNumbersNotInDueRepairInSales = ajaxGetRequest("/serialno/getlist")
 
-   
+
     // fillDataIntoSelect(barcodeNo, "Select Barcode", getAvailableBarcodes, 'barcode')
-    fillDataIntoDataList(dataListItemsForItemBarcode, getAvailableBarcodes, 'barcode','itemname')
+    fillDataIntoDataList(dataListItemsForItemBarcode, getAvailableBarcodes, 'barcode', 'itemname')
     fillDataIntoSelect(invoiceSerialId, "Select SerialNumber List", serialNoListCount, 'serialno')
     // fillDataIntoSelect(barcodeNoRepair, "Select barcode", dueRepairsList, 'barcode')
-    fillDataIntoDataList(dataListItemsForRepairBarcode, dueRepairsList, 'barcode','itemname')
+    fillDataIntoDataList(dataListItemsForRepairBarcode, dueRepairsList, 'barcode', 'itemname', 'serialno')
 
     const collapseInvoiceElement = document.getElementById("collapseItemDetails");
 
@@ -107,7 +110,7 @@ const refreshInvoiceForm = () => {
     collapseInvoiceRepairElement.setAttribute("aria-expanded", "true");
 
 }
-const getDetailsByInvoiceNo = ()=>{
+const getDetailsByInvoiceNo = () => {
 
 }
 const handleItem = () => {
@@ -122,15 +125,15 @@ const handleRepair = () => {
 const checkdiscount = (cusname) => {
     // const discountname = inputCustomerName.value;
     console.log(inputCustomerName.value);
-    if (cusObject != null) {
-        
-       cusObject.name = inputCustomerName.value
-         cusObject.phone =  inputCustomerContact.value
+    if (cusObject == null) {
 
-    } 
-        
-        invoice.customer_id = cusObject
-    
+        cusObject.name = inputCustomerName.value
+        cusObject.phone = inputCustomerContact.value
+
+    }
+
+    invoice.customer_id = cusObject
+
     // Initially disable the input field
     discountCusRate.disabled = true;
     let discountname = inputCustomerName.value
@@ -139,44 +142,44 @@ const checkdiscount = (cusname) => {
     let serverresponseof_discount = null
     try {
         // Make an asynchronous GET request
-       
-            // serverresponseof_discount = ajaxGetRequest(`/customer/getdiscount/${inputCustomerName.value}`);
-            serverresponseof_discount = ajaxGetRequest(`/customer/getdiscount/${inputCustomerContact.value}`);
-            if (serverresponseof_discount.length > 0) {
-                
-                boolDis = true
-            }else{
-                boolDis = false
-            }
-    
+
+        // serverresponseof_discount = ajaxGetRequest(`/customer/getdiscount/${inputCustomerName.value}`);
+        serverresponseof_discount = ajaxGetRequest(`/customer/getcustomertypebyphoneandname?name=${inputCustomerName.value}&phone=${inputCustomerContact.value}`);
+        if (serverresponseof_discount.length > 0) {
+
+            boolDis = true
+        } else {
+            boolDis = false
+        }
+
 
         console.log(serverresponseof_discount);
 
         // If the response is null or undefined, keep the input field disabled and set its value to "-"
         if (boolDis) {
             discountCusRate.disabled = true;
-            discountCusRate.value = serverresponseof_discount?.discount ? serverresponseof_discount?.discount : "-";
+            discountCusRate.value = serverresponseof_discount?.discount ? ((serverresponseof_discount?.discount) * 100 + '%') : "-";
             invoiceDiscountedPrice.disabled = false
-            if (discountCusRate.value == 0.01) {
+            if (discountCusRate.value === 0) {
                 discountCusRate.value = "-"
-                invoiceDiscountedPrice.value =parseFloat(invoiceTotalPrice.value)
-            }else{
+                invoiceDiscountedPrice.value = parseFloat(invoiceTotalPrice.value).toFixed(2)
+            } else {
 
-                invoiceDiscountedPrice.value =parseFloat(invoiceTotalPrice.value)-(parseFloat(invoiceTotalPrice.value) * parseFloat(discountCusRate.value))
+                invoiceDiscountedPrice.value = (parseFloat(invoiceTotalPrice.value).toFixed(2) - (parseFloat(invoiceTotalPrice.value).toFixed(2) * (parseFloat(discountCusRate.value) / 100))).toFixed(2)
             }
             // console.log(invoiceDiscountedPrice.value);
         } else {
             // Enable the input field and set its value
             discountCusRate.disabled = true;
-            discountCusRate.value = serverresponseof_discount?.discount ? serverresponseof_discount?.discount : "-";
+            discountCusRate.value = serverresponseof_discount?.discount ? ((serverresponseof_discount?.discount) * 100 + '%') : "-";
             discountCusPhone.disabled = false
             discountCusPhone.value = discountname.phone
             if (discountCusRate.value === "-") {
                 discountCusRate.value = "-"
-                invoiceDiscountedPrice.value =parseFloat(invoiceTotalPrice.value)
-            }else{
+                invoiceDiscountedPrice.value = parseFloat(invoiceTotalPrice.value).toFixed(2)
+            } else {
 
-                invoiceDiscountedPrice.value = parseFloat(invoiceTotalPrice.value)-(parseFloat(invoiceTotalPrice.value) * parseFloat(discountCusRate.value))
+                invoiceDiscountedPrice.value = (parseFloat(invoiceTotalPrice.value).toFixed(2) - (parseFloat(invoiceTotalPrice.value).toFixed(2) * (parseFloat(discountCusRate.value) / 100))).toFixed(2)
             }
             // console.log(invoiceDiscountedPrice.value);
         }
@@ -237,7 +240,7 @@ const getItemDetails = (serialObject) => {
         inputWarPeriod.value = warrentyPeriod + " Days"
         inputWarStartDate.value = new Date().toISOString().slice(0, 10);
         saleSerial.warrentystartdate = date(inputWarStartDate.value)
-  
+
         // saleSerial.warrentystartdate=inputWarStartDate.value
         const newDate = new Date(inputWarStartDate.value);
         newDate.setDate(newDate.getDate() + warrentyPeriod);
@@ -245,7 +248,7 @@ const getItemDetails = (serialObject) => {
         saleSerial.warrentyexpire = date(inputWarrentyEnd.value)
 
 
-      
+
         // saleSerial.warrentyexpire=inputWarrentyEnd.value
         //open bank collapse model
         const collapseWarrentyElement = document.getElementById("collapseItemWarrenty");
@@ -259,21 +262,37 @@ const getItemDetails = (serialObject) => {
     // itemsDetails1 = null
 }
 
-const date = (dateString) =>{
-    
-        // Parse the string into a Date object
-        const parsedDate = new Date(dateString);
+const date = (dateString) => {
 
-        // Get just the date part (year, month, day)
-        const year = parsedDate.getFullYear();
-        const month = parsedDate.getMonth() + 1; // Months are zero-indexed (0-11)
-        const day = parsedDate.getDate();
-    
-        // Create a new Date object with only year, month, and day
-        const dateWithoutTime = new Date(year, month - 1, day);
-    
-        console.log(dateWithoutTime); // Output: 2024-07-18 (without time)
-        return dateWithoutTime;
+    // Parse the string into a Date object
+    const parsedDate = new Date(dateString);
+
+    // Get just the date part (year, month, day)
+    const year = parsedDate.getFullYear();
+    const month = parsedDate.getMonth() + 1; // Months are zero-indexed (0-11)
+    const day = parsedDate.getDate();
+
+    // Create a new Date object with only year, month, and day
+    const dateWithoutTime = new Date(year, month - 1, day);
+
+    console.log(dateWithoutTime); // Output: 2024-07-18 (without time)
+    return dateWithoutTime;
+}
+const date1 = (dateString) => {
+
+    // Parse the string into a Date object
+    const parsedDate = new Date(dateString);
+
+    // Get just the date part (year, month, day)
+    const year = parsedDate.getFullYear();
+    const month = parsedDate.getMonth() + 1; // Months are zero-indexed (0-11)
+    const day = parsedDate.getDate();
+
+    // Create a new Date object with only year, month, and day
+    const dateWithoutTime = new Date(year, month - 1, day);
+
+    console.log(dateWithoutTime); // Output: 2024-07-18 (without time)
+    return dateWithoutTime;
 }
 
 function filterByName(itemname, data) {
@@ -292,13 +311,15 @@ function filterByName(itemname, data) {
 //     totalForItem += value2.itemprice
 
 //     getItemDetails(value2)
-    
+
 // }
 const getSerialItemDetails = (inputValue) => {
     console.log(inputValue);
-    
+    saleSerial = new Object();
+    salesHasDue = new Object();
+
     // Find the matching item in getAvailableBarcodes
-     matchingItem = getAvailableBarcodes.find(item => 
+    matchingItem = getAvailableBarcodes.find(item =>
         `${item.barcode} ${item.itemname}` === inputValue
     );
 
@@ -306,7 +327,7 @@ const getSerialItemDetails = (inputValue) => {
         console.log('Matching item:', matchingItem);
         lblItemName1.value = matchingItem.itemname;
         invoiceSerialId.value = matchingItem.serialno;
-        invoiceUnitPrice.value = matchingItem.itemprice;
+        invoiceUnitPrice.value = (matchingItem.itemprice);
 
         totalForItem += matchingItem.itemprice;
 
@@ -324,19 +345,19 @@ const getRepairItemDetails = (value1) => {
     //     inputCustomerContact.disabled = true
     //     customerVal = ajaxGetRequest("duerepair/getrepairbydue/" + value1.repairid)
     //     console.log(customerVal);
-        
+
     //     if (inputCustomerContact.value === customerVal.customer_id.phone) {
     //         console.log(value1);
     //         lblItemCate1Repair.value = value1.category
     //         lblItemName1Repair.value = value1.itemname
-            
+
     //         totalForRepair += value1.total
     //        console.log(totalForRepair);
     //      if (value1.statusofrepair === "Diagnoesed") {
     //             selectElement('invoiceRepairFor','Diagnosed')
     //         } else {
     //             selectElement('invoiceRepairFor','Full Repair')
-                
+
     //         }
     //       checkdiscount()
     //     }else{
@@ -347,12 +368,12 @@ const getRepairItemDetails = (value1) => {
     //     console.log(value1);
     //     lblItemCate1Repair.value = value1.category
     //     lblItemName1Repair.value = value1.itemname
-        
+
     //     totalForRepair += value1.total
-        
+
     //     // lblItemName1Repair.value = value1.itemname
     //     console.log(totalForRepair);
-    
+
     //     // invoiceTotalPrice.value = totalForRepair
     //     // function isNumeric(value) {
     //     //     return !isNaN(parseFloat(value)) && isFinite(value);
@@ -366,12 +387,12 @@ const getRepairItemDetails = (value1) => {
     //     // const selectElement = document.getElementById('invoiceRepairFor');
     //     // const diagnosedOption = Array.from(selectElement.options).find(option => option.value === 'Diagnosed');
     //     // const fullRepairOption = Array.from(selectElement.options).find(option => option.value === 'Full Repair');
-    
+
     //     if (value1.statusofrepair === "Diagnoesed") {
     //         selectElement('invoiceRepairFor','Diagnosed')
     //     } else {
     //         selectElement('invoiceRepairFor','Full Repair')
-            
+
     //     }
     //     // selectElement.value = value1.statusofrepair
     //     customerVal = ajaxGetRequest("duerepair/getrepairbydue/" + value1.repairid)
@@ -381,46 +402,47 @@ const getRepairItemDetails = (value1) => {
 
     //     checkdiscount()
     // }
-
-    matchingRepair = dueRepairsList.find(item => 
-        `${item.barcode} ${item.itemname}` === value1
+    salesHasDue = new Object();
+    saleSerial = new Object();
+    matchingRepair = dueRepairsList.find(item =>
+        `${item.barcode} ${item.itemname} ${item.serialno}` === value1
     );
     if (matchingRepair) {
-        
-        if (inputCustomerName.value !="" ) {
+
+        if (inputCustomerName.value != "") {
             inputCustomerName.disabled = true
             inputCustomerContact.disabled = true
             customerVal = ajaxGetRequest("duerepair/getrepairbydue/" + matchingRepair.repairid)
             console.log(customerVal);
-            
+
             if (inputCustomerContact.value === customerVal.customer_id.phone) {
                 console.log(matchingRepair);
                 lblItemCate1Repair.value = matchingRepair.category
                 lblItemName1Repair.value = matchingRepair.itemname
-                
+
                 totalForRepair += matchingRepair.total
-               console.log(totalForRepair);
-             if (matchingRepair.statusofrepair === "Diagnoesed") {
-                    selectElement('invoiceRepairFor','Diagnosed')
+                console.log(totalForRepair);
+                if (matchingRepair.statusofrepair === "Diagnoesed") {
+                    selectElement('invoiceRepairFor', 'Diagnosed')
                 } else {
-                    selectElement('invoiceRepairFor','Full Repair')
-                    
+                    selectElement('invoiceRepairFor', 'Full Repair')
+
                 }
-              checkdiscount()
-            }else{
+                checkdiscount()
+            } else {
                 alert(`This Repair is not owe to ${inputCustomerName.value} `)
             }
-        }else{
-    
+        } else {
+
             console.log(matchingRepair);
             lblItemCate1Repair.value = matchingRepair.category
             lblItemName1Repair.value = matchingRepair.itemname
-            
+
             totalForRepair += matchingRepair.total
-            
+
             // lblItemName1Repair.value = value1.itemname
             console.log(totalForRepair);
-        
+
             // invoiceTotalPrice.value = totalForRepair
             // function isNumeric(value) {
             //     return !isNaN(parseFloat(value)) && isFinite(value);
@@ -434,19 +456,19 @@ const getRepairItemDetails = (value1) => {
             // const selectElement = document.getElementById('invoiceRepairFor');
             // const diagnosedOption = Array.from(selectElement.options).find(option => option.value === 'Diagnosed');
             // const fullRepairOption = Array.from(selectElement.options).find(option => option.value === 'Full Repair');
-        
+
             if (matchingRepair.statusofrepair === "Diagnoesed") {
-                selectElement('invoiceRepairFor','Diagnosed')
+                selectElement('invoiceRepairFor', 'Diagnosed')
             } else {
-                selectElement('invoiceRepairFor','Full Repair')
-                
+                selectElement('invoiceRepairFor', 'Full Repair')
+
             }
             // selectElement.value = value1.statusofrepair
             customerVal = ajaxGetRequest("duerepair/getrepairbydue/" + matchingRepair.repairid)
             console.log(customerVal);
             inputCustomerName.value = customerVal.customer_id.name
             inputCustomerContact.value = customerVal.customer_id.phone
-    
+
             checkdiscount()
         }
     } else {
@@ -458,7 +480,7 @@ const getRepairItemDetails = (value1) => {
 
 }
 
-function selectElement(id, valueToSelect) {    
+function selectElement(id, valueToSelect) {
     let element = document.getElementById(id);
     element.value = valueToSelect;
 }
@@ -508,26 +530,26 @@ const addToTable = () => {
     // serialNumbers.serialno = invoiceSerialId.value
 }
 
-const addSubRepair = () =>{
- //open bank collapse model
- const collapseWarrentyItemElement = document.getElementById("collapseItemsWarrenty");
+const addSubRepair = () => {
+    //open bank collapse model
+    const collapseWarrentyItemElement = document.getElementById("collapseItemsWarrenty");
 
- // Remove the 'collapse' class to open the collapse
- collapseWarrentyItemElement.classList.add("collapse")
- warrentySerialId.value = ""
- lblItemWarrentyName.value = ""
- lblItemWarrentyCategory.value = ""
- warrentyStatus.value = ""
- warrentyFault.value = ""
- inputItemRepName.value = ""
- inputWarrentyItemStart.value = ""
- inputWarrentyItemPeriod.value = ""
- inputWarrentyItemEnd.value = ""
- if (flexCheckCheckedForCus.checked = false) {
-    
-     inputWarrentyCustomerName.value =""
-     inputWarrentyCustomerContact.value =""
- }
+    // Remove the 'collapse' class to open the collapse
+    collapseWarrentyItemElement.classList.add("collapse")
+    warrentySerialId.value = ""
+    lblItemWarrentyName.value = ""
+    lblItemWarrentyCategory.value = ""
+    warrentyStatus.value = ""
+    warrentyFault.value = ""
+    inputItemRepName.value = ""
+    inputWarrentyItemStart.value = ""
+    inputWarrentyItemPeriod.value = ""
+    inputWarrentyItemEnd.value = ""
+    // if (flexCheckCheckedForCus.checked = false) {
+
+    inputWarrentyCustomerName.value = ""
+    inputWarrentyCustomerContact.value = ""
+    // }
 }
 const selectCustomerType = () => {
 
@@ -549,8 +571,8 @@ const calculateBalance = () => {
     // invoice.total = invoiceTotalPrice.value
     invoice.total = invoiceDiscountedPrice.value
     invoice.customerpaidamount = invoiceCustomerPayment.value
-    invoice.balance = invoice.customerpaidamount - invoice.total
-    invoiceBalance.value = invoice.balance
+    invoice.balance = parseFloat(invoice.customerpaidamount - invoice.total)
+    invoiceBalance.value = (invoice.balance).toFixed(2)
 }
 const addRepairToSerialiedTable = () => {
     // Repair Code
@@ -560,14 +582,14 @@ const addRepairToSerialiedTable = () => {
     addToRepairTable()
     cusRepairTablePrintDiv.classList.remove('d-none')
     cusRepairUsedItemTablePrint.classList.remove('d-none')
-    salesHasDue.statusofserviceorrepair = "service" 
+    salesHasDue.statusofserviceorrepair = "service"
     // salesHasDue.due_to_repairitem_id = JSON.parse(barcodeNoRepair.value)
     salesHasDue.due_to_repairitem_id = matchingRepair
     invoice.salesHasDues.push(salesHasDue)
     console.log(itemRepairTableDetail);
     irepairtable.push(itemRepairTableDetail)
 
-    
+
     let totalPrice = 0; // Initialize total price
     for (let index = 0; index < irepairtable.length; index++) {
         let element = irepairtable[index];
@@ -580,12 +602,12 @@ const addRepairToSerialiedTable = () => {
 
         function isNumeric(value) {
             return !isNaN(parseFloat(value)) && isFinite(value);
-          }
+        }
         // Ensure 'price' is a number before adding
         if (typeof price === 'number' && !isNaN(price)) {
             totalPrice += price;
             tot = totalForRepair + totalForItem
-            invoiceTotalPrice.value = tot
+            invoiceTotalPrice.value = parseFloat(tot).toFixed(2)
             // if (isNumeric(invoiceTotalPrice.value)) {
             //     // invoiceTotalPrice.value = parseFloat(invoiceTotalPrice.value) + parseFloat(price)
             //     invoiceTotalPrice.value =  parseFloat(price)
@@ -613,7 +635,7 @@ const addRepairToSerialiedTable = () => {
     checkdiscount()
     inputCustomerName.disabled = true
     inputCustomerContact.disabled = true
-    
+
 }
 // const getRepairCode = (rowOb) => {
 //     return rowOb.repairCode
@@ -632,11 +654,11 @@ const getRepairStatus = (rowOb) => {
 }
 const addToSerialiedTable = () => {
 
-    invoiceDiscountedPrice.value = parseFloat(invoiceTotalPrice.value) - ((parseFloat(invoiceTotalPrice.value) * parseFloat(discountCusRate.value)));
+    invoiceDiscountedPrice.value = (parseFloat(invoiceTotalPrice.value) - ((parseFloat(invoiceTotalPrice.value) * parseFloat(discountCusRate.value)))).toFixed(2);
 
     addToTable()
     // invoice.serialnolist_id.push(serialNumbers)
-    
+
     // saleSerial.serialno_id = JSON.parse(barcodeNo.value)
     saleSerial.serialno_id = matchingItem
     invoice.salesHasSerials.push(saleSerial)
@@ -646,7 +668,11 @@ const addToSerialiedTable = () => {
     console.log(itemTableDetail);
     itable.push(itemTableDetail)
 
+    itable1.fillIntotable.push(saleSerial)
+
+    console.log(saleSerial);
     console.log(itable);
+    console.log(itable1);
     // let totalPrice = 0; // Initialize total price
     for (let index = 0; index < itable.length; index++) {
         let element = itable[index];
@@ -658,13 +684,13 @@ const addToSerialiedTable = () => {
         console.log(typeof price);
         function isNumeric(value) {
             return !isNaN(parseFloat(value)) && isFinite(value);
-          }
+        }
 
         // Ensure 'price' is a number before adding
         if (typeof price === 'number' && !isNaN(price)) {
             totalPrice += price;
             tot = totalForRepair + totalForItem
-            invoiceTotalPrice.value = tot
+            invoiceTotalPrice.value = parseFloat(tot).toFixed(2)
             // if (isNumeric(invoiceTotalPrice.value)) {
             //     // invoiceTotalPrice.value =  price
             //     invoiceTotalPrice.value = parseFloat(price)
@@ -679,7 +705,7 @@ const addToSerialiedTable = () => {
     }
 
     console.log("Total price:", totalPrice);
-    checkdiscount()
+    // checkdiscount()
 
     barcodeNo.value = ''
     lblItemName1.value = ""
@@ -705,23 +731,23 @@ const addToSerialiedTable = () => {
         { property: getSerialedItemPrice, dataType: 'function' },
         { property: getSerialedItemWarrenty, dataType: 'function' },
     ]
-    fillDataIntoPurcahseTable(itemSerializedTable, itable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
+    fillDataIntoPurcahseTable(itemSerializedTable, itable1.fillIntotable, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
 
     //reset the value attributes
 
 }
 const getSerialedItemCode = (rowOb) => {
-    return null
+    return rowOb?.serialno_id?.serialno
 }
 const getSerialedItemName = (rowOb) => {
     console.log(rowOb);
-    return rowOb.itemname
+    return rowOb?.serialno_id?.itemname
 }
 const getSerialedItemPrice = (rowOb) => {
-    return rowOb.unitprice
+    return rowOb?.serialno_id?.itemprice
 }
-const getSerialedItemWarrenty = () => {
-    return "warrentied"
+const getSerialedItemWarrenty = (rowOb) => {
+    return rowOb?.warrentyperiod
 }
 const purchaseOrderBtn = (rowObject) => {
     console.log("clicked purchase order");
@@ -732,38 +758,72 @@ const deletePurchBtn = (rowObject) => {
 const sendPurchBtn = (rowObject) => {
     console.log("clicked send purchase order");
 }
+const checkInnerItemFormError = () => {
+    let errors = ""
+    if (inputCustomerName.value == '') {
+        errors = errors + "Please enter Name ...!"
+    }
+    if (inputCustomerContact.value == '') {
+        errors = errors + "Please Enter phone ...!"
+    }
+    if (invoiceTotalPrice.value == '') {
+        errors = errors + "Total Not available ...!"
+    }
+    if (invoiceCustomerPayment.value == '') {
+        errors = errors + "Customer payment not available...!"
+    }
+    return errors
+}
 const submitInvoice = () => {
     // invoice.invoicetotalprice = invoiceTotalPrice.value
     // invoice.invoicebalance = invoiceBalance.value
     //serial number list
-    
-    console.log(invoice);
-    // invoice.serialNoList.push(serialNumbers)
-    incomePaymentsObj.payment = invoiceTotalPrice.value
-    console.log(salesHasDue);
-    if (salesHasDue.due_to_repairitem_id) {
-        invoice.repairidforsale = customerVal.id
-        // const repairforDueRepair2 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair.repairid))
-        duetoRepair2.statusofrepair = "Paid"
-        
-        let serverResponse4 = ajaxRequestBodyMethod(`/duerepair/${salesHasDue.due_to_repairitem_id.id}`, "PUT", duetoRepair2);
-        console.log(serverResponse4);
-        // incomePaymentsObj.repair_id = customerVal
-    }else{
-        incomePaymentsObj.repair_id = null
-        invoice.repairidforsale = null
-    }
-    // incomePaymentsObj.sales_id = invoice
-    invoice.incomePayments = incomePaymentsObj
 
     console.log(invoice);
-    let serverResponse11 = ajaxRequestBodyMethod("/invoice", "POST", invoice);
-   
+    // invoice.serialNoList.push(serialNumbers)
+    let errors = checkInnerItemFormError();
+    if (errors == "") {
+
+        incomePaymentsObj.payment = invoiceTotalPrice.value
+        // console.log(salesHasDue);
+        if (salesHasDue?.due_to_repairitem_id) {
+            invoice.repairidforsale = customerVal.id
+            // const repairforDueRepair2 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair.repairid))
+            duetoRepair2.statusofrepair = "Paid"
+
+            let serverResponse4 = ajaxRequestBodyMethod(`/duerepair/${salesHasDue.due_to_repairitem_id.id}`, "PUT", duetoRepair2);
+            console.log(serverResponse4);
+            // incomePaymentsObj.repair_id = customerVal
+        } else {
+            incomePaymentsObj.repair_id = null
+            invoice.repairidforsale = null
+        }
+        // incomePaymentsObj.sales_id = invoice
+        invoice.incomePayments = incomePaymentsObj
+
+        console.log(invoice);
+
+
+
+      serverResponse11 = ajaxRequestBodyMethod("/invoice", "POST", invoice);
+        // let serverResponse11 = ajaxRequestBodyMethod("/invoice", "POST", invoice);
+        
+    }
+    else {
+        // alert("Form Has following errors..." + errors)
+        Swal.fire({
+            title: "Required Details Are Missing",
+            text: "Plase check the details and retry",
+            icon: "error"
+        });
+  
+    }
+
     console.log("serverResponse", serverResponse11);
     try {
-        
-        serverResponse11.salesHasSerials.forEach(elem =>{
-    
+
+        serverResponse11.salesHasSerials.forEach(elem => {
+
             let categoryname13 = (elem.serialno_id.category_id.name).replace(/\s/g, '').toLowerCase()
             ajaxGetRequest(`/${categoryname13}/getqty/${elem.serialno_id.itemname}`)
         })
@@ -785,7 +845,7 @@ const submitInvoice = () => {
     irepairtable = []
     itable = []
     refreshInvoiceForm()
-refreshRepairTable();
+    refreshRepairTable();
 }
 const printInvoice = (response) => {
     setDataIntInvoicePrint(response)
@@ -858,24 +918,24 @@ const printInvoice = (response) => {
 // }
 
 const setDataIntInvoicePrint = (invoiceP) => {
-    if (invoiceP?.salesHasSerials?.length>0) {
-        
+    if (invoiceP?.salesHasSerials?.length > 0) {
+
         createTable(invoiceP)
         cusTablePrintDiv.classList.remove("d-none")
 
     }
     console.log(invoiceP);
     if (invoiceP?.salesHasDues?.length > 0) {
-        
+
         createRepairTable(invoiceP)
         createTechNoteTable(invoiceP)
         cusRepairTechTablePrintDiv.classList.remove("d-none")
-    
+
         // if (invoiceP.salesHasDues.due_to_repairitem_id.usedItems.length > 0)  {
-            cusRepairUsedItemTablePrintDiv.classList.remove("d-none")
-            createRepairUsedTable(invoiceP)
+        cusRepairUsedItemTablePrintDiv.classList.remove("d-none")
+        createRepairUsedTable(invoiceP)
         // }
-          
+
     }
     // if (invoiceP.salesHasDues.statusofserivceorrepair === "service") {
     //     cusRepairTablePrintDiv.classList.remove('d-none')
@@ -895,13 +955,16 @@ const setDataIntInvoicePrint = (invoiceP) => {
     console.log(currentDate); // "17-6-2022"
     cusDatePrint.innerHTML = currentDate
 
-  
+
     cusPayMethodPrint.innerHTML = invoiceP?.paymentmethod ? invoiceP?.paymentmethod : "cash"
     if (invoiceP?.paymentmethod == "card") {
         printReffer.classList.remove("d-none")
         cusPaidPrintDiv.classList.add("d-none")
-cusBalancePrintDiv.classList.add("d-none")
-    }else{
+        cusBalancePrintDiv.classList.add("d-none")
+        cusSubTotalPrint.innerHTML = invoiceP.incomePayments.payment
+
+        cusGrandPrint.innerHTML = invoiceP.incomePayments.payment
+    } else {
         printReffer.classList.add("d-none")
     }
     cusReferrancePrint.innerHTML = invoiceP.referenceno
@@ -926,25 +989,25 @@ const createRepairUsedTable = (invoiceUItem) => {
 
 }
 
-const getRepairNoUItems = (rowOb)=>{
+const getRepairNoUItems = (rowOb) => {
     return rowOb?.due_to_repairitem_id?.repairid
 }
-const getSerialRepairUItems = (rowOb)=>{
-        let getSerial = ''
+const getSerialRepairUItems = (rowOb) => {
+    let getSerial = ''
     rowOb?.due_to_repairitem_id?.usedItems.forEach(elem => {
-         getSerial = getSerial + `<p>${elem?.serialno}</p>`
-        })
+        getSerial = getSerial + `<p>${elem?.serialno}</p>`
+    })
     return getSerial
 }
-const getCategoryRepairUItems = (rowOb)=>{
-      let cat = ""
+const getCategoryRepairUItems = (rowOb) => {
+    let cat = ""
     rowOb?.due_to_repairitem_id?.usedItems?.forEach(elem => {
         cat = cat + `<p>${elem?.category}</p>`
 
     })
     return cat
 }
-const getItemUItems = (rowOb)=>{
+const getItemUItems = (rowOb) => {
     let catItems = ""
     rowOb?.due_to_repairitem_id?.usedItems?.forEach(elem => {
         catItems = catItems + `<p> ${elem?.itemname}</p>`
@@ -952,19 +1015,19 @@ const getItemUItems = (rowOb)=>{
     })
     return catItems
 }
-const getItemorServiceWarrantyRepairUItems = (rowOb)=>{
+const getItemorServiceWarrantyRepairUItems = (rowOb) => {
     let catIUtWarrenty = ""
     rowOb?.due_to_repairitem_id?.usedItems.forEach(element => {
         try {
             categoriesItemsRep = ajaxGetRequest(`/${element?.category}/getlist`)
             const filteredDataRep = filterByName(element?.itemname, categoriesItemsRep);
-    
+
             console.log("Filtered data:", filteredDataRep[0]);
             const objRep = filteredDataRep[0]
-    
+
             const warrentyPeriod = objRep.warrenty
-            catIUtWarrenty = catIUtWarrenty  +"<p >"+ warrentyPeriod + "</p>"
-            
+            catIUtWarrenty = catIUtWarrenty + "<p >" + warrentyPeriod + "</p>"
+
         } catch (error) {
             catIUtWarrenty = catIUtWarrenty + "<p >" + "-" + "</p>"
         }
@@ -972,10 +1035,10 @@ const getItemorServiceWarrantyRepairUItems = (rowOb)=>{
     })
     return catIUtWarrenty;
 }
-const getItemorServicePriceRepairUItems = (rowOb)=>{
+const getItemorServicePriceRepairUItems = (rowOb) => {
     let catItemsPrice = ""
     rowOb?.due_to_repairitem_id?.usedItems?.forEach(elem => {
-        catItemsPrice = catItemsPrice +  `<p>${elem?.unitprice}</p>`
+        catItemsPrice = catItemsPrice + `<p>${elem?.unitprice}</p>`
 
     })
     return catItemsPrice
@@ -1000,16 +1063,16 @@ const createTechNoteTable = (invoiceCPT) => {
     displayProperties = [
         { property: getRepairNoForT, dataType: 'function' },
         { property: getTechnote, dataType: 'function' },
-      
+
         // { property: getItemorServicePriceRepair, dataType: 'function' },
     ]
     fillDataIntoTable(cusRepairTechTablePrintTabel, invoiceCPT.salesHasDues, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, false)
 
 }
-const getRepairNoForT = (elem1)=>{
+const getRepairNoForT = (elem1) => {
     return elem1.due_to_repairitem_id?.repairid;
 }
-const getTechnote = (elem1)=>{
+const getTechnote = (elem1) => {
     return elem1.due_to_repairitem_id?.technicalnote;
 
 }
@@ -1049,22 +1112,22 @@ const getItem = (rowOb) => {
     // try {
     //     rowOb?.due_to_repairitem_id?.usedItems.forEach(elem => {
     //         catIt = catIt + elem?.itemname ? elem?.itemname : "-" 
-    
+
     //     })
     // } catch (error) {
     //     catIt = catIt + "-"
     // }
-   
+
     // return catIt;
 
 }
-const getUsedItemsRepair = (rowOb) =>{
+const getUsedItemsRepair = (rowOb) => {
     let usedItemsForRepair = ""
     rowOb?.due_to_repairitem_id?.usedItems.forEach(element => {
         try {
-            
-            usedItemsForRepair = usedItemsForRepair  +"<p >"+ element.itemname  + "</p>"
-            
+
+            usedItemsForRepair = usedItemsForRepair + "<p >" + element.itemname + "</p>"
+
         } catch (error) {
             usedItemsForRepair = usedItemsForRepair + "<p >" + "-" + "</p>"
         }
@@ -1084,13 +1147,13 @@ const getItemorServiceWarrantyRepairTotal = (rowOb) => {
     //     try {
     //         categoriesItemsRep = ajaxGetRequest(`/${element?.category}/getlist`)
     //         const filteredDataRep = filterByName(element?.itemname, categoriesItemsRep);
-    
+
     //         console.log("Filtered data:", filteredDataRep[0]);
     //         const objRep = filteredDataRep[0]
-    
+
     //         const warrentyPeriod = objRep.warrenty
     //         catItWarrenty = catItWarrenty  +"<p >"+ warrentyPeriod + "</p>"
-            
+
     //     } catch (error) {
     //         catItWarrenty = catItWarrenty + "<p >" + "-" + "</p>"
     //     }
@@ -1102,10 +1165,10 @@ const getItemorServiceWarrantyRepairTotal = (rowOb) => {
 const getItemorServicePriceRepair = (rowOb) => {
     // let catItPrice = ""
     // try {
-        
+
     //     rowOb.due_to_repairitem_id.usedItems.forEach(element => {
     //         catItPrice = catItPrice + "<p class = 'working-status'>" + element.unitprice + "</p>"
-    
+
     //     })
     // } catch (error) {
     //     catItPrice = catItPrice + "-"
@@ -1161,7 +1224,7 @@ const getItemorService = (rowOb) => {
     // if (boolIsService) {       
     //     return "Serivice";
     // }else{
-        return "Item"
+    return "Item"
     // }
 }
 
@@ -1171,7 +1234,7 @@ const getItemorServiceWarranty = (elem) => {
     // rowOb.forEach(elem => {
     //      itemWar = itemWar + `<p>${elem?.warrentystartdate}-${elem?.warrentyexpire}<span>(${elem?.warrentyperiod})Days</span></p>`
     //     })
-    return `<p>${elem?.warrentystartdate}-${elem?.warrentyexpire}<span>(${elem?.warrentyperiod})Days</span></p>`;
+    return `<p>${(elem?.warrentystartdate)}-${(elem?.warrentyexpire)}<span>(${elem?.warrentyperiod})Days</span></p>`;
 }
 const getItemorServicePrice = (elem) => {
     // ajax
@@ -1199,9 +1262,9 @@ const refreshRepairTable = () => {
 
 
     getInvoiceNumbersNotInDueRepairInSales = ajaxGetRequest("/invoice/getinvoicesnotindueandinsaleserial")
-    
+
     // fillDataIntoSelect(warrentySerialId, "Select Serial No", getInvoiceNumbersNotInDueRepairInSales, 'serialno')
-    fillDataIntoDataList(dataListItemsForSerialNo, getInvoiceNumbersNotInDueRepairInSales, 'serialno','itemname')
+    fillDataIntoDataList(dataListItemsForSerialNo, getInvoiceNumbersNotInDueRepairInSales, 'serialno', 'itemname')
     // serialNoListCountForWarrenty = ajaxGetRequest("/serialno/getlistwithoutnotnull")
     // fillDataIntoSelect(warrentySerialId, "Select SerialNumber List", serialNoListCountForWarrenty, 'serialno')
     repairItemIntoTable()
@@ -1210,7 +1273,7 @@ const refreshRepairTable = () => {
 
 
 const getWarrentyItemDetails = (valueSerial) => {
-    matchingSeral = getInvoiceNumbersNotInDueRepairInSales.find(item => 
+    matchingSeral = getInvoiceNumbersNotInDueRepairInSales.find(item =>
         `${item.serialno} ${item.itemname}` === valueSerial
     );
     // serialwarrentyObject = JSON.parse(warrentySerialId.value)
@@ -1257,12 +1320,15 @@ const getWarrentyItemDetails = (valueSerial) => {
         // saleSerial.warrentyexpire=inputWarrentyEnd.value
 
         const today = new Date()
-        console.log("executed",inputWarrentyItemEnd.value, date(today));
+        console.log("executed", inputWarrentyItemEnd.value, date(today));
         if (inputWarrentyItemEnd.value < today.toISOString().slice(0, 10)) {
             console.log("executed");
             returnId.disabled = true;
+            readyRepairId.disabled = false
         } else {
+            flexCheckCheckedForDiagnosediv.classList.add("d-none");
             readyRepairId.disabled = true;
+            returnId.disabled = false;
         }
         //open bank collapse model
         const collapseWarrentyItemElement = document.getElementById("collapseItemsWarrenty");
@@ -1299,16 +1365,18 @@ const repairItemIntoTable = () => {
     fillDataIntoPurcahseTable(repairItemTable, repairtable, displayProperties, viewBtnForWarranty, deleteBtnForWarranty, printBtnForWarranty, true)
 
 }
-const viewBtnForWarranty =(rowOb)=>{
-    repairNoId.innerHTML = rowOb.repairno 
-    inputWarrentyCustName.value = rowOb.customer_id.name 
-    inputWarrentyCustPhone.value =  rowOb.customer_id.phone
-    rowOb.duetoRepair.forEach(elem=>{
-    inputWarrentyCustDueserial.value = elem?.serialno
-    inputWarrentyCustDueCategory.value = elem?.category
-    inputWarrentyCustDueItemname.value = elem?.itemname    
-    inputWarrentyCustDueFault.value = elem?.fault
-    inputWarrentyCustDueTechNote.value = elem?.technicalnote
+const viewBtnForWarranty = (rowOb) => {
+    updateDueRepairObj = new Object();
+    repairNoId.innerHTML = rowOb.repairno
+    inputWarrentyCustName.value = rowOb.customer_id.name
+    inputWarrentyCustPhone.value = rowOb.customer_id.phone
+    rowOb.duetoRepair.forEach(elem => {
+        updateDueRepairObj.id = elem?.id
+        inputWarrentyCustDueserial.value = elem?.serialno
+        inputWarrentyCustDueCategory.value = elem?.category
+        inputWarrentyCustDueItemname.value = elem?.itemname
+        inputWarrentyCustDueFault.value = elem?.fault
+        inputWarrentyCustDueTechNote.value = elem?.technicalnote
     })
     $('#staticBackdropforRepair').modal('show');
     console.log(rowOb);
@@ -1318,10 +1386,28 @@ const viewBtnForWarranty =(rowOb)=>{
 
 
 }
-const deleteBtnForWarranty =()=>{}
-const printBtnForWarranty =()=>{}
+const handleUpdateTable = () => {
+    idUpdate = updateDueRepairObj.id
+    let serverResponse3 = ajaxRequestBodyMethod(`/duerepair/${idUpdate}`, "PUT", updateDueRepairObj);
+    console.log(serverResponse3);
+}
+const deleteBtnForWarranty = (rowOb) => {
+    //status changed to "Delete"
 
-const getRepairItemCustomer = (rowOb)=>{
+    rowOb.duetoRepair.forEach(elem => {
+        elem.statusofrepair = 'Deleted'
+
+        let serverResponse4 = ajaxRequestBodyMethod(`/duerepair/${elem.id}`, "PUT", elem);
+        console.log(serverResponse4);
+    })
+
+
+
+
+}
+const printBtnForWarranty = () => { }
+
+const getRepairItemCustomer = (rowOb) => {
     return rowOb?.customer_id?.name
 }
 const getSerialNo = (rowOb) => {
@@ -1373,10 +1459,13 @@ const getRepairItemStatus = (rowOb) => {
         if (statusText === "pending diagnosis") {
             itemStatus += `<p class="deleted-status">${statusText}</p>`;
         } else if (statusText === "Diagnoesed") {
-            itemStatus += `<button type="button" class="working-status btn btn-secondary mb-3" 
+            itemStatus += `<button type="button" class="yellow-status btn btn-secondary mb-3" 
             data-bs-toggle="modal" data-bs-target="#staticBackdrop00" 
             onclick="handleClick(${element.id})">${statusText}</button>`;
-        }else {
+        } else if (statusText === "Deleted") {
+            itemStatus += `<p class="deleted-status">${statusText}</p>`;
+        }
+        else {
             itemStatus += `<p class="resign-status">${statusText}</p>`;
         }
     });
@@ -1401,18 +1490,18 @@ const handleClick = (elem) => {
 
     // let totalUnitPrice = 0;
 
-        // Loop through diagnosed items and fetch their prices
-        // for (const item of diagnosistable.diagnosedItems) {
-        //     const priceResponse = ajaxGetRequest(`serialno/getitemprice/${item?.itemname}`);
-        //     const price = parseFloat(priceResponse);
-        //     totalUnitPrice += price;
-        // }
-        diagnosistable.diagnosedItems.forEach(item => {
-            //wenas kara mekata getitempriceforserial
-            let priceResponse = ajaxGetRequest(`serialno/getitempriceforserial/${item?.itemname}`);
-            let price = parseFloat(priceResponse);
-            totalUnitPrice += price;
-        });
+    // Loop through diagnosed items and fetch their prices
+    // for (const item of diagnosistable.diagnosedItems) {
+    //     const priceResponse = ajaxGetRequest(`serialno/getitemprice/${item?.itemname}`);
+    //     const price = parseFloat(priceResponse);
+    //     totalUnitPrice += price;
+    // }
+    diagnosistable.diagnosedItems.forEach(item => {
+        //wenas kara mekata getitempriceforserial
+        let priceResponse = ajaxGetRequest(`serialno/getitempriceforserial/${item?.itemname}`);
+        let price = parseFloat(priceResponse);
+        totalUnitPrice += price;
+    });
     // let tots = diagnosistable.diagnosedItems.forEach(data => {
 
     //      calculateTotalPrice(data).then(totalPrice => {
@@ -1422,34 +1511,35 @@ const handleClick = (elem) => {
 
     repairItemTotalPriceDig.value = totalUnitPrice
 
-     button = document.createElement('button')
+    button = document.createElement('button')
     button.className = 'btn btn-danger'
     button.innerHTML = 'Approve'
     button.type = 'button';
-    
+
     button.onclick = () => {
         // console.log('edit', item.id, index);
         handleApprove(elem)
         // button.setAttribute('data-bs-dismiss', 'modal');
-        $("#staticBackdrop00").on('hide.bs.modal'); 
+        $("#staticBackdrop00").on('hide.bs.modal');
         repairItemIntoTable()
         handleClose()
         // $("staticBackdrop00").model('hide')
     }
 
     let div = document.getElementById('diagnosedItemFooter'); // Create the div element
-   
+
     // Append the button to the div
     div.appendChild(button);
 
 };
-const handleClose = () =>{
+const handleClose = () => {
     if (button) {
         // Remove the button from its parent node
         button.parentNode.removeChild(button);
         // Optionally, you can set button to null or empty string
         button = null;
-    }}
+    }
+}
 const calculateTotalPrice = async (diagnosistable) => {
     let total = 0;
     const itemPricePromises = diagnosistable.map(item => {
@@ -1463,9 +1553,9 @@ const calculateTotalPrice = async (diagnosistable) => {
     });
     return total;
 };
-const handleApprove = (elem)=>{
+const handleApprove = (elem) => {
     console.log(elem);
-    let getDueRepair =  ajaxGetRequest(`duerepair/getlist/${elem}`)
+    let getDueRepair = ajaxGetRequest(`duerepair/getlist/${elem}`)
     console.log(getDueRepair);
     getDueRepair.statusofrepair = "Approved";
     // let repairSelected =  ajaxGetRequest(`repair/getlist/${elem}`)
@@ -1478,7 +1568,7 @@ const handleApprove = (elem)=>{
 }
 const getDiagItemCategory = (rowObject) => {
     // console.log(rowObject);
-    
+
     // let ItemDiagCategory = '';
     // rowObject.forEach(element => {
     // ItemDiagCategory =  ItemDiagCategory + "<p class = 'working-status'>" + element?.category ? element?.category : "-" + "</p>"
@@ -1515,72 +1605,78 @@ const getDiagItemPrice = (rowObject) => {
 const readyRepair = () => {
     warrentyItem.serialno = serialwarrentyObject.serialno
     if (warrentyItem.serialno) {
-        
+
         warrentyItem.itemname = serialwarrentyObject.itemname
         warrentyItem.category = serialwarrentyObject.category_id.name
     }
     warrentyItem.statusofrepair = "pending diagnosis"
     warrentyItem.fault = warrentyFault.value
-    if (flexCheckCheckedForDiagnose.checked = true) {
+    if (flexCheckCheckedForDiagnose.checked) {
         warrentyItem.diagnoserequire = "Require Diagnose"
-    }else{
+    } else {
         warrentyItem.diagnoserequire = ""
     }
-    
+
 
     warrentyItem.usedItems.push(usedItemsObj)
     customerObj.name = inputWarrentyCustomerName.value
     customerObj.phone = inputWarrentyCustomerContact.value
     repair.customer_id = customerObj
 
-    repair.duetoRepair.push(warrentyItem);
     // repair.usedItems.push(useItem)
 
+    repair.duetoRepair.push(warrentyItem);
     console.log(repair);
     let phone = inputWarrentyCustomerContact.value
+    // let serverResponseForIsExisting = ''
+    // try {
+    //     serverResponseForIsExisting = ajaxRequestBodyMethod(`repair/getrepairbycustomerphone/${phone}`)
+    //     console.log(serverResponseForIsExisting);
 
-        try {
-            serverResponseForIsExisting = ajaxRequestBodyMethod(`repair/getrepairbycustomerphone/${phone}`)
-            console.log(serverResponseForIsExisting);
-            
-        } catch (error) {
-            serverResponseForIsExisting = null
-            console.log(serverResponseForIsExisting);
-        }
-        if (serverResponseForIsExisting.length >0 || serverResponseForIsExisting != '') {
-            
-         
-            // idForNext = serverResponse1.id
-                let idForNext = serverResponseForIsExisting.id
-                // inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
-                // inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
-                console.log(repair);
-                let serverResponse1Updated = ajaxRequestBodyMethod(`/repair/${idForNext}`, "PUT", repair);
-                if (flexCheckCheckedForCus.checked = true) {
-                    inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
-                    inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
-                }
-                console.log(serverResponse1Updated);
-        }else{
-    
-            let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
-            console.log("serverResponse", serverResponse1);
-            if (flexCheckCheckedForCus.checked = true) {
-                // idForNext = serverResponse1.id
-                inputWarrentyCustomerName.value = serverResponse1.customer_id.name
-                inputWarrentyCustomerContact.value = serverResponse1.customer_id.phone
-            }
-        }
-        if (flexCheckCheckedForCus.checked = false) {
+    // } catch (error) {
+    //     serverResponseForIsExisting = null
+    //     console.log(serverResponseForIsExisting);
+    // }
+    // if (serverResponseForIsExisting.length > 0 || serverResponseForIsExisting != '') {
 
-            refreshInvoiceForm()
-        }
- 
-    
+
+    //     // idForNext = serverResponse1.id
+    //     let idForNext = serverResponseForIsExisting.id
+    //     // inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
+    //     // inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
+    //     console.log(repair);
+
+    //     let serverResponse1Updated = ajaxRequestBodyMethod(`/repair/${idForNext}`, "PUT", repair);
+    //     // if (flexCheckCheckedForCus.checked = true) {
+    //         //     inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
+    //     //     inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
+    //     //     readyRepairId.disabled = false
+    //     // }
+    //     console.log(serverResponse1Updated);
+    // } else {
+
+    //     let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
+    //     console.log("serverResponse", serverResponse1);
+    //     // if (flexCheckCheckedForCus.checked = true) {
+    //     //     // idForNext = serverResponse1.id
+    //     //     inputWarrentyCustomerName.value = serverResponse1.customer_id.name
+    //     //     inputWarrentyCustomerContact.value = serverResponse1.customer_id.phone
+    //     //     readyRepairId.disabled = false
+    //     // }
+    // }
+    let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
+    console.log("serverResponse", serverResponse1);
+    if (flexCheckCheckedForCus.checked = false) {
+
+        refreshInvoiceForm()
+    }
+
+
     repairItemIntoTable()
+    refreshInvoiceForm()
     addSubRepair()
-   
-    
+
+
 
 }
 const returnCompany = () => {
@@ -1596,47 +1692,88 @@ const returnCompany = () => {
     customerObj.name = inputWarrentyCustomerName.value
     customerObj.phone = inputWarrentyCustomerContact.value
     repair.customer_id = customerObj
-
+    // warrentyItem.statusofrepair = "pending diagnosis"
     repair.duetoRepair.push(warrentyItem);
+
     // repair.usedItems.push(useItem)
 
     console.log(repair);
+    // let phone = inputWarrentyCustomerContact.value
+    // let serverResponseForIsExisting = ''
+    // try {
+    //     serverResponseForIsExisting = ajaxRequestBodyMethod(`repair/getrepairbycustomerphone/${phone}`)
+    //     console.log(serverResponseForIsExisting);
 
+    // } catch (error) {
+    //     serverResponseForIsExisting = null
+    //     console.log(serverResponseForIsExisting);
+    // }
+    // if (serverResponseForIsExisting.length > 0 || serverResponseForIsExisting != '') {
+
+
+    //     // idForNext = serverResponse1.id
+    //     let idForNext = serverResponseForIsExisting.id
+    //     // inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
+    //     // inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
+    //     console.log(repair);
+    //     let serverResponse1Updated = ajaxRequestBodyMethod(`/repair/${idForNext}`, "PUT", repair);
+    //     // if (flexCheckCheckedForCus.checked = true) {
+    //     //     inputWarrentyCustomerName.value = serverResponseForIsExisting.customer_id.name
+    //     //     inputWarrentyCustomerContact.value = serverResponseForIsExisting.customer_id.phone
+
+    //     //     readyRepairId.disabled = false
+    //     // }
+    //     console.log(serverResponse1Updated);
+    // } else {
+
+    //     let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
+    //     console.log("serverResponse", serverResponse1);
+    //     // if (flexCheckCheckedForCus.checked = true) {
+    //     //     // idForNext = serverResponse1.id
+    //     //     inputWarrentyCustomerName.value = serverResponse1.customer_id.name
+    //     //     inputWarrentyCustomerContact.value = serverResponse1.customer_id.phone
+    //     //     readyRepairId.disabled = false
+    //     // }
+    // }
     let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
     console.log("serverResponse", serverResponse1);
+
+    // let serverResponse1 = ajaxRequestBodyMethod("/repair", "POST", repair);
+    // console.log("serverResponse", serverResponse1);
     repairItemIntoTable()
     addSubRepair()
+    refreshInvoiceForm()
 
 }
 
 const getPaymentMethod = (paymentMethod) => {
     console.log(paymentMethod);
     try {
-      // Check if paymentMethod is a string (assuming it's the selected value)
-      if (typeof paymentMethod === 'string') {
-        const paymentObject = { value: paymentMethod.toLowerCase() }; // Convert to lowercase for case-insensitivity
-        console.log(paymentObject);
-  
-        if (paymentObject.value === "card") {
-          afterPayment1.classList.add("d-none");
-          afterPayment2.classList.add("d-none");
-          invoiceCustomerPaymentRefference1.classList.remove("d-none");
-        } else if (paymentObject.value === "cash") {
-          // Handle cash payment logic (add if needed)
-          afterPayment1.classList.remove("d-none");
-          afterPayment2.classList.remove("d-none");
-          invoiceCustomerPaymentRefference1.classList.add("d-none");
+        // Check if paymentMethod is a string (assuming it's the selected value)
+        if (typeof paymentMethod === 'string') {
+            const paymentObject = { value: paymentMethod.toLowerCase() }; // Convert to lowercase for case-insensitivity
+            console.log(paymentObject);
+
+            if (paymentObject.value === "card") {
+                afterPayment1.classList.add("d-none");
+                afterPayment2.classList.add("d-none");
+                invoiceCustomerPaymentRefference1.classList.remove("d-none");
+            } else if (paymentObject.value === "cash") {
+                // Handle cash payment logic (add if needed)
+                afterPayment1.classList.remove("d-none");
+                afterPayment2.classList.remove("d-none");
+                invoiceCustomerPaymentRefference1.classList.add("d-none");
+            } else {
+                console.warn("Unexpected payment method:", paymentObject.value);
+            }
         } else {
-          console.warn("Unexpected payment method:", paymentObject.value);
+            console.error("Invalid payment method type:", typeof paymentMethod);
         }
-      } else {
-        console.error("Invalid payment method type:", typeof paymentMethod);
-      }
     } catch (error) {
-      console.error("Error in getPaymentMethod:", error);
+        console.error("Error in getPaymentMethod:", error);
     }
-  };
-  
+};
+
 
 // const getPaymentMethod = (paymentOb) =>{
 //     console.log(paymentOb);
@@ -1645,16 +1782,23 @@ const getPaymentMethod = (paymentMethod) => {
 //       invoiceCustomerPaymentRefference.classList.remove("d-none")
 
 //     }
-   
+
 // }
 
-const checkIstheCustomerExisting = (cusvalue)=>{
+const checkIstheCustomerExisting = (cusvalue) => {
     getExistCustomerByName = ajaxGetRequest(`/customer/getexistingcustomerbyname?name=${inputCustomerName.value}`)
     console.log(getExistCustomerByName);
     if (getExistCustomerByName != '') {
-        
+
+        // if (inputCustomerContact.value != '') {
         inputCustomerContact.value = getExistCustomerByName.phone
-    }else{
+
+        cusObject.phone = inputCustomerContact.value
+        if (inputCustomerContact.value != "") {
+            checkdiscount()
+        }
+        // }
+    } else {
         inputCustomerContact.value = ''
     }
 }
@@ -1664,24 +1808,24 @@ const checkIstheCustomerExisting = (cusvalue)=>{
 //        if (getExistCustomerByPhone.name == inputWarrentyCustName.value) {
 //            inputCustomerName.style.border = '2px solid orange';
 //            inputCustomerContact.style.border = '2px solid orange';
-           
+
 //        }else{
 //            inputCustomerName.style.border = '2px solid red';
 //            inputCustomerContact.style.border = '2px solid red';
 //        }
-      
-    
+
+
 //    }else{
 //     inputCustomerName.style.border = '2px solid #ced4da';
 //     inputCustomerContact.style.border = '2px solid #ced4da';
 //    }
-const searchInRepairTable = ()=>{
+const searchInRepairTable = () => {
     const searchInput = document.getElementById('searchRepairInput');
     const table = document.getElementById('repairItemTable');
     const tbody = table.getElementsByTagName('tbody')[0];
     const rows = tbody.getElementsByTagName('tr');
 
-    searchInput.addEventListener('keyup', function() {
+    searchInput.addEventListener('keyup', function () {
         const filter = searchInput.value.toLowerCase();
         for (let i = 0; i < rows.length; i++) {
             const cells = rows[i].getElementsByTagName('td');

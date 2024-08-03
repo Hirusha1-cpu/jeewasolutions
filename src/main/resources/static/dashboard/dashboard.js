@@ -9,6 +9,7 @@ const refreshDashboard = () => {
   fillDataToCustomer()
   //fill data to Repair card
   fillDueTable()
+  fillDueTable2()
   //fill data to Reorder part card
   fillDataIntoReorderTable()
   //fill data to return part card
@@ -55,7 +56,7 @@ const refreshDashboard = () => {
   }
   else if (cleanString === "Cashier") {
     gotosalesId.classList.remove("d-none")
-    addarepairId.classList.remove("d-none")
+    // addarepairId.classList.remove("d-none")
     viewItemsId.classList.remove("d-none")
 
   }else if(cleanString === "Technician") {
@@ -222,6 +223,15 @@ const fillDueTable = () => {
     { property: getitemcount, dataType: 'function' },
   ]
   fillDataIntoDashBoardTable(dueRepId, dueRepair, displayProperties, editEmployeeBtn1, false)
+
+}
+const fillDueTable2 = () => {
+  dueRepair = ajaxGetRequest('/reportdataworkingemployeechart/duerepaircount')
+  const displayProperties = [
+    { property: "categoryname", dataType: 'string' },
+    { property: getitemcount, dataType: 'function' },
+  ]
+  fillDataIntoDashBoardTable(dueRepIdForTechnician, dueRepair, displayProperties, editEmployeeBtn1, false)
 
 }
 

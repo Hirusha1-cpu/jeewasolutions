@@ -61,6 +61,12 @@ public class CustomerController {
         return customerDao.getCustomerTypeByPhone(phone);
     }
 
+    @GetMapping(value = "/customer/getcustomertypebyphoneandname", params = { "name", "phone" }, produces = "application/json")
+    public CustomerType findExistCustomerType(@RequestParam("name") String name, @RequestParam("phone") String phone) {
+        // login user authentication and authorization
+        return customerDao.getCustomerTypeByPhoneandName(name, phone);
+    }
+
     @GetMapping(value = "/customer/getcustomerbytype/{name}", produces = "application/json")
     public List<Customer> getCustomerByType(@PathVariable("name") String name) {
         return customerDao.getCustomersByCustomerType(name);

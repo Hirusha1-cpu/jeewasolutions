@@ -50,13 +50,13 @@
                     Supply Chain Management
                 </a>
                 <ul id="dashboard" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <li class="sidebar-item">
+                    <li class="sidebar-item" id="supplierSideId">
                         <a href="/supplier" class="sidebar-link sidebar-sublink">Suppliers</a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item" id="purchaseSideId">
                         <a href="/purchase" class="sidebar-link sidebar-sublink">Purchase</a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item" id="grnSideId">
                         <a href="/grn" class="sidebar-link sidebar-sublink">GRN</a>
                     </li>
                
@@ -69,7 +69,7 @@
                      Inventory Management
                 </a>
                 <ul id="inventory" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <li class="sidebar-item">
+                    <li class="sidebar-item" id="inventorySideId">
                         <a href="/inventory" class="sidebar-link sidebar-sublink">Inventory</a>
                     </li>
                
@@ -83,10 +83,10 @@
                      Sales Management
                 </a>
                 <ul id="sales" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <li class="sidebar-item">
+                    <li class="sidebar-item" id="invoiceSideId" >
                         <a href="/invoice" class="sidebar-link sidebar-sublink">Invoice</a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item" id="paySideId">
                         <a href="/income" class="sidebar-link sidebar-sublink">Payments</a>
                     </li>
                
@@ -99,7 +99,7 @@
                      Repair Management
                 </a>
                 <ul id="repair" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <li class="sidebar-item">
+                    <li class="sidebar-item" id="repairSideId">
                         <a href="/repair" class="sidebar-link sidebar-sublink">Repair</a>
                     </li>
                
@@ -113,7 +113,7 @@
                      Customer Management
                 </a>
                 <ul id="customer" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <li class="sidebar-item">
+                    <li class="sidebar-item" id="customerSideId">
                         <a href="/customer" class="sidebar-link sidebar-sublink">Customer Details</a>
                     </li>
                
@@ -132,7 +132,7 @@
                      Report Management
                 </a>
                 <ul id="report" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <li class="sidebar-item">
+                    <li class="sidebar-item" id="reportSideId">
                         <a href="/reportdataworkingemployee" class="sidebar-link sidebar-sublink">Report Details</a>
                     </li>
                
@@ -143,13 +143,13 @@
                 </ul>
               
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item" id="itemsideId">
                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#auth"
                     aria-expanded="false" aria-controls="auth">
                     <i class="fa-solid fa-paperclip pe-2"></i>
                     Items
                 </a>
-                <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar" >
                     <li class="sidebar-item">
                         <a href="/laptop" class="sidebar-link sidebar-sublink">Laptop</a>
                     </li>
@@ -189,10 +189,10 @@
 
                 </ul>
             </li>
-            <li class="sidebar-header">
+            <li class="sidebar-header d-none">
                 Multi Level Nav
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item d-none">
                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#multi"
                     aria-expanded="false" aria-controls="multi">
                     <i class="fa-solid fa-share-nodes pe-2"></i>

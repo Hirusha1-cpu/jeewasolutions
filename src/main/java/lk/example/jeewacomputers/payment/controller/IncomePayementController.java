@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import lk.example.jeewacomputers.employee.dao.EmployeeDao;
 import lk.example.jeewacomputers.payment.dao.IncomePaymentDao;
 import lk.example.jeewacomputers.payment.entity.IncomePayment;
+import lk.example.jeewacomputers.payment.entity.IncomePaymentNew;
 import lk.example.jeewacomputers.payment.entity.IncomePaymentsCustomer;
 import lk.example.jeewacomputers.privilege.controller.PrivilegeController;
 import lk.example.jeewacomputers.report.entity.ReportCategoryViseCount;
@@ -60,6 +61,28 @@ public class IncomePayementController {
 
             result.add(reportCategoryViseCount2);
         }
+        result.sort((a, b) -> Long.compare(Long.parseLong(b.getInvoiceno()), Long.parseLong(a.getInvoiceno())));
+
+        return result;
+    }
+
+     @GetMapping(value = "/income/cusvisegetlistanditems", produces = "application/json")
+    public List<IncomePaymentNew> findCusomerVisePaymentsandItems() {
+        // login user authentication and authorization
+        String[][] queryDataList = incomePaymentDao.getCustomerViseIncomeAndItems();
+        List<IncomePaymentNew> result = new ArrayList<>();
+        for (String[] reportCategoryViseCount : queryDataList) {
+            IncomePaymentNew reportCategoryViseCount2 = new IncomePaymentNew();
+            reportCategoryViseCount2.setInvoiceno(reportCategoryViseCount[0]);
+            reportCategoryViseCount2.setDate(reportCategoryViseCount[1]);
+            reportCategoryViseCount2.setCustomer(reportCategoryViseCount[2]);
+            reportCategoryViseCount2.setSerialno(reportCategoryViseCount[3]);
+            reportCategoryViseCount2.setTotal(reportCategoryViseCount[4]);
+
+            result.add(reportCategoryViseCount2);
+        }
+        result.sort((a, b) -> Long.compare(Long.parseLong(b.getInvoiceno()), Long.parseLong(a.getInvoiceno())));
+
         return result;
     }
 
@@ -67,7 +90,7 @@ public class IncomePayementController {
     public ModelAndView employeeUI() {
         // get user authentication object
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "user");
+        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "Income");
         User user = dao.getUserByUsername(auth.getName());
         // GraphicCard graphicCard = graphicCardDao.getGraphicByName("ASUS DUAL TTX");
         ModelAndView viewEmp = new ModelAndView();

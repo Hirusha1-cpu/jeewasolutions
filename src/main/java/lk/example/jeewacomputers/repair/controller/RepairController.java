@@ -153,7 +153,8 @@ public class RepairController {
                 }
                 duetoRepair.setTakendate(LocalDateTime.now().toLocalDate());
                 // duetoRepair.setStatusofrepair("pending diagnosis");
-                duetoRepair.setRepairid(repairDao.getMaxRepairId());
+                // duetoRepair.setRepairid(repairDao.getMaxRepairId());
+                duetoRepair.setRepairid(repairDao.getLastRepairId());
                 duetoRepair.setRepair_id(repair);
             }
             // IncomePayment existingIncomePayment = repair.getIncomePayments();
@@ -203,7 +204,12 @@ public class RepairController {
                 DuetoRepair existingDuetoRepair = duetoRepairDao.findById(duetoRepair.getId())
                         .orElseThrow(() -> new RuntimeException("DuetoRepair not found"));
 
-                existingDuetoRepair.setStatusofrepair("Completed");
+                if (duetoRepair.getStatusofrepair() != null) {
+                    existingDuetoRepair.setStatusofrepair(duetoRepair.getStatusofrepair());
+                }else{
+
+                    existingDuetoRepair.setStatusofrepair("Completed");
+                }        
                 existingDuetoRepair.setTechnicalnote(duetoRepair.getTechnicalnote());
 
                 // if (duetoRepair.getTotal() != null) {
@@ -285,7 +291,8 @@ public class RepairController {
         }
         duetoRepair.setTakendate(LocalDateTime.now().toLocalDate());
         duetoRepair.setStatusofrepair("pending diagnosis");
-        duetoRepair.setRepairid(repairDao.getMaxRepairId());
+        // duetoRepair.setRepairid(repairDao.getMaxRepairId());
+        duetoRepair.setRepairid(repairDao.getLastRepairId());
         duetoRepair.setRepair_id(existingRepair);
         duetoRepairDao.save(duetoRepair);
     }

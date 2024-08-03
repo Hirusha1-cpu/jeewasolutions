@@ -47,7 +47,7 @@ public class LoginController {
     public ModelAndView indexUI(HttpServletRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userDao.getUserByUsername(auth.getName());
-        GraphicCard graphicCard = graphicCardDao.getGraphicByName("ASUS DUAL TTX");
+        // GraphicCard graphicCard = graphicCardDao.getGraphicByName("ASUS DUAL TTX");
         System.out.println(auth.getAuthorities());
         ModelAndView dashView = new ModelAndView();
         dashView.addObject("logusername", auth.getName());

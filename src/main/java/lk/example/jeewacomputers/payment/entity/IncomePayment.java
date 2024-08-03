@@ -19,7 +19,7 @@ import lk.example.jeewacomputers.sales.entity.Invoice;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "incomepayment")
@@ -33,7 +33,7 @@ public class IncomePayment {
     private Integer id;
 
     @Column(name = "payment")
-    private Integer payment;
+    private BigDecimal payment;
 
     @Column(name = "date")
     private LocalDateTime date;

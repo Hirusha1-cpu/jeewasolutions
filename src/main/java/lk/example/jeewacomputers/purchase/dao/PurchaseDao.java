@@ -12,6 +12,9 @@ public interface PurchaseDao extends JpaRepository<Purchase, Integer> {
     //purchase id eka meka wana purchase tika select karanwa
     @Query(value="SELECT * FROM jeewacomputersproject.purchase where id = ?1", nativeQuery = true)
     public Purchase getPurchaseOrdersWithCode(Integer id);
+
+    @Query(value="SELECT CONCAT('PUR',lpad((SUBSTRING(max(purchase_code), 4, 4))+1,4,0)) as code FROM jeewacomputersproject.purchase;", nativeQuery = true)
+    public String getPurchaseCode();
     //supply id eka meka wana purchase tika select karanwa
     @Query(value="SELECT * FROM jeewacomputersproject.purchase where supplier_id = ?1 and id not in (SELECT purchase_id FROM jeewacomputersproject.grn) ", nativeQuery = true)
     public List<Purchase> getPurchaseOrdersBySupplier(Integer supplier_id);
@@ -24,5 +27,7 @@ public interface PurchaseDao extends JpaRepository<Purchase, Integer> {
 
     @Query("select p from PurchaseStatus p where p.status = ?1")
     public PurchaseStatus getPurchaseStatus(String status);
+
+
          
 } 

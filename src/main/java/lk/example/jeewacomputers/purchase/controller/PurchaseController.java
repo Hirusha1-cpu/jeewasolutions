@@ -97,9 +97,9 @@ public class PurchaseController {
             }
 
             // extPur.setSupplier_id(sup);
-            purchase.setPurchasestatus_id(dao.getPurchaseStatus("active"));
+            purchase.setPurchasestatus_id(dao.getPurchaseStatus("pending"));
             purchase.setAddeduser_id(dao.getUsersByUsername(auth.getName()));
-            purchase.setPurchase_code("PUR-ABC123");
+            purchase.setPurchase_code(dao.getPurchaseCode());
             purchase.setNote("hhh");
             purchase.setAdded_datetime(LocalDateTime.now().toLocalDate());
             // purchase.setSupplier_id(supplier);

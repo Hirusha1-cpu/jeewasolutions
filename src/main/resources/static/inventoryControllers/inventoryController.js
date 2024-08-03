@@ -131,6 +131,7 @@ const getCountsCategory = async () => {
         if (getReorderItems.length > 0) {
 
             if (Array.isArray(categoriesItems1) && categoriesItems1.length > 0) {
+                //some- Determines whether the specified callback function returns true for any element of an array.
                 const hasMatchingReorderItems = categoriesItems1.some(categoryItem =>
                     getReorderItems.some(reorderItem => reorderItem.name === categoryItem.name)
                 );

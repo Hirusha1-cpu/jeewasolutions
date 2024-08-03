@@ -44,7 +44,7 @@
                                     <th scope="col">Item Name</th>
                                     <th scope="col">Qty</th>
                                     <th scope="col">Supplier</th>
-                                    <!-- <th scope="col">Send Status</th> -->
+                                    <th scope="col">Send Status</th>
                                     <th scope="col">Button</th>
 
 
@@ -220,7 +220,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Code</th>
                                         <th scope="col">Supplier Name</th>
-                                        <th scope="col">Supplier Status</th>
+                                        <!-- <th scope="col">Supplier Status</th> -->
                                         <th scope="col">Supplier Contact</th>
                                         <th scope="col">Buttons</th>
 
@@ -232,58 +232,61 @@
                             </table>
                             <form action=""></form>
 
-                            <!-- add more details modal start-->
-                            <button onclick="document.getElementById('moreSpecModal').style.display='block'"
-                                class="w3-button w3-green">
-                                Add More Specifications</button>
-                            <div id="moreSpecModal" class="w3-modal">
-                                <div class="w3-modal-content w3-animate-top w3-animate-fade w3-card-4">
-                                    <header class="w3-container w3-blue">
-                                        <span onclick="document.getElementById('moreSpecModal').style.display='none'"
-                                            class="w3-button w3-display-topright">&times;</span>
-                                        <h4>Add More Specs</h4>
-                                    </header>
-                                    <div class="w3-container">
-                                        <table class="w3-table-all w3-hoverable mt-3 mb-3">
-                                            <thead>
-                                                <tr class="w3-light-grey">
-                                                    <th>Specification</th>
-                                                    <th>Details</th>
-                                                    <th>Delete Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tr>
-                                                <td>Read/Write Speeds</td>
-                                                <td>7,000/5,100 MB/s</td>
-                                                <td>No</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cache Memory
-                                                </td>
-                                                <td>Samsung 2GB Low Power DDR4 SDRAM
-                                                </td>
-                                                <td>No</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Security</td>
-                                                <td>AES 256-bit Full Disk Encryption, TCG/Opal V2.0, Encrypted Drive
-                                                    (IEEE1667)
-                                                </td>
-                                                <td>No</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <footer class="w3-container ">
-                                        <div class="row p-2 d-flex justify-content-end align-items-center"
-                                            style="display: flex; flex-direction: row; gap:10px;">
-                                            <button class="col-3 btn btn-warning">UPDATE</button>
-                                            <button class="col-3 btn btn-primary">ADD</button>
+                            <div class="d-none">
+                                <!-- add more details modal start-->
 
+                                <button onclick="document.getElementById('moreSpecModal').style.display='block'"
+                                    class="w3-button w3-green">
+                                    Add More Specifications</button>
+                                <div id="moreSpecModal" class="w3-modal">
+                                    <div class="w3-modal-content w3-animate-top w3-animate-fade w3-card-4">
+                                        <header class="w3-container w3-blue">
+                                            <span onclick="document.getElementById('moreSpecModal').style.display='none'"
+                                                class="w3-button w3-display-topright">&times;</span>
+                                            <h4>Add More Specs</h4>
+                                        </header>
+                                        <div class="w3-container">
+                                            <table class="w3-table-all w3-hoverable mt-3 mb-3">
+                                                <thead>
+                                                    <tr class="w3-light-grey">
+                                                        <th>Specification</th>
+                                                        <th>Details</th>
+                                                        <th>Delete Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tr>
+                                                    <td>Read/Write Speeds</td>
+                                                    <td>7,000/5,100 MB/s</td>
+                                                    <td>No</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cache Memory
+                                                    </td>
+                                                    <td>Samsung 2GB Low Power DDR4 SDRAM
+                                                    </td>
+                                                    <td>No</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Security</td>
+                                                    <td>AES 256-bit Full Disk Encryption, TCG/Opal V2.0, Encrypted Drive
+                                                        (IEEE1667)
+                                                    </td>
+                                                    <td>No</td>
+                                                </tr>
+                                            </table>
                                         </div>
-                                    </footer>
+                                        <footer class="w3-container ">
+                                            <div class="row p-2 d-flex justify-content-end align-items-center"
+                                                style="display: flex; flex-direction: row; gap:10px;">
+                                                <button class="col-3 btn btn-warning">UPDATE</button>
+                                                <button class="col-3 btn btn-primary">ADD</button>
+    
+                                            </div>
+                                        </footer>
+                                    </div>
                                 </div>
+                                <!-- add more details modal end-->
                             </div>
-                            <!-- add more details modal end-->
 
 
                             <!-- button gruop start -->

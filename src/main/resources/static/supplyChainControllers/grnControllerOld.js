@@ -6,6 +6,8 @@ window.addEventListener('load', () => {
 //refresh the grn form
 const refreshGrnForm = () => {
     grn = new Object();
+    totLinePirce = ''
+    purchStatusObj = new Object();
     availableItem = new Object();
     existingItems = []
     existingGItems = []
@@ -40,9 +42,9 @@ const sendAccessories = () => {
     let serverResponse = ajaxRequestBodyMethod("/grn", "POST", grn);
     console.log("serverResponse", serverResponse);
     grn = {}
-    refreshGrnTable(); 
+    refreshGrnTable();
     console.log(grn);
-    accessories.itemtype  = ""
+    accessories.itemtype = ""
     accessories.itemcode = ""
     accessories.itemname = ""
     accessories.suppliername = ""
@@ -132,9 +134,10 @@ const getGrnsItemDiscount = (rowObject) => {
         GrnItemDiscount = "-"
     }
     else {
-        rowObject.grnHasCategory.forEach(element => {
-            GrnItemDiscount = GrnItemDiscount + "<p class = 'working-status'>" + element.discount + "</p>"
-        })
+        GrnItemDiscount = rowObject.discountrate
+        // rowObject.grnHasCategory.forEach(element => {
+        //     GrnItemDiscount = GrnItemDiscount + "<p class = 'working-status'>" + element.discount + "</p>"
+        // })
     }
     return GrnItemDiscount
 }
@@ -158,17 +161,17 @@ const getGrnsItemSupplierInvoice = (rowObject) => {
 }
 const getGrnsItemTotal = (rowObject) => {
     let GrnItemTotal = '';
-    if (rowObject.grnHasAccessories.length) {
+    if (rowObject.grnHasAccessories.length >0) {
         rowObject.grnHasAccessories.forEach(element => {
 
             GrnItemTotal = GrnItemTotal + "<p class = 'working-status'>" + element.lineprice + "</p>"
         })
     } else {
+        GrnItemTotal = rowObject.totalamount
+        // rowObject.grnHasCategory.forEach(element => {
 
-        rowObject.grnHasCategory.forEach(element => {
-
-            GrnItemTotal = GrnItemTotal + "<p class = 'working-status'>" + (element.item_price) * (element.qty) + "</p>"
-        })
+        //     GrnItemTotal = GrnItemTotal + "<p class = 'working-status'>" + (element.totalamount) + "</p>"
+        // })
     }
     return GrnItemTotal
 }
@@ -285,7 +288,7 @@ const refillGrnBtn = (item) => {
 
     console.log("serialNo", serialNo);
     for (let id in serialNo) {
-        serialNumbers.push({ serialno: serialNo[id],itemprice:100 });
+        serialNumbers.push({ serialno: serialNo[id], itemprice: 100 });
     }
 
     // return serialNumbers;
@@ -536,7 +539,7 @@ const generateSerialNumberList = () => {
     const categoryname = ((grnHasItems.category_id).name).replace(/\s/g, '').toLowerCase()
     // categoriesItems = ajaxGetRequest(`/${categoryname}/getlist`, categoryname)
     sellingRatio = ajaxGetRequest(`/${categoryname}/getselratio/${grnHasItems.itemname}`)
-    unitpriceofitem = sellingRatio*(inputPurchaseItemPrice.value)
+    unitpriceofitem = sellingRatio * (inputPurchaseItemPrice.value)
     const inputSerialNoDiv = document.querySelector("#inputSerialNoDiv");
 
     //inputSerialNoDiv id eka allagannwa
@@ -571,7 +574,7 @@ const generateSerialNumberList = () => {
     // ita passe e array eka push wenwa object ekk widhata serialNumbers kiyna array ekata
     console.log("serialNo", serialNo);
     for (let id in serialNo) {
-        serialNumbers.push({ serialno: serialNo[id], itemprice :unitpriceofitem });
+        serialNumbers.push({ serialno: serialNo[id], itemprice: unitpriceofitem });
     }
     //eka return wenwa, eka allagnnwa add grn eken
     return serialNumbers;
@@ -600,9 +603,9 @@ const addGrn = () => {
     if (isSerialNos.checked == true) {
         grnHasItems.isserialno = true
         grnHasItems.serialNumbers = serialNumbers;
-    }else{
+    } else {
         grnHasItems.isserialno = false
-        serialNumbers.push({ serialno: null, itemprice :unitpriceofitem });
+        serialNumbers.push({ serialno: null, itemprice: unitpriceofitem });
 
         grnHasItems.serialNumbers = null
     }
@@ -637,16 +640,24 @@ const addGrn = () => {
     inputPurchaseLinePrice.value = ""
     // inputPurchaseDiscount.value = ""
     // inputSerialNo.value = ""
-
-    inputGrnTotalAmount.value = inputPurchaseLinePrice.value
-     grn.totalamount = inputGrnTotalAmount.value
-    inputGrnNetAmount.value = parseFloat(inputPurchaseLinePrice.value)*parseFloat(inputGrnDiscount.value)
-     grn.netamount = inputGrnNetAmount.value
-
+    generateTotal()
+    
+    
 }
+const generateTotal =()=>{
 
+    totLinePirce = 0
+    grn.grnHasCategory.forEach(item => {
+        totLinePirce = totLinePirce + item.lineprice
+    })
+    inputGrnTotalAmount.value = totLinePirce
+    
+    grn.totalamount = inputGrnTotalAmount.value
+}
 const generateNetAmount = () => {
     console.log("hi");
+    inputGrnNetAmount.value =parseFloat(inputGrnTotalAmount.value) - ( parseFloat(inputGrnTotalAmount.value) *( parseFloat(inputGrnDiscount.value)/100))
+    grn.netamount = inputGrnNetAmount.value
 }
 
 const addGrnMain = () => {
@@ -662,11 +673,11 @@ const addGrnMain = () => {
     const id = grnItems.id
     //metana kalin post krpu grn ekata update ekk wadinwa
     // grnHasItems.category_id.name
-   
+
 
     let serverResponse1 = ajaxRequestBodyMethod(`/grn/${id}`, "PUT", grn); // meken put ekak call karnna
     console.log(serverResponse1);
-       serverResponse1.grnHasCategory.forEach(elem =>{
+    serverResponse1.grnHasCategory.forEach(elem => {
 
         let categoryname13 = (elem.category_id.name).replace(/\s/g, '').toLowerCase()
         ajaxGetRequest(`/${categoryname13}/getqty/${elem.itemname}`)

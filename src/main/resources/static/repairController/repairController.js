@@ -15,7 +15,9 @@ window.addEventListener('load', () => {
 })
 const refreshRepairForm = () => {
   purchRequest = new Object();
+  requestedPrice = new Object();
   matchingRepairBarcode = ''
+  matchingRepaiUsedItem = ''
   repairUpdate = new Object();
   repairUpdate1 = new Object();
   duetoRepair = new Object();
@@ -42,7 +44,7 @@ const refreshRepairForm = () => {
   const duerepairUrgent = ajaxGetRequest("/duerepair/getduebystatus/urgent repair")
   const duerepairApproved = ajaxGetRequest("/duerepair/getduebystatusapproved")
   const duerepairProcessing = ajaxGetRequest("duerepair/getduebystatusforprocess")
-  const availableSerials = ajaxGetRequest("serialno/getavailablelist")
+  availableSerials = ajaxGetRequest("serialno/getavailablelist")
   availableBarcodes = ajaxGetRequest("duerepair/getrepairbybarcode")
   const categories = ajaxGetRequest("/category/getlist")
   // selectUrgentRepairsSpan.innerHTML = duerepairUrgent.length
@@ -50,7 +52,7 @@ const refreshRepairForm = () => {
   selectOutShopRepairsSpan.innerHTML = duerepairNonShop.length
   selectPurchaseOrderProcessSpan.innerHTML = duerepairProcessing.length
   console.log(repairs);
-  fillDataIntoSelect(repairUsedItemCode, "Select Serial No", availableSerials, 'barcode')
+  // fillDataIntoSelect(repairUsedItemCode, "Select Serial No", availableSerials, 'barcode')
   // fillDataIntoSelect(selectUrgentRepairs, "Select Uregent Repairs", duerepairUrgent, 'fault')
   fillDataIntoSelect(selectShopRepairs, "Select Shop Repairs", duerepairShop, 'fault')
   fillDataIntoSelect(selectOutShopRepairs, "Select Non Shop Repairs", duerepairNonShop, 'fault')
@@ -61,6 +63,7 @@ const refreshRepairForm = () => {
   fillDataIntoSelect(selectRepairCategory, "Select Category", categories, 'name')
   // fillDataIntoSelect(repairItemBarcode, "Select Barcode", availableBarcodes, 'barcode')
   fillDataIntoDataList(dataListItemsForRepairs, availableBarcodes, 'barcode', 'itemname', 'statusofrepair')
+  fillDataIntoDataList(dataListItemsForUsed, availableSerials, 'barcode', 'itemname', 'serialno')
 }
 
 const refreshRepairTable1 = () => {
@@ -83,7 +86,7 @@ const refreshRepairTable1 = () => {
     { property: getRepairType, dataType: 'function' },
     { property: getItemRepairPaidStatus, dataType: 'function' }
   ]
-  fillDataIntoTable(repairTab, repairDetails, displayProperties, editEmployeeBtn, updateEmployeeBtn, deleteEmployeeBtn, true)
+  fillDataIntoDashBoardTable(repairTab, repairDetails, displayProperties, editEmployeeBtn, true)
 
 }
 
@@ -106,6 +109,10 @@ const getRepairType = (rowObject) => {
 const getItemRepairStatus = (rowObject) => {
   let DueRepairItemStatus = '';
   rowObject.duetoRepair.forEach(element => {
+    if (element?.statusofrepair === "Deleted") {
+
+      DueRepairItemStatus = DueRepairItemStatus + "<p class = 'deleted-status'>" + element?.statusofrepair ? element?.statusofrepair : '-' + "</p>"
+    }
     DueRepairItemStatus = DueRepairItemStatus + "<p class = 'working-status'>" + element?.statusofrepair ? element?.statusofrepair : "-" + "</p>"
   })
   return DueRepairItemStatus
@@ -122,15 +129,48 @@ const getItemRepairPaidStatus = (rowObject) => {
   }
 }
 
-const editEmployeeBtn = (rowObject) => {
+const editEmployeeBtn = (rowOb) => {
   console.log("clicked purchase order");
+  updateDueRepairObjTable = new Object();
+
+  repairNoIdRepair.innerHTML = rowOb.repairno
+  inputWarrentyCustNameRepairTable.value = rowOb.customer_id.name
+  inputWarrentyCustPhoneRepairTable.value = rowOb.customer_id.phone
+  rowOb.duetoRepair.forEach(elem => {
+    updateDueRepairObjTable.id = elem?.id
+    inputWarrentyCustDueserialRepairTable.value = elem?.serialno
+    inputWarrentyCustDueCategoryRepairTable.value = elem?.category
+    inputWarrentyCustDueItemnameRepairTable.value = elem?.itemname
+    inputWarrentyCustDueFaultRepairTable.value = elem?.fault
+    inputWarrentyCustDueTechNoteRepairTable.value = elem?.technicalnote
+    inputWarrentyCustDueCostRepairTable.value = elem?.total
+    let used = ''
+    elem.usedItems.forEach(el=>{
+      used = used + (el.itemname  +" "+ "["+el.serialno+'-serial no'+"]")
+    })
+    inputWarrentyCustDueCostRepairTableUsed.innerText = used
+   
+  })
+
+  $('#staticBackdropforRepairTable').modal('show');
+
 }
-const updateEmployeeBtn = (rowObject) => {
-  console.log("clicked delete purchase order");
+
+const button1 = ()=>{
+
 }
-const deleteEmployeeBtn = (rowObject) => {
-  console.log("clicked send purchase order");
+const handleUpdateRepairTable = () => {
+  let idRepairId = updateDueRepairObjTable.id
+  let serverResponse2 = ajaxRequestBodyMethod(`/repair/${idRepairId}`, "PUT", updateDueRepairObjTable);
+  console.log("serverResponse", serverResponse2);
+
 }
+// const updateEmployeeBtn = (rowObject) => {
+//   console.log("clicked delete purchase order");
+// }
+// const deleteEmployeeBtn = (rowObject) => {
+//   console.log("clicked send purchase order");
+// }
 
 const filterByCategoryInDiagnosis = () => {
   console.log("clicked");
@@ -235,9 +275,10 @@ const sendPurchBtn1 = (rowObject) => {
 }
 
 const getSelectedRepair = (value) => {
-
+  // console.log(value);
   addItemDetailsId.disabled = false
-  diagnosisId.disabled = false
+
+  // diagnosisId.disabled = false
   duetoRepair1 = JSON.parse(value)
   const repairforDueRepair = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair1.repairid))
   console.log(repairforDueRepair);
@@ -248,19 +289,23 @@ const getSelectedRepair = (value) => {
   repairItemFault.value = duetoRepair1.fault
   repairCustomerName.value = repairforDueRepair.customer_id.name
   repairCustomerPhone.value = repairforDueRepair.customer_id.phone
+  if (duetoRepair1.diagnoserequire === "Require Diagnose") {
+    requireDiagnosedId.innerHTML = "Require Diagnose"
+    diagnosisId.disabled = false
+  }
 
   getOtherRepairs()
 }
 
 const getSelectedBarcodeRepair = (value2) => {
-  console.log(value2);
+  // console.log(value2);
 
   // Find the matching item in getAvailableBarcodes
   matchingRepairBarcode = availableBarcodes.find(item =>
     `${item.barcode} ${item.itemname} ${item.statusofrepair}` === value2
   );
   addItemDetailsId.disabled = false
-  
+
   // duetoRepair1 = JSON.parse(value2)
   duetoRepair1 = matchingRepairBarcode
   const repairforDueRepair1 = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair1.repairid))
@@ -282,11 +327,22 @@ const getSelectedBarcodeRepair = (value2) => {
 }
 
 
-const getUsedItemDetails = () => {
-  serialObjectRepair = JSON.parse(repairUsedItemCode.value)
-  console.log(serialObjectRepair);
-  repairUsedItemCategory.value = serialObjectRepair.category_id.name
-  repairUsedItemItemName.value = serialObjectRepair.itemname
+const getUsedItemDetails = (value1) => {
+  matchingRepaiUsedItem = availableSerials.find(item =>
+    `${item.barcode} ${item.itemname} ${item.serialno}` === value1
+  );
+
+  if (matchingRepaiUsedItem) {
+
+    // serialObjectRepair = JSON.parse(repairUsedItemCode.value)
+    serialObjectRepair = matchingRepaiUsedItem
+    console.log(serialObjectRepair);
+    repairUsedItemCategory.value = serialObjectRepair.category_id.name
+    repairUsedItemItemName.value = serialObjectRepair.itemname
+  } else {
+    console.log('No matching item found');
+
+  }
 
 }
 
@@ -433,7 +489,8 @@ const submitRepair = () => {
   let existingDuetoRepair = repairDetail2.duetoRepair.find(dr => dr.id === duetoRepair.id);
   if (existingDuetoRepair) {
     if (repairPrice.value != null) {
-      existingDuetoRepair.total = parseFloat(repairPrice.value)
+      // existingDuetoRepair.total = parseFloat(repairPrice.value)
+      existingDuetoRepair.total = parseFloat(requestedPrice.amount)
     }
     existingDuetoRepair.statusofrepair = "Completed";
     existingDuetoRepair.technicalnote = repairTechnicalNote.value;
@@ -489,12 +546,28 @@ const submitRepair = () => {
   selectPurchaseOrderProcess.value = ""
   selectApprovedRepairs.value = ""
   // if (selectRepairsByCustomer.value == null) {
-    repairCustomerName.value = ""
-    repairCustomerPhone.value = ""
-    repairPrice.value = ""
+  repairCustomerName.value = ""
+  repairCustomerPhone.value = ""
+  repairPrice.value = ""
   // }
   refreshRepairForm();
   refreshRepairTable1()
+  // meken form close wela table eka open wenwa
+  const table = document.getElementById("empTable");
+  const form = document.getElementById("empForm");
+
+  // Animate table disappearance
+  form.style.opacity = 1; // Ensure opacity is initially 1
+  form.style.transition = "opacity 1.5s ease-out";
+  form.style.display = "none"; // Trigger the animation
+
+  // Delay form appearance slightly
+  setTimeout(function () {
+    table.style.opacity = 0;
+    table.style.display = "block";
+    table.style.transition = "opacity 1.5s ease-in";
+    table.style.opacity = 1; // Gradually fade in
+  }, 100); // Adjust the delay as needed
 
 
 }
@@ -572,9 +645,9 @@ const submitDiagnosis = () => {
   selectPurchaseOrderProcess.value = ""
   selectApprovedRepairs.value = ""
   // if (selectRepairsByCustomer.value == null) {
-    repairCustomerName.value = ""
-    repairCustomerPhone.value = ""
-    repairPrice.value = ""
+  repairCustomerName.value = ""
+  repairCustomerPhone.value = ""
+  repairPrice.value = ""
   // }
   refreshRepairForm();
 
@@ -585,25 +658,25 @@ const handlePRequestSubmit = () => {
   console.log(serverResponse);
 }
 
-const searchInRepairMainTable = ()=>{
+const searchInRepairMainTable = () => {
   const searchInput = document.getElementById('searchRepairMainInput');
   const table = document.getElementById('repairTab');
   const tbody = table.getElementsByTagName('tbody')[0];
   const rows = tbody.getElementsByTagName('tr');
 
-  searchInput.addEventListener('keyup', function() {
-      const filter = searchInput.value.toLowerCase();
-      for (let i = 0; i < rows.length; i++) {
-          const cells = rows[i].getElementsByTagName('td');
-          let rowContainsFilter = false;
+  searchInput.addEventListener('keyup', function () {
+    const filter = searchInput.value.toLowerCase();
+    for (let i = 0; i < rows.length; i++) {
+      const cells = rows[i].getElementsByTagName('td');
+      let rowContainsFilter = false;
 
-          for (let j = 0; j < cells.length; j++) {
-              if (cells[j].innerText.toLowerCase().includes(filter)) {
-                  rowContainsFilter = true;
-                  break;
-              }
-          }
-          rows[i].style.display = rowContainsFilter ? '' : 'none';
+      for (let j = 0; j < cells.length; j++) {
+        if (cells[j].innerText.toLowerCase().includes(filter)) {
+          rowContainsFilter = true;
+          break;
+        }
       }
+      rows[i].style.display = rowContainsFilter ? '' : 'none';
+    }
   });
 }

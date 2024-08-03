@@ -25,6 +25,8 @@ import lk.example.jeewacomputers.grnanditem.entity.Grn;
 import lk.example.jeewacomputers.grnanditem.entity.GrnHasAccessories;
 import lk.example.jeewacomputers.grnanditem.entity.GrnHasCategory;
 import lk.example.jeewacomputers.grnanditem.entity.SerialNo;
+import lk.example.jeewacomputers.purchase.dao.PurchaseDao;
+import lk.example.jeewacomputers.purchase.entity.Purchase;
 import lk.example.jeewacomputers.service.BarCodeGenerator;
 import java.math.BigDecimal;
 
@@ -32,6 +34,9 @@ import java.math.BigDecimal;
 @RestController
 // @EnableTransactionManagement
 public class GrnController {
+
+     @Autowired
+    private PurchaseDao purchdao;
     @Autowired
     // create dao object
     private GrnDao dao;
@@ -251,10 +256,18 @@ public class GrnController {
         // expensePayment.setGrnno("0001");
 
         if (existingGrn != null) {
+
+            Purchase purchase = existingGrn.getPurchase_id();
+            Purchase existing = purchdao.getReferenceById(purchase.getId());
+            existing.setPurchasestatus_id(purchdao.getPurchaseStatus("paid"));
+            purchdao.save(existing);
+
+
             existingGrn.setDiscountrate(grn.getDiscountrate());
             existingGrn.setTotalamount(grn.getTotalamount());
             existingGrn.setSupplierinvoiceno(grn.getSupplierinvoiceno());
             existingGrn.setNetamount(grn.getNetamount());
+            // existingGrn.getPurchase_id();
             return dao.save(existingGrn);
         } else {
             return null;

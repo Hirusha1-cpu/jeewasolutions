@@ -5,12 +5,13 @@ window.addEventListener('load', () => {
 })
 
 const refreshIncomeTable = () => {
-    incomeTable = ajaxGetRequest("income/cusvisegetlist")
+    incomeTable = ajaxGetRequest("income/cusvisegetlistanditems")
     displayProperties = [
         // { property: getRepairCode, dataType: 'function' },
         { property: getInvoice, dataType: 'function' },
         { property: getDateOfSales, dataType: 'function' },
         { property: getCustomerOfSales, dataType: 'function' },
+        { property: getSerialOfSales, dataType: 'function' },
         { property: getTotalOfSales, dataType: 'function' },
     ]
     fillDataIntoDashBoardTable(incomePaymentTable, incomeTable, displayProperties, editEmployeeBtn2, false)
@@ -22,6 +23,9 @@ const getInvoice = (rowOb) => {
 }
 const getDateOfSales = (rowOb) => {
     return rowOb.date ? rowOb.date : "-"
+}
+const getSerialOfSales = (rowOb) => {
+    return rowOb.serialno ? rowOb.serialno : "-"
 }
 
 const getCustomerOfSales = (rowOb) => {

@@ -387,8 +387,8 @@ const fillDataIntoDashBoardTable = (tableId, dataList, propertyList, purchaseBut
 
         const btnEdit = document.createElement('button');
         btnEdit.className = 'btn btn-warning'
-        // btnEdit.innerHTML = '<i class="fa-solid fa-edit "></i>'
-        btnEdit.innerHTML = 'View Privileges'
+        btnEdit.innerHTML = '<i class="fa-solid fa-edit "></i>'
+        // btnEdit.innerHTML = 'View Privileges'
         btnEdit.onclick = () => {
             console.log('edit', item.id, index);
             purchaseButtonFunction(item, index)

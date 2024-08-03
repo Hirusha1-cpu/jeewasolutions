@@ -9,6 +9,7 @@ window.addEventListener('load', () => {
 //refresh the purchase form eka
 const refreshPurchaseForm = () => {
     purchase = new Object();
+    purchObje = new Object();
     purchase.purchaseHasCategory = []
     supplierArray = [];
     itemCodeCounter = 1;
@@ -24,7 +25,7 @@ const refreshPurchaseForm = () => {
     purchaseItemPrice.value = ""
     fillDataIntoTablePurchRequestTable()
 }
-const fillDataIntoTablePurchRequestTable =()=>{
+const fillDataIntoTablePurchRequestTable = () => {
     purchases1 = ajaxGetRequest('/purchaseorderrequest/getlist')
     const displayProperties = [
         { property: getPurchRItemName, dataType: 'function' },
@@ -35,22 +36,22 @@ const fillDataIntoTablePurchRequestTable =()=>{
     fillDataIntoTable(repairUsedItemTablePurch, purchases1, displayProperties, refillPurchBtn1, updateEmployeeBtn1, deleteEmployeeBtn1, false, null)
 
 }
-const refillPurchBtn1 = ()=>{
+const refillPurchBtn1 = () => {
 
 }
-const updateEmployeeBtn1 = ()=>{
+const updateEmployeeBtn1 = () => {
 
 }
-const deleteEmployeeBtn1 = ()=>{
+const deleteEmployeeBtn1 = () => {
 
 }
-const getPurchRItemName = (rowOb)=>{
+const getPurchRItemName = (rowOb) => {
     return rowOb?.name
 }
-const getPurchRCategoryName = (rowOb)=>{
+const getPurchRCategoryName = (rowOb) => {
     return rowOb?.category
 }
-const getPurchRItemQty = (rowOb)=>{
+const getPurchRItemQty = (rowOb) => {
     return rowOb?.qty
 }
 //refresh the purchase table
@@ -63,13 +64,28 @@ const refreshPurchaseTable = () => {
         { property: getPurchItemName, dataType: 'function' },
         { property: getPurchItemQty, dataType: 'function' },
         { property: getPurchItemSupplier, dataType: 'function' },
+        { property: getPurchItemStatus, dataType: 'function' },
     ]
 
 
     fillDataIntoTable(purchaseTab, purchases, displayProperties, refillPurchBtn, updateEmployeeBtn, deleteEmployeeBtn, true, null)
 
 }
+const getPurchItemStatus = (rowOb) => {
+    if (rowOb?.purchasestatus_id?.status === "pending") {
+        return `<p class="resign-status"> ${rowOb?.purchasestatus_id?.status} </p>`;
 
+    } else if (rowOb?.purchasestatus_id?.status === "recieved") {
+        return `<p class="yellow-status"> ${rowOb?.purchasestatus_id?.status} </p>`;
+    } else if (rowOb?.purchasestatus_id?.status === "paid") {
+        return `<p class="working-status"> ${rowOb?.purchasestatus_id?.status} </p>`;
+    } else if (rowOb?.purchasestatus_id?.status === "no-paid") {
+        return `<p class="deleted-status"> ${rowOb?.purchasestatus_id?.status} </p>`;
+    }
+    else {
+        return `${rowOb?.purchasestatus_id?.status}`;
+    }
+}
 
 const getPurchaseCode = (rowOb) => {
     return rowOb.purchase_code;
@@ -124,11 +140,11 @@ const refillPurchBtn = (item) => {
         console.log(inputValue);
         //meken input value eka aragena eka set karanwa purchase.purchaseHasCategory[] ekat dagnna 
         if (!isNaN(inputValue)) {
-           // Fill data into select and input fields
+            // Fill data into select and input fields
             fillDataIntoSelect(selectPurchCategory, "Select Category", categories, 'name', purchase.purchaseHasCategory[inputValue].category_id.name);
             purchaseQty.value = purchase.purchaseHasCategory[inputValue].qty;
-            purchaseItemPrice.value = purchase.purchaseHasCategory[inputValue].itemprice;            
-        } 
+            purchaseItemPrice.value = purchase.purchaseHasCategory[inputValue].itemprice;
+        }
     }
     //category length eka 1ta samana nm array[0] set wenw
     else {
@@ -136,9 +152,9 @@ const refillPurchBtn = (item) => {
         fillDataIntoSelect(selectPurchCategory, "Select Category", categories, 'name', purchase.purchaseHasCategory[0].category_id.name);
         purchaseQty.value = purchase.purchaseHasCategory[0].qty;
         purchaseItemPrice.value = purchase.purchaseHasCategory[0].itemprice;
-      
+
     }
-    
+
     // fillDataIntoSelect(selectPurchCategory, "Select Category", categories, 'name', purchase.purchaseHasCategory[1].category_id.name)
     // purchaseQty.value = purchase.purchaseHasCategory[1].qty
     // purchaseItemPrice.value = purchase.purchaseHasCategory[1].itemprice
@@ -427,7 +443,7 @@ const supplierTable = () => {
     displayProperties = [
         { property: getItemCode, dataType: 'function' },
         { property: getSupplierName, dataType: 'function' },
-        { property: getSupplierStatus, dataType: 'function' },
+        // { property: getSupplierStatus, dataType: 'function' },
         { property: getSupplierContact, dataType: 'function' },
     ]
     fillDataIntoPurcahseTable(ItemSuppTable, supplierArray, displayProperties, purchaseOrderBtn, deletePurchBtn, sendPurchBtn, true)
@@ -436,7 +452,7 @@ const supplierTable = () => {
 
 const getItemCode = (rowOb) => { return rowOb.supplier_code }
 const getSupplierName = (rowOb) => { return rowOb.name }
-const getSupplierStatus = (rowOb) => { return rowOb.supplierstatus_id ?? "_" }
+// const getSupplierStatus = (rowOb) => { return rowOb.supplierstatus_id ?? "_" }
 const getSupplierContact = (rowOb) => { return rowOb.email }
 
 const generateItemCode = () => {
@@ -470,7 +486,9 @@ const addItemSuppTable = () => {
 const addItemSupp = () => {
     console.log("hii");
     // purchase.purchaseHasCategory = []    
-
+    // let statusPurch = purchasestatus_id.status
+    // purchObje = {status:"pending"}
+    // purchase.purchasestatus_id = purchObje
     let serverResponse = ajaxRequestBodyMethod("/purchase", "POST", purchase);
     // alert(serverResponse)
     refreshPurchaseTable()
