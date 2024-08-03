@@ -718,11 +718,14 @@ const checkInnerItemFormError = () => {
     if (  parseInt(invoice.total) < 0) {
         errors = errors + "Total Not available ...!"
     }
-    if ((parseInt(invoice.customerpaidamount) < parseInt(invoice.total))) {
-        errors = errors + "Total Not available ...!"
-    }
-    if (invoiceCustomerPayment.value == '' ) {
-        errors = errors + "Customer payment not available...!"
+    if (paymentMethod.value == "cash") {
+        
+        if ((parseInt(invoice.customerpaidamount) < parseInt(invoice.total))) {
+            errors = errors + "Total Not available ...!"
+        }
+        if (invoiceCustomerPayment.value == '' ) {
+            errors = errors + "Customer payment not available...!"
+        }
     }
     return errors
 }

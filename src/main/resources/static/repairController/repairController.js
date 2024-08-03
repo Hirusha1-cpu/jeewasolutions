@@ -36,7 +36,7 @@ const refreshRepairForm = () => {
   diagnosisDueUpdate.diagnosedItems = []
   // repairUpdate.duetoRepair = []
   repairitems.categoriesBrandsWithSuppliers = []
-  usedItemsForRepair = new Object();
+  // usedItemsForRepair = new Object();
   const repairs = ajaxGetRequest("/repair/getlist")
   // const duerepair1 = ajaxGetRequest("/duerepair/getlist")
   const duerepairShop = ajaxGetRequest("/duerepair/getduebystatus/shop item")
@@ -347,6 +347,7 @@ const getUsedItemDetails = (value1) => {
 }
 
 const addUsedItemToSubTable = () => {
+  usedItemsForRepair = new Object();
   repairItemName.value = repairItemName1.value
   repairCategoryName.value = repairItemCategory.value
 
