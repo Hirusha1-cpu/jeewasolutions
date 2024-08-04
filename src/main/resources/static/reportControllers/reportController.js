@@ -7,10 +7,40 @@ window.addEventListener('load', () => {
     empstatus = ajaxGetRequest("empstatus/getlist")
     fillDataIntoSelect(selectEStatus1, "Select Emp status", empstatus, 'name')
 
+    let today = new Date();
+    let day = document.getElementById('endDate');
+    let enddate = document.getElementById('endDate1');
+    let day1 = document.getElementById('startDate1');
+    let startdate = document.getElementById('startDate');
     
+    // Format today's date as YYYY-MM-DD
+    let formattedDate = today.toISOString().split('T')[0];
+    
+    // Set the max attribute
+    day.max = formattedDate;
+    enddate.max = formattedDate;
+    day1.max = formattedDate;
+    startdate.max = formattedDate;
 
 
 })
+
+// function validateDate() {
+//     const endDateInput = document.getElementById('endDate');
+//     const selectedDate = new Date(endDateInput.value);
+//     const today = new Date();
+    
+//     // Reset the date portion of today to midnight for accurate comparison
+//     today.setHours(0, 0, 0, 0);
+
+//     if (selectedDate > today) {
+//         alert('Please select a date no later than today.');
+//         endDateInput.value = ''; // Clear the invalid date
+//         return false;
+//     }
+//     return true;
+// }
+
 
 const refreshReportTable = (employees2) => {
     // employees1 = ajaxGetRequest('/reportdataworkingemployee')

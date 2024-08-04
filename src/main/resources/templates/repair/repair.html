@@ -202,7 +202,7 @@
                             </div>
                             <!-- date end -->
                             <!-- purchase order start -->
-                            <div class="row p-2 d-flex justify-content-center align-items-center me-3">
+                            <div class="row p-2 d-flex justify-content-center align-items-center me-3 " >
                                 <!-- <div class="col-3">
 
                                     <div class="card">
@@ -223,8 +223,23 @@
                                             <h5 class="card-title fw-bolder" style="color: red;">Shop Repairs</h5>
                                             <p class="card-text"><span class="fw-bolder me-2"
                                                     id="selectShopRepairsSpan">23</span>Repairs</p>
-                                            <select class="form-select col-5" aria-label="Default select example"
+                                            <!-- <select class="form-select col-5 d-none" aria-label="Default select example"
                                                 id="selectShopRepairs" onchange="getSelectedRepair(this.value)">
+                                            </select> -->
+                                            <select class="form-select col-5" aria-label="Default select example"
+                                                id="selectShopRepairsItem" >
+                                            </select>
+                                            <select class="form-select col-5" aria-label="Default select example"
+                                                id="selectShopRepairsCategory" >
+                                            </select>
+                                            <select class="form-select col-5" aria-label="Default select example"
+                                                id="selectShopRepairsReason" >
+                                            </select>
+                                            <select class="form-select col-5" aria-label="Default select example"
+                                                id="selectShopRepairsBarcode" onchange="
+                                                filtering(selectShopRepairsBarcode.value,selectShopRepairsCategory.value,
+                                                selectShopRepairsReason.value,selectShopRepairsBarcode.value);"
+                                                >
                                             </select>
                                         </div>
                                     </div>
@@ -237,8 +252,17 @@
                                             </h5>
                                             <p class="card-text"><span class="fw-bolder me-2"
                                                     id="selectOutShopRepairsSpan">23</span>Repairs</p>
-                                            <select class="form-select col-5" aria-label="Default select example"
+                                            <!-- <select class="form-select col-5 d-none" aria-label="Default select example"
                                                 id="selectOutShopRepairs" onchange="getSelectedRepair(this.value)">
+                                            </select> -->
+                                            <select class="form-select col-" aria-label="Default select example"
+                                                id="selectOutShopRepairsItem" >
+                                            </select>
+                                            <select class="form-select col-" aria-label="Default select example"
+                                                id="selectOutShopRepairsCategory" >
+                                            </select>
+                                            <select class="form-select col-" aria-label="Default select example"
+                                                id="selectOutShopRepairsReason" onchange="getSelectedRepair(this.value)">
                                             </select>
                                         </div>
                                     </div>
@@ -250,8 +274,18 @@
                                             <h5 class="card-title fw-bolder" style="color: red;">Processing Repairs</h5>
                                             <p class="card-text"><span class="fw-bolder me-2"
                                                     id="selectPurchaseOrderProcessSpan">23</span>Repairs</p>
-                                            <select class="form-select col-5" aria-label="Default select example"
+                                            <!-- <select class="form-select col-5 d-none" aria-label="Default select example"
                                                 id="selectPurchaseOrderProcess"
+                                                onchange="getSelectedRepair(this.value)">
+                                            </select> -->
+                                            <select class="form-select col-5 " aria-label="Default select example"
+                                                id="selectPurchaseOrderProcessItem">
+                                            </select>
+                                            <select class="form-select col-5 " aria-label="Default select example"
+                                                id="selectPurchaseOrderProcessCategory">
+                                            </select>
+                                            <select class="form-select col-5 " aria-label="Default select example"
+                                                id="selectPurchaseOrderProcessReason"
                                                 onchange="getSelectedRepair(this.value)">
                                             </select>
                                         </div>
@@ -263,8 +297,17 @@
                                             <h5 class="card-title fw-bolder" style="color: red;">Approved Repairs</h5>
                                             <p class="card-text"><span class="fw-bolder me-2"
                                                     id="selectApprovedRepairsSpan">23</span>Repairs</p>
-                                            <select class="form-select col-5" aria-label="Default select example"
+                                            <!-- <select class="form-select col-5 d-none" aria-label="Default select example"
                                                 id="selectApprovedRepairs" onchange="getSelectedRepair(this.value)">
+                                            </select> -->
+                                            <select class="form-select col-5 " aria-label="Default select example"
+                                                id="selectApprovedRepairsItem" >
+                                            </select>
+                                            <select class="form-select col-5 " aria-label="Default select example"
+                                                id="selectApprovedRepairsCategory" >
+                                            </select>
+                                            <select class="form-select col-5 " aria-label="Default select example"
+                                                id="selectApprovedRepairsReason" onchange="getSelectedRepair(this.value)">
                                             </select>
                                         </div>
                                     </div>
@@ -376,7 +419,7 @@
 
                                 </div>
                             </div>
-
+                            <!-- <form action="" style="" id="formRepair"> -->
                             <div class="row py-1 p-2 d-flex justify-content-start align-items-center ">
                                 <div class="col-4 form-floating p-1">
                                     <input type="text" class="form-control" id="repairItemName1" placeholder="">
@@ -406,15 +449,20 @@
                                 <label for="repairCustomerName" class="pl-2">Customer Name</label>
                             </div>
                             <div class="col-4 form-floating p-1">
-                                <input type="text" class="form-control" id="repairCustomerPhone" placeholder="">
+                                <input type="text" class="form-control" disabled id="repairCustomerPhone" placeholder="">
                                 <label for="repairCustomerPhone">Phone</label>
                             </div>
+                        <!-- </form> -->
+                        <!-- <button onclick="reset()">Reset</button> -->
+
                             <!-- <div class="col-4 form-floating p-1">
                                        <button class="btn btn-success">Add GRN </button>
                                     </div> -->
                         </div>
 
                         <div class="col-4">
+                            <!-- formEmployee.reset(); -->
+
                             <!-- <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bolder" style="color: red;">Approved Repairs</h5>

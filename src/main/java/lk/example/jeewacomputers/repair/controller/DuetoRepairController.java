@@ -70,10 +70,21 @@ public class DuetoRepairController {
         // login user authentication and authorization
         return duetoRepairDao.getDueRepairByStatus(repairtype);}
 
+    //  @GetMapping(value = "/duerepair/getduebystatusone/{type}", produces = "application/json")
+    // public List<DuetoRepair> findRepairBytypeOne(@PathVariable("type") String repairtype) {
+    //     // login user authentication and authorization
+    //     return duetoRepairDao.getDueRepairByStatusOne(repairtype);
+    // }
+
      @GetMapping(value = "/duerepair/getduebystatusapproved", produces = "application/json")
     public List<DuetoRepair> findRepairBytypeApprove() {
         // login user authentication and authorization
         return duetoRepairDao.getDueRepairByStatusApprove();
+    }
+     @GetMapping(value = "/duerepair/getduebystatusshopitemone/{itemname}", produces = "application/json")
+    public DuetoRepair findRepairBytypeApproveOne(@PathVariable("itemname") String itemname) {
+        // login user authentication and authorization
+        return duetoRepairDao.getDueRepairByStatusShopItem(itemname);
     }
      @GetMapping(value = "/duerepair/getduebystatusstatusofrepair/{status}", produces = "application/json")
     public List<DuetoRepair> findRepairBytypeForProcess(@PathVariable("status") String statusofrepair) {

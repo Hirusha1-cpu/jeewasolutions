@@ -29,6 +29,8 @@ const refreshRepairForm = () => {
   usedItemsObj = new Object();
   diagnosisDueUpdate = new Object();
   repairUpdate.usedItems = []
+  duerepairShop1Array = []
+  duerepairShop1Array2 = []
   duetoRepair.usedItems = []
   repairUpdate.diagnosisUpdate = []
   repairUpdate1.diagnosisUpdate = []
@@ -40,6 +42,9 @@ const refreshRepairForm = () => {
   const repairs = ajaxGetRequest("/repair/getlist")
   // const duerepair1 = ajaxGetRequest("/duerepair/getlist")
   const duerepairShop = ajaxGetRequest("/duerepair/getduebystatus/shop item")
+
+  const duerepairShop1 = ajaxGetRequest("/duerepair/getduebystatusshopitemone/Lenovo Yoga")
+
   const duerepairNonShop = ajaxGetRequest("/duerepair/getduebystatus/non shop item")
   const duerepairUrgent = ajaxGetRequest("/duerepair/getduebystatus/urgent repair")
   const duerepairApproved = ajaxGetRequest("/duerepair/getduebystatusapproved")
@@ -52,12 +57,40 @@ const refreshRepairForm = () => {
   selectOutShopRepairsSpan.innerHTML = duerepairNonShop.length
   selectPurchaseOrderProcessSpan.innerHTML = duerepairProcessing.length
   console.log(repairs);
+
+  duerepairShop1Array.push(duerepairShop1)
+  console.log(duerepairShop1);
+
+  // matchingRepairBarcode = availableBarcodes.find(item =>
+  //   `${item.barcode} ${item.itemname} ${item.statusofrepair}` === value2
+  // );
   // fillDataIntoSelect(repairUsedItemCode, "Select Serial No", availableSerials, 'barcode')
   // fillDataIntoSelect(selectUrgentRepairs, "Select Uregent Repairs", duerepairUrgent, 'fault')
-  fillDataIntoSelect(selectShopRepairs, "Select Shop Repairs", duerepairShop, 'fault')
-  fillDataIntoSelect(selectOutShopRepairs, "Select Non Shop Repairs", duerepairNonShop, 'fault')
-  fillDataIntoSelect(selectPurchaseOrderProcess, "Select Processing", duerepairProcessing, 'fault')
-  fillDataIntoSelect(selectApprovedRepairs, "Select Approved Repairs", duerepairApproved, 'fault')
+
+  const array =  duerepairShop.forEach(item =>{
+     ajaxGetRequest(`/duerepair/getduebystatusshopitemone/${item.itemname}`)
+  })
+  console.log(array);
+  duerepairShop1Array2.push(array)
+  console.log(duerepairShop1Array2);
+
+  fillDataIntoSelect(selectShopRepairsItem, "Select Item", duerepairShop1Array, 'itemname')
+  fillDataIntoSelect(selectShopRepairsCategory, "Select Category", duerepairShop, 'category')
+  fillDataIntoSelect(selectShopRepairsReason, "Select Reason", duerepairShop, 'fault')
+  fillDataIntoSelect(selectShopRepairsBarcode, "Select Barcode", duerepairShop, 'barcode')
+
+  fillDataIntoSelect(selectOutShopRepairsItem, "Select Item", duerepairNonShop, 'itemname')
+  fillDataIntoSelect(selectOutShopRepairsCategory, "Select Category", duerepairNonShop, 'category')
+  fillDataIntoSelect(selectOutShopRepairsReason, "Select Reason", duerepairNonShop, 'fault')
+
+  fillDataIntoSelect(selectPurchaseOrderProcessItem, "Select Item", duerepairProcessing, 'itemname')
+  fillDataIntoSelect(selectPurchaseOrderProcessCategory, "Select Category", duerepairProcessing, 'category')
+  fillDataIntoSelect(selectPurchaseOrderProcessReason, "Select Reason", duerepairProcessing, 'fault')
+
+  fillDataIntoSelect(selectApprovedRepairsItem, "Select Item", duerepairApproved, 'itemname')
+  fillDataIntoSelect(selectApprovedRepairsCategory, "Select Category", duerepairApproved, 'category')
+  fillDataIntoSelect(selectApprovedRepairsReason, "Select Reason", duerepairApproved, 'fault')
+
   selectApprovedRepairsSpan.innerHTML = duerepairApproved.length
   serialNoListCountForRepair = ajaxGetRequest("/serialno/getlistwithoutnotnull")
   fillDataIntoSelect(selectRepairCategory, "Select Category", categories, 'name')
@@ -65,6 +98,9 @@ const refreshRepairForm = () => {
   fillDataIntoDataList(dataListItemsForRepairs, availableBarcodes, 'barcode', 'itemname', 'statusofrepair')
   fillDataIntoDataList(dataListItemsForUsed, availableSerials, 'barcode', 'itemname', 'serialno')
 }
+// const reset = ()=>{
+//   formRepair.reset()
+// }
 
 const refreshRepairTable1 = () => {
   const repairDetails = ajaxGetRequest("/repair/getlist")
@@ -87,7 +123,14 @@ const refreshRepairTable1 = () => {
     { property: getItemRepairPaidStatus, dataType: 'function' }
   ]
   fillDataIntoDashBoardTable(repairTab, repairDetails, displayProperties, editEmployeeBtn, true)
+}
 
+const filtering = (value1,value2,value3,value4)=>{
+  let matchingrepair =''
+  matchingrepair = duerepairShop.find(item =>
+    `${item.barcode} ${item.itemname} ${item.statusofrepair}` ===  `${value1} ${value2} ${value3} ${value4}`
+  );
+  getSelectedRepair(matchingrepair)
 }
 
 const getItemRepairName = (rowObject) => {

@@ -488,6 +488,7 @@ const addSubRepair = () => {
 
     inputWarrentyCustomerName.value = ""
     inputWarrentyCustomerContact.value = ""
+    flexCheckCheckedForDiagnose.checked = false
     // }
 }
 const selectCustomerType = () => {
