@@ -10,9 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener('load', () => {
   refreshRepairForm();
-  refreshRepairTable1()
-  searchInRepairMainTable()
+  refreshRepairTable1();
+  searchInRepairMainTable();
 })
+
 const refreshRepairForm = () => {
   purchRequest = new Object();
   requestedPrice = new Object();
@@ -41,9 +42,8 @@ const refreshRepairForm = () => {
   // usedItemsForRepair = new Object();
   const repairs = ajaxGetRequest("/repair/getlist")
   // const duerepair1 = ajaxGetRequest("/duerepair/getlist")
-  const duerepairShop = ajaxGetRequest("/duerepair/getduebystatus/shop item")
+  duerepairShop = ajaxGetRequest("/duerepair/getduebystatus/shop item")
 
-  const duerepairShop1 = ajaxGetRequest("/duerepair/getduebystatusshopitemone/Lenovo Yoga")
 
   const duerepairNonShop = ajaxGetRequest("/duerepair/getduebystatus/non shop item")
   const duerepairUrgent = ajaxGetRequest("/duerepair/getduebystatus/urgent repair")
@@ -58,8 +58,7 @@ const refreshRepairForm = () => {
   selectPurchaseOrderProcessSpan.innerHTML = duerepairProcessing.length
   console.log(repairs);
 
-  duerepairShop1Array.push(duerepairShop1)
-  console.log(duerepairShop1);
+
 
   // matchingRepairBarcode = availableBarcodes.find(item =>
   //   `${item.barcode} ${item.itemname} ${item.statusofrepair}` === value2
@@ -67,6 +66,10 @@ const refreshRepairForm = () => {
   // fillDataIntoSelect(repairUsedItemCode, "Select Serial No", availableSerials, 'barcode')
   // fillDataIntoSelect(selectUrgentRepairs, "Select Uregent Repairs", duerepairUrgent, 'fault')
 
+  const duerepairShop1 = ajaxGetRequest("/duerepair/getduebystatusshopitemone/Lenovo Yoga")
+  duerepairShop1Array.push(duerepairShop1)
+  console.log(duerepairShop1);
+  
   const array =  duerepairShop.forEach(item =>{
      ajaxGetRequest(`/duerepair/getduebystatusshopitemone/${item.itemname}`)
   })
@@ -126,11 +129,22 @@ const refreshRepairTable1 = () => {
 }
 
 const filtering = (value1,value2,value3,value4)=>{
+  console.log(value1,value2,value3,value4);
   let matchingrepair =''
+  console.log(duerepairShop);
+  let v1 = JSON.parse(value1)
+  let v2 = JSON.parse(value2)
+  let v3 = JSON.parse(value3)
+  let v4 = JSON.parse(value4)
+  console.log(v1,v2,v3,v4);
   matchingrepair = duerepairShop.find(item =>
-    `${item.barcode} ${item.itemname} ${item.statusofrepair}` ===  `${value1} ${value2} ${value3} ${value4}`
+    `${item.itemname} ${item.category} ${item.fault} ${item.barcode}` === 
+     `${v1.itemname} ${v2.category} ${v3.fault} ${v4.barcode}`
   );
-  getSelectedRepair(matchingrepair)
+  console.log(matchingrepair);
+  // getSelectedRepair(matchingrepair)
+
+  getSelectedRepair1(matchingrepair)
 }
 
 const getItemRepairName = (rowObject) => {
@@ -324,6 +338,30 @@ const getSelectedRepair = (value) => {
   // diagnosisId.disabled = false
   duetoRepair1 = JSON.parse(value)
   const repairforDueRepair = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair1.repairid))
+  console.log(repairforDueRepair);
+  // diagnosisDueUpdate.repair_id = repairforDueRepair
+  repairItemName1.value = duetoRepair1.itemname
+  repairItemCategory.value = duetoRepair1.category
+  repairItemStatus.value = duetoRepair1.statusofrepair
+  repairItemFault.value = duetoRepair1.fault
+  repairCustomerName.value = repairforDueRepair.customer_id.name
+  repairCustomerPhone.value = repairforDueRepair.customer_id.phone
+  if (duetoRepair1.diagnoserequire === "Require Diagnose") {
+    requireDiagnosedId.innerHTML = "Require Diagnose"
+    diagnosisId.disabled = false
+  }
+
+  getOtherRepairs()
+}
+const getSelectedRepair1 = (value) => {
+  // console.log(value);
+  addItemDetailsId.disabled = false
+
+  // diagnosisId.disabled = false
+  duetoRepair1 = value
+  console.log(value);
+  // const repairforDueRepair = ajaxGetRequest("/duerepair/getrepairbydue/" + JSON.parse(duetoRepair1.repairid))
+  const repairforDueRepair = ajaxGetRequest("/duerepair/getrepairbydue/" + duetoRepair1.repairid)
   console.log(repairforDueRepair);
   // diagnosisDueUpdate.repair_id = repairforDueRepair
   repairItemName1.value = duetoRepair1.itemname
