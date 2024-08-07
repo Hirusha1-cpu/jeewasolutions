@@ -39,15 +39,15 @@ const getEmployeeStatus = (rowObject) => {
 }
 const getEmployeeDesignation = (rowObject) => {
     if (rowObject.designation_id.name == "Manager") {
-        return "<p class = 'resign-status'>" + rowObject.employeestatus_id.name + "</p>"
+        return "<p class = 'resign-status'>" + rowObject.designation_id.name + "</p>"
     }
     if (rowObject.designation_id.name == "Store-Manager") {
-        return "<p class = 'working-status'>" + rowObject.employeestatus_id.name + "</p>"
+        return "<p class = 'working-status'>" + rowObject.designation_id.name + "</p>"
     }
     if (rowObject.designation_id.name == "Cashier") {
-        return "<p class = 'deleted-status'>" + rowObject.employeestatus_id.name + "</p>"
+        return "<p class = 'deleted-status'>" + rowObject.designation_id.name + "</p>"
     } else {
-        return "<p class = 'deleted-status'>" + rowObject.employeestatus_id.name + "</p>"
+        return "<p class = 'deleted-status'>" + rowObject.designation_id.name + "</p>"
 
     }
 }
@@ -63,8 +63,8 @@ const refreshEmployeeForm = () => {
     empstatus = ajaxGetRequest("empstatus/getlist")
     fillDataIntoSelect(selectEStatus, "Select Emp status", empstatus, 'name')
 
-    inputDob.min = '2023-09-01';
-    inputDob.max = '2023-09-30';
+    // inputDob.min = '2023-09-01';
+    // inputDob.max = '2023-09-30';
 
     //need to set default color
     inputNIC.classList.remove("is-valid");

@@ -124,7 +124,7 @@ const updateChart = (data, fieldValue, charttype) => {
 
   chartInstance = new Chart(ctx, {
     //  type: `${charttype}`,
-    type: `bar`,
+    type: `pie`,
     data: {
       labels: customerNames,
       datasets: [{
